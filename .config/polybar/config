@@ -20,7 +20,7 @@
 ;============================
 
 [colors]
-background = #282C34
+background = #BB071726
 background-alt = #444
 foreground = #ABB2BF
 foreground-alt = #555
@@ -44,8 +44,8 @@ foreground = ${colors.foreground}
 
 line-size = 1
 line-color = 
-border-bottom-size = 1
-border-top-size = 1
+border-bottom-size = 0
+border-top-size = 0
 border-top-color = #ABB2BF
 border-bottom-color = #ABB2BF
 border-size = 
@@ -71,7 +71,7 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;====== MODULOS =========
 modules-left = i3 bspwm xwindow
 modules-center = 
-modules-right = spotify sep pulseaudio sep sep arch sep battery sep xkeyboard sep date  sep red copy apagar
+modules-right = spotify sep-azul pulseaudio sep sep arch sep battery sep xkeyboard sep date  sep red copy apagar
 
 tray-position = none
 tray-padding = 1
@@ -142,27 +142,27 @@ ws-icon-7 = 8;
 ;inline-mode = true
 format = <label-state> <label-mode> 
 
-;label-focused = "" 
-label-focused = %icon%
+label-focused = "瘝" 
+;label-focused = %icon%
 ;label-focused-foreground = #920B13
-label-focused-underline = #ABB2BF
-label-focused-overline = #ABB2BF
-label-focused-padding = 1
+;label-focused-underline = #ABB2BF
+;label-focused-overline = #ABB2BF
+label-focused-padding = 0
 
-label-occupied = %icon%
-;label-occupied = ""
-label-occupied-padding = 1
+;label-occupied = %icon%
+label-occupied = ""
+label-occupied-padding = 0
 ;label-occupied-foreground = #920B13
-label-occupied-overline = #ABB2BF
+;label-occupied-overline = #ABB2BF
 
 label-urgent = %icon%!
 label-urgent-background = 
-label-urgent-padding = 1
+label-urgent-padding = 0
 
-;label-empty = ""
-label-empty = %icon%
+label-empty = "吏"
+;label-empty = %icon%
 label-empty-foreground = ${colors.foreground}
-label-empty-padding = 1
+label-empty-padding = 0
 
 label-monocle = 﨣
 label-tiled = 
@@ -396,8 +396,9 @@ format-foreground = ${colors.foreground}
 type= custom/text
 content = "串"
 click-left = ~/scripts/apagar
-content-background = #ABB2BF
-content-foreground = #1E2127
+;content-background = #ABB2BF
+;content-foreground = #1E2127
+content-foreground = ${colors.foreground}
 content-padding = 1
 
 [module/copy]
@@ -479,6 +480,20 @@ content = "%{T3}%{T-}"
 content-font = 3
 content-foreground = #BF6715
 content-background = #BB0E132F
+
+[module/sep-mazul]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = #132332
+content-background = #173D4A
+
+[module/sep-azul]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = #173D4A
+content-background = #132332
 
 
 [module/sep-wm]
