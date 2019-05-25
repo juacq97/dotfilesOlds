@@ -1,2 +1,3 @@
 .git
+.emacs.d/auto-save-list
 .config/nnn/.selection
