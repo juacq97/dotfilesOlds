@@ -1,0 +1,44 @@
+conky.config = {
+	alignment = 'bottom_left',
+	background = true,
+	color1 = '2ECC71',
+	color2 = '#2E3440',
+	cpu_avg_samples = 2,
+	default_color = 'FFFFFF',
+	double_buffer = true,
+	font = 'Bitstream Vera Sans:size=8',
+	gap_x = 5,
+	gap_y = 5,
+	minimum_width = 200,
+	no_buffers = true,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	update_interval = 2.0,
+	use_xft = true,
+}
+conky.text = [[
+${font Fantasque Sans Mono:size=8}
+
+ ${color2}Terminal               ${color}[M]+Enter         
+ ${color2}Firefox                ${color}[M]+F2            
+ ${color2}Archivos               ${color}[M]+F3            
+                                                          
+ ${color2}Cerrar aplicación      ${color}[M]+Shift+q       
+ ${color2}Dirección split        ${color}[M]+q             
+ ${color2}Aplicaciones           ${color}[M]+d             
+ ${color2}bmenu                  ${color}[M]+Ctrl+b        
+ ${color2}Escritorios 1-10       ${color}[M]+1-0           
+ ${color2}Enviar a 1-10          ${color}[M]+Ctrl+1-0      
+ ${color2}Mover a 1-10           ${color}[M]+Shift+1-0     
+ ${color2}Cambiar de escritorio  ${color}[M]+Ctrl+Flechas  
+ ${color2}Flotar                 ${color}[M]+Shift+Espacio 
+                                                           
+ ${color2}Apagar                 ${color}[M]+F12           
+
+]]
+
+
+
+
+

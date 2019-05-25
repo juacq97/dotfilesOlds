@@ -1,0 +1,152 @@
+:root {
+    --hdr: #2F343F;		/* Header Background Color */
+	--bkg: #404552;		/* Background Color - Also located inside index.html <style> hard-coded */
+	--frg: #383C4A;		/* Foreground Color */
+	--hgl: #00CC66;		/* Highlight Color */
+
+	--htx: #666;		/* Header Text Color */
+	--txt: #CCC;		/* Text Color */
+}
+
+@font-face {
+	/* LICENSE: "font/SIL Open Font License.txt" font by Julieta Ulanovsky */
+	src: url(font/Montserrat-Regular.otf);
+	font-family: Montserrat;
+}
+
+
+html, body {
+	font-family: Montserrat;
+	overflow-x: hidden;
+}
+
+div#wiper {
+	opacity: 0 !important;
+	z-index: -1 !important;
+}
+
+body > div#main {
+	transform: translate(-50%, -50%);
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transition: 1s transform;
+	max-height: 90vh;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	transition: .2s height;
+}
+
+body > div#main > span > div#static_links {
+	font-family: Terminus, Montserrat;
+	background-color: var(--hdr);
+	margin: 2px 2px 0px 2px;
+	box-sizing: border-box;
+	color: var(--txt)22;
+	padding-right: 7px;
+	padding-left: 5px;
+	line-height: 30px;
+	text-align: right;
+	font-size: 16px;
+	border: none;
+	width: 908px;
+	height: 30px;
+}
+
+body > div#main > span > div#static_links > span#clock {
+	margin-right: 15px;
+}
+
+body > div#main > span > div#static_links > span:first-of-type {
+	color: var(--htx);
+	float: left;
+}
+
+body > div#main > span > div#static_links > a {
+	text-decoration: none;
+	color: var(--htx);
+}
+
+body > div#main > span > div#static_links > a:hover {
+	color: white;
+}
+
+body > div#main > span > div#static_links > a + a {
+	margin-left: 15px;
+}
+
+body > div#main > span > form > input {
+	background-color: var(--frg);
+	font-family: Montserrat;
+	margin: 0px 2px 2px 2px;
+	box-sizing: border-box;
+	color: var(--txt);
+	padding-left: 5px;
+	font-size: 40px;
+	border: none;
+	width: 908px;
+	height: 50px;
+}
+
+body > div#main > span > form > input:focus {
+	outline: none;
+}
+
+@media screen and (max-width: 912px) {
+	body > div#main > span > form > input, body > div#main > span > div#static_links {
+		width: 604px;
+	}
+}
+
+@media screen and (max-width: 608px) {
+	body > div#main > span > form > input, body > div#main > span > div#static_links {
+		width: 300px;
+	}
+}
+
+div#links > div.section {
+	background-color: var(--hdr);
+	box-sizing: border-box;
+	display: inline-block;
+	vertical-align: top;
+	text-align: left;
+	height: 200px;
+	width: 300px;
+	margin: 2px;
+	overflow: hidden;
+	color: var(--htx);
+}
+
+div#links > div.section:before {
+	content: "";
+	margin-left: 5px;
+}
+
+div#links > div.section > div {
+	padding: 15px;
+	background-color: var(--frg);
+	height: 100%;
+}
+
+div#links > div.section > div > a {
+	text-decoration: none;
+	color: var(--txt);
+	display: block;
+}
+
+div#links > div.section > div > a:hover {
+	background-color: rgba(255,255,255,.1);
+	color: var(--hgl);
+}
+
+div#links > div.section > div > a.selected {
+	background-color: rgba(255,255,255,.1);
+	color: var(--hgl);
+}
+
+div#links > div.section > div > a + a {
+	margin-top: 5px;
+}

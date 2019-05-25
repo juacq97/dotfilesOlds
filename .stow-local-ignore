@@ -1,0 +1,8 @@
+# Archivos y carpetas a ignorar
+
+\.git
+LICENSE
+README.org
+screenshot.png
+fortune
+\.stow-local-ignore

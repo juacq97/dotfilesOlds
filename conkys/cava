@@ -1,0 +1,20 @@
+conky.config = {
+	alignment = 'bottom_left',
+	background = true,
+	color1 = '2ECC71',
+	color2 = '#2E3440',
+	cpu_avg_samples = 2,
+	default_color = 'FFFFFF',
+	double_buffer = true,
+	font = 'Bitstream Vera Sans:size=8',
+	gap_x = 5,
+	gap_y = 5,
+	minimum_width = 200,
+	no_buffers = true,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	update_interval = 2.0,
+	use_xft = true,
+
+${execi 3 echo ola}

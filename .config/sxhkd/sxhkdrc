@@ -1,0 +1,260 @@
+################################################
+#
+#                  ██      ██          ██
+#                 ░██     ░██         ░██
+#   ██████ ██   ██░██     ░██  ██     ░██
+#  ██░░░░ ░░██ ██ ░██████ ░██ ██   ██████
+# ░░█████  ░░███  ░██░░░██░████   ██░░░██
+#  ░░░░░██  ██░██ ░██  ░██░██░██ ░██  ░██
+#  ██████  ██ ░░██░██  ░██░██░░██░░██████
+# ░░░░░░  ░░   ░░ ░░   ░░ ░░  ░░  ░░░░░░ 
+#
+###############################################
+
+########################
+
+# Aplicaciones
+########################
+
+
+
+#Terminal
+super + Return
+      st
+
+#Rofi
+super + d
+#     rofi -modi "window,run,drun" -show drun -theme material 
+      j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
+
+super + r
+      dmenu_run_history -i -l 12
+#     rofi -modi "window,run,drun" -show run -theme material 
+
+
+alt + Tab
+      rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Papirus Dark
+
+## Firefox
+super + F2
+      firefox
+super + w
+      ~/scripts/links-dmenu
+
+#Chromium
+#super + F2
+#      chromium
+
+#File Manager
+super + f
+#      termite -e ranger
+#      termite -e lf
+       st -e ~/scripts/nwrap
+
+#Spotify
+super + F5
+      spotify
+
+#Emacsclient
+super + e
+      emacsclient -c
+
+super + shift + e
+      emacsclient -ne '(new-frame)'
+      
+super + a
+      emacsclient -c -F '(quote (name . "agenda") (width  . 145) (height . 45) (left . 50) (top . 100))' -n -e "(agenda-frame)"
+
+super + shift + m
+      emacsclient -cn -F '(quote (name . "mu4e") (width  . 145) (height . 45) (left . 50) (top . 100))' -e '(mu4e)'
+
+# emacs gtd
+super + c; c
+      emacsclient -c -F '(quote (name . "capture") (width  . 120) (height . 30) (left . 150))' -e "(make-capture-frame)"
+super + i
+      emacsclient -c -n "~/Drive/sync/gtd/a.org"
+
+# Newsboat
+super + n
+#      st -e ~/scripts/newsboat-run
+       st -e newsboat
+
+#htop
+super + F4
+#      st -e ~/scripts/htop-run
+      st -e htop
+
+#Screenshots
+Print
+	flameshot gui -p ~/Pictures/screenshots
+super + shift + Print	
+      flameshot gui -d 2000 -p ~/Pictures/screenshots
+super + Print	
+      flameshot full -c
+
+#Audio
+XF86AudioMute
+	pamixer -t
+XF86AudioRaiseVolume
+	pamixer -i 2
+XF86AudioLowerVolume
+	pamixer -d 2
+XF86AudioPlay
+	playerctl play-pause
+XF86AudioNext
+	playerctl next
+XF86AudioPrev
+	playerctl previous
+XF86AudioStop
+	playerctl stop
+
+# Subir brillo
+XF86MonBrightnessUp
+	light -A 5 & notify-send -a "Brillo" "$(light -G)"
+
+# Bajar brillo
+XF86MonBrightnessDown
+	light -U 5 & notify-send -a "Brillo" "$(light -G)"
+
+
+# bloquear teclado
+control + alt + l
+	betterlockscreen --lock blur
+
+
+#matar compton
+super + o
+     pkill compton 
+
+#revivir compton
+super + shift + o
+     compton -b --config ~/.config/compton.conf
+
+# Reiniciar sxhdk 
+super + shift + r
+      pkill -USR1 -x sxhkd
+
+#Reinicar bspwm
+super + ctrl + r
+      bspc wm -r
+
+##########################
+# Scripts
+##########################
+
+#Montar USB
+super + u
+      ~/scripts/usb-montar
+
+#Extraer USB
+super + ctrl + u
+      ~/scripts/usb-extraer
+
+#Via
+alt + space
+    ~/scripts/via/via
+
+#Kde-connect
+super + p
+      ~/scripts/kdeconnect-dmenu
+
+#Apagar
+super + F12
+      ~/scripts/apagar
+
+# Nubes
+super + ctrl + p
+      ~/scripts/clipboard
+
+
+
+##########################
+# Manejo de ventanas
+##########################
+
+#Cerrar ventana
+super + shift + q
+      bspc node -c
+alt + F4
+    bspc node -c
+
+#Matar con xkill
+super + ctrl + x
+      xkill
+
+#Monocle
+super + m
+      bspc desktop -l next
+
+#Monocle cambiar
+super + ctrl + {j,k}
+      bspc node -f {next,prev}.local
+
+#Intercambiar nodo con el más grande (en todos los escritorios)
+super + g
+      bspc node -s biggest.local
+
+#Cambiar estado de ventana
+super + {t,shift + t,s,F11}
+      bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+#Set node flags
+super + ctrl + {m,y,z}
+      bspc node -g {hidden,sticky,private}
+
+#Enfocar en dirección, con shift, mover.
+super + {_,shift + }{h,j,k,l}
+      bspc node -{f,s} {west,south,north,east}
+super + {_,shift + }{Left,Down,Up,Right}
+      bspc node -{f,s} {west,south,north,east}
+
+#Cambiar de escritorio
+super + ctrl + {h,l}		
+      bspc desktop -f {prev,next}.local
+super + ctrl + {Left,Right}
+      bspc desktop -f {prev,next}.local
+
+#Moverse al escritorio anterior
+super + b
+      bspc desktop -f last
+
+#Enfocar o enviar a un escritorio 
+super + {_,shift + }{1-9,0}
+      bspc {desktop -f,node -d} '^{1-9,10}' --follow
+super + ctrl {1-9,0} 	  
+      bspc node -d '^{1-9,10}'
+
+#Hacer más grande la ventana
+super + alt + ctrl {h,j,k,l}
+      bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+#Hacer más pequeña la ventana
+super + alt + shift + {h,j,k,l}
+      bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+#Rotar la interfaz
+super + shift + {period,comma}
+   bspc node @/ -R {90,270}
+
+
+###################
+# Split manual
+###################
+
+#Elegir dirección
+super + alt + {h,j,k,l}
+      bspc node -p {west,south,north,east}
+
+#Elegir tamaño de nueva ventana
+super + alt + {1-9}
+      bspc node -o 0.{1-9}
+
+#Cancelar split manual
+super + alt + space
+      bspc node -p cancel
+
+# focus the older or newer node in the focus history
+super + {9,0}
+        wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h o n

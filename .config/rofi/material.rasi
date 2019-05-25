@@ -1,0 +1,165 @@
+/**
+ * User: deadguy
+ * Copyright: deadguy
+ */
+
+ configuration {
+	display-drun:    "Aplicaciones";
+	display-run:     "Ejecutar";
+	display-window:	 "Ventanas";
+	show-icons:      false;	
+	sidebar-mode:    true;
+} 
+
+* {
+    active-background: #bbc2cf;
+    active-foreground: @foreground;
+    normal-background: @background;
+    normal-foreground: @foreground;
+    urgent-background: #CD663B;
+    urgent-foreground: @foreground;
+
+    alternate-active-background: @background;
+    alternate-active-foreground: @foreground;
+    alternate-normal-background: @background;
+    alternate-normal-foreground: @foreground;
+    alternate-urgent-background: @background;
+    alternate-urgent-foreground: @foreground;
+
+    selected-active-background: @foreground;
+    selected-active-foreground: @background;
+    selected-normal-background: @foreground;
+    selected-normal-foreground: @background;
+    selected-urgent-background: #8F4E47;
+    selected-urgent-foreground: @foreground;
+
+    background-color: @background;
+    background: #1E2127;
+    foreground: #bbc2cf;
+    border-color: @background;
+    spacing: 20;
+
+	line-margin:                 2;
+	line-padding:                2;
+	separator-style:             "none";
+	hide-scrollbar:              "true";
+	margin:                      0px;
+	padding:                     8px;
+	font:            	     "Roboto 11";
+}
+
+window {
+	location:	 center;
+	anchor:		 center;
+	x-offset:	 0px;
+	y-offset:	 0px;
+	height:		 50%;
+	width:		 600px;
+	margin-right:	 60px;
+	orientation: 	 horizontal;
+	fullscreen: 	 false;
+	children:	 [mainbox];
+	background-color: @background-color;
+}
+
+mainbox {
+	spacing:  0em;
+	padding: 0px 0px;
+	width:900px;
+	children: [ inputbar, listview, sidebar ];
+	expand: true;
+	background-color: transparent;
+}
+
+button { padding: 5px 2px; 
+     background-color: transparent;
+     }
+
+button selected {
+	background-color: @active-background;
+	text-color:       @background-color;
+}
+
+inputbar {
+     children: [ entry ];
+     background-color: transparent;
+}
+
+textbox-prompt-colon {                                                
+     text-color: inherit;                                              
+     expand: false;                                                    
+     margin: 3 3px 3px 3px;
+ }  
+
+listview {
+	spacing: 0em;
+	dynamic: false;
+	cycle:   true;
+	background-color: transparent;
+}
+
+sidebar {
+	background-color: transparent;
+}
+
+element { 
+	padding: 5px;
+	border:  0 0 0 0px ;
+}
+
+entry {
+	expand:         true;
+	text-color:     @normal-foreground;
+	background: 	transparent;
+	vertical-align: 1;
+	padding:        12px;
+	font:           "Roboto 11";
+}
+
+element normal.normal {
+	background-color: transparent;
+	text-color:       @normal-foreground;
+}
+
+element normal.urgent {
+	background-color: @urgent-background;
+	text-color:       @urgent-foreground;
+}
+
+element normal.active {
+	background-color: transparent;
+	text-color:       @active-foreground;
+}
+
+element selected.normal {
+	background-color: @selected-active-background;
+	text-color:       @selected-foreground;
+	padding: 16px;
+	border:           0 0 0 0px solid;
+	border-color:	    @active-background;
+}
+
+element selected.urgent {
+	background-color: @selected-urgent-background;
+	text-color:       @selected-urgent-foreground;
+}
+
+element selected.active {
+	background-color: @selected-active-background;
+	text-color:       @selected-active-foreground;
+}
+
+element alternate.normal {
+	background-color: transparent;
+	text-color:       @normal-foreground;
+}
+
+element alternate.urgent {
+	background-color: @urgent-background;
+	text-color:       @urgent-foreground;
+}
+
+element alternate.active {
+	background-color: @active-background;
+	text-color:       @active-foreground;
+}

@@ -1,0 +1,235 @@
+################################################
+#
+#                  ██      ██          ██
+#                 ░██     ░██         ░██
+#   ██████ ██   ██░██     ░██  ██     ░██
+#  ██░░░░ ░░██ ██ ░██████ ░██ ██   ██████
+# ░░█████  ░░███  ░██░░░██░████   ██░░░██
+#  ░░░░░██  ██░██ ░██  ░██░██░██ ░██  ░██
+#  ██████  ██ ░░██░██  ░██░██░░██░░██████
+# ░░░░░░  ░░   ░░ ░░   ░░ ░░  ░░  ░░░░░░ 
+#
+###############################################
+
+########################
+# Accesos directos
+########################
+
+## Firefox
+#super + F2
+#      firefox
+
+# chromium
+super + F2
+      chromium
+
+# Administrador de archivos
+super + f
+  kitty -e ranger 
+
+super + shift + f
+      gksu thunar
+
+# Spotify
+super + F5
+      spotify
+
+#Emacsclient
+super + e
+      emacsclient -c
+
+# emacs capture
+
+#htop
+super + F4
+      kitty -e htop
+
+#matar compton
+super + o
+     pkill compton 
+
+#revivir compton
+super + shift + o
+     compton -b --config ~/.config/compton.conf
+      
+# Audio
+XF86AudioMute
+    pamixer -t
+XF86AudioRaiseVolume
+    pamixer -i 2
+XF86AudioLowerVolume
+    pamixer -d 2
+XF86MonBrightnessUp
+    xbacklight +10
+XF86MonBrightnessDown
+    xbacklight -10
+XF86AudioPlay
+	playerctl play-pause
+XF86AudioNext
+	playerctl next
+XF86AudioPrev
+	playerctl previous
+XF86AudioStop
+	playerctl stop
+
+# Screenshot
+Print
+	flameshot gui -p ~/Imágenes/screenshots 
+
+#screenshot espera 2000s
+super + shift + Print
+      flameshot gui -d 2000 -p ~/Imágenes/screenshots
+
+# Screenshot todo el escritorio, portapapeles
+super + Print
+       flameshot full -c
+
+
+
+#####################
+# Generales
+#####################
+
+# Terminal
+super + Return
+	kitty
+
+
+# Lanzador de aplicaciones
+super + d
+	rofi -modi "window,run,drun" -show drun -theme material -lines 5 -show-icons -icon-theme Flat-remix Dark
+
+# Rofi-run
+super + r
+	rofi -modi "window,run,drun" -show run -theme material -lines 5 -show-icons -icon-theme Flat-remix Dark
+
+# Ventanas abiertas
+alt + Tab
+	rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Flat-remix Dark
+
+# Montar usb
+super + u
+      ~/scripts/usb-montar
+
+# Extraer usb
+super + ctrl + u
+      ~/scripts/usb-extraer
+
+#Buscador de archivos/comandos/navegador
+super + space
+	  ~/scripts/via/via
+
+# Kde-connect|rofi
+super + p
+      ~/scripts/kdeconnect-rofi
+
+# Reiniciar sxhdk 
+super + shift + r
+	pkill -USR1 -x sxhkd
+
+# quit bspwm normally
+super + F12
+	~/scripts/apagar
+
+# Cerrar la ventana enfocada 
+super + shift + q 
+	bspc node -c
+
+# Cerrar la ventana enfocada
+alt + F4
+    bspc node -c
+
+# Matar ventana
+super + ctrl + x
+      xkill
+
+# Cambiar al modo monocle (la ventana ocupa todo el espacio)
+super + m
+	bspc desktop -l next
+
+# Enviar el nodo marcado más nuevo al nodo preseleccionado más nuevo
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# Intercambiar el nodo actual con el más grande 
+super + g
+	bspc node -s biggest
+
+##################################
+# Comportamiento de las ventanas
+##################################
+
+# Cambiar el modo de las ventanas 
+super + {t,shift + t,s,F11}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {m,y,z}
+	bspc node -g {hidden,sticky,private}
+
+# Enfocar en la dirección dada
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# Enfocar el nodo dado.
+#super + p
+#	bspc node -f @parent
+
+# Enfocar el nodo previo
+#super + {_,shift + }c
+#	bspc node -f {next,prev}.local
+
+# Cambiar de escritorio
+super + ctrl + {h,l}
+	bspc desktop -f {prev,next}.local
+super + ctrl + {Left,Right}
+      bspc desktop -f {prev,next}.local
+      
+# Moverse al escritorio anterior
+super + b
+	bspc desktop -f last
+
+# Enfocar o enviar a un escritorio 
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}' --follow
+super + ctrl {1-9,0}
+      bspc node -d '^{1-9,10}'
+
+#################
+# Preseleccionar
+#################
+
+# preselect the direction
+super + alt + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + alt + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + alt + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + alt + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+####################
+# move/resize
+####################
+
+# expand a window by moving one of its side outward
+super + alt + ctrl {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+#Rotar la interfaz
+super + shift + {comma,period}
+   bspc node @/ -R {90,270}
+

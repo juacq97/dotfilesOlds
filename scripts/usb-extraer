@@ -1,0 +1,44 @@
+#!/bin/sh
+# A dmenu prompt to unmount drives.
+# Provides you with mounted partitions, select one to unmount.
+# Drives mounted at /, /boot and /home will not be options to unmount.
+
+unmountusb() {
+	[ -z "$drives" ] && exit
+	chosen=$(echo "$drives" | dmenu -i -p "¿Qué dispositivo desea extraer?" | awk '{print $1}')
+	#chosen=$(echo "$drives" | rofi -theme drofi -dmenu -i -p "¿Qué dispositivo desea extraer?" | awk '{print $1}')
+	[ -z "$chosen" ] && exit
+	udisksctl unmount -b "$chosen" && udisksctl power-off -b "$chosen" && notify-send "$chosen extraido."
+	}
+
+unmountandroid() { \
+	chosen=$(awk '/simple-mtpfs/ {print $2}' /etc/mtab | dmenu -i -p "¿Qué dispositivo desea extraer?")
+	#chosen=$(awk '/simple-mtpfs/ {print $2}' /etc/mtab | rofi -theme drofi -dmenu -i -p "¿Qué dispositivo desea extraer?")
+	[ -z "$chosen" ] && exit
+	fusermount -u "$chosen" notify-send "$chosen desmontado."
+	}
+
+asktype() { \
+	case $(printf "USB\\nAndroid" | dmenu -i -p "¿Extraer USB o dispositivo Android?") in
+	#case $(printf "USB\\nAndroid" | rofi -theme drofi -dmenu -i -p "¿Extraer USB o dispositivo Android?") in
+		USB) unmountusb ;;
+		Android) unmountandroid ;;
+	esac
+	}
+
+drives=$(lsblk -nrpo "name,type,size,mountpoint" | awk '$2=="part"&&$4!~/\/boot|\/home$|SWAP/&&length($4)>1{printf "%s {%s} (%s)\n",$1,$4,$3}')
+
+if ! grep simple-mtpfs /etc/mtab; then
+	[ -z "$drives" ] && echo "No hay dispositivos que extraer." && notify-send "No hay dispositivos que extraer."
+	echo "Dispositivo imposible de extraer detectado."
+	unmountusb
+else
+	if [ -z "$drives" ]
+	then
+		echo "Dispositivo android imposible de extraer detectado."
+	       	unmountandroid
+	else
+		echo "Dispositivos USB y Android imposibles de extraer detectados."
+		asktype
+	fi
+fi

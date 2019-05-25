@@ -1,0 +1,42 @@
+#!/bin/sh
+
+id=$(kdeconnect-cli -a --id-only | awk '{print $1}')
+name=$(kdeconnect-cli -a --name-only)
+#bat=$(qdbus org.kde.kdeconnect /modules/kdeconnect/devices/$id org.kde.kdeconnect.device.battery.charge)
+if [ "$id" != "0" ]
+then
+menu=$(echo -e "Enviar\nEncontrar\nPing\nSMS" | dmenu -i -p "$name")
+
+
+
+if [ "$menu" == 'Enviar' ]
+then
+    st -e nnn -p /tmp/kde-files
+    #Descomentar si se desea usar ranger
+    #termite -e ranger --choosefiles=/tmp/kde-files
+    if [ $(find /tmp/kde-files) ]
+    then
+	# send=$(cat /tmp/kde-files)
+	kdeconnect-cli -d $id --share $(cat /tmp/kde-files)
+	notify-send -a "Kdeconnect" "Enviando $(cat /tmp/kde-files) a $name"
+	rm /tmp/kde-files
+       else
+	   notify-send -a "Kdeconnect" "No se seleccionó ningún archivo"
+    fi
+elif [ "$menu" == 'Encontrar' ]
+then
+     kdeconnect-cli -d $id --ring
+elif [ "$menu" == 'Ping' ]
+then
+     kdeconnect-cli -d $id --ping
+elif [ "$menu" == 'SMS' ]
+then
+       
+num=$(dmenu -p "Número")
+sms=$(dmenu -i -p "Mensaje")
+kdeconnect-cli -d $id --send-sms "$sms" --destination "$num"
+fi
+
+else
+    notify-send -a "Kdeconnect" "No hay ningún dispositivo vinculado"
+fi

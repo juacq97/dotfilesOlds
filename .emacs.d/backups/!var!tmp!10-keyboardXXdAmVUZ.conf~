@@ -1,0 +1,5 @@
+Section "InputClass"
+	Identifier "Teclado"
+	MatchIsKeyboard "on" 
+	Option "XkbLayout" "latam"
+	EndSection

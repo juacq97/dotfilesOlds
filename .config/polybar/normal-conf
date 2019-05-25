@@ -1,0 +1,713 @@
+;=========================================================
+;
+;                   ██          ██                      
+; ██████           ░██  ██   ██░██                      
+;░██░░░██  ██████  ░██ ░░██ ██ ░██       ██████   ██████
+;░██  ░██ ██░░░░██ ░██  ░░███  ░██████  ░░░░░░██ ░░██░░█
+;░██████ ░██   ░██ ░██   ░██   ░██░░░██  ███████  ░██ ░ 
+;░██░░░  ░██   ░██ ░██   ██    ░██  ░██ ██░░░░██  ░██   
+;░██     ░░██████  ███  ██     ░██████ ░░████████░███   
+;░░       ░░░░░░  ░░░  ░░      ░░░░░    ░░░░░░░░ ░░░  
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;=========================================================
+
+;============================
+; CONFIGURACIONES GLOBALES
+;============================
+
+[colors]
+; Declaración de colores
+
+;background = ${xrdb:color0:#222}
+background = #DE2D333F
+;background =
+background-alt = #444
+;foreground = ${xrdb:color7:#222}
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #BF616A
+secondary = #e60053
+alert = #238792
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+;=============================
+; CONFIGURACIÓN DEL PANEL
+;=============================
+
+[bar/example]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100% ;largo
+height = 24 ;ancho
+;offset-x = 2%
+;offset-y = 0.3%
+radius = 0
+fixed-center = true ;no tengo idea
+enable-ipc = true
+
+;fondo del panel
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+;linea que aparece cuando se activa la opción underline
+line-size = 2
+line-color = #f00
+
+;separación respecto a la parte superior de la pantalla
+border-size = 
+border-color = #FFFFFF ;los primeros dos números indican el canal alfa
+
+;separación de la izquierda y derecha
+padding-left = 0
+padding-right = 0 
+
+;separación entre módulos
+module-margin-left = 0
+module-margin-right = 0
+
+;muestra la fecha en español
+locale = es_MX.UTF-8
+;========================================
+; FUENTES
+;========================================
+
+font-0 = Fantasque Sans Mono:size=10;1
+font-1 = Material Design Icons:style=Regular:pixelsize=12;1
+font-2 = Powerline Extra Symbols:style=Regular:size=16;3
+font-3 = Weather Icons:style=Regular:size=10;1
+font-4 = Material Design Icons:style=Regular:pixelsize=16;1
+
+;=========================================
+
+
+;========================
+; ORDEN DE LOS MÓDULOS
+;========================
+
+;posición de los módulos
+modules-left = i3 bspwm xwindow
+modules-center = 
+modules-right = spotify pulseaudio kde arch date redshift
+
+;posición de la bandeja de notificaciones
+tray-position = right
+tray-padding = 1
+;tray-background = #bf6a87
+tray-background = 
+tray-underline = #1C98C9
+;tray-detached = true
+;no sepo
+;wm-restack = bspwm
+;wm-restack = i3
+;override-redirect = true
+
+;cosas para bspwn que no se
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;cambiar de escritorio con la mousewheel
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+;============
+; MÓDULOS
+;============
+
+;=========  xwindow ======================
+[module/xwindow]
+;muestra el nombre de la ventana activa
+type = internal/xwindow
+format-padding = 2
+label = %title:0:40:...%
+
+;==========================================
+
+;==============  xkeyboard  ===============
+[module/xkeyboard]
+;muestra la distribución del teclado y si está activo capslock
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix = 
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = ${colors.secondary}
+
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+;=========================================
+
+;===========  filesystem  ===============
+=
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /home
+
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+;=========================================
+
+;;===============  bspwn  =======================
+[module/bspwm]
+type = internal/bspwm
+
+ws-icon-0 = I;
+ws-icon-1 = II;
+ws-icon-2 = III;
+ws-icon-3 = IV;
+ws-icon-4 = V;
+ws-icon-5 = VI;
+ws-icon-6 = VII;
+ws-icon-7 = VIII;
+
+format = <label-state> <label-mode>
+
+label-focused = %icon%
+label-focused-background = 
+label-focused-underline= #FFFFFF
+
+label-focused-padding = 1
+
+label-occupied = %icon%
+label-occupied-padding = 1
+
+label-urgent = %icon%!
+label-urgent-background = 
+label-urgent-padding = 1
+
+label-empty = %icon%
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 1
+
+label-monocle = 
+label-tiled = 
+;label-fullscreen = 
+label-floating = 
+label-pseudotiled = P
+;label-locked = 
+;label-sticky = 
+;label-private = 
+;label-sticky-foreground = ${colors.purple}
+;label-locked-foreground = ${colors.moderate}
+;label-private-foreground = ${colors.urgent}
+
+format-background= ${colors.background}
+; Separator in between workspaces
+; label-separator = |
+;===============================================
+
+;==============  i3  =====================
+
+[module/i3]
+;muestra los escritorios de i3
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = false
+wrapping-scroll = false
+format-background= #5C7DA7
+
+;smlo mostrar escritorios en la misma salida que el panel
+;pin-workspaces = true
+
+label-mode-padding = 1
+label-mode-foreground = #FFF
+label-mode-background = 
+
+
+; focused = Active workspace on focused monitor
+label-focused = %name%
+;label-focused-background = ${module/bspwm.label-focused-background}
+label-focused-background =
+label-focused-underline = #E2C487
+label-focused-padding = ${module/bspwm.label-focused-padding}
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %name%
+label-unfocused-padding = ${module/bspwm.label-occupied-padding}
+labl-unfocused-background = 
+
+
+; visible = Active workspace on unfocused monitor
+label-visible = %name%
+label-visible-background = 
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %name%
+label-urgent-background = ${module/bspwm.label-urgent-background}
+label-urgent-padding = ${module/bspwm.label-urgent-padding}
+
+; Separator in between workspaces
+;label-separator ="%{T3} %{T-}"
+
+;=========================================
+
+;============== mpd ================
+[module/mpd]
+;muestra información de la música con mpd
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next> ;formato que queremos se muestre
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+;=================================
+
+;=========  xbacklight  ============
+[module/xbacklight]
+;brillo de la pantalla. solo laps
+type = internal/xbacklight
+
+format = <label> <bar>
+label = BL
+
+bar-width = 10
+bar-indicator = |
+bar-indicator-foreground = #fff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+;=================================
+
+;========  backlight-acpi  ============
+[module/backlight-acpi]
+;ni idea que hace
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+;=====================================
+
+;======== cpu  ==============
+[module/cpu]
+;muestra el consumo de cpu
+type = internal/cpu
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+format-underline = #f90000
+label = %percentage:2%%
+
+;=========  ram  ===============
+[module/memory]
+;muestra el consumo de ram
+type = internal/memory
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+format-underline = #4bffdc
+label = %percentage_used%%
+
+;===============================
+
+;========  wlan  =====================
+[module/wlan]
+;wifi
+type = internal/network
+interface = net1
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-underline = #9f78e1
+label-connected = %essid%
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.foreground-alt}
+
+;====================================
+
+;============  ethernet  ==============
+[module/eth]
+;ethernet
+type = internal/network
+interface = eno1
+interval = 3.0
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-alt}
+label-connected = %local_ip%
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+;=====================================
+
+;===========  date  ===============
+[module/date]
+;muestra la fecha
+type = internal/date
+interval = 1
+
+date =" %b %e,"
+date-alt = " %A %e de %B de %Y,"
+
+time = "%H:%M "
+time-alt = "%H:%M:%S "
+
+format-prefix =
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #5294E2
+
+label = %date% %time%
+format-background = 
+label-foreground = ${root.foreground}
+
+
+
+;=================================
+
+;===========  pulseaudio  =================
+[module/pulseaudio]
+;muestra el volumen
+type = internal/pulseaudio
+
+format-volume = " <ramp-volume> <label-volume> " 
+label-volume = %percentage%%
+label-volume-foreground = ${root.foreground}
+format-volume-underline = #8b484e
+
+
+label-muted =  %percentage%%
+label-muted-foreground = #666666
+label-muted-background = 
+format-muted-underline = #8b484e
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+format-volume-background =
+click-right = exec pavucontrol & 
+;========================================
+
+;============  alsa  ================
+[mkdule/alsa]
+;muestra el volumen con alsa
+type = internal/alsa
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+;===================================
+
+;===========  batery  =================
+[module/battery]
+;bateria
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <animation-discharging> <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-foreground = ${colors.foreground-alt}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-framerate = 750
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-foreground = ${colors.foreground-alt}
+animation-discharging-framerate = 750
+
+;=================================
+
+;==============  temperature  ==================
+[module/temperature]
+;temperatura del sistema
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+;=============================================
+
+;===========  powermenu  =================
+[module/powermenu]
+;menu de apagado
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.secondary}
+label-close =  cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+;======================================
+
+
+;========= spotify =====================
+[module/spotify]
+; muestra la información de spotify
+type = custom/script
+interval = 1
+format-prefix = " " 
+format = "<label> "
+exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
+format-underline = #99B898
+format-background =  
+format-foreground = #FFFFFF
+click-right = playerctl play-pause
+click-left = bspc desktop -f ^8 
+;======================================
+
+;============ clima ==========================
+[module/clima]
+type = custom/script
+exec = /home/equipo/.config/polybar/scripts/openweathermap-fullfeatured.sh
+interval = 600
+label-font = 4
+
+
+;==============================================
+
+;======== kdeconnect ==========================
+[module/kde]
+type = custom/script
+format-prefix = "  "
+label = "%output%% "
+exec = ~/.config/polybar/scripts/kde-bat
+interval = 300
+format-background =
+format-underline = #005688
+
+click-left = ~/scripts/kdeconnect-rofi
+
+;=============================================
+
+[module/cal]
+type = custom/script
+exec = date 
+interval = 1
+click-left = polybar-msg cal ola
+
+[module/caleeeee]
+type = custom/ipc
+hook-0=echo olas
+hook-1=echo adios
+initial=1
+click-left = polybar-msg hook cal 2
+
+;============ updates =====================
+[module/arch]
+type = custom/script
+format-prefix = " ﮋ "
+label = "%output% " 
+format-underline = #D1B927
+exec = ~/.config/polybar/scripts/updates-arch.sh
+interval = 600
+
+;========== redshift =====================
+[module/redshift]
+type = custom/script
+label = %output%
+exec = ~/.config/polybar/scripts/redshift-echo.sh
+click-left = ~/.config/polybar/scripts/redshift.sh
+tail = true
+format-underline = #AA2805
+
+
+;============ powerline separador ===========
+[module/separador]
+;separador
+
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+pseudo-transparency = true
+
+
+; vim:ft=dosini
+
+
+[module/sep-date]
+type = custom/text
+content = "%{T3} %{T-}"
+content-font = 3
+content-foreground = #287A4F
+content-background = #8C9FC5
+
+
+[module/sep-tray]
+type = custom/text
+content = "%{T3} %{T-}"
+content-font = 3
+content-foreground = #1C98C9
+content-background = #287A4F
+
+
+
+[module/sep-vol]
+type = custom/text
+content = "%{T3} %{T-}"
+content-font = 2
+content-foreground = #2D333F
+content-background = 
+
+[module/sep-spo]
+type = custom/text
+content = "%{T3} %{T-}"
+content-font = 3
+content-foreground = #9DB788
+
+[module/sep-kde]
+type = custom/text
+content = "%{T3} %{T-}"
+content-font = 3
+content-foreground = #8C9FC5
+content-background = #2D333F
+
+
+
+[module/sep-i3]
+type = custom/text
+content ="%{T3}%{T-}"
+content-font = 3
+content-foreground = #5C7DA7
+content-background =  
+
+
+
+;vol= #8b484e
+
+;date=
+;tray=  #CC527A 
+
+
+[module/menu]
+type = custom/text
+content = " "
+click-left = rofi -show drun -location 1 -theme rofi -eh 2 -lines 5 -show-icons -icon-theme Flat-remix Dark

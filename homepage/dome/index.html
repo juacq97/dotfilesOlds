@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>DOME</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="dome.js" defer></script>
+
+	<style type="text/css">
+		body > div#main > span > div#static_links {
+			height: 30px;
+		}
+		body > div#main > span > form > input {
+			border: none;
+			height: 50px;
+		}
+
+		h1 { 
+		    display: block;
+		    font-size: 5em;
+		    margin-top: 0.67em;
+		    margin-bottom: 0.67em;
+		    margin-left: 0;
+		    margin-right: 0;
+		    font-weight: bold;
+		}
+
+
+		h2 { 
+		    display: block;
+		    font-size: 3em;
+		    margin-top: 0.67em;
+		    margin-bottom: 0.67em;
+		    margin-left: 0;
+		    margin-right: 0;
+		    font-weight: bold;
+		}
+
+		div#links > div.section {
+			display: inline-block;
+			vertical-align: top;
+			height: 200px;
+			width: 300px;
+			margin: 2px;
+		}
+		div#links > div.section > div {
+			padding: 15px;
+		}
+		div#wiper {
+			display: block;
+			position: fixed;
+			width: 100vw;
+			height: 100vh;
+			opacity: 1;
+			z-index: 100;
+			transition: .5s opacity .5s, .5s z-index .5s;
+		}
+		html, body {
+			margin: 0;
+			background-color: #404552;
+		}
+	</style>
+
+</head>
+<body onresize="matchLinks()" onunload="">
+	<div id="wiper"></div>
+
+				<center><h1 style="color:#2F343F"><span id="clock"></h1></center>
+					<!-- dome.js: displayDate() fills this element -->
+
+				<center><h2 style="color:#2F343F">Bienvenido a Internet</h2></center>
+				</span>
+				    
+				  <div id="main" style="max-width: 912px;">
+		<span style="display: block">
+			<form method="GET" id="action">
+				<input type="text" oninput="matchLinks(this.value)" autofocus autocomplete="off">
+			</form>
+			<div id="links">
+				<!-- dome.js: matchLinks() fills this element -->
+			</div>
+		</span>
+	</div>
+
+</body>
+</html>

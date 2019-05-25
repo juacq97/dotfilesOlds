@@ -1,0 +1,23 @@
+/**
+ * Copyright (C) 2017-2019 Jens Lechtenbörger
+ *
+ * SPDX-License-Identifier: LicenseRef-MIT-JL
+ *
+ * Theme for DBIS Group presentation with long title, smaller fonts.
+ *
+ */
+
+@import url(dbis.css);
+
+.reveal h1 {
+  font-size: 1.8em; }
+
+.reveal .course-title {
+  margin: 40px 0px 10px 0px; }
+
+.reveal .course-context p {
+  line-height: 1.0;
+  margin: 30px 0; }
+
+.reveal .course-group p {
+  font-size: 0.5em; }

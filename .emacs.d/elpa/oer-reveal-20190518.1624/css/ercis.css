@@ -1,0 +1,153 @@
+/**
+ * Copyright (C) 2017-2019 Jens Lechtenbörger
+ *
+ * SPDX-License-Identifier: LicenseRef-MIT-JL
+ *
+ * Theme for ERCIS slides
+ */
+@import url(oer-reveal.css);
+
+
+/*********************************************
+ * Logos and title on title slide
+ *********************************************/
+
+.reveal .wwu-logo {
+  position: fixed;
+  width: 296px;
+  height: 100px;
+  left: 0;
+  top: 0; }
+
+.reveal .ercis-logo {
+  position: fixed;
+  width: 250px;
+  height: 219px;
+  right: 0;
+  top: 0; }
+
+.reveal h1 {
+  font-size: 2em; }
+
+/**************************************************
+ * Logo for slide headers, but not on title slide
+ **************************************************/
+
+.reveal h2:after, .reveal h3:after, .reveal h4:after {
+  content: url(ERCIS-logo.png);
+  position: fixed;
+  right: 0;
+  top: 0; }
+
+/* Different logo on questions slide. */
+#questions-ercis-slide:after {
+  content: url(ERCIS-white-logo.png); }
+
+/*********************************************
+ * OTHER
+ *********************************************/
+
+/* Make sure that content can overlay TOC footer (title slide). */
+.reveal .slides {
+    z-index: 30; }
+
+/* Create space for GitLab ribbon. */
+.reveal .slides > section,
+.reveal .slides > section > section {
+  margin: 5px 25px;
+  width: 95%; }
+
+.reveal .talk-title {
+  margin: 150px 0px 10px 0px; }
+
+.reveal .talk-subtitle p {
+  font-size: .8em;
+  font-weight: bold;
+  line-height: 1.0;
+  color: #852339;
+  margin-bottom: 20px; }
+
+.reveal .licensepointer {
+  width: 90%; }
+
+.reveal .licensepointer p {
+  text-align: right;
+  font-size: .6em; }
+
+#license-link {
+  color: rgb(195,148,146); }
+
+/* Sizing of ercisfooter copied from TOC-progress footer. */
+div.ercisfooter {
+  position: fixed;
+  height: 9.5vh;
+  width: 90%;
+  bottom: 3px;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+  background: #852339;
+  pointer-events: none;
+  z-index: 15; }
+
+.ercisfooter p {
+  color: #fff;
+  margin: 2vh 10px;
+  font-size: .4em; }
+
+.reveal p.floatleft {
+  pointer-events: auto;
+  float: left; }
+
+.reveal p.floatright {
+  float: right; }
+
+.reveal a.ercisurl {
+  font-size: .7em;
+  font-weight: bold;
+  color: #fff; }
+
+.reveal p.ercisisnetwork {
+  font-weight: bold; }
+
+/* Reduce figure size to stay away from ERCIS logo. */
+#slide-questions-ercis-slide div.figure {
+  max-width: 60%; }
+
+#slide-questions-ercis-slide div.figure p:nth-child(3) {
+  color: rgb(195,148,146); }
+
+/*********************************************
+ * ERCIS colors
+ *********************************************/
+
+::selection {
+  color: #fff;
+  background: #852339;
+  text-shadow: none; }
+
+::-moz-selection {
+  color: #fff;
+  background: #852339;
+  text-shadow: none; }
+
+.reveal .slides section .fragment.highlight-red.visible {
+  color: #852339; }
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  max-width: 80%;
+  color: #852339; }
+
+.reveal strong,
+.reveal b {
+  color: #852339; }
+
+.reveal a {
+  color: #435c8b; }
+
+#toc-progress-footer a, #toc-progress-footer ul {
+  color: #fff; }

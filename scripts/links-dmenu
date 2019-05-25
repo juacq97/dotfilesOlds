@@ -1,0 +1,27 @@
+#! /bin/sh
+
+# Hace la búsqueda en el archivo links
+sel=$(cat ~/scripts/links | dmenu -l 10 -i -p "URL/Buscar")
+#Se asegura que no sea un campo vacío
+if [ "$sel" != "" ]; then
+    #Se asegura que la selección exista en el archivo links
+    if grep -Fxq "$sel" ~/scripts/links; then
+	page=$(echo $sel | cut -d: -f2-)
+	xdg-open $page
+    else
+	#Busca lo escrito según la palabra que lo anteceda
+	options=$(echo $sel | cut -d" " -f1)
+	page=$(echo $sel | cut -d" " -f2-)
+	case $options in
+	    arch) xdg-open https://wiki.archlinux.org/index.php?search="$page";;
+	    yt) firefox https://www.youtube.com/results?search_query="$page";;
+	    rae) xdg-open https://dle.rae.es/?id=DgIqVCc#&formList=form&w="$page";;
+	    r) xdg-open https://www.reddit.com/r/"$page";;
+	    *) xdg-open https://duckduckgo.com/?q="$sel";;
+	esac
+    fi
+fi
+
+
+
+

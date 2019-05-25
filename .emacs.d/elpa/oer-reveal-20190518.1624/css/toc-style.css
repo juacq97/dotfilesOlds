@@ -1,0 +1,19 @@
+/**
+ * Copyright (C) 2017-2019 Jens Lechtenbörger
+ *
+ * SPDX-License-Identifier: CC0-1.0
+ */
+
+/**
+ * Reduce width of TOC progress footer.  Avoids overlap with
+ * navigation controls.
+ * Absolute positioning for use with coursemod plugin:
+ * https://github.com/Sonaryr/reveal.js-coursemod/issues/19
+ */
+#toc-progress-footer {
+    position: absolute !important;
+    width: 90%; }
+
+/* Move footer columns to avoid overlap with audio controls. */
+#toc-progress-footer-main { width: 60%; }
+#toc-progress-footer-secondary { width: 40%; }

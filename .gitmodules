@@ -1,0 +1,12 @@
+[submodule "homepage/dome"]
+	path = homepage/dome
+	url = https://gitlab.com/Capuno/dome.git
+[submodule "st"]
+	path = st
+	url = https://github.com/juacq97/st-juacq97.git
+[submodule "dwm"]
+	path = dwm
+	url = https://git.suckless.org/dwm
+[submodule "dmenu"]
+	path = dmenu
+	url = https://git.suckless.org/dmenu

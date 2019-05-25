@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+# Description: Pick files and pipe the newline-separated list to another utility
+#
+# Shell: POSIX compliant
+# Author: Arun Prakash Jana
+#
+# Usage:
+# Copy this file in your $PATH, make it executable and preferably name it to picker.
+# Run commands like:
+#   ls -l `picker`
+#   cd `picker`
+#   vimdiff `picker`
+# or, in fish shell:
+#   ls -l (picker)
+#   cd (picker)
+#   vimdiff (picker)
+#
+# NOTE: This use case is limited to picking files, other functionality may not work as expected.
+
+nnn -p /tmp/picked
+
+if [ -f /tmp/picked ]; then
+    cat /tmp/picked | tr '\0' '\n'
+    rm /tmp/picked
+fi

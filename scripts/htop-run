@@ -1,0 +1,5 @@
+#! /bin/sh
+
+(cat ~/.cache/wal/sequences &)
+
+htop

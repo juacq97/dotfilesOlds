@@ -1,0 +1,46 @@
+html {
+  height: 100%;
+  background-color: #353438;
+}
+
+body {
+  margin: 0px;
+  height: 100%;
+  border-radius: 5px;
+  color: #dddddd;
+  background-color: #353438;
+  font-family: "Roboto";
+  line-height: 1.75;
+  font-size: 18pt;
+  text-align: center;
+}
+
+#content {
+  display: none;
+  position: relative;
+  top: 40%;
+  transform: translateY(-40%);
+  font-weight: 300;
+}
+
+#hello {
+  font-family: "Caveat";
+  font-size: 48pt;
+  color: #a4babf;
+}
+
+#hello:after {
+  content: url("line.svg");
+  position: fixed;
+  top: 22px;
+  right: calc(50% - 172px);
+}
+
+#weather {
+  display: none;
+}
+
+#weather-temp,
+#weather-desc {
+  display: inline;
+}

@@ -1,0 +1,165 @@
+# interpreter for shell commands (needs to be POSIX compatible)
+set shell sh
+set drawbox
+set ratios '1:3:2'
+set ifs "\n"
+set incsearch
+set findlen 0
+
+# set '-eu' options for shell commands
+# These options are used to have safer shell commands. Option '-e' is used to
+# exit on error and option '-u' is used to give error for unset variables.
+# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
+# $fx variables contain names with '*' or '?' characters. However, this option
+# is used selectively within individual commands as it can be limiting at
+# times.
+set shellopts '-eu'
+
+# leave some space at the top and the bottom of the screen
+set scrolloff 10
+
+###########
+# scripts
+###########
+
+# define a custom 'open' command
+# This command is called when current file is not a directory. You may want to
+# use either file extensions and/or mime types here. Below uses an editor for
+# text files and a file opener for the rest.
+
+cmd open &{{
+    case $(file --mime-type "$f" -b) in
+        text/*) setsid /home/$USER/.config/lf/emc $f;;
+	audio/mpeg) mpv $f;;
+	video/*) setsid mpv $f > /dev/null 2 2>&1 & ;;
+	image/*) sxiv-view $f;;
+        *) for f in $f; do setsid $OPENER $f > /dev/null 2> /dev/null & done;;
+    esac 
+}}
+
+# rename current file without overwrite
+cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+
+# move current file or selected files to trash folder
+# (also see 'man mv' for backup/overwrite options)
+# make sure trash folder exists
+%mkdir -p ~/.trash
+cmd trash %set -f; mv $fx ~/.trash
+
+# delete current file or selected files (prompting)
+cmd delete ${{
+    set -f
+    printf "$fx\n"
+    printf "delete?[y/n]"
+    read ans
+    [ $ans = "y" ] && rm -rf $fx
+}}
+
+# extract the current file with the right command
+# (xkcd link: https://xkcd.com/1168/)
+cmd extract ${{
+    set -f
+    case $f in
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+        *.tar.gz|*.tgz) tar xzvf $f;;
+        *.tar.xz|*.txz) tar xJvf $f;;
+        *.zip) unzip $f;;
+        *.rar) unrar x $f;;
+        *.7z) 7z x $f;;
+    esac
+}}
+
+# compress current file or selected files with tar and gunzip
+cmd tar ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    tar czf $1.tar.gz $1
+    rm -rf $1
+}}
+# compress current file or selected files with zip
+cmd zip ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    zip -r $1.zip $1
+    rm -rf $1
+}}
+
+cmd paste &{{
+    load=$(lf -remote 'load')
+    mode=$(echo "$load" | sed -n '1p')
+    list=$(echo "$load" | sed '1d')
+    if [ $mode = 'copy' ]; then
+        rsync -av --ignore-existing --progress $list . \
+        | stdbuf -i0 -o0 -e0 tr '\r' '\n' \
+        | while read line; do
+            lf -remote "send $id echo $line"
+        done
+    elif [ $mode = 'move' ]; then
+        mv -n $list .
+    fi
+    lf -remote 'send load'
+    lf -remote 'send clear'
+}}
+
+cmd kdeconnect &{{
+		    id=$(kdeconnect-cli -a --id-only | awk '{print $1}')
+		    kdeconnect-cli -d $id --share $f
+		    notify-send -a "Kdeconnect" "Enviando archivo"
+		}}
+
+cmd rclone-push ${{
+    rclone copy ~/Drive google: -u
+}}
+
+cmd rclone-pull ${{
+    rclone copy google: ~/Drive -u
+}}
+
+# use enter for shell commands
+map <enter> shell
+
+##############
+# keys
+##############
+
+# execute current file (must be executable)
+#map x $"$f" 
+#map X !"$f"
+
+# dedicated keys for file opener actions
+map o &mimeopen "$f" & disown
+map O $mimeopen --ask "$f" & disown
+map r push :rename<space>
+map e &emacsclient -c "$f" & disown
+
+map F $find | lf -remote "send $id select $(fzf --height 50% --reverse --border --margin 5% --inline-info --color border:#005688,bg+:#16252E,fg+:#26c6da,hl+:#ffffff,hl:#26c6da)"
+
+
+map ak :kdeconnect
+map ap :rclone-push
+map aP :rclone-pull
+
+map gh cd ~
+map ge cd /etc
+map gu cd /usr
+#map gd cd /dev
+map gd cd ~/Drive
+map gc cd ~/.config
+map gD cd ~/Documentos/.dotfiles
+map gl cd -r .
+map gL cd -r %f
+map go cd /opt
+map gv cd /var
+map gm cd /media
+map gM cd /mnt
+map gs cd /srv
+map gr cd /run/media/equipo
+map g/ cd /
+map gb cd ~/.local/share/Trash/files
+
+map xd $gio trash $fx
+map xD $gio trash --empty
+map xx &$f
+map xX !$f

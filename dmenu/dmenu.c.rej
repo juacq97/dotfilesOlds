@@ -1,0 +1,28 @@
+--- dmenu.c	2017-06-12 00:35:39.814716857 +0200
++++ dmenu.c	2017-06-11 23:59:18.794768196 +0200
+@@ -36,7 +36,7 @@ struct item {
+ static char text[BUFSIZ] = "";
+ static char *embed;
+ static int bh, mw, mh;
+-static int inputw = 0, promptw;
++static int inputw = 0, promptw, passwd = 0;
+ static int lrpad; /* sum of left and right padding */
+ static size_t cursor;
+ static struct item *items = NULL;
+@@ -131,6 +131,7 @@ drawmenu(void)
+ 	unsigned int curpos;
+ 	struct item *item;
+ 	int x = 0, y = 0, w;
++	char *censort;
+ 
+ 	drw_setscheme(drw, scheme[SchemeNorm]);
+ 	drw_rect(drw, 0, 0, mw, mh, 1, 1);
+@@ -646,7 +657,7 @@ setup(void)
+ static void
+ usage(void)
+ {
+-	fputs("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
++	fputs("usage: dmenu [-bfiPv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
+ 	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
+ 	exit(1);
+ }

@@ -1,0 +1,119 @@
+# By Jesse_Avalos , See me on Eye Candy Linux_  on Google +
+background yes
+use_xft yes
+xftfont Roboto:size=9
+xftalpha 0.8
+update_interval 1
+total_run_times 0
+own_window yes
+own_window_transparent yes
+##############################################
+# Compositing tips:
+# Conky can play strangely when used with
+# different compositors. I have found the
+# following to work well, but your mileage
+# may vary. Comment/uncomment to suit.
+##############################################
+## no compositor
+#own_window_type override
+#own_window_argb_visual no
+
+## xcompmgr
+#own_window_type override
+#own_window_argb_visual yes
+
+## cairo-compmgr
+own_window_type override
+own_window_argb_visual no
+##############################################
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+stippled_borders 0
+border_margin 5
+border_width 1
+default_color 232422
+default_shade_color 000000
+default_outline_color 000000
+alignment top_right
+minimum_size 600 600
+maximum_width 900
+gap_x 435
+gap_y 190
+alignment top_right
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+net_avg_samples 2
+short_units yes
+text_buffer_size 2048
+use_spacer none
+override_utf8_locale yes
+color1 1D1F1E
+color2 CC0C36
+color3 E82A2A
+own_window_argb_value 51
+own_window_colour 000000
+TEXT
+${goto 90}${voffset 25}${font adele:bold:size=25} Today
+${goto 90}${voffset -}${font LG Weather_Z:size=100}${time %I:%M}${image blackline.png -p 354,23 -s 10x189}
+${offset 370}${voffset -183}${font ADELE:size=22}${time %A, %d %B}
+\
+# --- Weather --- #
+###################
+\
+# --- WOEID (Location id) --- #
+${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=1103816&u=c" -o ~/.cache/weather.xml}\
+\
+# --- Temperature --- #
+#######################
+\
+${font ADELE :size=30}${offset 375}${voffset 10}${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}°${font ADELE :size=15}C${font ADELE :size=30}${voffset -20}  |
+\
+# --- Weather icon --- #
+########################
+\
+${execi 300 cp -f outline/$(grep "yweather:condition" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*").png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 420,6 -s 80x80}
+\
+# --- Textual condition (e.g. Partly cloudy) --- #
+##################################################
+\
+${font Roboto Light:size=18}${offset 462}${voffset -85}${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "text=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}
+\
+# --- Icon - high temperature --- #
+###################################
+\
+${image outline/arrow-up.png -p 375,178 -s 12x12}
+\
+# --- High temperature --- #
+############################
+\
+${font Roboto Light :size=12}${offset 395}${voffset -25}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°
+\
+# --- Icon - low temperature icon --- #
+#######################################
+\
+${image outline/arrow-down.png -p 422,178 -s 12x12}
+\
+# --- Low temperature --- #
+###########################
+\
+${font Roboto Light :size=12}${offset 438}${voffset -44}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°
+\
+# --- Icon - map marker --- #
+#############################
+\
+${image outline/map-marker.png -p 453,169 -s 40x30}
+\
+# --- Location name (city and country) --- #
+############################################
+\
+${font Roboto Light :size=12}${offset 485}${voffset -45}${execi 300 grep "yweather:location" ~/.cache/weather.xml | grep -o "city=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}, ${execi 300 grep "yweather:location" ~/.cache/weather.xml | grep -o "country=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}
+
+${goto 285}${voffset -35}${font adele:bold:size=25}${time %p}
+
+
+

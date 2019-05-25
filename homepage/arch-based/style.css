@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Ubuntu";
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background:url("res/archlabs02.png");
+}
+
+h2 {
+    width: 100vw;
+    position: absolute;
+    top: calc(90vh - 20px);
+    left: calc(85vh - 0px);
+    text-align: center;
+    font-weight: 300;
+    font-size: 35px;
+}
+
+h3 {
+    width: 100vw;
+    position: absolute;
+    top: calc(90vh - 0px);
+    left: calc(75vh - 0px);
+    text-align: center;
+    font-weight: 500;
+    font-size: 0px;
+    color: white;
+}
+
+form {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    width: 600px;
+    height: 50px;
+    transform: translateX(-50%);
+    font-weight: 300;
+    z-index: 1;
+}
+
+form p {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+    color: #ACB6BF;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+form p span {
+    cursor: pointer;
+    transition: color 0.5s;
+}
+
+form p span:hover {
+    color: #ACB6BF;
+}
+
+input[type=text] {
+    width: 600px;
+    height: 50px;
+    border: 1px solid #a0a0a0;
+    border-radius: 2px;
+    padding: 10px;
+    font-weight: 300;
+}
+
+input[type=text]:focus {
+    border-color: #707070
+}
+
+.stripe {
+    position: relative;
+    width: 40px;
+    height: 25vh;
+    color: white;
+    z-index: 2;
+}
+
+.stripe .title  {
+    position: relative;
+    width: 40px;
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+}
+
+.stripe .title span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+    font-weight: 400;
+}
+
+.stripe .content {
+    position: absolute;
+    left: calc(5vw + 40px);
+    width: calc(90vw - 40px);
+    display: none;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100%;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+}
+
+.stripe .content div {
+    position: relative;
+    height: 100%;
+    width: 150px;
+    display: none;
+}
+
+.stripe .content div img {
+    position: absolute;
+    max-height: 100px;
+    max-width: 150px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.stripe .content span {
+    line-height: calc(25vh - 50px);
+    display: none;
+}
+
+.stripe .content span a {
+    text-decoration: none;
+    color: white;
+}

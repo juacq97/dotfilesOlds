@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# Description: Show diff using vimdiff
+#
+# Shell: POSIX compliant
+# Author: Arun Prakash Jana
+
+vimdiff $(cat ~/.config/nnn/.selection | tr '\0' '\n')

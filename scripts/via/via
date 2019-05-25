@@ -1,0 +1,5 @@
+#!/bin/sh
+
+PATH="$HOME//scripts/via:$PATH"
+
+via-feed | via-menu | via-open

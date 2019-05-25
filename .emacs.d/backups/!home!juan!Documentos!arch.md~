@@ -1,0 +1,5 @@
+Hace un par de días me compré una laptop, una dell latitude 3330, y como a las 3 horas ya le estaba instalando Arch. No es la primera vez que instalo arch, pero si es la primera vez en hardware real y la primera vez que uso Linux en una laptop. Quiero comentarles algunos de las situaciones que se me presentaron, y se siguen presentando. Instalé BSPWM, por lo que quizá muchos de los problemas y situaciones que presenté solo la vivirá otro masoquista que no utilice un entorno completo (xfce, plasma, gnome, etc.)
+
+# Wifi
+
+La instalación la hice con cable, una vez instalada quise conectar el wifi, 

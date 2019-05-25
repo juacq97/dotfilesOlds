@@ -1,0 +1,96 @@
+/**
+ * Copyright (C) 2017-2019 Jens Lechtenbörger
+ *
+ * SPDX-License-Identifier: LicenseRef-MIT-JL
+ *
+ * Theme for DBIS Group's slides.
+ *
+ * Note that this CSS file is meant to be used with oer-reveal.css, which
+ * was imported here previously.  Imports lead to additional round-trips
+ * upon loading, though.  Thus, oer-reveal.css is now added via
+ * REVEAL_EXTRA_CSS in org/config.org.
+ */
+
+/*********************************************
+ * JiTT Questions
+ *********************************************/
+
+html.jitt h3, html.jitt h4 {
+  color: #002f6f; }
+
+html.jitt li, html.jitt p {
+  font-size: 0.8em; }
+
+
+/*********************************************
+ * Logos
+ *********************************************/
+
+.reveal .top-logos {
+  display: inline-block;
+  width: 100%; }
+
+.reveal .wwu-logo {
+  float: left;
+  width: 296px;
+  height: 100px; }
+
+.reveal .dbis-logo {
+  margin: 0px 30px;
+  width: 200px;
+  height: 107px; }
+
+.reveal .ercis-logo {
+  margin: 0px 30px;
+  width: 200px;
+  height: 127px; }
+
+/* Move logos if GitLab ribbon is displayed. */
+.reveal .dbis-logo-glr {
+  margin: 0px 100px;
+  width: 200px;
+  height: 107px; }
+
+.reveal .ercis-logo-glr {
+  margin: 50px 100px;
+  width: 200px;
+  height: 127px; }
+
+/*********************************************
+ * OTHER
+ *********************************************/
+.reveal .course-title {
+  margin: 80px 0px 10px 0px; }
+
+.reveal .course-subtitle p {
+  font-size: .6em;
+  line-height: 1.0;
+  margin: 0; }
+
+.reveal .course-context p {
+  line-height: 1.2;
+  margin: 50px 0;
+  }
+
+.reveal .course-group {
+  color: #788a82; }
+
+.reveal .course-group p {
+  line-height: 1.0;
+  font-size: 0.5em; }
+
+.reveal .course-group strong {
+  font-weight: bold;
+  color: #788a82; }
+
+.reveal .currtopic {
+  font-weight: bold;
+  font-size: 0.75em; }
+
+.reveal .prevtopic {
+  font-weight: lighter;
+  font-size: 0.6em; }
+
+.reveal .nexttopic {
+  font-weight: normal;
+  font-size: 0.7em; }

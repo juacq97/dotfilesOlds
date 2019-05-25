@@ -1,0 +1,18 @@
+1558750785225	Sync.SyncScheduler	DEBUG	Next sync in 600000 ms. (why=schedule)
+1558750953367	Sync.SyncScheduler	DEBUG	Network link status changed to "down". Offline?: false
+1558750953367	Sync.SyncScheduler	DEBUG	Clearing sync triggers and the global score.
+1558750953369	Sync.SyncScheduler	DEBUG	Next sync in 600000 ms. (why=schedule)
+1558750954367	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558750954622	Sync.SyncScheduler	DEBUG	Network link status changed to "up". Offline?: false
+1558750954622	Sync.SyncScheduler	DEBUG	Network link looks up. Syncing.
+1558750954628	Sync.Service	DEBUG	User-Agent: Firefox/67.0 (Linux x86_64) FxSync/1.69.0.20190521202118.desktop
+1558750954628	Sync.Service	INFO	Starting sync at 2019-05-24 20:22:34 in browser session p3tpBcsAkZXJ
+1558750954629	Sync.SyncScheduler	DEBUG	Clearing sync triggers and the global score.
+1558750954636	Sync.Status	INFO	Resetting Status.
+1558750954636	Sync.Status	DEBUG	Status.service: success.status_ok => success.status_ok
+1558750954653	Sync.Resource	WARN	GET request to https://sync-548-us-west-2.sync.services.mozilla.com/1.5/84144729/info/collections failed: [Exception... "The lookup of the hostname failed"  nsresult: "0x804b001e (NS_ERROR_UNKNOWN_HOST)"  location: "<unknown>"  data: no] No traceback available
+1558750954654	Sync.Status	DEBUG	Status.sync: success.sync => error.login.reason.network
+1558750954654	Sync.Status	DEBUG	Status.service: success.status_ok => error.sync.failed
+1558750954655	Sync.ErrorHandler	ERROR	Sync encountered an error: [Exception... "The lookup of the hostname failed"  nsresult: "0x804b001e (NS_ERROR_UNKNOWN_HOST)"  location: "<unknown>"  data: no] No traceback available
+1558750954655	Sync.SyncScheduler	DEBUG	Next sync in 600000 ms. (why=reschedule)
+1558750954660	Sync.Service	DEBUG	Exception calling anonymous function: [Exception... "The lookup of the hostname failed"  nsresult: "0x804b001e (NS_ERROR_UNKNOWN_HOST)"  location: "<unknown>"  data: no] No traceback available

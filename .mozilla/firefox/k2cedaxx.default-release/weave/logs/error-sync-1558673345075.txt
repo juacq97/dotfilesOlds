@@ -1,0 +1,30 @@
+1558672779923	Sync.LogManager	DEBUG	Flushing file log
+1558672779950	Sync.LogManager	DEBUG	Log cleanup threshold time: 1557808779950
+1558672780016	Sync.LogManager	DEBUG	Done deleting files.
+1558672780881	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672782123	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672784486	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672790159	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672911955	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672917974	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558673029923	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558673035328	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558673248904	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558673254190	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558673339850	Sync.SyncScheduler	DEBUG	Network link status changed to "down". Offline?: false
+1558673339850	Sync.SyncScheduler	DEBUG	Clearing sync triggers and the global score.
+1558673339853	Sync.SyncScheduler	DEBUG	Next sync in 600000 ms. (why=schedule)
+1558673340849	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558673345029	Sync.SyncScheduler	DEBUG	Network link status changed to "up". Offline?: false
+1558673345030	Sync.SyncScheduler	DEBUG	Network link looks up. Syncing.
+1558673345036	Sync.Service	DEBUG	User-Agent: Firefox/67.0 (Linux x86_64) FxSync/1.69.0.20190521202118.desktop
+1558673345036	Sync.Service	INFO	Starting sync at 2019-05-23 22:49:05 in browser session Igju9bUWkDxV
+1558673345037	Sync.SyncScheduler	DEBUG	Clearing sync triggers and the global score.
+1558673345040	Sync.Status	INFO	Resetting Status.
+1558673345041	Sync.Status	DEBUG	Status.service: error.sync.failed => success.status_ok
+1558673345067	Sync.Resource	WARN	GET request to https://sync-548-us-west-2.sync.services.mozilla.com/1.5/84144729/info/collections failed: [Exception... "The lookup of the hostname failed"  nsresult: "0x804b001e (NS_ERROR_UNKNOWN_HOST)"  location: "<unknown>"  data: no] No traceback available
+1558673345068	Sync.Status	DEBUG	Status.sync: success.sync => error.login.reason.network
+1558673345068	Sync.Status	DEBUG	Status.service: success.status_ok => error.sync.failed
+1558673345068	Sync.ErrorHandler	ERROR	Sync encountered an error: [Exception... "The lookup of the hostname failed"  nsresult: "0x804b001e (NS_ERROR_UNKNOWN_HOST)"  location: "<unknown>"  data: no] No traceback available
+1558673345069	Sync.SyncScheduler	DEBUG	Next sync in 600000 ms. (why=reschedule)
+1558673345074	Sync.Service	DEBUG	Exception calling anonymous function: [Exception... "The lookup of the hostname failed"  nsresult: "0x804b001e (NS_ERROR_UNKNOWN_HOST)"  location: "<unknown>"  data: no] No traceback available

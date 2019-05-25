@@ -1,0 +1,27 @@
+1558672061817	Sync.LogManager	DEBUG	Flushing file log
+1558672061829	Sync.LogManager	DEBUG	Log cleanup threshold time: 1557808061829
+1558672061899	Sync.LogManager	DEBUG	Done deleting files.
+1558672062770	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672064176	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672071635	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672071783	Sync.SyncScheduler	DEBUG	Network link status changed to "down". Offline?: false
+1558672071784	Sync.SyncScheduler	DEBUG	Clearing sync triggers and the global score.
+1558672071786	Sync.SyncScheduler	DEBUG	Next sync in 600000 ms. (why=schedule)
+1558672072783	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672081313	Sync.SyncScheduler	DEBUG	Network link status changed to "up". Offline?: false
+1558672081313	Sync.SyncScheduler	DEBUG	Network link looks up. Syncing.
+1558672081319	Sync.Service	DEBUG	User-Agent: Firefox/67.0 (Linux x86_64) FxSync/1.69.0.20190521202118.desktop
+1558672081319	Sync.Service	INFO	Starting sync at 2019-05-23 22:28:01 in browser session Igju9bUWkDxV
+1558672081320	Sync.SyncScheduler	DEBUG	Clearing sync triggers and the global score.
+1558672081323	Sync.Status	INFO	Resetting Status.
+1558672081323	Sync.Status	DEBUG	Status.service: error.sync.failed => success.status_ok
+1558672082312	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672086969	Sync.SyncScheduler	DEBUG	Network link status changed to "changed". Offline?: false
+1558672087186	Sync.Resource	WARN	GET request to https://sync-548-us-west-2.sync.services.mozilla.com/1.5/84144729/info/collections failed: [Exception... "The connection was refused"  nsresult: "0x804b000d (NS_ERROR_CONNECTION_REFUSED)"  location: "<unknown>"  data: no] No traceback available
+1558672087187	Sync.Status	DEBUG	Status.sync: success.sync => error.login.reason.network
+1558672087187	Sync.Status	DEBUG	Status.service: success.status_ok => error.sync.failed
+1558672087188	Sync.ErrorHandler	ERROR	Sync encountered an error: [Exception... "The connection was refused"  nsresult: "0x804b000d (NS_ERROR_CONNECTION_REFUSED)"  location: "<unknown>"  data: no] No traceback available
+1558672087190	Sync.SyncScheduler	DEBUG	Sync error count has exceeded 3; enforcing backoff.
+1558672087190	Sync.SyncScheduler	DEBUG	Starting client-initiated backoff. Next sync in 9618168 ms.
+1558672087191	Sync.SyncScheduler	DEBUG	Next sync in 9618168 ms. (why=client-backoff-schedule)
+1558672087196	Sync.Service	DEBUG	Exception calling anonymous function: [Exception... "The connection was refused"  nsresult: "0x804b000d (NS_ERROR_CONNECTION_REFUSED)"  location: "<unknown>"  data: no] No traceback available

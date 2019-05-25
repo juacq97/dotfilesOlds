@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#var=$(echo -e " Apagar\n Bloquear\n Reiniciar\n Cerrar sesión\n Cancelar" | rofi -dmenu -theme drofi -i -p "¿Desea salir?") 
+var=$(echo -e " Apagar\n Bloquear\n Reiniciar\n Cerrar sesión\n Cancelar" | dmenu -i -p "¿Desea salir?") 
+
+if [ "$var" == ' Apagar' ]
+then
+    rm /tmp/bspwm-startup.lock
+    systemctl poweroff
+elif [ "$var" == ' Bloquear' ]
+then
+    betterlockscreen --lock blur
+elif [ "$var" == ' Reiniciar' ]
+then
+    rm /tmp/bspwm-startup.lock
+    systemctl reboot
+elif [ "$var" == ' Cerrar sesión' ]
+then
+    rm /tmp/bspwm-startup.lock
+    bspc quit
+elif [ "$var" == ' Cancelar' ]
+then
+    echo cancelado
+fi

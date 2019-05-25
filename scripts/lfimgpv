@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Example usage:
+# $ lfimgpv --listen 0 &
+# $ lfimgpv --add 0 $HOME/1.png
+# $ lfimgpv --add 0 $HOME/2.png
+# $ lfimgpv --clear 0
+# $ lfimgpv --end 0
+
+function printerr {
+    >&2 echo 'usage: lfimgpv [--listen id] [--add id picture] [--clear id] [--end id]'
+    exit 1
+}
+
+# check the id
+[[ "$2" == '' ]] && printerr
+
+# the fifo
+F="/tmp/lfimgfifo$2"
+
+# add picture
+[[ "$1" == '--add' ]] && [[ -f "$3" ]] && {
+    echo "$3" >> "$F"
+    exit 0
+}
+
+# clear without exiting
+[[ "$1" == '--clear' ]] && {
+    echo '' >> "$F"
+    exit 0
+}
+
+# exit
+[[ "$1" == '--end' ]] && {
+    echo 'END' >> "$F"
+    rm -f "$F"
+    exit 0
+}
+
+# continue and create the listener
+[[ "$1" == '--listen' ]] || printerr
+
+rm -f "$F"
+mkfifo "$F"
+
+source "`ueberzug library`"
+
+tail -f "$F" | {
+    while true; do
+        if read line; then
+            [[ "$line" = 'END' ]] && exit 0
+            ImageLayer::remove [identifier]="img0"
+            [[ -f "$line" ]] && {
+                # considering the ratio 1:2:3 then the preview starts in the middle
+                COLS=$(($(tput cols) / 2))
+                # remove the top and bottom lines as they are used by lf
+                LINS=$(($(tput lines) - 2))
+                ImageLayer::add [identifier]="img0" \
+                                [path]="$line" \
+                                [x]="$COLS" [y]="1" \
+                                [max_width]="$COLS" [max_height]="$LINS"
+            }
+        fi
+    done
+} | ImageLayer

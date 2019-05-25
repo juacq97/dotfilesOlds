@@ -1,0 +1,12 @@
+#! /bin/sh
+
+#sel=$(setxkbmap -query | grep layout | awk '{print $2}')
+sel=$(xmodmap -pke | grep -w "59" | awk '{print $5}')
+echo $sel
+if [ $sel == "less" ]; then
+	setxkbmap us
+#elif [[ "$sel"=="us" ]]; then
+else
+	setxkbmap latam
+	fi
+

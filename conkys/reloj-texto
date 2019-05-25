@@ -1,0 +1,52 @@
+conky.config = {
+    alignment = 'top_left',
+    background = true,
+    border_width = 1,
+    cpu_avg_samples = 2,
+    default_color = '#ABB2BF',
+    default_outline_color = '#4d4d4c',
+    default_shade_color = '#4d4d4c',
+    double_buffer = true,
+    draw_borders = false,
+    draw_graph_borders = true,
+    draw_outline = false,
+    draw_shades = false,
+    use_xft = true,
+    font = 'Fantasque Sans Mono:size=12',
+    gap_x = 60,
+    gap_y = 60,
+    minimum_height = 5,
+    minimum_width = 5,
+    net_avg_samples = 2,
+    no_buffers = true,
+    out_to_console = false,
+    out_to_ncurses = false,
+    out_to_stderr = false,
+    out_to_x = true,
+    extra_newline = false,
+    own_window = true,
+    own_window_transparent = true,
+    own_window_argb_visual = true,
+    own_window_class = 'Conky',
+    own_window_type = 'desktop',
+    stippled_borders = 0,
+    update_interval = 60.0,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false,
+    short_units = true,
+    update_interval = 1,
+}
+
+conky.text = [[
+${font Roboto:light:size=30}${time %H}:${time %M}
+${font Roboto:Light:size=25}${time %A}, ${time %d} de ${time %B}
+${font Roboto:light:size=12}• El uso de CPU actual es de ${cpu cpu0}%.
+• La memoria RAM ocupada es de $mem.
+• Quedan ${fs_free /home} libres de almacenamiento.
+
+Agenda para el día de hoy:
+${font Roboto:light::size=12}
+${execi 3600 ~/scripts/get_agenda.sh}
+]]

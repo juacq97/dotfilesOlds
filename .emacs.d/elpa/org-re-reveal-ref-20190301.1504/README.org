@@ -1,0 +1,99 @@
+# Local IspellDict: en
+#+STARTUP: showeverything
+
+# Copyright (C) 2019 Jens Lechtenbörger
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Neither generate table of contents nor section numbers
+#+OPTIONS: toc:nil num:nil
+
+# Enable: browser history, fragment IDs in URLs, mouse wheel, links between presentations
+#+OPTIONS: reveal_history:t reveal_fragmentinurl:t
+#+OPTIONS: reveal_mousewheel:t reveal_inter_presentation_links:t
+#+OPTIONS: reveal_width:1400 reveal_height:1000
+#+OPTIONS: timestamp:nil
+
+#+REVEAL_TRANS: fade
+#+REVEAL_THEME: simple
+#+REVEAL_PLUGINS: (search zoom)
+#+REVEAL_TITLE_SLIDE: <h1 class="title">%t</h1><h3 class="subtitle">%s</h3><h2 class="author">%a</h2><h2 class="date">%d</h2>
+
+# The following is necessary for PDF export.
+# Note that even without PDF export, the used bibliography file needs
+# to be declared for org-ref, which can happen in various ways.
+# First, org-ref understands the addbibresource commend below.
+# Second, addbibresource:references.bib could be used before
+# the printbibliography command if PDF export is not necessary.
+# Third, org-ref-default-bibliography can be customized.
+#+LATEX_HEADER: \usepackage[backend=biber,style=alphabetic]{biblatex}
+#+LATEX_HEADER: \addbibresource{references.bib}
+
+#+TITLE: Sample presentation with bibliography
+#+SUBTITLE: (Press ~?~ for help; ~n~ and ~p~ for next and previous slide)
+#+AUTHOR: Jens Lechtenbörger
+#+DATE: February 2019
+
+* Introduction
+** Installation
+   - Install [[https://revealjs.com/][reveal.js]]
+   - Activate ~org-re-reveal-ref~
+     - Place this directory into your load path or install it from
+       [[https://melpa.org/#/getting-started][MELPA]]
+     - Load package manually (~M-x load-library~ followed by
+       ~org-re-reveal-ref~) or place ~(require 'org-re-reveal-ref)~ into your
+       "~/.emacs" and restart
+   - Load an Org file and export it to HTML
+     - Make sure that reveal.js is available in your current directory
+       (e.g., as sub-directory or symbolic link)
+     - Load "README.org" (coming with org-re-reveal-ref)
+     - Export to HTML: Press ~C-c C-e v v~ (write HTML file) or
+       ~C-c C-e v b~ (write HTML file and open in browser)
+
+** Rationale
+   - Teaching resources should be free and open
+     - [[https://en.wikipedia.org/wiki/Open_educational_resources][Open Educational Resources (OER)]]
+     - See cite:HWS+10 for technical and legal requirements
+   - My requirements (see cite:Lec19)
+     - (Re-) Usable with [[https://en.wikipedia.org/wiki/Free_and_open-source_software][FLOSS]]
+     - Following paradigm of single sourcing (see cite:Roc01)
+     - Platform independent, also offline use
+
+* Reveal.js presentations
+** Org-re-reveal
+   - [[https://gitlab.com/oer/org-re-reveal/][Org-re-reveal]] provides
+     [[https://orgmode.org/][Org mode]] export functionality to
+     generate HTML presentations with
+     [[https://revealjs.com/][reveal.js]]
+     - See cite:SD11 for an introduction to Org mode
+   - Such presentations offer lots of features
+     - Themes, animations, and slide transitions
+     - Speaker’s view with preview, notes, and timer
+     - Embedding of images, audio, video, mathematical formulas
+     - Many more
+
+** Org-re-reveal-ref
+   - This package adds support for citations and bibliography to
+     ~org-re-reveal~
+   - Use citations of [[https://github.com/jkitchin/org-ref][org-ref]]
+     as usual
+     - With export to reveal.js and PDF
+
+* Conclusions
+** Summary
+   - Use ~cite~ commands as usual
+   - Insert bibliography on separate slide with ~printbibliography~
+     - See next slide
+     - Important: You must use a ~CUSTOM_ID~ on that slide, whose
+       value is that of customizable variable ~org-re-reveal-ref-bib~
+
+** Bibliography
+   :PROPERTIES:
+   :CUSTOM_ID: bibliography
+   :END:
+
+printbibliography:references.bib
+
+** License Information
+   - This file is published under the terms of the GNU General Public
+     License as published by the Free Software Foundation; either
+     version 3, or (at your option) any later version.

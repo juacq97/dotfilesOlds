@@ -1,0 +1,112 @@
+IMAPAccount gmail
+Host imap.gmail.com
+User juacq97
+PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.mbsyncpass.gpg"
+Port 993
+SSLType IMAPS
+AuthMechs Login
+#CertificateFile /etc/ssl/certs/ca-bundle.crt
+#CertificateFile /var/lib/ca-certificates/ca-bundle.pem 
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+
+# THEN WE SPECIFY THE LOCAL AND REMOTE STORAGE
+# - THE REMOTE STORAGE IS WHERE WE GET THE MAIL FROM (E.G., THE
+#   SPECIFICATION OF AN IMAP ACCOUNT)
+# - THE LOCAL STORAGE IS WHERE WE STORE THE EMAIL ON OUR COMPUTER
+
+# REMOTE STORAGE (USE THE IMAP ACCOUNT SPECIFIED ABOVE)
+IMAPStore gmail-remote
+Account gmail
+
+# LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p Maildir/gmail)
+MaildirStore gmail-local
+Path ~/.email/gmail/
+Inbox ~/.email/gmail/INBOX
+
+# CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
+#
+# CONNECTIONS ARE SPECIFIED USING PATTERNS, WHICH MATCH REMOTE MAIl
+# FOLDERS. SOME COMMONLY USED PATTERS INCLUDE:
+#
+# 1 "*" TO MATCH EVERYTHING
+# 2 "!DIR" TO EXCLUDE "DIR"
+# 3 "DIR" TO MATCH DIR
+
+# Channel gmail-inbox
+# Master :gmail-remote:
+# Slave :gmail-local:
+# Patterns "INBOX"
+# Create Both
+# Expunge Both
+# SyncState *
+# 
+# Channel gmail-trash
+# Master :gmail-remote:"[Gmail]/Bin"
+# Slave :gmail-local:"[Gmail].Bin"
+# Create Both
+# Expunge Both
+# SyncState *
+# 
+# Channel gmail-sent
+# Master :gmail-remote:"[Gmail]/Sent Mail"
+# Slave :gmail-local:"[Gmail].Sent Mail"
+# Create Both
+# Expunge Both
+# SyncState *
+# 
+# Channel gmail-all
+# Master :gmail-remote:"[Gmail]/All Mail"
+# Slave :gmail-local:"[Gmail].All Mail"
+# Create Both
+# Expunge Both
+# SyncState *
+# 
+# Channel gmail-starred
+# Master :gmail-remote:"[Gmail]/Starred"
+# Slave :gmail-local:"[Gmail].Starred"
+# Create Both
+# Expunge Both
+# SyncState *
+# 
+# # GROUPS PUT TOGETHER CHANNELS, SO THAT WE CAN INVOKE
+# # MBSYNC ON A GROUP TO SYNC ALL CHANNELS
+# #
+# # FOR INSTANCE: "mbsync gmail" GETS MAIL FROM
+# # "gmail-inbox", "gmail-sent", and "gmail-trash"
+# #
+# Group gmail
+# Channel gmail-inbox
+# Channel gmail-sent
+# Channel gmail-trash
+# Channel gmail-all
+# Channel gmail-starred
+
+#Channel sync-googlemail-default
+#Master :gmail-remote:
+#Slave :gmail-local:
+## Select some mailboxes to sync
+#Patterns "INBOX"
+#
+#Channel sync-googlemail-sent
+#Master :gmail-remote:"[Google Mail]/Sent Mail"
+#Slave :gmail-local:sent
+#
+## Channel sync-googlemail-trash
+## Master :gmail-remote:"[Google Mail]/bin"
+## Slave :gmail-local:trash
+#
+## Get all the channels together into a group.
+#Group gmail
+#Channel sync-googlemail-default
+#Channel sync-googlemail-sent
+## Channel sync-googlemail-trash
+
+Channel gmail
+Master :gmail-remote:
+Slave :gmail-local:
+Patterns "Sent Items" "INBOX" "Deleted Items"
+Create Slave
+Sync All
+Expunge Both
+SyncState *

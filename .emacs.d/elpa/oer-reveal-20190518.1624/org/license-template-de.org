@@ -1,0 +1,33 @@
+# Local IspellDict: en
+#+STARTUP: showeverything
+
+# Copyright (C) 2018-2019 Jens Lechtenbörger
+# SPDX-License-Identifier: CC0
+
+* Lizenzangaben
+  :PROPERTIES:
+  :reveal_data_state: no-toc-progress
+  :HTML_HEADLINE_CLASS: no-toc-progress
+  :CUSTOM_ID: license
+  :UNNUMBERED: notoc
+  :END:
+
+{{{licensepreamble}}}
+
+© {{{copyrightyears}}}
+@@html:<span property="dc:creator cc:attributionName">@@{{{author}}}@@html:</span>@@
+
+Soweit nicht anders angegeben unterliegt diese Arbeit,
+„@@html:<span property="dc:title">@@{{{title}}}@@html:</span>@@“,
+der Creative-Commons-Lizenz
+@@latex: \href{https://creativecommons.org/licenses/by-sa/4.0/}{CC BY-SA 4.0.}@@
+@@html:<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0.</a>@@
+
+#+BEGIN_QUOTE
+[[https://creativecommons.org/licenses/by-sa/4.0/#deed-understanding][No warranties are given.  The license may not give you all of the permissions necessary for your intended use.]]
+#+END_QUOTE
+
+Insbesondere sind Markenrechte /nicht/ Bestandteil dieser Lizenz.
+Daher verbleiben beispielsweise die Rechte an Logos (wenn vorhanden)
+und andere Markenrechte (z.\nbsp{}B. „Creative Commons“) bei ihren
+Inhabern.
