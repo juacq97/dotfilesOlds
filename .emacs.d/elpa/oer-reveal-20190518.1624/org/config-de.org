@@ -1,9 +1,0 @@
-# Copyright (C) 2018-2019 Jens Lechtenbörger
-# SPDX-License-Identifier: CC-BY-SA-4.0
-
-#+MACRO: zb z.\nbsp{}B.
-
-#+LANGUAGE: de-de
-#+LATEX_CLASS_OPTIONS: [ngerman,a4paper,11pt]
-#+LATEX_HEADER: \usepackage[ngerman]{babel}
-#+LATEX_HEADER: \usepackage[ngerman=ngerman-x-latest]{hyphsubst} % Better hyphenation

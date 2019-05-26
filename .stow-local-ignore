@@ -10,3 +10,5 @@ dwm
 dmenu
 chrome
 \.stow-local-ignore
+.gitignore
+.gitmodules

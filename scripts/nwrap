@@ -4,6 +4,8 @@
 
 export NNN_TRASH=1
 export NNN_OPENER_DETACH=1
+export EDITOR="emacsclient -c"
+export PAGER= less
 #export NNN_OPS_PROG=1
 export NNN_BMS='h:~;r:/run/media/juan;d:~/Drive;D:~/Downloads;c:~/.config'
 export LC_COLLATE="C"

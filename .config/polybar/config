@@ -20,7 +20,7 @@
 ;============================
 
 [colors]
-background = #BB071726
+background = #132332
 background-alt = #444
 foreground = #ABB2BF
 foreground-alt = #555
@@ -35,7 +35,7 @@ margin-bottom = 0
 [bar/example]
 monitor = ${env:MONITOR:}
 width = 100% ;largo
-height = 25 ;ancho
+height = 24 ;ancho
 radius = 0
 fixed-center = true ;no tengo idea
 enable-ipc = true
@@ -62,16 +62,16 @@ locale = es_MX.UTF-8
 
 font-0 = Roboto:regular:size=10;1
 font-1 = Material Design Icons:style=Regular:pixelsize=12;1
-font-2 = Powerline Extra Symbols:style=Regular:size=15;1
+font-2 = Powerline Extra Symbols:style=Regular:size=15;4
 font-3 = Weather Icons:style=Regular:size=10;1
 font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 
 ;=========================================
 
 ;====== MODULOS =========
-modules-left = i3 bspwm xwindow
+modules-left = i3 bspwm xwindow sep-deraz
 modules-center = 
-modules-right = spotify sep-azul pulseaudio sep sep arch sep battery sep xkeyboard sep date  sep red copy apagar
+modules-right = sep-azul spotify sep-mazul pulseaudio sep-azul arch battery xkeyboard sep-mazul date sep-azul red copy apagar
 
 tray-position = none
 tray-padding = 1
@@ -100,14 +100,17 @@ cursor-scroll = ns-resize
 type = internal/xwindow
 format-padding = 2
 label = %title:0:30:...%
+format-background = #173d4a
 
 
 [module/xkeyboard]
 type = internal/xkeyboard
-blacklist-0 = num lock
+blacklist-0 = num lock 
+blacklist-1 = caps lock
 
 format-prefix = "  "
 
+format-background = #173D4A
 label-layout = %layout%
 ;label-layout-underline = ${colors.secondary}
 label-indicator-padding = 2
@@ -176,7 +179,7 @@ label-floating = 
 ;label-locked-foreground = ${colors.moderate}
 ;label-private-foreground = ${colors.urgent}
 
-;format-background = #3E2948
+format-background = #173d4a
 ; Separator in between workspaces
 ;label-separator = " "
 
@@ -232,7 +235,7 @@ format-prefix-foreground =
 
 label =%{A3:gsimplecal & disown:}%date% %time%%{A} %{A}
 ;label = %date% %time%
-;format-background = #AC645E
+format-background = #132332
 label-foreground = ${root.foreground}
 
 format-padding = 
@@ -271,7 +274,7 @@ ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 
-;format-volume-background = #6B4D68 
+format-volume-background = #132332 
 click-right = exec pavucontrol & 
 
 
@@ -310,6 +313,9 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
+format-charging-background = #173D4A
+format-discharging-background = ${self.format-charging-background}
+format-full-background = ${self.format-charging-background}
 format-charging = <label-charging>
 ;format-charging-underline = #ffb52a
 
@@ -331,7 +337,7 @@ type = custom/script
 exec = ~/.config/polybar/scripts/check-network
 click-left = ~/scripts/check-network-es &
 click-right = ~/scripts/check-network-es &
-;format-background = #483A54
+format-background = #173D4A
 label-padding = 1
 tail = true
 
@@ -340,11 +346,11 @@ tail = true
 ; muestra la información de spotify
 type = custom/script
 interval = 1
-format-prefix = "  " 
+format-prefix = " " 
 format = "<label> "
 exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
 ;format-underline = #99B898
-;format-background = #99B898
+format-background = #173d4a
 format-foreground = ${colors.foreground}
 click-right = playerctl play-pause
 click-left = bspc desktop -f ^6 
@@ -374,7 +380,7 @@ format-prefix = " ﮋ "
 format-prefix-foreground = #F1C124
 label = "%output% " 
 ;format-underline = #D1B927
-;format-background = #E48A3C
+format-background = #173D4A
 format-foreground = 
 click-left = st -e sudo pacman -Syuu
 exec = ~/.config/polybar/scripts/updates-arch.sh
@@ -396,8 +402,8 @@ format-foreground = ${colors.foreground}
 type= custom/text
 content = "串"
 click-left = ~/scripts/apagar
-;content-background = #ABB2BF
-;content-foreground = #1E2127
+content-background = #173D4A
+;content-foregound = #1E2127
 content-foreground = ${colors.foreground}
 content-padding = 1
 
@@ -405,6 +411,7 @@ content-padding = 1
 type = custom/text
 content = " "
 click-left = copyq copy $(copyq read 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 | dmenu -i -p "Portapapeles" -l 15)
+content-background = #173D4A
 
 ;content-background = #483A54
 content-padding = 1
@@ -483,8 +490,7 @@ content-background = #BB0E132F
 
 [module/sep-mazul]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
+content = "%{T1}%{T-}"
 content-foreground = #132332
 content-background = #173D4A
 
@@ -495,6 +501,12 @@ content-font = 3
 content-foreground = #173D4A
 content-background = #132332
 
+[module/sep-deraz]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = #173D4A
+content-background = #132332
 
 [module/sep-wm]
 type = custom/text

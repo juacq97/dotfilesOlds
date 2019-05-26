@@ -1,5 +1,0 @@
-# Copyright (C) 2019 Jens Lechtenbörger
-# SPDX-License-Identifier: CC0-1.0
-
-#+INCLUDE: "bibliography-de.org" :minlevel 2
-#+INCLUDE: "license-template-de.org" :minlevel 2

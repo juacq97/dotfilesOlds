@@ -1,1 +1,0 @@
-("~/.repos/.dotfiles/" "~/Drive/sync/gtd/")
