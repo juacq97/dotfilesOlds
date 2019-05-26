@@ -7,3 +7,6 @@ then
 else
  qdbus org.kde.kdeconnect /modules/kdeconnect/devices/$(kdeconnect-cli -l --id-only) org.kde.kdeconnect.device.battery.charge 
 fi
+
+
+sudo pacman
