@@ -65,5 +65,5 @@ get_session(){
 }
 
 exec $(get_session)
-
+xsetroot -cursor_name left_ptr
 
