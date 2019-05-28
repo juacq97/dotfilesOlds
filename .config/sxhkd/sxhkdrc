@@ -124,6 +124,9 @@ XF86MonBrightnessDown
 control + alt + l
 	betterlockscreen --lock blur
 
+# Bloquear trackpad
+XF86TouchpadToggle
+	~/scripts/toggle-touchpad
 
 #matar compton
 super + o
