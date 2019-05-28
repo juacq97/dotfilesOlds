@@ -529,26 +529,26 @@ Muestra una pequeña ayuda cada vez que se presiona C-
 * Ivy
 Búsquedas y autocompletados en la UI de emacs
 #+BEGIN_SRC emacs-lisp
-(use-package ivy
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d ")
-  (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-                                (t . ivy--regex-fuzzy)))
-)
+;(use-package ivy
+;  :config
+;  (ivy-mode 1)
+;  (setq ivy-use-virtual-buffers t
+;        ivy-count-format "%d/%d ")
+;  (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+;                                (t . ivy--regex-fuzzy)))
+;)
 #+END_SRC
 * Counsel
   Como which key, pero para M-
 #+BEGIN_SRC emacs-lisp
-  (use-package counsel
-    :config
-    (counsel-mode 1)
-    :bind
-    ("M-x" . counsel-M-x)
-    )
-  (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
-  (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+;  (use-package counsel
+;    :config
+;    (counsel-mode 1)
+;    :bind
+;    ("M-x" . counsel-M-x)
+;    )
+;  (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+;  (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
 #+END_SRC
 * YASnippet
 #+BEGIN_SRC emacs-lisp
@@ -578,10 +578,10 @@ Opciones especiales con combinaciones especiales. Los hydras están configurados
 #+END_SRC
 * Swiper
 #+BEGIN_SRC emacs-lisp
-(use-package swiper
-  :ensure t
-  :bind (("C-s" . swiper))
-  )
+;(use-package swiper
+;  :ensure t
+;  :bind (("C-s" . swiper))
+;  )
 #+END_SRC
 * Magit
 #+BEGIN_SRC emacs-lisp
@@ -754,5 +754,29 @@ Muestra el color hexagesimal
     :config
     (beacon-mode 1)
     )
+
+#+END_SRC
+* Helm
+#+BEGIN_SRC emacs-lisp
+  (use-package helm
+    :ensure t
+    :init
+    (helm-mode 1)
+    :bind
+    (("C-s" . swiper-helm)
+     ("M-x" . helm-M-x)
+     ("C-x C-f" . helm-find-files)
+     ("C-c b" . helm-buffer-list)
+     )
+    )
+
+
+
+
+
+
+
+
+
 
 #+END_SRC
