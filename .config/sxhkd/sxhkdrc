@@ -51,6 +51,9 @@ super + f
 #      termite -e lf
        st -e ~/scripts/nwrap
 
+super + shift + f
+      thunar
+
 #Spotify
 super + F5
       spotify

@@ -343,7 +343,7 @@ El directorio es ~/.emacs.d/backups/
        :ensure t)
      (use-package oer-reveal
        :ensure t)
-     (setq org-re-reveal-root "file:///home/equipo/revealjs")
+     (setq org-re-reveal-root "file:///home/juan/.repos/reveal.js")
      (setq org-re-reveal-title-slide nil)
    #+END_SRC
  #+BEGIN_SRC emacs-lisp

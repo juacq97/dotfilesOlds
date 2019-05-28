@@ -91,15 +91,16 @@ compton -b --config ~/.config/compton.conf &
 xfce4-power-manager &
 pcloud &
 copyq &
-#conky -c ~/conkys/material &
-#conky -c ~/conkys/agenda &
 conky -c ~/conkys/reloj-texto &
-xautolock -locker i3lock-fancy -f Fantasque-Sans-Mono-Regular -t Contraseña, mode "default" &
 emacs --daemon &
-# polybar -c ~/.config/polybar/config example -r &
 ~/.config/polybar/polybar-monitors.sh &
 /usr/lib/kdeconnectd &
 redshift &
+xsetroot -cursor_name left_ptr &
+#conky -c ~/conkys/material &
+#conky -c ~/conkys/agenda &
+# xautolock -locker i3lock-fancy -f Fantasque-Sans-Mono-Regular -t Contraseña, mode "default" &
+# polybar -c ~/.config/polybar/config example -r &
 #pacmd load-module module-remap-sink sink_name=mono master=alsa_output.pci-0000_00_14.2.analog-stereo channels=2 channel_map=mono,mono &
 #xrdb -load ~/.Xresources &
 #numlockx on &
