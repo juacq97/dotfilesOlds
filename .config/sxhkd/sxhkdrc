@@ -16,8 +16,6 @@
 # Aplicaciones
 ########################
 
-
-
 #Terminal
 super + Return
       st
@@ -50,7 +48,6 @@ super + f
 #      termite -e ranger
 #      termite -e lf
        st -e ~/scripts/nwrap
-
 super + shift + f
       thunar
 
@@ -168,7 +165,7 @@ super + p
 super + F12
       ~/scripts/apagar
 
-# Nubes
+# Clipboard
 super + ctrl + p
       ~/scripts/clipboard
 
