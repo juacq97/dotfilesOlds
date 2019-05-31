@@ -55,7 +55,7 @@ alias ranger="~/.sources/ranger/ranger.py"
 #neofetch | lolcat
 #neofetch --ascii "$(fortune-es |cowsay -W 29)"
 #ufetch && fortune-es | cowsay -W 30
-ufetch-pepe
+ufetch-kirby
 #neofetch --ascii "$(fortune jojos eva|cowsay -W 29)" 
 alias E="SUDO_EDITOR=\"emacsclient -c -a emacs\" sudoedit"
 
@@ -74,8 +74,8 @@ export NNN_TMPFILE="/tmp/nnn"
 export NNN_OPENER=mimeopen
 
 bindkey -v
-WINEPREFIX="$HOME/.PlayOnLinux/wineprefix/mania:$WINEPREFIX"
-export WINEPREFIX
+#WINEPREFIX="$HOME/.PlayOnLinux/wineprefix/mania:$WINEPREFIX"
+#export WINEPREFIX
 
 n()
 {
