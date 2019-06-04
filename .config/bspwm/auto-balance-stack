@@ -1,0 +1,7 @@
+#! /bin/sh
+
+bspc subscribe node_add node_remove | 
+    while read -r line; do
+	bspc node biggest.tiled.local#@brother -B
+    done
+
