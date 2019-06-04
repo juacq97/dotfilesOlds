@@ -75,6 +75,7 @@ bspc rule -a Emacs:mu4e state=floating
 bspc rule -a Emacs:agenda state=floating
 bspc rule -a Steam state=floating
 
+bspc config external_rules_command ~/.config/bspwm/external_rules.sh
 #############
 #AUTOSTART
 #############
@@ -97,6 +98,7 @@ emacs --daemon &
 /usr/lib/kdeconnectd &
 redshift &
 xsetroot -cursor_name left_ptr &
+~/.config/bspwm/auto-balance-stack
 #conky -c ~/conkys/material &
 #conky -c ~/conkys/agenda &
 # xautolock -locker i3lock-fancy -f Fantasque-Sans-Mono-Regular -t Contraseña, mode "default" &

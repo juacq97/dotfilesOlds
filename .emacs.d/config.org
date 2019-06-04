@@ -538,6 +538,15 @@ Búsquedas y autocompletados en la UI de emacs
                                 (t . ivy--regex-fuzzy)))
 )
 #+END_SRC
+* Presient
+Historial para Ivy
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy-prescient
+    :ensure t
+    :config
+    (ivy-prescient-mode 1)
+    )
+#+END_SRC
 * Counsel
   Como which key, pero para M-
 #+BEGIN_SRC emacs-lisp

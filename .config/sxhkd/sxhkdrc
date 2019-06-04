@@ -175,6 +175,11 @@ super + ctrl + p
 # Manejo de ventanas
 ##########################
 
+# Alternar entre esquemas
+super + control + space
+      ~/.config/bspwm/toggle-stack
+
+
 #Cerrar ventana
 super + shift + q
       bspc node -c
@@ -261,3 +266,6 @@ super + {9,0}
         wm -h off; \
 	bspc node {older,newer} -f; \
 	bspc wm -h o n
+
+super + v
+      bspc node @parent -B

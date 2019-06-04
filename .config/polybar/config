@@ -63,6 +63,7 @@ locale = es_MX.UTF-8
 font-0 = Roboto:regular:size=10;1
 font-1 = Material Design Icons:style=Regular:pixelsize=12;1
 font-2 = Powerline Extra Symbols:style=Regular:size=15;4
+
 font-3 = Weather Icons:style=Regular:size=10;1
 font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 
@@ -143,7 +144,7 @@ ws-icon-6 = 7;
 ws-icon-7 = 8;
 
 ;inline-mode = true
-format = <label-state> <label-mode> 
+format = <label-state> <label-mode>
 
 label-focused = "瘝" 
 ;label-focused = %icon%
@@ -168,7 +169,8 @@ label-empty-foreground = ${colors.foreground}
 label-empty-padding = 0
 
 label-monocle = 﨣
-label-tiled = 
+label-tiled = ﮨ
+;label-tiled = 
 ;label-fullscreen = 
 label-floating = 
 ;label-pseudotiled = P
@@ -386,6 +388,11 @@ click-left = st -e sudo pacman -Syuu
 exec = ~/.config/polybar/scripts/updates-arch.sh
 interval = 600
 
+[module/bsp-layout]
+type = custom/script
+exec = ~/.config/polybar/scripts/bspwm-status
+tail = true
+format-background = #173d4a
 
 [module/redshift]
 type = custom/script
@@ -546,6 +553,7 @@ label-separator =
 type=custom/text
 content =
 click-left =thunar
+
 
 [settings]
 screenchange-reload = true
