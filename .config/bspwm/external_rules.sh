@@ -25,7 +25,7 @@ elif [ $num -eq 1 ]; then
 else
         # More than one window, split south
         echo "node=@/2"
-        echo "split_dir=south"
+        echo "split_dir=north"
         echo "split_ratio=0.5"
 fi
 

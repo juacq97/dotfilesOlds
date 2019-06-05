@@ -96,7 +96,7 @@ super + Print
 XF86AudioMute
 	pamixer -t
 XF86AudioRaiseVolume
-	pamixer -i 2
+	pamixer -i 2 & notify-send "Up"
 XF86AudioLowerVolume
 	pamixer -d 2
 XF86AudioPlay
