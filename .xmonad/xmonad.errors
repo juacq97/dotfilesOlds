@@ -1,0 +1,24 @@
+
+xmonad.hs:13:14: warning: [-Wdeprecations]
+    In the use of ‘defaultConfig’
+    (imported from XMonad, but defined in XMonad.Config):
+    Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
+   |
+13 |     xmonad $ defaultConfig
+   |              ^^^^^^^^^^^^^
+
+xmonad.hs:23:51: warning: [-Wdeprecations]
+    In the use of ‘defaultConfig’
+    (imported from XMonad, but defined in XMonad.Config):
+    Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
+   |
+23 |         , manageHook = manageDocks <+> manageHook defaultConfig
+   |                                                   ^^^^^^^^^^^^^
+
+xmonad.hs:24:51: warning: [-Wdeprecations]
+    In the use of ‘defaultConfig’
+    (imported from XMonad, but defined in XMonad.Config):
+    Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
+   |
+24 |         , layoutHook = avoidStruts  $  layoutHook defaultConfig
+   |                                                   ^^^^^^^^^^^^^

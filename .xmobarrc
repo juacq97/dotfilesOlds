@@ -1,0 +1,15 @@
+Config { font	     = "xft:Roboto:size=10"
+       , bgColor     = "#132332"
+       , fgColor     = "#ABB2BF"
+       , position    = TopW L 100
+       -- , overrideRedirect = False
+       , sepChar     = "%"
+       , alignSep    = "}{"
+       , template    = "%StdinReader% }{ %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF%"
+       , commands    = [ Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Date "%a %b %_d %l:%M" "date" 10
+                    , Run StdinReader
+                    ]
+       }
