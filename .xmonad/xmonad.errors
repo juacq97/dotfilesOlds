@@ -1,24 +1,23 @@
 
-xmonad.hs:13:14: warning: [-Wdeprecations]
+xmonad.hs:33:20: warning: [-Wdeprecations]
     In the use of ‘defaultConfig’
     (imported from XMonad, but defined in XMonad.Config):
     Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
    |
-13 |     xmonad $ defaultConfig
-   |              ^^^^^^^^^^^^^
+33 |     xmonad $ docks defaultConfig
+   |                    ^^^^^^^^^^^^^
 
-xmonad.hs:23:51: warning: [-Wdeprecations]
+xmonad.hs:44:51: warning: [-Wdeprecations]
     In the use of ‘defaultConfig’
     (imported from XMonad, but defined in XMonad.Config):
     Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
    |
-23 |         , manageHook = manageDocks <+> manageHook defaultConfig
+44 |         , manageHook = manageDocks <+> manageHook defaultConfig
    |                                                   ^^^^^^^^^^^^^
 
-xmonad.hs:24:51: warning: [-Wdeprecations]
-    In the use of ‘defaultConfig’
-    (imported from XMonad, but defined in XMonad.Config):
-    Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
-   |
-24 |         , layoutHook = avoidStruts  $  layoutHook defaultConfig
-   |                                                   ^^^^^^^^^^^^^
+xmonad.hs:108:15: warning: [-Wdeprecations]
+    In the use of ‘spacing’ (imported from XMonad.Layout.Spacing):
+    Deprecated: "Use spacingRaw instead."
+    |
+108 |       tiled = spacing 6 $ Tall nmaster delta ratio
+    |               ^^^^^^^

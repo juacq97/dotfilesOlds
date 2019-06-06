@@ -1,0 +1,12 @@
+#!/bin/sh
+
+id=$(kdeconnect-cli -a --id-only | awk '{print $1}')
+if [ "$id" == 0 ]
+then
+    echo ''
+else
+ qdbus org.kde.kdeconnect /modules/kdeconnect/devices/$(kdeconnect-cli -l --id-only) org.kde.kdeconnect.device.battery.charge 
+fi
+
+
+sudo pacman

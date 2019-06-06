@@ -1,4 +1,4 @@
-Config { font	     = "xft:Roboto:size=12, Material Design Icons:size=12"
+Config { font	     = "xft:Roboto:size=10, Material Design Icons:size=10"
        , bgColor     = "#132332"
        , fgColor     = "#ABB2BF"
        , position    = TopW L 100
