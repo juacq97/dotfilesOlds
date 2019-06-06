@@ -16,8 +16,15 @@ then
     systemctl reboot
 elif [ "$var" == ' Cerrar sesión' ]
 then
-    rm /tmp/bspwm-startup.lock
-    bspc quit
+    case $XDG_SESSION_DESKTOP in
+	bspwm)
+	    #echo "bspwm";;
+	    rm /tmp/bspwm-startup.lock
+	    bspc quit;;
+	xmonad)
+	    killall /home/juan/.xmonad/xmonad-x86_64-linux;;
+#	       echo "xmonad";;
+    esac
 elif [ "$var" == ' Cancelar' ]
 then
     echo cancelado
