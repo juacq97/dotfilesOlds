@@ -11,6 +11,8 @@ import XMonad.Layout.ZoomRow (zoomRow, zoomIn, zoomOut, zoomReset, ZoomMessage(Z
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
 import XMonad.Util.SpawnOnce
+-- import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.ManageHelpers
 
 
       -- Layouts modifiers
@@ -25,6 +27,7 @@ import XMonad.Layout.Reflect (reflectVert, reflectHoriz, REFLECTX(..), REFLECTY(
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
+import XMonad.Layout.Fullscreen
 
 
 main = do
@@ -41,14 +44,15 @@ main = do
         --, workspaces         = ["1","2","3","4","5","6"]
         , workspaces = myWorkspaces
         , startupHook = myStartupHook
-        , manageHook = manageDocks <+> manageHook defaultConfig
+        , manageHook = manageDocks <+> fullscreenManageHook <+> manageHook defaultConfig
+        , handleEventHook = fullscreenEventHook
         , layoutHook = myLayoutHook
         , logHook = dynamicLogWithPP xmobarPP
                     { ppOutput = hPutStrLn xmproc 
-                    , ppCurrent = xmobarColor "#c3e88d" ""  -- Current workspace in xmobar
+                    , ppCurrent = xmobarColor "#ffffff" ""  -- Current workspace in xmobar
                     , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
-                    , ppHidden = xmobarColor "#82AAFF" ""    -- Hidden workspaces in xmobar
-                    , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
+                    , ppHidden = xmobarColor "#FE3A3A" ""    -- Hidden workspaces in xmobar
+                    , ppHiddenNoWindows = xmobarColor "#ABB2BF" ""        -- Hidden workspaces (no windows)
                     , ppTitle = xmobarColor "#d0d0d0" "" . shorten 40     -- Title of active window in xmobar
                     -- , ppSep =  "<fc=#9AEDFE> : </fc>"                     -- Separators in xmobar
                     , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
@@ -100,7 +104,7 @@ myKeys =
   
 remKeys = ["M-p", "M-S-p", "M-S-c", "M-<Return>", "M-n", "M-e", "M-w", "M-r"]
   
-myLayoutHook = avoidStruts $ myLayout
+myLayoutHook = smartBorders . avoidStruts $ myLayout
 myLayout = tiled ||| Mirror tiled ||| Full
   where
 

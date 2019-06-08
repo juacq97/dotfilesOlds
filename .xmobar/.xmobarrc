@@ -1,5 +1,5 @@
 Config { font	     = "xft:Roboto:size=10, Material Design Icons:size=10"
-       , bgColor     = "#132332"
+       , bgColor     = "#323A45"
        , fgColor     = "#ABB2BF"
        , position    = TopW L 100
        -- , overrideRedirect = False
@@ -19,7 +19,6 @@ Config { font	     = "xft:Roboto:size=10, Material Design Icons:size=10"
              ["--template" , "<acstatus>"
              , "--Low"      , "10"        -- units: %
              , "--High"     , "80"        -- units: %
-             , "--low"      , "darkred"
                
              , "--" -- battery specific options
                -- discharging status

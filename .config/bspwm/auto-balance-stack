@@ -2,6 +2,7 @@
 
 bspc subscribe node_add node_remove | 
     while read -r line; do
+	bspc node @/ -E
 	bspc node biggest.tiled.local#@brother -B
 	bspc node -s biggest.local
     done;

@@ -125,6 +125,9 @@ control + alt + l
 XF86TouchpadToggle
 	~/scripts/toggle-touchpad
 
+super + control + F2
+      networkmanager_dmenu
+
 #matar compton
 super + o
      pkill compton 

@@ -59,7 +59,7 @@ nc="${reset}${bold}${green}"        # user and hostname
 ic="${reset}${bold}${white}"        # info
 c0="${reset}${bold}${green}"        # first color
 
-f="$(fortune-es)"
+f="$(fortune jojos)"
 ## OUTPUT
 
 cat <<EOF
