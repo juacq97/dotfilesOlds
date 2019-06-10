@@ -85,44 +85,41 @@ unsigned int tabspaces = 8;
 /* bg opacity */
 float alpha = 1;
 /* Terminal colors (16 first used in escape sequence) */
-static const char *colorname[] = {
+
+const char *colorname[] = {
 
   /* 8 normal colors */
-  [0] = "#1E2127", /* black   */
-  [1] = "#E06C75", /* red     */
-  [2] = "#98C379", /* green   */
-  [3] = "#D19A66", /* yellow  */
-  [4] = "#61AFEF", /* blue    */
-  [5] = "#C678DD", /* magenta */
-  [6] = "#56B6C2", /* cyan    */
-  [7] = "#ABB2BF", /* white   */
+  [0] = "#0b0a18", /* black   */
+  [1] = "#5D284F", /* red     */
+  [2] = "#5A475F", /* green   */
+  [3] = "#9B0830", /* yellow  */
+  [4] = "#E2122E", /* blue    */
+  [5] = "#9B2551", /* magenta */
+  [6] = "#E0254C", /* cyan    */
+  [7] = "#dda4a9", /* white   */
 
   /* 8 bright colors */
-  [8]  = "#5C6370", /* black   */
-  [9]  = "#E06C75", /* red     */
-  [10] = "#98C379", /* green   */
-  [11] = "#D19A66", /* yellow  */
-  [12] = "#61AFEF", /* blue    */
-  [13] = "#C678DD", /* magenta */
-  [14] = "#56B6C2", /* cyan    */
-  [15] = "#FFFFFF", /* white   */
+  [8]  = "#9a7276",  /* black   */
+  [9]  = "#5D284F",  /* red     */
+  [10] = "#5A475F", /* green   */
+  [11] = "#9B0830", /* yellow  */
+  [12] = "#E2122E", /* blue    */
+  [13] = "#9B2551", /* magenta */
+  [14] = "#E0254C", /* cyan    */
+  [15] = "#dda4a9", /* white   */
 
   /* special colors */
-  [256] = "#282c34", /* background */
-  [257] = "#ABB2BF", /* foreground */
-  [258] = "#5C6370"
+  [256] = "#0b0a18", /* background */
+  [257] = "#dda4a9", /* foreground */
+  [258] = "#dda4a9",     /* cursor */
 };
 
-/*
- * Default colors (colorname index)
- * foreground, background, cursor
- */
-
-unsigned int defaultbg = 256;
-unsigned int defaultfg = 257;
-unsigned int defaultcs = 258;
-unsigned int defaultrcs= 15;
-
+/* Default colors (colorname index)
+ * foreground, background, cursor */
+ unsigned int defaultbg = 0;
+ unsigned int defaultfg = 257;
+ unsigned int defaultcs = 258;
+ unsigned int defaultrcs= 258;
 /*
  * Colors used, when the specific fg == defaultfg. So in reverse mode this
  * will reverse too. Another logic would only make the simple feature too

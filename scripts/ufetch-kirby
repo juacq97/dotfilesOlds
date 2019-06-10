@@ -37,6 +37,14 @@ else
 	uitype='UI'
 fi
 
+## JOJOS MEME
+date=$(date +%A)
+if [ "$date" == "viernes" ]; then
+    f="$(fortune jojos)"
+else
+    f="$(fortune-es)"
+fi
+
 ## DEFINE COLORS
 
 # probably don't change these
@@ -59,7 +67,7 @@ nc="${reset}${bold}${green}"        # user and hostname
 ic="${reset}${bold}${white}"        # info
 c0="${reset}${bold}${green}"        # first color
 
-f="$(fortune jojos)"
+# f="$(fortune jojos)"
 ## OUTPUT
 
 cat <<EOF

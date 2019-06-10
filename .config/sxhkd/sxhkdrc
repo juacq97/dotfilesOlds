@@ -63,10 +63,7 @@ super + shift + e
       emacsclient -ne '(new-frame)'
       
 super + a
-      emacsclient -c -F '(quote (name . "agenda") (width  . 145) (height . 45) (left . 50) (top . 100))' -n -e "(agenda-frame)"
-
-super + shift + m
-      emacsclient -cn -F '(quote (name . "mu4e") (width  . 145) (height . 45) (left . 50) (top . 100))' -e '(mu4e)'
+      emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 40) (left . 250) (top . 60))' -n -e "(agenda-frame)"
 
 # emacs gtd
 super + c; c

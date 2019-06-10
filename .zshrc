@@ -1,10 +1,9 @@
   export ZSH="$HOME/.oh-my-zsh"
 
-
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.
-#(cat ~/.cache/wal/sequences &)
+(cat ~/.cache/wal/sequences &)
 
 
 ##### oh my zsh ###########
@@ -28,9 +27,9 @@ BULLETTRAIN_PROMPT_ORDER=(
 
 plugins=(
   git
-#  vi-mode
   zsh-vim-mode
 )
+
 BULLETTRAIN_CONTEXT_DEFAULT_USER=juan
 
 # CASE_SENSITIVE="true"
@@ -44,20 +43,21 @@ COMPLETION_WAITING_DOTS="true"
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
  HIST_STAMPS="mm/dd/yyyy"
 # ZSH_CUSTOM=/path/to/new-custom-folder
-source $ZSH/oh-my-zsh.sh
 
+source $ZSH/oh-my-zsh.sh
 PATH="$HOME/scripts:$PATH"
 export PATH
+
+###### DEFINIENDO ALIAS ######
 
 alias emc="emacsclient -c"
 alias emt="emacsclient -t"
 alias ranger="~/.sources/ranger/ranger.py"
-#neofetch | lolcat
-#neofetch --ascii "$(fortune-es |cowsay -W 29)"
-#ufetch && fortune-es | cowsay -W 30
-ufetch-kirby
-#neofetch --ascii "$(fortune jojos eva|cowsay -W 29)" 
 alias E="SUDO_EDITOR=\"emacsclient -c -a emacs\" sudoedit"
+alias dot="cd ~/.repos/.dotfiles"
+
+##### INICIAR JUNTO CON LA TERMINAL #####
+ufetch-kirby
 
 ###### NNN #################
 export NNN_TRASH=1
@@ -72,11 +72,7 @@ export NNN_PLAIN_FILTER=1
 export NNN_COPIER="/home/juan/scripts/nnn/copier"
 export NNN_TMPFILE="/tmp/nnn"
 export NNN_OPENER=mimeopen
-
-bindkey -v
-#WINEPREFIX="$HOME/.PlayOnLinux/wineprefix/mania:$WINEPREFIX"
-#export WINEPREFIX
-
+# Alias "n" para usar nnn con la opción cd at quit
 n()
 {
         nnn "$@"
@@ -86,3 +82,6 @@ n()
                 rm $NNN_TMPFILE
         fi
 }
+
+# VIM-MODE activado
+bindkey -v

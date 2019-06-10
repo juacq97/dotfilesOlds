@@ -8,11 +8,12 @@ static const char *fonts[] = {
 	"Roboto:Regular:12"
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
+
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { "#bbc2cf", "#1E2127" },
-	[SchemeSel] = { "#1E2127", "#bbc2cf" },
-	[SchemeOut] = { "#000000", "#00ffff" },
+	[SchemeNorm] = { "#dda4a9", "#0b0a18" },
+	[SchemeSel] = { "#dda4a9", "#5D284F" },
+	[SchemeOut] = { "#dda4a9", "#E0254C" },
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;

@@ -1,10 +1,12 @@
 #! /bin/sh
 
 
-if [ -e /tmp/BSPWM-SPIRAL-LOCK ]; then
-    rm /tmp/BSPWM-SPIRAL-LOCK
-    notify-send -a "bspwm" "Esquema master & stack"
-else
-    touch /tmp/BSPWM-SPIRAL-LOCK
+if [ -e /tmp/BSPWM-STACK-LOCK ]; then
+    rm /tmp/BSPWM-STACK-LOCK
+    ps -ef | grep auto-balance-stack | grep -v grep | awk '{print $2}' | xargs kill
     notify-send -a "bspwm" "Esquema spiral"
+else
+    touch /tmp/BSPWM-STACK-LOCK
+    notify-send -a "bspwm" "Esquema master & stack"
+    ~/.config/bspwm/auto-balance-stack &
 fi
