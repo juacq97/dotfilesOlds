@@ -65,7 +65,7 @@ locale = es_MX.UTF-8
 font-0 = Roboto:regular:size=10;1
 font-1 = Material Design Icons:style=Regular:pixelsize=12;1
 font-2 = Powerline Extra Symbols:style=Regular:size=15;4
-font-3 = Weather Icons:size=12;1
+font-3 = Weather Icons:size=12;3
 font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 

@@ -12,5 +12,6 @@ cd /tmp
 wget es.wttr.in/$loc.png
 
 sxiv -b -s h $loc.png
+rm $loc.png
 
 
