@@ -37,7 +37,7 @@ conky.config = {
 }
 
 conky.text = [[
-Agenda para el día de hoy:
+Agenda para la semana:
 ${font Roboto:light::size=12}
 ${execi 3600 ~/scripts/get_agenda.sh}
 ]]

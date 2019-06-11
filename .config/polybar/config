@@ -374,7 +374,6 @@ interval = 3600
 format-background = #5D284F
 click-left = ~/scripts/clima-img
 
-
 [module/kde]
 type = custom/script
 format-prefix = "  "
@@ -384,7 +383,6 @@ interval = 300
 ;format-background = #8D4143
 ;format-underline = #005688
 click-left = ~/scripts/kdeconnect-dmenu
-
 
 [module/arch]
 type = custom/script
@@ -397,23 +395,6 @@ format-foreground =
 click-left = st -e sudo pacman -Syuu
 exec = ~/.config/polybar/scripts/updates-arch.sh
 interval = 600
-
-[module/bsp-layout]
-type = custom/script
-exec = ~/.config/polybar/scripts/bspwm-status
-tail = true
-format-background = #173d4a
-
-[module/redshift]
-type = custom/script
-label = %output%
-exec = ~/.config/polybar/scripts/redshift-echo.sh
-click-left = ~/.config/polybar/scripts/redshift.sh
-tail = true
-;format-underline = #AA2805
-;format-background = #BF6715
-format-foreground = ${colors.foreground}
-
 
 [module/apagar]
 type= custom/text
@@ -431,23 +412,6 @@ click-left = copyq copy $(copyq read 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 | dme
 content-background = #5D284F
 ;content-background = #483A54
 content-padding = 1
-
-[module/apps]
-type = custom/text
-content = ""
-click-left = rofi -modi "window,run,drun" -show drun -theme material -lines 5 -show-icons -icon-theme Flat-remix Dark  
-
-
-
-[module/sep]
-type = custom/text
-content = " "
-
-
-[module/sep-menu]
-type = custom/text
-content = "%{T3} %{T-}"
-content-font = 3
 
 [module/sep-date]
 type = custom/text
@@ -588,13 +552,6 @@ menu-0-8-exec = bspc node -t fullscreen
 label-open = "  "
 label-close = " "
 label-separator = 
-
-
-[module/pcmanfm]
-type=custom/text
-content =
-click-left =thunar
-
 
 [settings]
 screenchange-reload = true

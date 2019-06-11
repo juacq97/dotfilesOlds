@@ -47,6 +47,7 @@ COMPLETION_WAITING_DOTS="true"
 source $ZSH/oh-my-zsh.sh
 PATH="$HOME/scripts:$PATH"
 export PATH
+export LANG=es_MX.UTF-8
 
 ###### DEFINIENDO ALIAS ######
 
@@ -55,6 +56,7 @@ alias emt="emacsclient -t"
 alias ranger="~/.sources/ranger/ranger.py"
 alias E="SUDO_EDITOR=\"emacsclient -c -a emacs\" sudoedit"
 alias dot="cd ~/.repos/.dotfiles"
+alias clima="curl es.wttr.in"
 
 ##### INICIAR JUNTO CON LA TERMINAL #####
 ufetch-kirby
