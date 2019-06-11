@@ -40,6 +40,7 @@ radius = 0
 fixed-center = true
 enable-ipc = true
 background = ${colors.background}
+
 foreground = ${colors.foreground}
 offset-x = 0
 
@@ -64,14 +65,14 @@ locale = es_MX.UTF-8
 font-0 = Roboto:regular:size=10;1
 font-1 = Material Design Icons:style=Regular:pixelsize=12;1
 font-2 = Powerline Extra Symbols:style=Regular:size=15;4
-font-3 = Weather Icons:style=Regular:size=10;1
+font-3 = Weather Icons:size=12;1
 font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left =  i3 bspwm xwindow sep-der
-modules-center = sep-iz date sep-der
-modules-right =  sep-iz spotify pulseaudio arch battery xkeyboard  red copy apagar 
+modules-left =  i3 bspwm xwindow sep-der sep-wm
+modules-center = sep-lm sep-lm date sep-wm sep-wm
+modules-right = sep-lm sep-iz spotify clima-icon clima sep-null pulseaudio arch battery xkeyboard  red copy apagar 
 
 tray-position = none
 tray-padding = 1
@@ -237,7 +238,7 @@ format-prefix-foreground =
 
 label =%{A3:gsimplecal & disown:}%date% %time%%{A} %{A}
 ;label = %date% %time%
-format-background = #5D284F
+format-background =
 label-foreground = ${root.foreground}
 
 format-padding = 
@@ -246,7 +247,7 @@ format-padding =
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = "<ramp-volume> <label-volume> " 
+format-volume = " <ramp-volume> <label-volume> " 
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
 ;format-volume-underline = #8b484e
@@ -352,17 +353,26 @@ format-prefix = " "
 format = "<label> "
 exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
 ;format-underline = #99B898
-format-background = #173d4a
+format-background = #5D284F
 format-foreground = ${colors.foreground}
 click-right = playerctl play-pause
 click-left = bspc desktop -f ^6 
 
+[module/clima-icon]
+type = custom/script
+exec = ~/.config/polybar/scripts/clima-icon
+interval = 3600
+format-background = #5D284F
+click-left = ~/scripts/clima-img
+label-font = 4
 
 [module/clima]
 type = custom/script
-exec = /home/equipo/.config/polybar/scripts/openweathermap-fullfeatured.sh
-interval = 600
-label-font = 4
+;exec = curl -s "es.wttr.in/LAP?format=%c+%t"
+exec = ~/.config/polybar/scripts/clima
+interval = 3600
+format-background = #5D284F
+click-left = ~/scripts/clima-img
 
 
 [module/kde]
@@ -419,7 +429,6 @@ type = custom/text
 content = " "
 click-left = copyq copy $(copyq read 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 | dmenu -i -p "Portapapeles" -l 15)
 content-background = #5D284F
-
 ;content-background = #483A54
 content-padding = 1
 
@@ -525,14 +534,21 @@ content-foreground = #0b0a18
 type = custom/text
 content ="%{T3}%{T-}"
 content-font = 3
-content-foreground = #182535
+content-foreground = #5d284f
+content-background =  
+
+[module/sep-lm]
+type = custom/text
+content ="%{T3}%{T-}"
+content-font = 3
+content-foreground = #5d284f
 content-background =  
 
 [module/sep-null]
 type = custom/text
 content = "  "
-content-foreground = #3E5981
-content-background = #3E5981
+content-foreground = #5d284f
+content-background = #5d284f
 
 [module/sep-der]
 type = custom/text

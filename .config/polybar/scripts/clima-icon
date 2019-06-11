@@ -1,0 +1,35 @@
+#! /bin/sh
+
+#localización
+initloc=$(curl -s ifconfig.co/city)
+if [ "$initloc" == "La Paz" ]; then
+    loc="LAP"
+else
+    loc=init-loc
+fi
+# obtener clima
+
+estado=$(curl -s "wttr.in/$loc?format=%C" )
+case $estado in
+    Unknown) icon="";;
+    Cloudy) icon="";;
+    Fog) icon="";;
+    "Heavy rain") icon="";;
+    "Heavy showers") icon="";;
+    "Heavy snow") icon="";;
+    "Heavy snow showers") icon="";;
+    "Light rain") icon="";;
+    "Light showers") icon="";;
+    "Light sleet") icon="";;
+    "Light sleet showers") icon="";;
+    "Light snow") icon="";;
+    "Light snow showers") icon="";;
+    "Partly cloudy") icon="";;
+    "Sunny") icon="";;
+    "Thundery heavy rain") icon="";;
+    "Thundery showers") icon="";;
+    "Thundery snow showers") icon="";;
+    "Very cloudy") icon="";;
+esac
+
+echo $icon
