@@ -312,8 +312,8 @@ El directorio es ~/.emacs.d/backups/
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "/home/juan/.emacs.d/modes/")
 (require 'citeproc-org)
-;  (citeproc-org-setup)
-;'(citeproc-org-locales-dir "/home/equipo/.emacs.d/csl-locales/")
+  (citeproc-org-setup)
+'(citeproc-org-locales-dir "/home/equipo/.emacs.d/csl-locales/")
 #+END_SRC
 ** "<el <tab>" = emacs-lisp
 #+BEGIN_SRC emacs-lisp
@@ -344,7 +344,7 @@ El directorio es ~/.emacs.d/backups/
      (use-package oer-reveal
        :ensure t)
      (setq org-re-reveal-root "file:///home/juan/.repos/reveal.js")
-     (setq org-re-reveal-title-slide nil)
+;     (setq org-re-reveal-title-slide nil)
    #+END_SRC
  #+BEGIN_SRC emacs-lisp
    ;(require 'ox-reveal)
@@ -764,6 +764,13 @@ Muestra el color hexagesimal
     (beacon-mode 1)
     )
 
+#+END_SRC
+* flymake-shellcheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flymake-shellcheck
+    :commands flymake-shellcheck-load
+    :init
+    (add-hook 'sh-mode-hook 'flymake-shellcheck-load))
 #+END_SRC
 * Helm
 #+BEGIN_SRC emacs-lisp

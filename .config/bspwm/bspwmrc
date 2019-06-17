@@ -74,6 +74,8 @@ bspc rule -a Emacs:capture state=floating
 bspc rule -a Emacs:mu4e state=floating
 bspc rule -a Emacs:agenda state=floating
 bspc rule -a Steam state=floating
+bspc rule -a 'st-256color:guy' state=floating
+bspc rule -a '*:cmus' state=floating
 
 bspc config external_rules_command ~/.config/bspwm/external_rules.sh
 #############
@@ -82,30 +84,30 @@ bspc config external_rules_command ~/.config/bspwm/external_rules.sh
 
 # Crea un archivo de bloqueo en /tmp al arrancar y ejecuta todo, en siguientes ejecuciones de bspwmrc, el archivo existirá, y por lo tanto, no se ejecutará nada, evitando instancias repetidas
 
-startup_lock_file=/tmp/bspwm-startup.lock
-if [ ! -f $startup_lock_file ]; then
-    echo "dummy" > $startup_lock_file
-   
-# Agregar las aplicaciones de autoarranque debajo de esta línea
-#==========================================================================================================================
-compton -b --config ~/.config/compton.conf &
-xfce4-power-manager &
-pcloud &
-copyq &
-conky -c ~/conkys/reloj-texto &
-emacs --daemon &
-~/.config/polybar/polybar-monitors.sh &
-/usr/lib/kdeconnectd &
-redshift &
-xsetroot -cursor_name left_ptr &
-~/.config/bspwm/auto-balance-stack
-#conky -c ~/conkys/material &
-#conky -c ~/conkys/agenda &
-# xautolock -locker i3lock-fancy -f Fantasque-Sans-Mono-Regular -t Contraseña, mode "default" &
-# polybar -c ~/.config/polybar/config example -r &
-#pacmd load-module module-remap-sink sink_name=mono master=alsa_output.pci-0000_00_14.2.analog-stereo channels=2 channel_map=mono,mono &
-#xrdb -load ~/.Xresources &
-#numlockx on &
-
-#==========================================================================================================================
-fi
+#startup_lock_file=/tmp/bspwm-startup.lock
+#if [ ! -f $startup_lock_file ]; then
+#    echo "dummy" > $startup_lock_file
+#   
+## Agregar las aplicaciones de autoarranque debajo de esta línea
+##==========================================================================================================================
+#compton -b --config ~/.config/compton.conf &
+#xfce4-power-manager &
+#pcloud &
+#copyq &
+#conky -c ~/conkys/reloj-texto &
+#emacs --daemon &
+#~/.config/polybar/polybar-monitors.sh &
+#/usr/lib/kdeconnectd &
+#redshift &
+#xsetroot -cursor_name left_ptr &
+##~/.config/bspwm/auto-balance-stack
+##conky -c ~/conkys/material &
+##conky -c ~/conkys/agenda &
+## xautolock -locker i3lock-fancy -f Fantasque-Sans-Mono-Regular -t Contraseña, mode "default" &
+## polybar -c ~/.config/polybar/config example -r &
+##pacmd load-module module-remap-sink sink_name=mono master=alsa_output.pci-0000_00_14.2.analog-stereo channels=2 channel_map=mono,mono &
+##xrdb -load ~/.Xresources &
+##numlockx on &
+#
+##==========================================================================================================================
+#fi

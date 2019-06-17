@@ -11,7 +11,7 @@ import XMonad.Layout.ZoomRow (zoomRow, zoomIn, zoomOut, zoomReset, ZoomMessage(Z
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
 import XMonad.Util.SpawnOnce
--- import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageHelpers
 
 
@@ -24,11 +24,11 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.Reflect (reflectVert, reflectHoriz, REFLECTX(..), REFLECTY(..))
-import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
-import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
-import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
-import XMonad.Layout.Fullscreen
-
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
+-- import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
+-- import XMonad.Layout.Fullscreen
+import XMonad.Hooks.SetWMName (setWMName)
 
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmobar/.xmobarrc"
@@ -44,8 +44,8 @@ main = do
         --, workspaces         = ["1","2","3","4","5","6"]
         , workspaces = myWorkspaces
         , startupHook = myStartupHook
-        , manageHook = manageDocks <+> fullscreenManageHook <+> manageHook defaultConfig
-        , handleEventHook = fullscreenEventHook
+        , manageHook = manageDocks <+> (isFullscreen --> doFullFloat) <+> manageHook defaultConfig
+        , handleEventHook = handleEventHook def <+> XMonad.Hooks.EwmhDesktops.fullscreenEventHook
         , layoutHook = myLayoutHook
         , logHook = dynamicLogWithPP xmobarPP
                     { ppOutput = hPutStrLn xmproc 
@@ -94,17 +94,16 @@ myKeys =
   , ("M-C-r", spawn "xmonad --recompile; xmonad --restart")
   , ("M-C-l", moveTo Next nonNSP)
   , ("M-C-h", moveTo Prev nonNSP)
-  , ("M-m", sendMessage ZoomFullToggle)
+  , ("M-m", sendMessage $ Toggle FULL)
   ] where nonNSP = WSIs (return (\ws -> W.tag ws /= "nsp"))
           nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
-         
-    
 
-
-  
 remKeys = ["M-p", "M-S-p", "M-S-c", "M-<Return>", "M-n", "M-e", "M-w", "M-r"]
   
-myLayoutHook = smartBorders . avoidStruts $ myLayout
+myLayoutHook = avoidStruts
+               $ smartBorders
+               $ mkToggle (NOBORDERS ?? FULL ?? EOT)
+               $ myLayout
 myLayout = tiled ||| Mirror tiled ||| Full
   where
 
@@ -132,3 +131,5 @@ myStartupHook = do
     spawnOnce "/usr/lib/kdeconnectd &"
     spawnOnce "redshift &"
     spawnOnce "xsetroot -cursor_name left_ptr &"
+    setWMName "LG3D"
+

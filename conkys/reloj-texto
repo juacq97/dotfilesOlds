@@ -46,7 +46,7 @@ ${font Roboto:light:size=12}• El uso de CPU actual es de ${cpu cpu0}%.
 • La memoria RAM ocupada es de $mem.
 • Quedan ${fs_free /home} libres de almacenamiento.
 
-Agenda para el día de hoy:
+Agenda para la semana:
 ${font Roboto:light::size=12}
 ${execi 3600 ~/scripts/get_agenda.sh}
 ]]

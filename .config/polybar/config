@@ -108,9 +108,7 @@ format-background = #5D284F
 type = internal/xkeyboard
 blacklist-0 = num lock 
 blacklist-1 = caps lock
-
 format-prefix = "  "
-
 format-background = #5D284F
 label-layout = %layout%
 ;label-layout-underline = ${colors.secondary}
@@ -118,18 +116,6 @@ label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
 label-indicator-underline = ${colors.secondary}
-
-
-[module/filesystem]
-type = internal/fs
-interval = 25
-
-mount-0 = /home
-
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
-label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
-
 
 [module/bspwm]
 type = internal/bspwm
@@ -186,7 +172,6 @@ format-background = #5D284F
 ; Separator in between workspaces
 ;label-separator = " "
 
-
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
@@ -221,7 +206,6 @@ label-urgent-background = ${module/bspwm.label-urgent-background}
 label-urgent-padding = ${module/bspwm.label-urgent-padding}
 
 ;label-separator ="%{T3} %{T-}"
-
 
 [module/date]
 type = internal/date
@@ -279,35 +263,6 @@ ramp-volume-2 = 
 
 format-volume-background = #5D284F
 click-right = exec pavucontrol & 
-
-
-[module/alsa]
-type = internal/alsa
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL
-label-volume-foreground = ${root.foreground}
-
-format-muted-prefix = " "
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = sound muted
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
 
 
 [module/battery]
@@ -369,7 +324,7 @@ label-font = 4
 [module/clima]
 type = custom/script
 ;exec = curl -s "es.wttr.in/LAP?format=%c+%t"
-exec = ~/.config/polybar/scripts/clima
+exec = curl -s "wttr.in/LAP?format=%t"
 interval = 3600
 format-background = #5D284F
 click-left = ~/scripts/clima-img
@@ -527,31 +482,6 @@ content = "%{T3}%{T-}"
 content-font = 3
 content-foreground = #5D284F
 content-background = 
-
-[module/menu-apps]
-type = custom/menu
-expand-right = true
-menu-0-5 = "  "
-menu-0-5-exec = bspc desktop -f prev.local
-menu-0-0 = " M "
-menu-0-0-exec = xdotool keydown super
-menu-0-1 = " M "
-menu-0-1-exec = xdotool keyup super
-menu-0-2 = "  "
-menu-0-2-exec = bspc desktop -l next
-menu-0-3 = "  "
-menu-0-3-exec = bspc node -c
-menu-0-4 = "  "
-menu-0-4-exec = bspc node -t floating
-menu-0-6 = "  "
-menu-0-6-exec = bspc desktop -f next.local
-menu-0-7 = "  "
-menu-0-7-exec = bspc node -t tiled
-menu-0-8 = "  "
-menu-0-8-exec = bspc node -t fullscreen
-label-open = "  "
-label-close = " "
-label-separator = 
 
 [settings]
 screenchange-reload = true

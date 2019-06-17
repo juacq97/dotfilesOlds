@@ -16,4 +16,4 @@ export NNN_PLAIN_FILTER=1
 export NNN_TMPFILE=/tmp/nnn
 export NNN_OPENER=mimeopen
 
-nnn
+nnn -n

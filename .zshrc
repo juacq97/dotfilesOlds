@@ -56,7 +56,7 @@ alias emt="emacsclient -t"
 alias ranger="~/.sources/ranger/ranger.py"
 alias E="SUDO_EDITOR=\"emacsclient -c -a emacs\" sudoedit"
 alias dot="cd ~/.repos/.dotfiles"
-alias clima="curl es.wttr.in"
+alias clima="curl -s es.wttr.in/LAP"
 
 ##### INICIAR JUNTO CON LA TERMINAL #####
 ufetch-kirby

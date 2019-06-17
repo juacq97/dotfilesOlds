@@ -93,7 +93,7 @@ super + Print
 XF86AudioMute
 	pamixer -t
 XF86AudioRaiseVolume
-	pamixer -i 2 & notify-send "Up"
+	pamixer -i 2 
 XF86AudioLowerVolume
 	pamixer -d 2
 XF86AudioPlay
@@ -195,7 +195,9 @@ super + m
       bspc desktop -l next
 
 #Monocle cambiar
-super + ctrl + {j,k}
+super + {j,k}
+      bspc node -f {next,prev}.local
+super + {south,north}
       bspc node -f {next,prev}.local
 
 #Intercambiar nodo con el más grande (en todos los escritorios)
@@ -211,10 +213,14 @@ super + ctrl + {m,y,z}
       bspc node -g {hidden,sticky,private}
 
 #Enfocar en dirección, con shift, mover.
-super + {_,shift + }{h,j,k,l}
-      bspc node -{f,s} {west,south,north,east}
-super + {_,shift + }{Left,Down,Up,Right}
-      bspc node -{f,s} {west,south,north,east}
+#super + {_,shift + }{h,j,k,l}
+#      bspc node -{f,s} {west,south,north,east}
+#super + {_,shift + }{Left,Down,Up,Right}
+#      bspc node -{f,s} {west,south,north,east}
+super + {_,shift + }{j,k}
+      bspc node -{f,s} {next,prev}.local
+super + {_,shift + }{south,north}
+      bspc node -{f,s} {next,prev}.local
 
 #Cambiar de escritorio
 super + ctrl + {h,l}		
@@ -231,6 +237,11 @@ super + {_,shift + }{1-9,0}
       bspc {desktop -f,node -d} '^{1-9,10}' --follow
 super + ctrl {1-9,0} 	  
       bspc node -d '^{1-9,10}'
+
+# Inrercambiar con el escritorio dado
+super + ctrl + alt {1-9,0}
+      bspc desktop -s '^{1-9,10}'
+      
 
 #Hacer más grande la ventana
 super + alt + ctrl {h,j,k,l}

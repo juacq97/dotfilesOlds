@@ -1,17 +1,11 @@
 #! /bin/sh
 
 #localización
-initloc=$(curl -s ifconfig.co/city)
-if [ "$initloc" == "La Paz" ]; then
-    loc="LAP"
-else
-    loc=init-loc
-fi
 # obtecdner clima
 cd /tmp
-wget es.wttr.in/$loc.png
+wget es.wttr.in/LAP.png
 
-sxiv -b -s h $loc.png
-rm $loc.png
+sxiv -b -s h LAP.png
+rm LAP.png
 
 

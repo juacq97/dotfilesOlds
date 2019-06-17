@@ -7,17 +7,17 @@ xmonad.hs:36:20: warning: [-Wdeprecations]
 36 |     xmonad $ docks defaultConfig
    |                    ^^^^^^^^^^^^^
 
-xmonad.hs:47:76: warning: [-Wdeprecations]
+xmonad.hs:47:86: warning: [-Wdeprecations]
     In the use of ‘defaultConfig’
     (imported from XMonad, but defined in XMonad.Config):
     Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
    |
-47 |         , manageHook = manageDocks <+> fullscreenManageHook <+> manageHook defaultConfig
-   |                                                                            ^^^^^^^^^^^^^
+47 |         , manageHook = manageDocks <+> (isFullscreen --> doFullFloat) <+> manageHook defaultConfig
+   |                                                                                      ^^^^^^^^^^^^^
 
-xmonad.hs:112:15: warning: [-Wdeprecations]
+xmonad.hs:111:15: warning: [-Wdeprecations]
     In the use of ‘spacing’ (imported from XMonad.Layout.Spacing):
     Deprecated: "Use spacingRaw instead."
     |
-112 |       tiled = spacing 6 $ Tall nmaster delta ratio
+111 |       tiled = spacing 6 $ Tall nmaster delta ratio
     |               ^^^^^^^

@@ -1,0 +1,61 @@
+--- dwm.c
++++ dwm.c
+@@ -234,6 +236,7 @@ static Monitor *wintomon(Window w);
+ static int xerror(Display *dpy, XErrorEvent *ee);
+ static int xerrordummy(Display *dpy, XErrorEvent *ee);
+ static int xerrorstart(Display *dpy, XErrorEvent *ee);
++static void xinitvisual();
+ static void zoom(const Arg *arg);
+ 
+ /* variables */
+@@ -1563,7 +1571,8 @@ setup(void)
+ 	sw = DisplayWidth(dpy, screen);
+ 	sh = DisplayHeight(dpy, screen);
+ 	root = RootWindow(dpy, screen);
+-	drw = drw_create(dpy, screen, root, sw, sh);
++	xinitvisual();
++	drw = drw_create(dpy, screen, root, sw, sh, visual, depth, cmap);
+ 	drw_load_fonts(drw, fonts, LENGTH(fonts));
+ 	if (!drw->fontcount)
+ 		die("no fonts could be loaded.\n");
+@@ -1587,12 +1596,12 @@ setup(void)
+ 	cursor[CurResize] = drw_cur_create(drw, XC_sizing);
+ 	cursor[CurMove] = drw_cur_create(drw, XC_fleur);
+ 	/* init appearance */
+-	scheme[SchemeNorm].border = drw_clr_create(drw, normbordercolor);
+-	scheme[SchemeNorm].bg = drw_clr_create(drw, normbgcolor);
+-	scheme[SchemeNorm].fg = drw_clr_create(drw, normfgcolor);
+-	scheme[SchemeSel].border = drw_clr_create(drw, selbordercolor);
+-	scheme[SchemeSel].bg = drw_clr_create(drw, selbgcolor);
+-	scheme[SchemeSel].fg = drw_clr_create(drw, selfgcolor);
++	scheme[SchemeNorm].border = drw_clr_create(drw, normbordercolor, borderalpha);
++	scheme[SchemeNorm].bg = drw_clr_create(drw, normbgcolor, baralpha);
++	scheme[SchemeNorm].fg = drw_clr_create(drw, normfgcolor, OPAQUE);
++	scheme[SchemeSel].border = drw_clr_create(drw, selbordercolor, borderalpha);
++	scheme[SchemeSel].bg = drw_clr_create(drw, selbgcolor, baralpha);
++	scheme[SchemeSel].fg = drw_clr_create(drw, selfgcolor, OPAQUE);
+ 	/* init bars */
+ 	updatebars();
+ 	updatestatus();
+@@ -1805,15 +1814,17 @@ updatebars(void)
+ 	Monitor *m;
+ 	XSetWindowAttributes wa = {
+ 		.override_redirect = True,
+-		.background_pixmap = ParentRelative,
++		.background_pixel = 0,
++		.border_pixel = 0,
++		.colormap = cmap,
+ 		.event_mask = ButtonPressMask|ExposureMask
+ 	};
+ 	for (m = mons; m; m = m->next) {
+ 		if (m->barwin)
+ 			continue;
+-		m->barwin = XCreateWindow(dpy, root, m->wx, m->by, m->ww, bh, 0, DefaultDepth(dpy, screen),
+-		                          CopyFromParent, DefaultVisual(dpy, screen),
+-		                          CWOverrideRedirect|CWBackPixmap|CWEventMask, &wa);
++		m->barwin = XCreateWindow(dpy, root, m->wx, m->by, m->ww, bh, 0, depth,
++		                          InputOutput, visual,
++		                          CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
+ 		XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
+ 		XMapRaised(dpy, m->barwin);
+ 	}
