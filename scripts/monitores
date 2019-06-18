@@ -1,0 +1,10 @@
+#! /bin/sh
+
+sel=$(echo -e "Derecha\nIzquierda\nEspejo" | dmenu -i -p "¿Dónde desea ubicar el monitor conectado?")
+    
+echo $sel
+case $sel in
+    Espejo) xrandr --output VGA-1 --same-as LVDS-1;;
+    Derecha) xrandr --output VGA-1 --right-of LVDS-1 && ~/.config/polybar/polybar-monitors.sh && nitrogen --restore;;
+    Izquierda) xrandr --output VGA-1 --left-of LVDS-1 && ~/.config/polybar/polybar-monitors.sh && nitrogen --restore;;
+esac
