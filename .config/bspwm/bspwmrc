@@ -15,6 +15,7 @@
 sxhkd &
 wal -R &
 nitrogen --restore &
+~/.config/polybar/polybar-monitors.sh &
 
 ##################
 #BSPWM CONFIG

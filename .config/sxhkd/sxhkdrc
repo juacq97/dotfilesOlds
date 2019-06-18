@@ -123,7 +123,7 @@ XF86TouchpadToggle
 	~/scripts/toggle-touchpad
 
 super + control + F2
-      networkmanager_dmenu
+      ~/scripts/check-network-es
 
 #matar compton
 super + o
@@ -169,6 +169,9 @@ super + F12
 super + ctrl + p
       ~/scripts/clipboard
 
+# Monitores
+super + ctrl + F1
+      ~/scripts/monitores
 
 
 ##########################
