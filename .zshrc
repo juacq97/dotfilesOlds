@@ -57,7 +57,7 @@ alias ranger="~/.sources/ranger/ranger.py"
 alias E="SUDO_EDITOR=\"emacsclient -c -a emacs\" sudoedit"
 alias dot="cd ~/.repos/.dotfiles"
 alias clima="curl -s es.wttr.in/LAP"
-
+alias conky-reloj= "killall conky && conky -c ~/conkys/reloj-texto"
 ##### INICIAR JUNTO CON LA TERMINAL #####
 ufetch-kirby
 
