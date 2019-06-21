@@ -16,6 +16,7 @@ sxhkd &
 wal -R &
 nitrogen --restore &
 ~/.config/polybar/polybar-monitors.sh &
+conky -c ~/conkys/reloj-texto &
 
 ##################
 #BSPWM CONFIG
