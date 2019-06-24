@@ -1,18 +1,18 @@
 
-xmonad.hs:36:20: warning: [-Wdeprecations]
+xmonad.hs:35:20: warning: [-Wdeprecations]
     In the use of ‘defaultConfig’
     (imported from XMonad, but defined in XMonad.Config):
     Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
    |
-36 |     xmonad $ docks defaultConfig
+35 |     xmonad $ docks defaultConfig  
    |                    ^^^^^^^^^^^^^
 
-xmonad.hs:47:86: warning: [-Wdeprecations]
+xmonad.hs:45:86: warning: [-Wdeprecations]
     In the use of ‘defaultConfig’
     (imported from XMonad, but defined in XMonad.Config):
     Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
    |
-47 |         , manageHook = manageDocks <+> (isFullscreen --> doFullFloat) <+> manageHook defaultConfig
+45 |         , manageHook = manageDocks <+> (isFullscreen --> doFullFloat) <+> manageHook defaultConfig
    |                                                                                      ^^^^^^^^^^^^^
 
 xmonad.hs:111:15: warning: [-Wdeprecations]

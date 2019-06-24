@@ -32,9 +32,7 @@ import XMonad.Hooks.SetWMName (setWMName)
 
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmobar/.xmobarrc"
-
-    xmonad $ docks defaultConfig
-  -- Configuraciones rice-tier
+    xmonad $ docks defaultConfig  
         { borderWidth = 3
         , terminal = "st"
         , normalBorderColor = "#1E2127"
@@ -45,11 +43,11 @@ main = do
         , workspaces = myWorkspaces
         , startupHook = myStartupHook
         , manageHook = manageDocks <+> (isFullscreen --> doFullFloat) <+> manageHook defaultConfig
-        , handleEventHook = handleEventHook def <+> XMonad.Hooks.EwmhDesktops.fullscreenEventHook
+        , handleEventHook = XMonad.Hooks.EwmhDesktops.fullscreenEventHook
         , layoutHook = myLayoutHook
         , logHook = dynamicLogWithPP xmobarPP
-                    { ppOutput = hPutStrLn xmproc 
-                    , ppCurrent = xmobarColor "#ffffff" ""  -- Current workspace in xmobar
+          { ppOutput = hPutStrLn xmproc 
+          , ppCurrent = xmobarColor "#ffffff" ""  -- Current workspace in xmobar
                     , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
                     , ppHidden = xmobarColor "#FE3A3A" ""    -- Hidden workspaces in xmobar
                     , ppHiddenNoWindows = xmobarColor "#ABB2BF" ""        -- Hidden workspaces (no windows)
@@ -61,6 +59,8 @@ main = do
                     -- ppTitle = xmobarColor "white" "" . shorten 50
                         }
         } `additionalKeysP` myKeys `removeKeysP` remKeys
+
+
 
 xmobarEscape = concatMap doubleLts
   where

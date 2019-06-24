@@ -189,8 +189,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#0b0a18" :foreground "#dda4a9" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "PfEd" :family "Fantasque Sans Mono"))))
- '(cursor ((t nil)))
+ '(default ((t (:inherit nil :stipple nil :background "#051018" :foreground "#bcbac2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "PfEd" :family "Fantasque Sans Mono"))))
+ '(cursor ((t (:background "#bcbac2"))))
  '(doom-modeline-evil-emacs-state ((t (:inherit doom-modeline-warning))))
  '(doom-modeline-evil-insert-state ((t (:inherit doom-modeline-urgent :foreground "sea green"))))
  '(doom-modeline-evil-motion-state ((t (:inherit doom-modeline-buffer-path :foreground "dark blue"))))
@@ -202,8 +202,8 @@
  '(hl-line ((t nil)))
  '(line-number ((t (:inherit default :foreground "#3f444a" :strike-through nil :underline nil :slant normal :weight normal))))
  '(line-number-current-line ((t (:inherit \#D8DEE9))))
- '(mode-line ((t (:background "#0b0a18" :foreground "white smoke" :box nil))))
- '(mode-line-inactive ((t (:background "#0b0a18" :foreground "#5B6268" :box nil))))
+ '(mode-line ((t (:background "#051018" :foreground "white smoke" :box nil))))
+ '(mode-line-inactive ((t (:background "#051018" :foreground "#5B6268" :box nil))))
  '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "gray45"))))
  '(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark violet"))))
  '(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "goldenrod"))))

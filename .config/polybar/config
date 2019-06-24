@@ -20,9 +20,9 @@
 ;============================
 
 [colors]
-background = #d90b0a18
+background = #d9051018
 background-alt = #444
-foreground = #ABB2BF
+foreground = #bcbac2
 foreground-alt = #555
 primary = #BF616A
 secondary = #e60053
@@ -65,14 +65,14 @@ locale = es_MX.UTF-8
 font-0 = Roboto:regular:size=10;1
 font-1 = Material Design Icons:style=Regular:pixelsize=12;1
 font-2 = Powerline Extra Symbols:style=Regular:size=15;4
-font-3 = Weather Icons:size=12;3
+font-3 = Weather Icons:size=12;2
 font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left =  i3 bspwm xwindow sep-der sep-wm
-modules-center = sep-lm sep-lm date sep-wm sep-wm
-modules-right = sep-lm sep-iz spotify clima-icon clima sep-null pulseaudio arch battery xkeyboard  red copy apagar 
+modules-left =   bspwm xwindow 
+modules-center = date
+modules-right = spotify clima-icon clima sep-null pulseaudio arch battery xkeyboard  red copy notif
 
 tray-position = none
 tray-padding = 1
@@ -101,7 +101,7 @@ cursor-scroll = ns-resize
 type = internal/xwindow
 format-padding = 2
 label = %title:0:30:...%
-format-background = #5D284F
+format-background = 
 
 
 [module/xkeyboard]
@@ -109,7 +109,7 @@ type = internal/xkeyboard
 blacklist-0 = num lock 
 blacklist-1 = caps lock
 format-prefix = "  "
-format-background = #5D284F
+format-background = 
 label-layout = %layout%
 ;label-layout-underline = ${colors.secondary}
 label-indicator-padding = 2
@@ -132,27 +132,30 @@ ws-icon-7 = 8;
 ;inline-mode = true
 format = <label-state> <label-mode>
 
-label-focused = "瘝" 
-;label-focused = %icon%
-;label-focused-foreground = #920B13
+;label-focused = "瘝" 
+label-focused = %icon%
+label-focused-foreground = #051018
+label-focused-background = #bcbac2
 ;label-focused-underline = #ABB2BF
 ;label-focused-overline = #ABB2BF
-label-focused-padding = 0
+label-focused-padding = 2
 
-;label-occupied = %icon%
-label-occupied = ""
-label-occupied-padding = 0
-;label-occupied-foreground = #920B13
-;label-occupied-overline = #ABB2BF
+label-occupied = %icon%
+;label-occupied = ""
+label-occupied-padding = 2
+label-occupied-foreground = 
+label-occupied-background = 
+label-occupied-overline = #bcbac2
 
 label-urgent = %icon%!
 label-urgent-background = 
-label-urgent-padding = 0
+label-urgent-padding = 2
 
-label-empty = "吏"
-;label-empty = %icon%
-label-empty-foreground = ${colors.foreground}
-label-empty-padding = 0
+;label-empty = "吏"
+label-empty = %icon%
+label-empty-foreground = 
+label-empty-background = 
+label-empty-padding = 2
 
 label-monocle = 﨣
 ;label-tiled = ﮨ
@@ -165,10 +168,9 @@ label-floating = 
 ;label-sticky = 
 ;label-private = 
 ;label-sticky-foreground = ${colors.purple}
-;label-locked-foreground = ${colors.moderate}
 ;label-private-foreground = ${colors.urgent}
 
-format-background = #5D284F
+format-background =
 ; Separator in between workspaces
 ;label-separator = " "
 
@@ -239,7 +241,7 @@ label-volume-foreground = ${root.foreground}
 label-muted =  %percentage%%
 label-muted-foreground = #666666
 label-muted-background = 
-format-muted-underline = #8b484e
+format-muted-underline =
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
 bar-volume-foreground-1 = #55aa55
@@ -261,9 +263,8 @@ ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 
-format-volume-background = #5D284F
+format-volume-background =
 click-right = exec pavucontrol & 
-
 
 [module/battery]
 type = internal/battery
@@ -271,7 +272,7 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
-format-charging-background = #5D284F
+format-charging-background =
 format-discharging-background = ${self.format-charging-background}
 format-full-background = ${self.format-charging-background}
 format-charging = <label-charging>
@@ -283,7 +284,7 @@ format-discharging = <label-discharging>
 format-full = <label-full>
 
 
-label-charging =  %percentage%%
+label-charging = "%percentage% %"
 label-discharging =  %percentage%%
 label-full =  %percentage%%
 
@@ -295,7 +296,7 @@ type = custom/script
 exec = ~/.config/polybar/scripts/check-network
 click-left = ~/scripts/check-network-es &
 click-right = ~/scripts/check-network-es &
-format-background = #5D284F
+format-background =
 label-padding = 1
 tail = true
 
@@ -317,7 +318,7 @@ click-left = bspc desktop -f ^6
 type = custom/script
 exec = ~/.config/polybar/scripts/clima-icon
 interval = 3600
-format-background = #5D284F
+format-background = 
 click-left = ~/scripts/clima-img
 label-font = 4
 
@@ -326,7 +327,7 @@ type = custom/script
 ;exec = curl -s "es.wttr.in/LAP?format=%c+%t"
 exec = curl -s "wttr.in/LAP?format=%t"
 interval = 3600
-format-background = #5D284F
+format-background =
 click-left = ~/scripts/clima-img
 
 [module/kde]
@@ -345,17 +346,25 @@ format-prefix = " ﮋ "
 format-prefix-foreground = #F1C124
 label = "%output% " 
 ;format-underline = #D1B927
-format-background = #5D284F
+format-background =
 format-foreground = 
 click-left = st -e sudo pacman -Syuu
 exec = ~/.config/polybar/scripts/updates-arch.sh
 interval = 600
 
+[module/notif]
+type = custom/script
+exec = ~/.config/polybar/scripts/no-molestar
+interval = 0
+tail = true
+click-left = ~/scripts/toggle-notification
+content-padding = 1
+
 [module/apagar]
 type= custom/text
 content = "串"
 click-left = ~/scripts/apagar
-content-background = #5D284F
+content-background = 
 ;content-foregound = #1E2127
 content-foreground = ${colors.foreground}
 content-padding = 1
@@ -364,9 +373,15 @@ content-padding = 1
 type = custom/text
 content = " "
 click-left = copyq copy $(copyq read 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 | dmenu -i -p "Portapapeles" -l 15)
-content-background = #5D284F
+content-background = 
 ;content-background = #483A54
 content-padding = 1
+
+[module/monitor]
+type = cuustom/script
+exec = ~/.config/polybar/scripts/monitor-nombre
+click-left = ~/scripts/monitores
+tail = true
 
 [module/sep-date]
 type = custom/text
@@ -466,8 +481,8 @@ content-background =
 [module/sep-null]
 type = custom/text
 content = "  "
-content-foreground = #5d284f
-content-background = #5d284f
+content-foreground = 
+content-background =
 
 [module/sep-der]
 type = custom/text
@@ -482,6 +497,11 @@ content = "%{T3}%{T-}"
 content-font = 3
 content-foreground = #5D284F
 content-background = 
+
+[module/|]
+type = custom/text
+content = "%{T3}|%{T}"
+content-font = 3
 
 [settings]
 screenchange-reload = true

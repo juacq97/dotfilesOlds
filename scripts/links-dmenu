@@ -5,7 +5,7 @@ sel=$(cat ~/scripts/links-list | dmenu -l 10 -i -p "URL/Buscar")
 #Se asegura que no sea un campo vacío
 if [ "$sel" != "" ]; then
     #Se asegura que la selección exista en el archivo links
-    if grep -Fxq "$sel" ~/scripts/links; then
+    if grep -Fxq "$sel" ~/scripts/links-list; then
 	page=$(echo $sel | cut -d: -f2-)
 	xdg-open $page
     else
