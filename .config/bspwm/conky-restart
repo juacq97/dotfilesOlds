@@ -1,0 +1,6 @@
+#! /bin/sh
+
+conky=~/conkys/reloj-texto
+killall -q conky
+
+conky -c $conky
