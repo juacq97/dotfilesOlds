@@ -1,6 +1,6 @@
 :root {
-    --hdr: #2F343F;		/* Header Background Color */
-	--bkg: #404552;		/* Background Color - Also located inside index.html <style> hard-coded */
+    --hdr: #263238;		/* Header Background Color */
+	--bkg: #263238;		/* Background Color - Also located inside index.html <style> hard-coded */
 	--frg: #383C4A;		/* Foreground Color */
 	--hgl: #00CC66;		/* Highlight Color */
 
