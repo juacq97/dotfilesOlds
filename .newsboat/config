@@ -1,5 +1,8 @@
+# CONFIGS
+
 auto-reload yes
 browser w3m %u
+datetime-format "%d/%b/%Y"
 
 macro i set browser "sxiv %u"; open-in-browser ; set browser "links %u"
 macro y set browser "mpv --ytdl-format=worst %u & disown"; open-in-browser ; set browser "links %u"
@@ -15,6 +18,6 @@ bind-key G end
 bind-key ^d pagedown
 bind-key ^u pageup
 
-color listfocus black yellow standout bold
-color listfocus_unread yellow default bold
+color listfocus red black standout bold
+color listfocus_unread red black standout bold
 color info red black bold

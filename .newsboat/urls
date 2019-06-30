@@ -1,63 +1,77 @@
 "query:TODO:unread = \"yes\""
+
 ==============
-NOTICIAS
+"query:NOTICIAS:tags # \"noticias\""
 ==============
-http://www.eluniversal.com.mx/rss/mexico.xml
-http://feeds.feedburner.com/proceso
-http://www.reforma.com/rss/portada.xml
-http://www.bcsnoticias.mx/feed/
-http://colectivopericu.wordpress.com/feed/
-http://www.elpais.com/rss/feed.html?feedId=1022
+
+http://www.eluniversal.com.mx/rss/mexico.xml "noticias"
+http://feeds.feedburner.com/proceso "noticias"
+http://www.elpais.com/rss/feed.html?feedId=1022 "noticias"
+
+"query:==== BCS ====:tags # \"bcs\""
+http://colectivopericu.wordpress.com/feed/ "noticias" "bcs"
+http://www.bcsnoticias.mx/feed/ "noticias" "bcs"
+
 ==============
-TECNOLOGÍA
+"query:TECNOLOGÍA:tags # \"tech\""
 ==============
-http://www.theverge.com/rss/full.xml
-http://www.xatakamovil.com/atom.xml "~Xataka movil"
-http://www.xatakandroid.com/index.xml "~Xataka android"
-http://es.engadget.com/rss.xml
-https://forum.manjaro.org/c/announcements/stable-updates.rss
-http://www.genbeta.com/index.xml "~Genbeta"
-http://www.elandroidelibre.com/feed/
-https://blog.xfce.org/feed
+
+http://www.theverge.com/rss/full.xml "tech"
+http://www.xatakamovil.com/atom.xml "~Xataka movil" "tech"
+http://www.xatakandroid.com/index.xml "~Xataka android" "tech"
+http://es.engadget.com/rss.xml "tech"
+http://www.genbeta.com/index.xml "~Genbeta" "tech"
+http://www.elandroidelibre.com/feed/ "tech"
+
+"query:==== LINUX ====:tags # \"linux\""
+https://www.archlinux.org/feeds/news/ "tech" "linux"
+https://www.archlinux.org/feeds/packages/ "tech" "linux"
+https://forum.manjaro.org/c/announcements/stable-updates.rss "tech" "linux"
+https://blog.xfce.org/feed "tech" "linux"
+
 ==============
-METAL
+"query:METAL:tags # \"metal\""
 ==============
-http://www.metalsucks.net/feed/rss/
-http://feeds2.feedburner.com/metalinjection
+
+http://www.metalsucks.net/feed/rss/ "metal"
+http://feeds2.feedburner.com/metalinjection "metal"
+
 ==============
-JUEGOS
+"query:JUEGOS:tags # \"games\""
 ==============
-http://www.teamfortress.com/rss.xml
-http://feeds.ign.com/ign/games-all
-http://www.vandal.net/cgi-bin/xml.cgi
-http://www.3djuegos.com/universo/rss/rss.php?plats=1-2-3-4-5-6-7&tipos=noticia-analisis-avance-video-imagenes-demo&fotos=no&limit=20
+
+http://www.teamfortress.com/rss.xml "games"
+http://feeds.ign.com/ign/games-all "games"
+http://www.vandal.net/cgi-bin/xml.cgi "games"
+http://www.3djuegos.com/universo/rss/rss.php?plats=1-2-3-4-5-6-7&tipos=noticia-analisis-avance-video-imagenes-demo&fotos=no&limit=20 "games"
+
 ==============
-YouTube
+"query:YOUTUBE:tags # \"youtube\""
 ==============
-https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "~Luke Smith"               
-https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg "~DistroTube"               
-https://www.youtube.com/feeds/videos.xml?channel_id=UCsnGwSIHyoYN0kiINAGUKxg "~Wolfgang's Channel"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCxkMDXQ5qzYOgXPRnOBrp1w "~Mike Zamansky"            
-https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw "~Linus Tech Tips"         
-https://www.youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ "~Chris Titus Tech"         
-https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw "~The Linux Experiment"     
-https://www.youtube.com/feeds/videos.xml?channel_id=UCRE3NFNtdjR96-H4QG4U1Fg "~Hex DSL"                  
-https://www.youtube.com/feeds/videos.xml?channel_id=UCZiL6BoryLWxyapUuVYW27g "~Average Linux User"       
-https://www.youtube.com/feeds/videos.xml?channel_id=UCfX55Sx5hEFjoC3cNs6mCUQ "~The Linux Foundation"     
-https://www.youtube.com/feeds/videos.xml?channel_id=UCfWJa4oMN7dno23KdxoGSAw "~Gabriele Rastello"        
-https://www.youtube.com/feeds/videos.xml?channel_id=UCQpkMe-SLNg0HwWCP3eeTxw "~Linux & Projects"         
-https://www.youtube.com/feeds/videos.xml?channel_id=UCfbGTpcJyEOMwKP-eYz3_fg "~Rainer König"             
-https://www.youtube.com/feeds/videos.xml?channel_id=UC1oVDo0rD0NfRcE3KP_qvyQ "~TheDracerGx"              
-https://www.youtube.com/feeds/videos.xml?channel_id=UCgc4xqIMDoiP4KOTFS21TJA "~Mega64"                   
-https://www.youtube.com/feeds/videos.xml?channel_id=UCBs2Y3i14e1NWQxOGliatmg "~Mother's Basement"        
-https://www.youtube.com/feeds/videos.xml?channel_id=UCF0SRAnWz56UBv-upYD0B5Q "~SwankyBox"                
-https://www.youtube.com/feeds/videos.xml?channel_id=UCQp2VLAOlvq142YN3JO3y8w "~John Kitchin"             
-https://www.youtube.com/feeds/videos.xml?channel_id=UCi8XrDg1bK_MJ0goOnbpTMQ "~budlabs"                  
-https://www.youtube.com/feeds/videos.xml?channel_id=UCcQsDUZiK1GWDcP7BpVO_kw "~Code Cast"                
-https://www.youtube.com/feeds/videos.xml?channel_id=UCFXc5nAao6554AIXlN9KgwQ "~Ceave Gaming"             
-https://www.youtube.com/feeds/videos.xml?channel_id=UCyS4xQE6DK4_p3qXQwJQAyA "~DidYouKnowGaming?"        
-https://www.youtube.com/feeds/videos.xml?channel_id=UCFItIX8SIs4zqhJCHpbeV1A "~Censored Gaming"          
-https://www.youtube.com/feeds/videos.xml?channel_id=UCq1jZXZJ3ULECQ9CntnNXhA "~Yoyo Fernández"           
-https://www.youtube.com/feeds/videos.xml?channel_id=UCddiUEpeqJcYeBxX1IVBKvQ "~The Verge"                
-https://www.youtube.com/feeds/videos.xml?channel_id=UCtByt51SvEuImGDC2bAiC6g "~Beta64"                   
-https://www.youtube.com/feeds/videos.xml?channel_id=UCcIe-_Hqzb3mAZyKEy1amDw "~A+Start"                  
+
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA linux youtube "~Luke Smith"               
+https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg linux youtube "~DistroTube"               
+https://www.youtube.com/feeds/videos.xml?channel_id=UCsnGwSIHyoYN0kiINAGUKxg linux youtube "~Wolfgang's Channel" 
+https://www.youtube.com/feeds/videos.xml?channel_id=UCxkMDXQ5qzYOgXPRnOBrp1w linux youtube "~Mike Zamansky"            
+https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw linux youtube "~Linus Tech Tips"         
+https://www.youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ linux youtube "~Chris Titus Tech"         
+https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw linux youtube "~The Linux Experiment"     
+https://www.youtube.com/feeds/videos.xml?channel_id=UCRE3NFNtdjR96-H4QG4U1Fg linux youtube "~Hex DSL"                  
+https://www.youtube.com/feeds/videos.xml?channel_id=UCZiL6BoryLWxyapUuVYW27g linux youtube "~Average Linux User"       
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfX55Sx5hEFjoC3cNs6mCUQ linux youtube "~The Linux Foundation"     
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfWJa4oMN7dno23KdxoGSAw linux youtube "~Gabriele Rastello"        
+https://www.youtube.com/feeds/videos.xml?channel_id=UCQpkMe-SLNg0HwWCP3eeTxw linux youtube "~Linux & Projects"         
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfbGTpcJyEOMwKP-eYz3_fg linux youtube "~Rainer König"             
+https://www.youtube.com/feeds/videos.xml?channel_id=UCQp2VLAOlvq142YN3JO3y8w linux youtube "~John Kitchin"             
+https://www.youtube.com/feeds/videos.xml?channel_id=UCi8XrDg1bK_MJ0goOnbpTMQ linux youtube "~budlabs"                  
+https://www.youtube.com/feeds/videos.xml?channel_id=UCq1jZXZJ3ULECQ9CntnNXhA linux youtube "~Yoyo Fernández"           
+https://www.youtube.com/feeds/videos.xml?channel_id=UC1oVDo0rD0NfRcE3KP_qvyQ animu youtube "~TheDracerGx"              
+https://www.youtube.com/feeds/videos.xml?channel_id=UCBs2Y3i14e1NWQxOGliatmg animu youtube "~Mother's Basement"        
+https://www.youtube.com/feeds/videos.xml?channel_id=UCF0SRAnWz56UBv-upYD0B5Q games youtube "~SwankyBox"                
+https://www.youtube.com/feeds/videos.xml?channel_id=UCgc4xqIMDoiP4KOTFS21TJA games youtube "~Mega64"                   
+https://www.youtube.com/feeds/videos.xml?channel_id=UCFXc5nAao6554AIXlN9KgwQ games youtube "~Ceave Gaming"             
+https://www.youtube.com/feeds/videos.xml?channel_id=UCyS4xQE6DK4_p3qXQwJQAyA games youtube "~DidYouKnowGaming?"        
+https://www.youtube.com/feeds/videos.xml?channel_id=UCFItIX8SIs4zqhJCHpbeV1A games youtube "~Censored Gaming"          
+https://www.youtube.com/feeds/videos.xml?channel_id=UCddiUEpeqJcYeBxX1IVBKvQ tech youtube "~The Verge"                
+https://www.youtube.com/feeds/videos.xml?channel_id=UCtByt51SvEuImGDC2bAiC6g games youtube "~Beta64"                   
+https://www.youtube.com/feeds/videos.xml?channel_id=UCcIe-_Hqzb3mAZyKEy1amDw games youtube "~A+Start"                  
