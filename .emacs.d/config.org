@@ -500,19 +500,21 @@ El directorio es ~/.emacs.d/backups/
 Un dashboard bonito
 #+BEGIN_SRC emacs-lisp
 
-    (use-package dashboard
-      :ensure t
-     :config
-      (dashboard-setup-startup-hook)
-      (setq dashboard-items '((agenda . 5)
-			      (projects . 5)
-			      (recents . 5)
-			      (registers . 5)))
-      (setq dashboard-startup-banner 3)
-      (setq dashboard-banner-logo-title "Pizza Mozzarella! Pizza Mozzarella! Rella Rella Rella Rella...")
-      (setq show-week-agenda-p t)
-      (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
-    )
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((agenda . 5)
+			    (projects . 5)
+			    (recents . 5)
+			    (registers . 5)))
+    (setq dashboard-startup-banner 3)
+    (setq dashboard-center-content t)
+    (setq dashboard-set-file-icons t)
+    (setq dashboard-banner-logo-title "Pizza Mozzarella! Pizza Mozzarella! Rella Rella Rella Rella...")
+    (setq show-week-agenda-p t)
+    (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
+  )
 #+END_SRC
 *** Mostrar el Dashboard al abrir un buffer de emacsclient
 #+BEGIN_SRC emacs-lisp
