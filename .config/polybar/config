@@ -222,8 +222,8 @@ format-prefix = " "
 format-prefix-foreground =
 ;format-underline = #5294E2
 
-label =%{A3:gsimplecal & disown:}%date% %time%%{A} %{A}
-;label = %date% %time%
+label =%{A3:bspc rule -a \* -o state=floating rectangle=200x200+583+25 && st -e sh -c "cal; read x" & disown:}%date% %time%%{A} %{A}
+;label = %date% %time%'
 format-background =
 label-foreground = ${root.foreground}
 
@@ -349,6 +349,7 @@ label = "%output% "
 format-background =
 format-foreground = 
 click-left = st -e sudo pacman -Syuu
+click-right = ~/scripts/pacman-dmenu
 exec = ~/.config/polybar/scripts/updates-arch.sh
 interval = 600
 

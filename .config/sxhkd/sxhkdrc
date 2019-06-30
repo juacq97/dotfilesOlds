@@ -71,6 +71,7 @@ super + c; c
 super + i
       emacsclient -c -n "~/Drive/sync/gtd/a.org"
 
+
 # Newsboat
 super + n
 #      st -e ~/scripts/newsboat-run
@@ -172,6 +173,10 @@ super + ctrl + p
 # Monitores
 super + ctrl + F1
       ~/scripts/monitores
+
+# Pacman-dmenu
+super + shift + p
+      ~/scripts/pacman-dmenu
 
 
 ##########################
