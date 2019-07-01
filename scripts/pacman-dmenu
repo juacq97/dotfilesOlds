@@ -23,6 +23,7 @@ case "$var" in
 		notify-send -a "Pacman" "Contraseña incorrecta" #si la contraseña es incorrecta, manda una notificación
 	    fi
 	fi;;
+
     "  Desinstalar")
 	sel=$(pacman -Qeq | dmenu -l 15 -p "")
 	if [ "$sel" == "" ]; then
