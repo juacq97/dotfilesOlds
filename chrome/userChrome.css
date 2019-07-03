@@ -7,7 +7,7 @@
 /* Modify these values to match your preferences */
 :root{
   --uc-window-control-width: 138px; /* Space reserved for window controls */
-  --uc-window-drag-space-width: 24px; /* Extra space reserved on both sides of the nav-bar to be able to drag the window */
+  --uc-window-drag-space-width: 0px; /* Extra space reserved on both sides of the nav-bar to be able to drag the window */
 }
 
 #nav-bar::before,
@@ -39,7 +39,7 @@ Window controls will be all wrong without it
 
 /* Modify these to change relative widths or default height */
 #navigator-toolbox{
-	--uc-navigationbar-width: 40vw;
+	--uc-navigationbar-width: 50vw;
 	--uc-toolbar-height: 40px;
 }
 /* Override for other densities */
