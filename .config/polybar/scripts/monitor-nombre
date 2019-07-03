@@ -1,0 +1,16 @@
+#! /bin/sh
+
+mon=$(bspc query -M --names)
+num=$(echo $mon | wc -l)
+
+#echo $mon
+#echo $num
+
+if [ $num = 1 ]; then
+    if [ "$mon" == "LVDS-1" ]; then
+	echo "M:1"
+    else
+	echo "M:2"
+    fi
+fi
+
