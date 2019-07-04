@@ -319,7 +319,8 @@ type = custom/script
 exec = ~/.config/polybar/scripts/clima-icon
 interval = 3600
 format-background = 
-click-left = ~/scripts/clima-img
+; click-left = ~/scripts/clima-img
+click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in/LAP; read x"
 label-font = 4
 
 [module/clima]
@@ -328,7 +329,8 @@ type = custom/script
 exec = curl -s "wttr.in/LAP?format=%t"
 interval = 3600
 format-background =
-click-left = ~/scripts/clima-img
+;click-left = ~/scripts/clima-img
+click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in/LAP; read x"
 
 [module/kde]
 type = custom/script
