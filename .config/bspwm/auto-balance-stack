@@ -7,11 +7,11 @@ bspc subscribe node_add node_remove |
 	if [ "$var" == "node_add" ]; then
 	    #	bspc node biggest.tiled.local -E
 	    bspc node biggest.tiled.local#@brother -B
-	    bspc node -s biggest.local
+#	    bspc node -s biggest.local
 	elif [ "$var" == "node_remove" ]; then
 	    bspc node @/ -E
 	    bspc node biggest.tiled.local#@brother -B
-	    bspc node -s biggest.local
+#	    bspc node -s biggest.local
 	fi
     done;
 

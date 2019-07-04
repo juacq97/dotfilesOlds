@@ -4,9 +4,11 @@
 if [ -e /tmp/BSPWM-STACK-LOCK ]; then
     rm /tmp/BSPWM-STACK-LOCK
     ps -ef | grep auto-balance-stack | grep -v grep | awk '{print $2}' | xargs kill
+    bspc config automatic_scheme spiral
     notify-send -a "bspwm" "Esquema spiral"
 else
     touch /tmp/BSPWM-STACK-LOCK
-    notify-send -a "bspwm" "Esquema master & stack"
     ~/.config/bspwm/auto-balance-stack &
+    bspc config automatic_scheme alternate
+    notify-send -a "bspwm" "Esquema master & stack"
 fi
