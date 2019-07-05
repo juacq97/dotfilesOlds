@@ -3,29 +3,28 @@
 #var=$(echo -e " Apagar\n Bloquear\n Reiniciar\n Cerrar sesión\n Cancelar" | rofi -dmenu -theme drofi -i -p "¿Desea salir?") 
 var=$(echo -e " Apagar\n Bloquear\n Reiniciar\n Cerrar sesión\n Cancelar" | dmenu -i -p "¿Desea salir?") 
 
-if [ "$var" == ' Apagar' ]
-then
-    rm /tmp/bspwm-startup.lock
-    systemctl poweroff
-elif [ "$var" == ' Bloquear' ]
-then
-    betterlockscreen --lock blur
-elif [ "$var" == ' Reiniciar' ]
-then
-    rm /tmp/bspwm-startup.lock
-    systemctl reboot
-elif [ "$var" == ' Cerrar sesión' ]
-then
-    case $XDG_SESSION_DESKTOP in
-	bspwm)
-	    #echo "bspwm";;
-	    rm /tmp/bspwm-startup.lock
-	    bspc quit;;
-	xmonad)
-	    killall /home/juan/.xmonad/xmonad-x86_64-linux;;
-#	       echo "xmonad";;
-    esac
-elif [ "$var" == ' Cancelar' ]
-then
-    echo cancelado
-fi
+case $var in
+    ' Apagar') 
+	rm /tmp/bspwm-startup.lock
+	systemctl poweroff;;
+
+    ' Bloquear')
+	betterlockscreen --lock blur;;
+
+    ' Reiniciar')
+	rm /tmp/bspwm-startup.lock
+	systemctl reboot;;
+
+    ' Cerrar sesión')
+	case $XDG_SESSION_DESKTOP in
+	    bspwm)
+		#echo "bspwm";;
+		rm /tmp/bspwm-startup.lock
+		bspc quit;;
+	    xmonad)
+		killall /home/juan/.xmonad/xmonad-x86_64-linux;;
+	    # echo "xmonad";;
+	esac;;
+	' Cancelar')
+	    exit 0
+esac
