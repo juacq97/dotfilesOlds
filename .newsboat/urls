@@ -30,6 +30,13 @@ https://forum.manjaro.org/c/announcements/stable-updates.rss "tech" "linux"
 https://blog.xfce.org/feed "tech" "linux"
 
 ==============
+"query:BLOGS:tags # \"blog\""
+==============
+https://qua.name/read "blog"
+https://write.privacytools.io/read "blog"
+https://write.privacytools.io/josealeon/ "blog" "tech"
+
+==============
 "query:METAL:tags # \"metal\""
 ==============
 
