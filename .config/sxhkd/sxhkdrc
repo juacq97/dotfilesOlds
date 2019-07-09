@@ -176,7 +176,7 @@ super + ctrl + F1
 
 # Pacman-dmenu
 super + shift + p
-      ~/scripts/pacman-dmenu
+      ~/scripts/pacwrap
 
 
 ##########################
@@ -211,6 +211,14 @@ super + {south,north}
 #Intercambiar nodo con el más grande (en todos los escritorios)
 super + g
       bspc node -s biggest.local
+
+
+# focus the older or newer node in the focus history
+super + {9,0}
+        wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h o n
+
 
 #Cambiar estado de ventana
 super + {t,shift + t,s,F11}
@@ -251,13 +259,6 @@ super + ctrl + alt {1-9,0}
       bspc desktop -s '^{1-9,10}'
       
 
-#Hacer más grande la ventana
-super + alt + ctrl {h,j,k,l}
-      bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
-#Hacer más pequeña la ventana
-super + alt + shift + {h,j,k,l}
-      bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 #Rotar la interfaz
 super + shift + {period,comma}
@@ -280,11 +281,31 @@ super + alt + {1-9}
 super + alt + space
       bspc node -p cancel
 
-# focus the older or newer node in the focus history
-super + {9,0}
-        wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h o n
-
 super + v
       bspc node @parent -B
+
+#####################
+# Tamaño de ventanas
+#####################
+
+#Hacer más grande la ventana
+super + alt + ctrl {h,j,k,l}
+      bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+#Hacer más pequeña la ventana
+super + alt + shift + {h,j,k,l}
+      bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# Cambiar tamaño de gaps
+super + bracket{left,right}
+      bspc config -d focused window_gap "$(($(bspc config -d focused window_gap) {-,+} 5 ))"
+
+# Reiniciar gaps
+super + ctrl + bracketleft
+      bspc config -d focused window_gap 10
+super + ctrl + bracketright
+      bspc config -d focused window_gap 10
+
+# Move floating windows with the arrow keys
+super + shift + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}

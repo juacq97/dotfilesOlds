@@ -14,12 +14,13 @@
     <property name="blank-on-battery" type="int" value="15"/>
     <property name="dpms-on-battery-sleep" type="uint" value="21"/>
     <property name="dpms-on-battery-off" type="uint" value="0"/>
-    <property name="blank-on-ac" type="int" value="31"/>
-    <property name="dpms-on-ac-sleep" type="uint" value="40"/>
+    <property name="blank-on-ac" type="int" value="34"/>
+    <property name="dpms-on-ac-sleep" type="uint" value="0"/>
     <property name="dpms-on-ac-off" type="uint" value="0"/>
     <property name="lid-action-on-battery" type="uint" value="1"/>
     <property name="logind-handle-lid-switch" type="bool" value="true"/>
     <property name="lid-action-on-ac" type="uint" value="1"/>
     <property name="lock-screen-suspend-hibernate" type="bool" value="true"/>
+    <property name="dpms-enabled" type="bool" value="true"/>
   </property>
 </channel>

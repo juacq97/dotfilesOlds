@@ -1,14 +1,14 @@
-  export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.
-(cat ~/.cache/wal/sequences &)
+# (cat ~/.cache/wal/sequences &)
 
 
 ##### oh my zsh ###########
 ZSH_THEME="spaceship"
-SPACESHIP_CHAR_SYMBOL=" "
+SPACESHIP_CHAR_SYMBOL=" "
 SPACESHIP_GIT_PREFIX="en "
 SPACESHIP_GIT_SYMBOL=
 SPACESHIP_GIT_BRANCH_PREFIX=" "
@@ -59,7 +59,7 @@ alias dot="cd ~/.repos/.dotfiles"
 alias clima="curl -s es.wttr.in/LAP"
 alias conky-reloj= "killall conky && conky -c ~/conkys/reloj-texto"
 ##### INICIAR JUNTO CON LA TERMINAL #####
-ufetch-kirby
+ufetch-arch
 
 ###### NNN #################
 export NNN_TRASH=1
@@ -87,3 +87,6 @@ n()
 
 # VIM-MODE activado
 bindkey -v
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+

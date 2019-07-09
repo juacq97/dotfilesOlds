@@ -1,4 +1,4 @@
-=========================================================
+;=========================================================
 ;
 ;                   ██          ██                      
 ; ██████           ░██  ██   ██░██                      
@@ -20,9 +20,9 @@
 ;============================
 
 [colors]
-background = #d9051018
+background = #d90a0709
 background-alt = #444
-foreground = #bcbac2
+foreground = #e6c9c4
 foreground-alt = #555
 primary = #BF616A
 secondary = #e60053
@@ -44,7 +44,7 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 offset-x = 0
 
-line-size = 1
+line-size = 2
 line-color = 
 border-bottom-size = 0
 border-top-size = 0
@@ -116,6 +116,7 @@ label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
 label-indicator-underline = ${colors.secondary}
+format-underline = #e6c9c4
 
 [module/bspwm]
 type = internal/bspwm
@@ -134,8 +135,8 @@ format = <label-state> <label-mode>
 
 ;label-focused = "瘝" 
 label-focused = %icon%
-label-focused-foreground = #051018
-label-focused-background = #bcbac2
+label-focused-foreground = #0a0709
+label-focused-background = #e6c9c4
 ;label-focused-underline = #ABB2BF
 ;label-focused-overline = #ABB2BF
 label-focused-padding = 2
@@ -145,7 +146,7 @@ label-occupied = %icon%
 label-occupied-padding = 2
 label-occupied-foreground = 
 label-occupied-background = 
-label-occupied-overline = #bcbac2
+label-occupied-underline = #e6c9c4
 
 label-urgent = %icon%!
 label-urgent-background = 
@@ -220,7 +221,7 @@ time-alt = "%H:%M:%S "
 
 format-prefix = " "
 format-prefix-foreground =
-;format-underline = #5294E2
+format-underline = #e6c9c4
 
 label =%{A3:bspc rule -a \* -o state=floating rectangle=200x200+583+25 && st -e sh -c "cal; read x" & disown:}%date% %time%%{A} %{A}
 ;label = %date% %time%'
@@ -258,6 +259,7 @@ bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
+format-volume-underline = #e6c9c4
 
 ramp-volume-0 = 
 ramp-volume-1 = 
@@ -281,6 +283,10 @@ format-charging = <label-charging>
 format-discharging = <label-discharging>
 ;format-discharging-underline = ${self.format-charging-underline}
 
+format-charging-underline = #e6c9c4
+format-discharging-underline = ${self.format-charging-underline}
+format-full-underline = ${self.format-charging-underline}
+
 format-full = <label-full>
 
 
@@ -299,6 +305,7 @@ click-right = ~/scripts/check-network-es &
 format-background =
 label-padding = 1
 tail = true
+format-underline = #e6c9c4
 
 
 [module/spotify]
@@ -313,6 +320,7 @@ format-background =
 format-foreground = ${colors.foreground}
 click-right = playerctl play-pause
 click-left = bspc desktop -f ^6 
+format-underline = #e6c9c4
 
 [module/clima-icon]
 type = custom/script
@@ -322,6 +330,7 @@ format-background =
 ; click-left = ~/scripts/clima-img
 click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in/LAP; read x"
 label-font = 4
+format-underline = #e6c9c4
 
 [module/clima]
 type = custom/script
@@ -331,6 +340,7 @@ interval = 3600
 format-background =
 ;click-left = ~/scripts/clima-img
 click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in/LAP; read x"
+format-underline = #e6c9c4
 
 [module/kde]
 type = custom/script
@@ -354,6 +364,7 @@ click-left = st -e sudo pacman -Syuu
 click-right = ~/scripts/pacman-dmenu
 exec = ~/.config/polybar/scripts/updates-arch.sh
 interval = 600
+format-underline = #e6c9c4
 
 [module/notif]
 type = custom/script
@@ -362,6 +373,7 @@ interval = 0
 tail = true
 click-left = ~/scripts/toggle-notification
 content-padding = 1
+format-underline = #e6c9c4
 
 [module/apagar]
 type= custom/text
@@ -379,6 +391,7 @@ click-left = copyq copy $(copyq read 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 | dme
 content-background = 
 ;content-background = #483A54
 content-padding = 1
+content-underline = #e6c9c4
 
 [module/monitor]
 type = cuustom/script
@@ -486,6 +499,7 @@ type = custom/text
 content = "  "
 content-foreground = 
 content-background =
+content-underline = #e6c9c4
 
 [module/sep-der]
 type = custom/text
