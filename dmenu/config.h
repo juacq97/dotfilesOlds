@@ -9,12 +9,8 @@ static const char *fonts[] = {
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 
-static const char *colors[SchemeLast][2] = {
-	/*     fg         bg       */
-	[SchemeNorm] = { "#e6c9c4", "#0a0709" },
-	[SchemeSel] = { "#0a0709", "#e6c9c4" },
-	[SchemeOut] = { "#e6c9c4", "#AF8C97" },
-};
+#include "/home/juan/.cache/wal/colors-wal-dmenu.h"
+
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;
 static unsigned int lineheight = 25;         /* -h option; minimum height of a menu line     */
