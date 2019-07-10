@@ -290,11 +290,11 @@ super + v
 
 #Hacer más grande la ventana
 super + alt + ctrl {h,j,k,l}
-      bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+      bspc node -z {left -5 0,bottom 0 5,top 0 -5,right 5 0}
 
 #Hacer más pequeña la ventana
 super + alt + shift + {h,j,k,l}
-      bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+      bspc node -z {right - 0,top 0 5,bottom 0 -5,left 5 0}
 
 # Cambiar tamaño de gaps
 super + bracket{left,right}

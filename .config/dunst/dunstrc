@@ -1,6 +1,11 @@
+[colors]
+    background	= "#0a0709"
+    foreground 	= "#e6c9c4"
+    frame_color = "#e6c9c4"
+
 [global]
-    frame_width = 2
-    frame_color = "#5294E2"
+    frame_width = 4
+
     font = Roboto 11
     
     # Allow a small subset of html markup:
@@ -67,7 +72,7 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "0x4-25+25"
+    geometry = "450x4-25+25"
     
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -76,7 +81,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing windowmanager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 0 
+    transparency = 20 
     
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -180,20 +185,20 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#313D4A"
-    foreground = "#F9FAF9"
-    frame_color = "#9DB788"
+    background 	= ${colors.background}
+    foreground 	= ${colors.foreground}
+    frame_color = ${colors.frame_color}
     timeout = 5 
 
 [urgency_normal]
-    background = "#313D4A"
-    foreground = "#F9FAF9"
-    frame_color = "#2E2E2D"
+    background	= ${colors.background}
+    foreground 	= ${colors.foreground}
+    frame_color = ${colors.frame_color}
     timeout = 5
 
 [urgency_critical]
-    background = "#313D4A"
-    foreground = "#F9FAF9"
+    background	= ${colors.background}
+    foreground 	= ${colors.foreground}
     frame_color = "#D62929"
     timeout = 0
 
@@ -290,6 +295,13 @@
      category = weechat.PM
      background = "#D53B84"
      foreground = "#FFFFFF"
+
+[Spotify]
+	appname = Spotify
+	frame_color = "#30AB70"
+
+
+
 #
 #[CMUS]
 #    appname = CMUS

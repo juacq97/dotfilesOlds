@@ -72,7 +72,7 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;====== MODULOS =========
 modules-left =   bspwm xwindow 
 modules-center = date
-modules-right = spotify clima-icon clima sep-null pulseaudio arch battery xkeyboard  red copy notif
+modules-right = spotify sep-null clima-icon clima sep-null pulseaudio arch battery xkeyboard  red copy notif
 
 tray-position = none
 tray-padding = 1
@@ -290,7 +290,7 @@ format-full-underline = ${self.format-charging-underline}
 format-full = <label-full>
 
 
-label-charging = "%percentage% %"
+label-charging = "%percentage%%"
 label-discharging =  %percentage%%
 label-full =  %percentage%%
 
