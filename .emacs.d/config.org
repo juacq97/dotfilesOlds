@@ -791,16 +791,21 @@ Muestra el color hexagesimal
 
 * Writeroom
 #+BEGIN_SRC emacs-lisp
-  (use-package writeroom-mode
+    (use-package writeroom-mode
+      :ensure t
+      )
+  (global-set-key [f6] 'writeroom-mode
+  )
+#+END_SRC
+* ewal
+#+BEGIN_SRC emacs-lisp
+  (use-package ewal
     :ensure t
     )
-#+END_SRC
-* writefreely
-#+BEGIN_SRC emacs-lisp
-  (use-package writefreely
-    :after t
-    :ensure t
-)    
-    (setq writefreely-instance-url "https://qua.name")
-    (setq writefreely-instance-api-endpoint "https://qua.name/api")
+
+  (when (ewal-load-wal-colors)
+    (custom-set-faces
+     `(line-number ((t (:foreground ,(ewal-get-color 'magenta 4)))))))
+  (load-theme 'ewal-spacemacs-modern t)
+  (ewal-evil-cursors-get-spacemacs-colors :apply t)
 #+END_SRC
