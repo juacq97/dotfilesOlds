@@ -32,9 +32,9 @@ https://blog.xfce.org/feed "tech" "linux"
 ==============
 "query:BLOGS:tags # \"blog\""
 ==============
-https://qua.name/read "blog"
-https://write.privacytools.io/read "blog"
-https://write.privacytools.io/josealeon/ "blog" "tech"
+https://qua.name/read/feed/ "blog"
+https://write.privacytools.io/read/feed/ "blog"
+https://write.privacytools.io/josealeon/feed "blog" "tech"
 
 ==============
 "query:METAL:tags # \"metal\""

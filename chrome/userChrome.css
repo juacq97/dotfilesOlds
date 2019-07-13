@@ -562,16 +562,77 @@ font-weight: normal!important;
 
 }
 
+/*hide verified */
+#identity-box:not(:hover):not([open]) > :not(#connection-icon) {display: none}
 
 
 
+/* Page action-buttons "slide in" when cursor is on top of them and don't reserve space when not used */
+
+#page-action-buttons > *[class^=urlbar-icon]{
+  margin-inline-end: -26px;
+  opacity: 0;
+  transition: margin-inline-end 200ms linear, opacity 200ms linear;
+}
+:root[uidensity="compact"] #page-action-buttons > *[class^=urlbar-icon]{ margin-inline-end: -22px; }
+#page-action-buttons:hover > *[class^=urlbar-icon],
+#page-action-buttons > *[class^=urlbar-icon][open],
+#page-action-buttons > *[class^=urlbar-icon][open] ~ *[class^=urlbar-icon]{
+  opacity: 1;
+  margin-inline-end: 0px !important;
+}
 
 
 
+/* Create a circular placeholder for toolbarbutton and downscale to hide them */
+
+/* Create a placeholder for buttons */
+toolbar .toolbarbutton-1:not([open]),
+.titlebar-button,
+#tabbrowser-tabs toolbarbutton{
+  background-image: radial-gradient(circle at center, var(--lwt-toolbarbutton-icon-fill,currentColor) 0,var(--lwt-toolbarbutton-icon-fill,currentColor) 10%,transparent 15% );
+}
+/* Hide placeholder on hover */
+toolbar:hover + toolbar .toolbarbutton-1,
+vbox:hover + toolbar .toolbarbutton-1,
+toolbar:hover .toolbarbutton-1,
+#tabbrowser-tabs:hover toolbarbutton,
+.titlebar-buttonbox:hover > .titlebar-button{ background-image: none }
 
 
+toolbar .toolbarbutton-1 > *,
+.titlebar-button > *,
+#tabbrowser-tabs toolbarbutton > *{
+  transform: scale(0);
+  transition: transform 82ms linear !important;
+}
 
+toolbar:hover + toolbar .toolbarbutton-1 > *,
+vbox:hover + toolbar .toolbarbutton-1 > *,
+toolbar:hover .toolbarbutton-1 > *,
+.toolbarbutton-1[open] > *,
+.titlebar-buttonbox:hover > .titlebar-button > *,
+#tabbrowser-tabs:hover toolbarbutton > *{
+  transform: scale(1)
+}
 
+/* Urlbar icons, this way they show colors is applicable */
+.urlbar-icon{ transition: transform 82ms linear !important; }
+#urlbar:not(:hover) .urlbar-icon:not([open]){ transform: scale(0.3) }
+
+/* The menu button has some margin on non-compact density which creates annnoying transitions */
+/* Lets remove that as well as border since this is minimal style anyway */
+#PanelUI-button{ border-left: 0px !important; margin-left: 0px !important; }
+
+/* Add a glow-effect to some buttons when it has some "alert" */
+#nav-bar:not(:hover) > #PanelUI-button > #PanelUI-menu-button[badge-status],
+#navigator-toolbox:not(:hover) #downloads-button[attention]{
+  filter: brightness(2) drop-shadow(0 0 3px orange) drop-shadow(0 0 1px orange);
+}
+#nav-bar:not(:hover) > #PanelUI-button > #PanelUI-menu-button[badge-status^="update"],
+#navigator-toolbox:not(:hover) #downloads-button[attention="success"]{
+  filter: brightness(2) drop-shadow(0 0 2px cyan) drop-shadow(0 0 1px cyan);
+}
 
 
 
