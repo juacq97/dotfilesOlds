@@ -62,7 +62,7 @@ const CONFIG = {
     {
       category: 'Tech',
       name: 'Manjaro',
-      key: 'm',
+      key: 'mj',
       url: 'https://manjaro.org/',
       search: '/search?q={}',
       color: 'linear-gradient(135deg, #169F84, #44873C)',
@@ -94,11 +94,11 @@ const CONFIG = {
 
     {
       category: 'Fun',
-      name: 'Facebook',
-      key: 'f',
-      url: 'https://www.facebook.com',
-      color: '#3663A1',
-      icon: 'facebook',
+      name: 'Mastodon',
+      key: 'm',
+	url: 'https://mastodon.social',
+      color: '#444B5D',
+      icon: 'mastodon',
       quickLaunch: false,
     },
 

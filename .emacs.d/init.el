@@ -543,8 +543,17 @@
    `(line-number ((t (:foreground ,(ewal-get-color 'magenta 4)))))))
 (load-theme 'ewal-spacemacs-modern t)
 
-
-
+;;;; Writefreely ;;;;
+(use-package writefreely
+    :after org
+    :ensure ox-gfm
+    :config
+    (setq
+     writefreely-instance-url "https://qua.name"
+     writefreely-instance-api-endpoint "https://qua.name/api"
+    writefreely-maybe-publish-created-date t
+     writefreely-auth-token "c64c8328-bcbf-4626-4587-0a0d9408bba7")
+    )
 
 
 

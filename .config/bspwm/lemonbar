@@ -1,0 +1,19 @@
+#! /bin/sh
+
+fecha () {
+    date=$(date +"%b %e, %H:%M")
+    echo -n "$date" & sleep 1
+
+}
+
+volumen () {
+    vol=$(pamixer --get-volume)
+    echo -n "$vol" & sleep 1
+}
+
+
+while true; do
+    echo "$(fecha) $(volumen)" 
+    sleep & 1
+done | lemonbar -p
+   
