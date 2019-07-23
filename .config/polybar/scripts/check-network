@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-disconnect1=" / "
-disconnect2=" \\ "
-wconnected="  "
-econnected="  "
+disconnect1="/"
+disconnect2="\\"
+wconnected=""
+econnected=""
 
 id="$(ip link | awk '/state UP/ {print $2}')"
 

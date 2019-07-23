@@ -20,7 +20,7 @@
 ;============================
 
 [colors]
-background = #d90a0709
+background = #0011273f
 background-alt = #444
 foreground = #e6c9c4
 foreground-alt = #555
@@ -70,9 +70,9 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left =   bspwm xwindow 
-modules-center = date
-modules-right = spotify sep-null clima-icon clima sep-null pulseaudio arch battery xkeyboard  red copy notif
+modules-left = notif copy red xkeyboard sep-null clima-icon clima sep-null spotify 
+modules-center = bspwm
+modules-right = pulseaudio arch battery  date 
 
 tray-position = none
 tray-padding = 1
@@ -116,7 +116,7 @@ label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
 label-indicator-underline = ${colors.secondary}
-format-underline = #e6c9c4
+;format-underline = #e6c9c4
 
 [module/bspwm]
 type = internal/bspwm
@@ -131,22 +131,23 @@ ws-icon-6 = 7;
 ws-icon-7 = 8;
 
 ;inline-mode = true
-format = <label-state> <label-mode>
+;format = <label-state> <label-mode>
+format = <label-state>
 
 ;label-focused = "瘝" 
 label-focused = %icon%
-label-focused-foreground = #0a0709
-label-focused-background = #e6c9c4
-;label-focused-underline = #ABB2BF
+label-focused-foreground = #2F9EC7
+label-focused-background = 
+label-focused-underline = #2F9EC7
 ;label-focused-overline = #ABB2BF
 label-focused-padding = 2
 
 label-occupied = %icon%
 ;label-occupied = ""
 label-occupied-padding = 2
-label-occupied-foreground = 
+label-occupied-foreground = #2F9EC7
 label-occupied-background = 
-label-occupied-underline = #e6c9c4
+label-occupied-underline = 
 
 label-urgent = %icon%!
 label-urgent-background = 
@@ -221,7 +222,7 @@ time-alt = "%H:%M:%S "
 
 format-prefix = " "
 format-prefix-foreground =
-format-underline = #e6c9c4
+;format-underline = #e6c9c4
 
 label =%{A3:bspc rule -a \* -o state=floating rectangle=200x200+583+25 && st -e sh -c "cal; read x" & disown:}%date% %time%%{A} %{A}
 ;label = %date% %time%'
@@ -259,7 +260,7 @@ bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
-format-volume-underline = #e6c9c4
+;format-volume-underline = #e6c9c4
 
 ramp-volume-0 = 
 ramp-volume-1 = 
@@ -283,7 +284,7 @@ format-charging = <label-charging>
 format-discharging = <label-discharging>
 ;format-discharging-underline = ${self.format-charging-underline}
 
-format-charging-underline = #e6c9c4
+format-charging-underline = 
 format-discharging-underline = ${self.format-charging-underline}
 format-full-underline = ${self.format-charging-underline}
 
@@ -305,7 +306,7 @@ click-right = ~/scripts/check-network-es &
 format-background =
 label-padding = 1
 tail = true
-format-underline = #e6c9c4
+;format-underline = #e6c9c4
 
 
 [module/spotify]
@@ -320,7 +321,7 @@ format-background =
 format-foreground = ${colors.foreground}
 click-right = playerctl play-pause
 click-left = bspc desktop -f ^6 
-format-underline = #e6c9c4
+;format-underline = #e6c9c4
 
 [module/clima-icon]
 type = custom/script
@@ -330,7 +331,7 @@ format-background =
 ; click-left = ~/scripts/clima-img
 click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in/LAP; read x"
 label-font = 4
-format-underline = #e6c9c4
+;format-underline = #e6c9c4
 
 [module/clima]
 type = custom/script
@@ -340,7 +341,7 @@ interval = 3600
 format-background =
 ;click-left = ~/scripts/clima-img
 click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in/LAP; read x"
-format-underline = #e6c9c4
+;format-underline = #e6c9c4
 
 [module/kde]
 type = custom/script
@@ -357,14 +358,13 @@ type = custom/script
 format-prefix = " ﮋ "
 format-prefix-foreground = #F1C124
 label = "%output% " 
-;format-underline = #D1B927
 format-background =
 format-foreground = 
 click-left = st -e sudo pacman -Syuu
 click-right = ~/scripts/pacman-dmenu
 exec = ~/.config/polybar/scripts/updates-arch.sh
 interval = 600
-format-underline = #e6c9c4
+;format-underline = #e6c9c4
 
 [module/notif]
 type = custom/script
@@ -373,7 +373,7 @@ interval = 0
 tail = true
 click-left = ~/scripts/toggle-notification
 content-padding = 1
-format-underline = #e6c9c4
+;format-underline = #e6c9c4
 
 [module/apagar]
 type= custom/text
@@ -386,12 +386,12 @@ content-padding = 1
 
 [module/copy]
 type = custom/text
-content = " "
+content = ""
 click-left = copyq copy $(copyq read 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 | dmenu -i -p "Portapapeles" -l 15)
 content-background = 
 ;content-background = #483A54
 content-padding = 1
-content-underline = #e6c9c4
+;content-underline = #e6c9c4
 
 [module/monitor]
 type = cuustom/script
@@ -499,7 +499,7 @@ type = custom/text
 content = "  "
 content-foreground = 
 content-background =
-content-underline = #e6c9c4
+;content-underline = #e6c9c4
 
 [module/sep-der]
 type = custom/text

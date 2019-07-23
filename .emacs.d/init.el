@@ -534,14 +534,14 @@
 (global-set-key [f6] 'writeroom-mode)
 
 ;;;; Ewal ;;;;
-;(use-package ewal
-;  :ensure t
-;  )
-;
-;(when (ewal-load-wal-colors)
-;  (custom-set-faces
-;   `(line-number ((t (:foreground ,(ewal-get-color 'magenta 4)))))))
-;(load-theme 'ewal-spacemacs-modern t)
+(use-package ewal
+  :ensure t
+  )
+
+(when (ewal-load-wal-colors)
+  (custom-set-faces
+   `(line-number ((t (:foreground ,(ewal-get-color 'magenta 4)))))))
+(load-theme 'ewal-spacemacs-modern t)
 
 ;;;; Writefreely ;;;;
 (use-package writefreely
@@ -556,12 +556,12 @@
     )
 
 ;; Nord theme ;;;;
-(use-package nord-theme
-  :ensure t
-  )
-  (load-theme 'nord t)
-;; Use `nord4` from Nord's "Snow Storm" palette as background color.
-(setq nord-region-highlight "snowstorm")
+;(use-package nord-theme
+;  :ensure t
+;  )
+;  (load-theme 'nord t)
+;;; Use `nord4` from Nord's "Snow Storm" palette as background color.
+;(setq nord-region-highlight "snowstorm")
 
 
 
@@ -707,7 +707,7 @@
  '(cua-normal-cursor-color "#839496")
  '(cua-overwrite-cursor-color "#b58900")
  '(cua-read-only-cursor-color "#859900")
- '(custom-enabled-themes (quote (nord)))
+ '(custom-enabled-themes (quote (ewal-spacemacs-modern)))
  '(custom-safe-themes
    (quote
     ("a8c210aa94c4eae642a34aaf1c5c0552855dfca2153fa6dd23f3031ce19453d4" "82358261c32ebedfee2ca0f87299f74008a2e5ba5c502bde7aaa15db20ee3731" "f1e97d06df4664396093529be437bac344f2737b60d9d60b70d85455f9c26a7f" "0fb2699a9fdcb5a0eda9f90c002e7c65cd4c6a82096e4ad05deef1a9a2292e49" "cbcfae366ef502108e54223da514f24b9162d8d191d436fdc447f938015f74da" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "75d3dde259ce79660bac8e9e237b55674b910b470f313cdf4b019230d01a982a" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" "8d5f22f7dfd3b2e4fc2f2da46ee71065a9474d0ac726b98f647bc3c7e39f2819" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "43eea8fb35170e00dbe2b4422af5eb26c29c7cff9055ecca511ffae2f3aa51aa" "13325a954fce38bc72d81a93572585e21bdff745892f643a7c9d038486d3516d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "946e871c780b159c4bb9f580537e5d2f7dba1411143194447604ecbaf01bd90c" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "f66ffeadda7b52d40c8d698967ae9e9836f54324445af95610d257fa5e3e1e21" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a94f1a015878c5f00afab321e4fef124b2fc3b823c8ddd89d360d710fc2bddfc" "0cd56f8cd78d12fc6ead32915e1c4963ba2039890700458c13e12038ec40f6f5" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "251348dcb797a6ea63bbfe3be4951728e085ac08eee83def071e4d2e3211acc3" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "1e9001d2f6ffb095eafd9514b4d5974b720b275143fbc89ea046495a99c940b0" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
@@ -860,7 +860,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#222D32" :foreground "#D8DEE9" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "PfEd" :family "Fantasque Sans Mono"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "PfEd" :family "Fantasque Sans Mono"))))
  '(doom-modeline-evil-emacs-state ((t (:inherit doom-modeline-warning))))
  '(doom-modeline-evil-insert-state ((t (:inherit doom-modeline-urgent :foreground "sea green"))))
  '(doom-modeline-evil-motion-state ((t (:inherit doom-modeline-buffer-path :foreground "dark blue"))))
@@ -868,12 +868,10 @@
  '(doom-modeline-evil-operator-state ((t (:inherit doom-modeline-buffer-path :foreground "violet"))))
  '(doom-modeline-evil-replace-state ((t (:inherit doom-modeline-buffer-modified :foreground "black"))))
  '(doom-modeline-evil-visual-state ((t (:inherit doom-modeline-buffer-file :foreground "dark orange"))))
- '(fringe ((t (:background "#222D32" :foreground "#D8DEE9"))))
  '(highlight ((t nil)))
  '(ivy-prompt-match ((t (:background "red"))))
- '(line-number-current-line ((t (:inherit \#D8DEE9))))
- '(mode-line ((t (:background "#222D32" :foreground "#88C0D0"))))
- '(mode-line-inactive ((t (:background "#222D32" :foreground "#D8DEE9"))))
+ '(org-done ((t (:inherit bold :background "#0F2338" :foreground "lime green" :weight bold))))
+ '(org-todo ((t (:inherit bold :background "#0F2338" :foreground "#CC798B" :weight bold))))
  '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "gray45"))))
  '(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark violet"))))
  '(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "goldenrod"))))
