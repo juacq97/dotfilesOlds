@@ -23,7 +23,7 @@ super + Return
 #Rofi
 super + d
 #     rofi -modi "window,run,drun" -show drun -theme material 
-      j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
+#      j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
 
 super + r
       dmenu_run_history -i -l 12
@@ -31,7 +31,7 @@ super + r
 
 
 alt + Tab
-      rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Papirus Dark
+#      rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Papirus Dark
 
 ## Firefox
 super + F2
@@ -90,20 +90,20 @@ super + Print
       flameshot full -c
 
 #Audio
-XF86AudioMute
-	pamixer -t
-XF86AudioRaiseVolume
-	pamixer -i 2 & notify-send "Up"
-XF86AudioLowerVolume
-	pamixer -d 2
-XF86AudioPlay
-	playerctl play-pause
-XF86AudioNext
-	playerctl next
-XF86AudioPrev
-	playerctl previous
-XF86AudioStop
-	playerctl stop
+#XF86AudioMute
+#	pamixer -t
+#XF86AudioRaiseVolume
+#	pamixer -i 2 & notify-send "Up"
+#XF86AudioLowerVolume
+#	pamixer -d 2
+#XF86AudioPlay
+#	playerctl play-pause
+#XF86AudioNext
+#	playerctl next
+#XF86AudioPrev
+#	playerctl previous
+#XF86AudioStop
+#	playerctl stop
 
 # Subir brillo
 XF86MonBrightnessUp
@@ -115,31 +115,31 @@ XF86MonBrightnessDown
 
 
 # bloquear teclado
-control + alt + l
-	betterlockscreen --lock blur
+#control + alt + l
+#	betterlockscreen --lock blur
 
 # Bloquear trackpad
-XF86TouchpadToggle
-	~/scripts/toggle-touchpad
+#XF86TouchpadToggle
+#	~/scripts/toggle-touchpad
 
 super + control + F2
       networkmanager_dmenu
 
 #matar compton
-super + o
-     pkill compton 
+#super + o
+#     pkill compton 
 
 #revivir compton
-super + shift + o
-     compton -b --config ~/.config/compton.conf
+#super + shift + o
+#     compton -b --config ~/.config/compton.conf
 
 # Reiniciar sxhdk 
 super + shift + r
       pkill -USR1 -x sxhkd
 
 #Reinicar bspwm
-super + ctrl + r
-      bspc wm -r
+#super + ctrl + r
+#      bspc wm -r
 
 ##########################
 # Scripts
@@ -154,8 +154,8 @@ super + ctrl + u
       ~/scripts/usb-extraer
 
 #Via
-alt + space
-    ~/scripts/via/via
+#alt + space
+#    ~/scripts/via/via
 
 #Kde-connect
 super + p
@@ -166,7 +166,7 @@ super + F12
       ~/scripts/apagar
 
 # Clipboard
-super + ctrl + p
-      ~/scripts/clipboard
+#super + ctrl + p
+#      ~/scripts/clipboard
 
 
