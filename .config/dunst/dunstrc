@@ -182,7 +182,6 @@
     # Context menu.
     context = shift+mod4+space
 
-
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.

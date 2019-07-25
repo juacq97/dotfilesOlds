@@ -870,6 +870,7 @@
  '(doom-modeline-evil-visual-state ((t (:inherit doom-modeline-buffer-file :foreground "dark orange"))))
  '(highlight ((t nil)))
  '(ivy-prompt-match ((t (:background "red"))))
+ '(line-number ((t (:inherit default :background "#11273f" :foreground "#82a3c0"))))
  '(org-done ((t (:inherit bold :background "#0F2338" :foreground "lime green" :weight bold))))
  '(org-todo ((t (:inherit bold :background "#0F2338" :foreground "#CC798B" :weight bold))))
  '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "gray45"))))
