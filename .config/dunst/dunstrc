@@ -81,7 +81,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing windowmanager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 0 
+    transparency = 30 
     
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -168,7 +168,7 @@
     # Xev might be helpful to find names for keys.
     
     # Close notification.
-    close = mod1+space
+    # close = mod1+space
     
     # Close all notifications.
     # close_all = ctrl+shift+space
@@ -177,28 +177,29 @@
     # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1".
-    # history = ctrl+mod4+h 
+     history = shift+mod4+h 
     
     # Context menu.
-    context = ctrl+mod1+c
+    context = shift+mod4+space
+
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background 	= ${colors.background}
-    foreground 	= ${colors.foreground}
-    frame_color = ${colors.frame_color}
+    background = "#313D4A"
+    foreground = "#F9FAF9"
+    frame_color = "#9DB788"
     timeout = 5 
 
 [urgency_normal]
-    background	= ${colors.background}
-    foreground 	= ${colors.foreground}
-    frame_color = ${colors.frame_color}
+    background = "#313D4A"
+    foreground = "#F9FAF9"
+    frame_color = "#2E2E2D"
     timeout = 5
 
 [urgency_critical]
-    background	= ${colors.background}
-    foreground 	= ${colors.foreground}
+    background = "#313D4A"
+    foreground = "#F9FAF9"
     frame_color = "#D62929"
     timeout = 0
 
@@ -295,14 +296,6 @@
      category = weechat.PM
      background = "#D53B84"
      foreground = "#FFFFFF"
-
-[Spotify]
-	appname = Spotify
-	frame_color = "#30AB70"
-	timeout = 5
-
-
-
 #
 #[CMUS]
 #    appname = CMUS
@@ -314,4 +307,9 @@
 #     background = "#30AB70"
 #     foreground = "#F67245"
 #
+[Spotify]
+	appname = Spotify
+	frame_color = "#30AB70"
+	timeout = 5
+
 # vim: ft=cfg
