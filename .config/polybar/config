@@ -72,7 +72,7 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;====== MODULOS =========
 modules-left = notif copy red xkeyboard sep-null clima-icon clima sep-null spotify 
 modules-center = bspwm
-modules-right = pulseaudio arch battery  date 
+modules-right = pulseaudio arch battery  date
 
 tray-position = none
 tray-padding = 1
