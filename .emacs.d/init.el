@@ -543,17 +543,6 @@
    `(line-number ((t (:foreground ,(ewal-get-color 'magenta 4)))))))
 (load-theme 'ewal-spacemacs-modern t)
 
-;;;; Writefreely ;;;;
-(use-package writefreely
-    :after org
-    :ensure ox-gfm
-    :config
-    (setq
-     writefreely-instance-url "https://qua.name"
-     writefreely-instance-api-endpoint "https://qua.name/api"
-    writefreely-maybe-publish-created-date t
-     writefreely-auth-token "c64c8328-bcbf-4626-4587-0a0d9408bba7")
-    )
 
 ;; Nord theme ;;;;
 ;(use-package nord-theme
@@ -782,7 +771,7 @@
       ((agenda "" nil)
        (todo "TODO" nil))
       nil))))
- '(org-agenda-files (quote ("~/Drive/sync/gtd/a.org")))
+ '(org-agenda-files nil)
  '(org-file-apps
    (quote
     ((auto-mode . emacs)
@@ -870,7 +859,7 @@
  '(doom-modeline-evil-visual-state ((t (:inherit doom-modeline-buffer-file :foreground "dark orange"))))
  '(highlight ((t nil)))
  '(ivy-prompt-match ((t (:background "red"))))
- '(line-number ((t (:inherit default :background "#11273f" :foreground "#82a3c0"))))
+ '(line-number ((t (:foreground "#82a3c0"))))
  '(org-done ((t (:inherit bold :background "#0F2338" :foreground "lime green" :weight bold))))
  '(org-todo ((t (:inherit bold :background "#0F2338" :foreground "#CC798B" :weight bold))))
  '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "gray45"))))
