@@ -68,8 +68,10 @@ super + a
 # emacs gtd
 super + c; c
       emacsclient -c -F '(quote (name . "capture") (width  . 120) (height . 30) (left . 150))' -e "(make-capture-frame)"
+
 super + i
-      emacsclient -c -n "~/Drive/sync/gtd/a.org"
+##      emacsclient -c -n "~/Drive/sync/GTD/0gtd.org"
+       bspc rule -a \* -o state=floating rectangle 1x1+1+1 && st -e ~/scripts/orgmode-gtd
 
 
 # Newsboat

@@ -58,7 +58,7 @@ bspc rule -a Gimp desktop='^5' follow=on
 bspc rule -a Screenkey manage=off
 bspc rule -a firefox desktop='^2' follow=on
 bspc rule -a Chromium desktop='^2' follow=on
-bspc rule -a Spotify desktop='^6'
+bspc rule -a spotify desktop='^6'
 bspc rule -a Lxappareance state=floating
 bspc rule -a Nitrogen desktop='3' state=floating
 bspc rule -a Lightdm-settings state=floating

@@ -145,7 +145,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-window-setup
       'other-window)
-(setq org-agenda-span 7)
+(setq org-agenda-span 3)
 (setq org-agenda-start-on-weekday nil)
 (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles"
                                  "jueves" "viernes" "sábado"])
@@ -189,29 +189,22 @@
 ;; Plantillas para org capture
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-capture-templates
-      '(("i" "Inbox" entry
-	 (file "~/Drive/sync/gtd/ai.org")
+      '(
+	("i" "Inbox" entry
+	 (file "~/Drive/sync/GTD/0inbox.org")
 	 "* %?\n%u" :prepend t)
 
 	("t" "TODO" entry
-	 (file+headline "~/Drive/sync/gtd/a.org" "TO-DO")
+	 (file "~/Drive/sync/GTD/0gtd.org")
 	 "* TODO %?\n%u" :prepend t)
 
-	("c" "Consulta" entry
-	 (file+headline "~/Drive/sync/gtd/a.org" "Consulta")
-	 "* INFO %?\n" :prepend t)
-
 	("a" "Agenda"  entry
-	 (file+headline "~/Drive/sync/gtd/a.org" "Agenda")
-	 "* CITA %?\n SCHEDULED: %t" :prepend t)
+	 (file+headline "~/Drive/sync/GTD/0gtd.org" "Agenda")
+	 "* EVENTO %?\n SCHEDULED: %t")
 	
 	("n" "Notas" entry
 	 (file+headline "~/Drive/sync/gtd/a.org" "Notas")
 	 "* %?" :prepend t)
-
-	("m" "Después" entry
-	 (file+headline "~/Drive/sync/gtd/a.org" "Tal vez")
-	"* %?" :prepend t) 
 
 	("d" "Diario" entry
 	 (file+olp+datetree "~/Drive/sync/cuaderno/diario.org")
@@ -286,6 +279,9 @@
 ;; Cambiar TODO state con C-ñ
 (eval-after-load 'org 
 		    '(define-key org-mode-map (kbd "C-ñ") 'org-todo)
+		    )
+(eval-after-load 'org-agenda
+		    '(define-key org-agenda-mode-map (kbd "ñ") 'org-agenda-todo)
 		    )
 
 ;; Evil-mode
@@ -502,27 +498,6 @@
 ;;(add-hook 'after-init-hook 'my-frame-config)
 
 ;;;; Beacon ;;;;
-(use-package beacon
-  :ensure t
-  :config
-  (beacon-mode 1)
-  )
-
-;;;; Flymake-shellcheck
-(use-package flymake-shellcheck
-  :commands flymake-shellcheck-load
-  :init
-  (add-hook 'sh-mode-hook 'flymake-shellcheck-load))
-
-;;;; HElm ;;;;
-;  (use-package helm
-;    :ensure t
-;    :init
-;    (helm-mode 1)
-;    :bind
-;    (("C-s" . swiper-helm)
-;     ("M-x" . helm-M-x)
-;     ("C-x C-f" . helm-find-files)
 ;     ("C-c b" . helm-buffer-list)
 ;     )
 ;    )
@@ -552,29 +527,24 @@
 ;;; Use `nord4` from Nord's "Snow Storm" palette as background color.
 ;(setq nord-region-highlight "snowstorm")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+;;;; Super Agenda ;;;;
+;(use-package org-super-agenda
+  ;:ensure t
+  ;:config
+  ;(org-super-agenda-mode t))
+;
+;(setq org-super-agenda-groups
+       ;'(;; Each group has an implicit boolean OR operator between its selectors.
+         ;(:name "Hoy"  ; Optionally specify section name
+                ;:time-grid t  ; Items that appear on the time grid
+                ;:todo "TODO")  ; Items that have this TODO keyword
+         ;(:name "Escuela"
+                ;:tag "escuela")
+         ;(:name "Casa"
+                ;:tag "casa")
+         ;(:todo "EPERANDO" :order 8)  ; Set order of this section
+         ;))
+  ;(org-agenda nil "a")
 
 ;;==================
 ;; UI
@@ -771,7 +741,7 @@
       ((agenda "" nil)
        (todo "TODO" nil))
       nil))))
- '(org-agenda-files nil)
+ '(org-agenda-files (quote ("~/Drive/sync/GTD/0gtd.org")))
  '(org-file-apps
    (quote
     ((auto-mode . emacs)
@@ -781,7 +751,7 @@
  '(org-re-reveal-script-files (quote ("js/reveal.js")))
  '(package-selected-packages
    (quote
-    (writefreely ewal-spacemacs-theme ewal-evil-cursors ewal-spacemacs-themes ewal writeroom-mode writeroom flymake-shellcheck rc-mode ivy-prescient prescient flyspell-correct-ivy oer-reveal org-re-reveal-ref org-re-reveal haskell-mode beacon doom-themes auctex-latexmk doom-modeline dired-open evil-org org-super-agenda evil-collection all-the-icons-ivy all-the-icons-dired all-the-icons smtpmail-multi frames-only-mode flymd yequake noflet evil-magit lua-mode counsel pdf-tools nov powerline solarized-theme magit helm-projectile swiper-helm mu4e-alert citeproc-org ox-word ox-pandoc auctex org-ref neotree spaceline smart-mode-line-atom-one-dark-theme smart-mode-line airline-themes evil rainbow-delimiters rainbow-delimeters expand-region auto-complete try foo 2048-game chess ace-window ztree counsel-projectile projectile org-beamer-mode demo-it latex-math-preview yasnippet-snippets yasnippet markdown-preview-mode markdown-mode+ markdown-mode epresent htmlize ox-reveal company dashboard switch-window avy smex ido-vertical-mode spacemacs-theme org-bullets nord-theme zenburn-theme telephone-line which-key use-package rich-minority python material-theme arjen-grey-theme)))
+    (bug-hunter writefreely ewal-spacemacs-theme ewal-evil-cursors ewal-spacemacs-themes ewal writeroom-mode writeroom flymake-shellcheck rc-mode ivy-prescient prescient flyspell-correct-ivy oer-reveal org-re-reveal-ref org-re-reveal haskell-mode beacon doom-themes auctex-latexmk doom-modeline dired-open evil-org org-super-agenda evil-collection all-the-icons-ivy all-the-icons-dired all-the-icons smtpmail-multi frames-only-mode flymd yequake noflet evil-magit lua-mode counsel pdf-tools nov powerline solarized-theme magit helm-projectile swiper-helm mu4e-alert citeproc-org ox-word ox-pandoc auctex org-ref neotree spaceline smart-mode-line-atom-one-dark-theme smart-mode-line airline-themes evil rainbow-delimiters rainbow-delimeters expand-region auto-complete try foo 2048-game chess ace-window ztree counsel-projectile projectile org-beamer-mode demo-it latex-math-preview yasnippet-snippets yasnippet markdown-preview-mode markdown-mode+ markdown-mode epresent htmlize ox-reveal company dashboard switch-window avy smex ido-vertical-mode spacemacs-theme org-bullets nord-theme zenburn-theme telephone-line which-key use-package rich-minority python material-theme arjen-grey-theme)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pdf-view-resize-factor 1.05)
  '(pos-tip-background-color "#073642")
