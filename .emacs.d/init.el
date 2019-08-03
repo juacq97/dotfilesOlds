@@ -50,91 +50,40 @@
 :ensure t
 :hook (after-init . doom-modeline-mode)
 :config
-;; How tall the mode-line should be (only respected in GUI Emacs).
 (setq doom-modeline-height 25)
-
-;; How wide the mode-line bar should be (only respected in GUI Emacs).
 (setq doom-modeline-bar-width 4)
-
-;; Determines the style used by `doom-modeline-buffer-file-name'.
-;;
-;; Given ~/Projects/FOSS/emacs/lisp/comint.el
-;;   truncate-upto-project => ~/P/F/emacs/lisp/comint.el
-;;   truncate-from-project => ~/Projects/FOSS/emacs/l/comint.el
-;;   truncate-with-project => emacs/l/comint.el
-;;   truncate-except-project => ~/P/F/emacs/l/comint.el
-;;   truncate-upto-root => ~/P/F/e/lisp/comint.el
-;;   truncate-all => ~/P/F/e/l/comint.el
-;;   relative-from-project => emacs/lisp/comint.el
-;;   relative-to-project => lisp/comint.el
-;;   file-name => comint.el
-;;   buffer-name => comint.el<2> (uniquify buffer name)
-;;
-;; If you are expereicing the laggy issue, especially while editing remote files
-;; with tramp, please try `file-name' style.
-;; Please refer to https://github.com/bbatsov/projectile/issues/657.
 (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-
-;; Whether show `all-the-icons' or not (if nil nothing will be showed).
 (setq doom-modeline-icon t)
-
-;; Whether show the icon for major mode. It respects `doom-modeline-icon'.
 (setq doom-modeline-major-mode-icon t)
-
-;; Display color icons for `major-mode'. It respects `all-the-icons-color-icons'.
 (setq doom-modeline-major-mode-color-icon t)
-
-;; Whether display minor modes or not. Non-nil to display in mode-line.
 (setq doom-modeline-minor-modes nil)
-
-;; If non-nil, a word count will be added to the selection-info modeline segment.
 (setq doom-modeline-enable-word-count t)
-
-;; If non-nil, only display one number for checker information if applicable.
 (setq doom-modeline-checker-simple-format t)
-
-;; Whether display perspective name or not. Non-nil to display in mode-line.
 (setq doom-modeline-persp-name t)
-
-;; Whether display `lsp' state or not. Non-nil to display in mode-line.
 (setq doom-modeline-lsp nil)
-
-;; Whether display github notifications or not. Requires `ghub` package.
 (setq doom-modeline-github t)
-
-;; The interval of checking github.
 (setq doom-modeline-github-interval (* 30 60))
-
-;; Whether display environment version or not
 (setq doom-modeline-env-version t)
-;; Or for individual languages
 (setq doom-modeline-env-enable-python t)
 (setq doom-modeline-env-enable-ruby t)
 (setq doom-modeline-env-enable-perl t)
 (setq doom-modeline-env-enable-go t)
 (setq doom-modeline-env-enable-elixir t)
 (setq doom-modeline-env-enable-rust t)
-
-;; Change the executables to use for the language version string
 (setq doom-modeline-env-python-executable "python")
 (setq doom-modeline-env-ruby-executable "ruby")
 (setq doom-modeline-env-perl-executable "perl")
 (setq doom-modeline-env-go-executable "go")
 (setq doom-modeline-env-elixir-executable "iex")
 (setq doom-modeline-env-rust-executable "rustc")
-
-;; Whether display mu4e notifications or not. Requires `mu4e-alert' package.
 (setq doom-modeline-mu4e t)
-
-;; Whether display irc notifications or not. Requires `circe' package.
 (setq doom-modeline-irc t)
-
-;; Function to stylize the irc buffer names.
 (setq doom-modeline-irc-stylize 'identity)
 )
     
 ;; org-mode 
 ;;===========
+
 
 ;; org bullets
 (use-package org-bullets
@@ -211,7 +160,7 @@
 	 "* %?" :prepend t)))
 
 ;; Soporte para seleccionar con shift 
-;;(setq org-support-shift-select t)
+(setq org-support-shift-select t)
 
 ;; Flyspell automático
 (add-hook 'org-mode-hook 'turn-on-flyspell)
@@ -276,13 +225,18 @@
 	       )
 )
 
+;; Org-refile GTD
+;(setq org-refile-use-outline-path 'file)
+;(setq org-refile-targets '((org-agenda-files :level . 3)))
+
 ;; Cambiar TODO state con C-ñ
 (eval-after-load 'org 
-		    '(define-key org-mode-map (kbd "C-ñ") 'org-todo)
-		    )
+  '(define-key org-mode-map (kbd "C-ñ") 'org-todo))
+(eval-after-load 'org 
+  '(define-key org-mode-map (kbd "C-c m") 'org-refile))
 (eval-after-load 'org-agenda
-		    '(define-key org-agenda-mode-map (kbd "ñ") 'org-agenda-todo)
-		    )
+		    '(define-key org-agenda-mode-map (kbd "ñ") 'org-agenda-todo))
+
 
 ;; Evil-mode
 ;;==============
@@ -302,6 +256,16 @@
 (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
 ;; Make horizontal movement cross lines
 (setq-default evil-cross-lines t))
+
+;; Macro para tachar líneas
+(fset 'Tachar\ lineas\ org-mode
+   [?i ?+ escape ?A ?+ escape])
+(evil-set-register ?m [?i ?+ escape ?A ?+ escape])
+
+;; Macro para tachar líneas y añadir un salto al final
+(fset 'Tachar\ línea\ org-mode\ con\ salto
+   [?i ?+ escape ?A ?+ return escape])
+(evil-set-register ?a [?i ?+ escape ?A ?+ return escape])
 
 (use-package evil-collection
   :after evil
@@ -349,7 +313,7 @@
   :init
   (which-key-mode))
 
-;;;; Ivy ;;;;
+;;; Ivy ;;;;
 (use-package ivy
   :config
   (ivy-mode 1)
@@ -368,11 +332,17 @@
 (use-package counsel
    :config
    (counsel-mode 1)
-   :bind
-   ("M-x" . counsel-M-x)
+   :bind (
+	  ("M-x" . counsel-M-x)
+	  ("C-x C-f" . counsel-find-file)
+	  )
    )
- (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+ (define-key ivy-minibuffer-map (kbd "C-l") #'ivy-immediate-done)
  (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+ (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-next-line)
+ (define-key ivy-minibuffer-map (kbd "C-k") #'ivy-previous-line)
+ (define-key ivy-minibuffer-map (kbd "C-d") #'ivy-scroll-up-command)
+ (define-key ivy-minibuffer-map (kbd "C-u") #'ivy-scroll-down-command)
 
 ;;;; Yasnippet ;;;;;
 (use-package yasnippet
@@ -391,12 +361,11 @@
 (use-package projectile
   :ensure t
   :config
-  (projectile-global-mode)
-  (setq projectile-completion-system 'ivy))
+  (projectile-global-mode))
 (global-set-key (kbd "C-c p") 'projectile-switch-project)
 (global-set-key (kbd "C-c f") 'projectile-find-file)
 
-;;;; Swiper ;;;;;
+;;; Swiper ;;;;;
 (use-package swiper
   :ensure t
   :bind (("C-s" . swiper))
@@ -498,9 +467,10 @@
 ;;(add-hook 'after-init-hook 'my-frame-config)
 
 ;;;; Beacon ;;;;
-;     ("C-c b" . helm-buffer-list)
-;     )
-;    )
+(use-package beacon
+  :ensure t
+  :config
+  (beacon-mode t))
 
 ;;;; Writeroom-mode ;;;;
 (use-package writeroom-mode
@@ -508,9 +478,11 @@
     )
 (global-set-key [f6] 'writeroom-mode)
 
-;;;; Ewal ;;;;
+;;; Ewal ;;;;
 (use-package ewal
   :ensure t
+  :config
+  (setq ewal-wal-cache-dir "~/.cache/wal/ewal.json")
   )
 
 (when (ewal-load-wal-colors)
@@ -638,8 +610,8 @@
     ))
 
 ;; Transparencias
-;;(set-frame-parameter (selected-frame) 'alpha '(95 . 95))
-;;(add-to-list 'default-frame-alist '(alpha . (95 . 95)))
+;(set-frame-parameter (selected-frame) 'alpha '(80 . 80))
+;(add-to-list 'default-frame-alist '(alpha . (80 . 80)))
 
 ;;===============================
 ;; CONFIGURACIONES AUTOMÁTICAS
@@ -669,7 +641,11 @@
  '(custom-enabled-themes (quote (ewal-spacemacs-modern)))
  '(custom-safe-themes
    (quote
-    ("a8c210aa94c4eae642a34aaf1c5c0552855dfca2153fa6dd23f3031ce19453d4" "82358261c32ebedfee2ca0f87299f74008a2e5ba5c502bde7aaa15db20ee3731" "f1e97d06df4664396093529be437bac344f2737b60d9d60b70d85455f9c26a7f" "0fb2699a9fdcb5a0eda9f90c002e7c65cd4c6a82096e4ad05deef1a9a2292e49" "cbcfae366ef502108e54223da514f24b9162d8d191d436fdc447f938015f74da" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "75d3dde259ce79660bac8e9e237b55674b910b470f313cdf4b019230d01a982a" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" "8d5f22f7dfd3b2e4fc2f2da46ee71065a9474d0ac726b98f647bc3c7e39f2819" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "43eea8fb35170e00dbe2b4422af5eb26c29c7cff9055ecca511ffae2f3aa51aa" "13325a954fce38bc72d81a93572585e21bdff745892f643a7c9d038486d3516d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "946e871c780b159c4bb9f580537e5d2f7dba1411143194447604ecbaf01bd90c" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "f66ffeadda7b52d40c8d698967ae9e9836f54324445af95610d257fa5e3e1e21" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a94f1a015878c5f00afab321e4fef124b2fc3b823c8ddd89d360d710fc2bddfc" "0cd56f8cd78d12fc6ead32915e1c4963ba2039890700458c13e12038ec40f6f5" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "251348dcb797a6ea63bbfe3be4951728e085ac08eee83def071e4d2e3211acc3" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "1e9001d2f6ffb095eafd9514b4d5974b720b275143fbc89ea046495a99c940b0" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
+    ("f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "a8c210aa94c4eae642a34aaf1c5c0552855dfca2153fa6dd23f3031ce19453d4" "82358261c32ebedfee2ca0f87299f74008a2e5ba5c502bde7aaa15db20ee3731" "f1e97d06df4664396093529be437bac344f2737b60d9d60b70d85455f9c26a7f" "0fb2699a9fdcb5a0eda9f90c002e7c65cd4c6a82096e4ad05deef1a9a2292e49" "cbcfae366ef502108e54223da514f24b9162d8d191d436fdc447f938015f74da" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "75d3dde259ce79660bac8e9e237b55674b910b470f313cdf4b019230d01a982a" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" "8d5f22f7dfd3b2e4fc2f2da46ee71065a9474d0ac726b98f647bc3c7e39f2819" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "43eea8fb35170e00dbe2b4422af5eb26c29c7cff9055ecca511ffae2f3aa51aa" "13325a954fce38bc72d81a93572585e21bdff745892f643a7c9d038486d3516d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "946e871c780b159c4bb9f580537e5d2f7dba1411143194447604ecbaf01bd90c" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "f66ffeadda7b52d40c8d698967ae9e9836f54324445af95610d257fa5e3e1e21" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a94f1a015878c5f00afab321e4fef124b2fc3b823c8ddd89d360d710fc2bddfc" "0cd56f8cd78d12fc6ead32915e1c4963ba2039890700458c13e12038ec40f6f5" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "251348dcb797a6ea63bbfe3be4951728e085ac08eee83def071e4d2e3211acc3" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "1e9001d2f6ffb095eafd9514b4d5974b720b275143fbc89ea046495a99c940b0" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
+ '(dashboard-page-separator "
+
+")
+ '(dashboard-set-init-info nil)
  '(debug-on-error nil)
  '(delete-selection-mode nil)
  '(dired-open-extensions (quote ((".pdf" . "zathura"))))
@@ -679,6 +655,7 @@
  '(fci-rule-color "#383838")
  '(flyspell-default-dictionary "espanol")
  '(frame-background-mode nil)
+ '(helm-mode nil)
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
    (--map
@@ -741,13 +718,34 @@
       ((agenda "" nil)
        (todo "TODO" nil))
       nil))))
- '(org-agenda-files (quote ("~/Drive/sync/GTD/0gtd.org")))
+ '(org-agenda-files
+   (quote
+    ("~/Drive/PROFESOR/PLANEACIÓN.ORG" "~/Drive/sync/GTD/0gtd.org")))
+ '(org-archive-default-command (quote org-archive-subtree))
  '(org-file-apps
    (quote
     ((auto-mode . emacs)
      ("\\.mm\\'" . default)
      ("\\.x?html?\\'" . default)
      ("\\.pdf\\'" . "zathura %s"))))
+ '(org-link-frame-setup
+   (quote
+    ((vm . vm-visit-folder-other-frame)
+     (vm-imap . vm-visit-imap-folder-other-frame)
+     (gnus . org-gnus-no-new-news)
+     (file . find-file-other-frame)
+     (wl . wl-other-frame))))
+ '(org-log-note-headings
+   (quote
+    ((done . "CLOSING NOTE %t")
+     (state . "%-12s %d")
+     (note . "Nota tomada el %t")
+     (reschedule . "Rescheduled from %S on %t")
+     (delschedule . "Not scheduled, was %S on %t")
+     (redeadline . "New deadline from %S on %t")
+     (deldeadline . "Removed deadline, was %S on %t")
+     (refile . "Refiled on %t")
+     (clock-out . ""))))
  '(org-re-reveal-script-files (quote ("js/reveal.js")))
  '(package-selected-packages
    (quote
@@ -761,6 +759,7 @@
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
+ '(spacemacs-theme-comment-bg nil)
  '(telephone-line-height 20)
  '(term-default-bg-color "#002b36")
  '(term-default-fg-color "#839496")
@@ -819,7 +818,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "PfEd" :family "Fantasque Sans Mono"))))
+ '(default ((t (:inherit nil :stipple nil :background "#121212" :foreground "#adb2ba" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "ADBO" :family "Fantasque Sans Mono"))))
  '(doom-modeline-evil-emacs-state ((t (:inherit doom-modeline-warning))))
  '(doom-modeline-evil-insert-state ((t (:inherit doom-modeline-urgent :foreground "sea green"))))
  '(doom-modeline-evil-motion-state ((t (:inherit doom-modeline-buffer-path :foreground "dark blue"))))
@@ -827,9 +826,13 @@
  '(doom-modeline-evil-operator-state ((t (:inherit doom-modeline-buffer-path :foreground "violet"))))
  '(doom-modeline-evil-replace-state ((t (:inherit doom-modeline-buffer-modified :foreground "black"))))
  '(doom-modeline-evil-visual-state ((t (:inherit doom-modeline-buffer-file :foreground "dark orange"))))
+ '(fringe ((t (:background "#121212" :foreground "#adb2ba"))))
  '(highlight ((t nil)))
+ '(hl-line ((t (:background "#090a0c"))))
  '(ivy-prompt-match ((t (:background "red"))))
- '(line-number ((t (:foreground "#82a3c0"))))
+ '(line-number ((t (:inherit default :background "#121212" :foreground "#5E4E59"))))
+ '(line-number-current-line ((t (:inherit line-number :background "#090a0c" :foreground "#EA2D2F"))))
+ '(mode-line ((t (:background "#121212" :foreground "#adb2ba" :box (:line-width 1 :color "#121212")))))
  '(org-done ((t (:inherit bold :background "#0F2338" :foreground "lime green" :weight bold))))
  '(org-todo ((t (:inherit bold :background "#0F2338" :foreground "#CC798B" :weight bold))))
  '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "gray45"))))

@@ -20,9 +20,9 @@
 ;============================
 
 [colors]
-background = #0011273f
+background = #a9121212
 background-alt = #444
-foreground = #e6c9c4
+foreground = #adb2ba
 foreground-alt = #555
 primary = #BF616A
 secondary = #e60053
@@ -70,9 +70,9 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left = notif copy red xkeyboard sep-null clima-icon clima sep-null spotify 
-modules-center = bspwm
-modules-right = pulseaudio arch battery  date
+modules-left = bspwm sep-null clima-icon clima sep-null spotify 
+modules-center = date
+modules-right = pulseaudio arch battery xkeyboard red copy notif 
 
 tray-position = none
 tray-padding = 1
@@ -131,21 +131,21 @@ ws-icon-6 = 7;
 ws-icon-7 = 8;
 
 ;inline-mode = true
-;format = <label-state> <label-mode>
-format = <label-state>
+format = <label-state> <label-mode>
+;format = <label-state>
 
-;label-focused = "瘝" 
-label-focused = %icon%
-label-focused-foreground = #2F9EC7
+label-focused = "瘝" 
+;label-focused = %icon%
+label-focused-foreground = #EA2D2F
 label-focused-background = 
-label-focused-underline = #2F9EC7
+;label-focused-underline = #2F9EC7
 ;label-focused-overline = #ABB2BF
-label-focused-padding = 2
+label-focused-padding = 0
 
-label-occupied = %icon%
-;label-occupied = ""
-label-occupied-padding = 2
-label-occupied-foreground = #2F9EC7
+;label-occupied = %icon%
+label-occupied = ""
+label-occupied-padding = 0
+label-occupied-foreground = 
 label-occupied-background = 
 label-occupied-underline = 
 
@@ -153,11 +153,11 @@ label-urgent = %icon%!
 label-urgent-background = 
 label-urgent-padding = 2
 
-;label-empty = "吏"
-label-empty = %icon%
-label-empty-foreground = 
+label-empty = "吏"
+;label-empty = %icon%
+label-empty-foreground = #adb2ba
 label-empty-background = 
-label-empty-padding = 2
+label-empty-padding = 0
 
 label-monocle = 﨣
 ;label-tiled = ﮨ

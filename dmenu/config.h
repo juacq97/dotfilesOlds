@@ -9,7 +9,13 @@ static const char *fonts[] = {
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 
-#include "/home/juan/.cache/wal/colors-wal-dmenu.h"
+static const char *colors[SchemeLast][2] = {
+	/*     fg         bg       */
+	[SchemeNorm] = { "#adb2ba", "#090a0c" },
+	[SchemeSel] = { "#090a0c", "#F99569" },
+	[SchemeOut] = { "#adb2ba", "#F99569" },
+};
+/*#include "/home/juan/.cache/wal/colors-wal-dmenu.h"*/
 
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;
