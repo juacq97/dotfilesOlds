@@ -20,7 +20,7 @@
 ;============================
 
 [colors]
-background = #a9121212
+background = #121212
 background-alt = #444
 foreground = #adb2ba
 foreground-alt = #555

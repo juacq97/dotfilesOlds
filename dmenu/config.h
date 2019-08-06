@@ -12,8 +12,8 @@ static const char *prompt      = NULL;      /* -p  option; prompt to the left of
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
 	[SchemeNorm] = { "#adb2ba", "#090a0c" },
-	[SchemeSel] = { "#090a0c", "#F99569" },
-	[SchemeOut] = { "#adb2ba", "#F99569" },
+	[SchemeSel] = { "#090a0c", "#9C505A" },
+	[SchemeOut] = { "#adb2ba", "#9C505A" },
 };
 /*#include "/home/juan/.cache/wal/colors-wal-dmenu.h"*/
 

@@ -297,7 +297,7 @@
 			  (projects . 5)
 			  (recents . 5)
 			  (registers . 5)))
-  (setq dashboard-startup-banner 3)
+  (setq dashboard-startup-banner 2)
   (setq dashboard-center-content t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-banner-logo-title "Pizza Mozzarella! Pizza Mozzarella! Rella Rella Rella Rella...")
