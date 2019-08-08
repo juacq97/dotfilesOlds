@@ -96,11 +96,8 @@
       'other-window)
 (setq org-agenda-span 3)
 (setq org-agenda-start-on-weekday nil)
-(setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles"
-                                 "jueves" "viernes" "sábado"])
-(setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo"
-                                   "junio" "julio" "agosto" "septiembre"
-                                   "octubre" "noviembre" "diciembre"])
+(setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+(setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
 
 ;; Agenda flotante
 (defun agenda-frame ()

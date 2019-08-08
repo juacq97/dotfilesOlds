@@ -1,0 +1,181 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "path": "/home/juan/ROMS/n64/Super Mario 64.z64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
+      "core_name": "parallel_n64_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/NES/Super Mario Bros. 3.7z#Super Mario Bros. 3 (U) (PRG0) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/snes/smtif/Shin Megami Tensei if... (J) [p1].smc",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/snes9x_libretro.so",
+      "core_name": "snes9x_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/n64/randomizer-oot-30-mejorquenunca.z64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
+      "core_name": "parallel_n64_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/n64/Super Mario 64 (USA).n64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
+      "core_name": "parallel_n64_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/n64/Pokemon Stadium 2 (E).n64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
+      "core_name": "parallel_n64_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/n64/SMB64.z64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
+      "core_name": "parallel_n64_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/genesis/Sonic3C.gen",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/picodrive_libretro.so",
+      "core_name": "picodrive_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/NES/Final Fantasy.7z#Final Fantasy (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/NES/Super C.7z#Super C (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/NES/Super Mario Bros. 2 (J).7z#Super Mario Bros 2 (Lost Levels) (Unl).nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/NES/Super C.7z#Super Contra (J) [b1].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/NES/Super C.7z",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/n64/Star Fox 64 (U) (v1.1).n64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
+      "core_name": "parallel_n64_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/n64/Conker's Bad Fur Day (USA).n64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/n64/Conker's Bad Fur Day (USA).n64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
+      "core_name": "parallel_n64_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/n64/Hazy Maze Temple.Z64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
+      "core_name": "parallel_n64_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/NES/Auto-Upturn.7z",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/ROMS/snes/smtif.zip",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/snes9x_libretro.so",
+      "core_name": "snes9x_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/Downloads/Super Mario Bros 3 (U) (PRG 1) [h2].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/Downloads/Super Mario 64 (U) [!].zip",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
+      "core_name": "parallel_n64_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/home/juan/Downloads/Super Mario Bros 3 (U) (PRG 1) [h2].zip",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    }
+  ]
+}
