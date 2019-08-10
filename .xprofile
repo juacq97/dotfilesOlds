@@ -1,17 +1,17 @@
 #! /bin/sh
 
- compton -b --config ~/.config/compton.conf &
- xfce4-power-manager &
- pcloud &
- copyq &
+# compton -b --config ~/.config/compton.conf &
+# xfce4-power-manager &
+# pcloud &
+# copyq &
 #conky -c ~/conkys/reloj-texto &
- emacs --daemon &
- /usr/lib/kdeconnectd &
- redshift &
- xsetroot -cursor_name left_ptr &
- light -S 50 &
+# emacs --daemon &
+# /usr/lib/kdeconnectd &
+# redshift &
+# xsetroot -cursor_name left_ptr &
+# light -S 50 &
 
- if [ "$XDG_SESSION_DEKTOP" == "bspwm" ]; then
-     ~/.config/polybar/polybar-monitors.sh &
- fi
+# if [ "$XDG_SESSION_DEKTOP" == "bspwm" ]; then
+#     ~/.config/polybar/polybar-monitors.sh &
+# fi
  

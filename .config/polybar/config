@@ -70,11 +70,11 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left = bspwm sep-null clima-icon clima sep-null spotify 
+modules-left = bspwm sep-null clima-icon clima sep-null 
 modules-center = date
 modules-right = pulseaudio arch battery xkeyboard red copy notif 
 
-tray-position = none
+tray-position = left
 tray-padding = 1
 ;tray-background = #bf6a87
 ;tray-underline = #1C98C9

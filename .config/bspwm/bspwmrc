@@ -11,9 +11,9 @@
 #
 
 sxhkd &
-wal -R &
-#nitrogen --restore &
-~/.config/polybar/polybar-monitors.sh &
+#wal -R &
+nitrogen --restore &
+~/.config/polybar/polybar_launch.sh &
 # ~/.config/bspwm/conky-restart &
 
 ##################
