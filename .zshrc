@@ -27,7 +27,7 @@ BULLETTRAIN_PROMPT_ORDER=(
 
 plugins=(
   git
-  zsh-vim-mode
+#  zsh-vim-mode
 )
 
 BULLETTRAIN_CONTEXT_DEFAULT_USER=juan
@@ -59,7 +59,7 @@ alias dot="cd ~/.repos/.dotfiles"
 alias clima="curl -s es.wttr.in/LAP"
 alias conky-reloj= "killall conky && conky -c ~/conkys/reloj-texto"
 ##### INICIAR JUNTO CON LA TERMINAL #####
-ufetch-arch
+ufetch-debian
 
 ###### NNN #################
 export NNN_TRASH=1
@@ -88,5 +88,7 @@ n()
 # VIM-MODE activado
 bindkey -v
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 

@@ -1,30 +1,24 @@
 #!/bin/sh
 
 #var=$(echo -e " Apagar\n Bloquear\n Reiniciar\n Cerrar sesión\n Cancelar" | rofi -dmenu -theme drofi -i -p "¿Desea salir?") 
-var=$(echo -e " Apagar\n Bloquear\n Reiniciar\n Cerrar sesión\n Cancelar" | dmenu -i -p "¿Desea salir?") 
+var=$(echo " Apagar\n Bloquear\n Reiniciar\n Cerrar sesión\n Cancelar" | dmenu -i -p "¿Desea salir?") 
 
 case $var in
     ' Apagar') 
 	rm /tmp/bspwm-startup.lock
 	systemctl poweroff;;
+	
 
     ' Bloquear')
-	betterlockscreen --lock blur;;
+	i3lock -f -i /home/juan/Pictures/lock.png;;
 
     ' Reiniciar')
 	rm /tmp/bspwm-startup.lock
 	systemctl reboot;;
 
     ' Cerrar sesión')
-	case $XDG_SESSION_DESKTOP in
-	    bspwm)
-		#echo "bspwm";;
 		rm /tmp/bspwm-startup.lock
 		bspc quit;;
-	    xmonad)
-		killall /home/juan/.xmonad/xmonad-x86_64-linux;;
-	    # echo "xmonad";;
-	esac;;
 	' Cancelar')
 	    exit 0
 esac

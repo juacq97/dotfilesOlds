@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Exec=exo-open --launch FileManager %u
+Icon=system-file-manager
+StartupNotify=true
+Terminal=false
+Categories=Utility;X-XFCE;X-Xfce-Toplevel;
+OnlyShowIn=XFCE;
+X-XFCE-MimeType=inode/directory;x-scheme-handler/trash;
+X-AppStream-Ignore=True
+Name=File Manager
+Name[es]=Administrador de archivos
+Comment=Browse the file system
+Comment[es]=Navegar por el sistema de archivos
+X-XFCE-Source=file:///usr/share/applications/exo-file-manager.desktop

@@ -20,9 +20,9 @@
 ;============================
 
 [colors]
-background = #121212
+background = #0b090a
 background-alt = #444
-foreground = #adb2ba
+foreground = #de9b98
 foreground-alt = #555
 primary = #BF616A
 secondary = #e60053
@@ -70,11 +70,11 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left = bspwm sep-null clima-icon clima sep-null 
+modules-left = bspwm sep-null clima-icon clima sep-null spotify
 modules-center = date
-modules-right = pulseaudio arch battery xkeyboard red copy notif 
+modules-right = pulseaudio battery xkeyboard red copy notif 
 
-tray-position = left
+tray-position = none
 tray-padding = 1
 ;tray-background = #bf6a87
 ;tray-underline = #1C98C9
@@ -136,7 +136,7 @@ format = <label-state> <label-mode>
 
 label-focused = "瘝" 
 ;label-focused = %icon%
-label-focused-foreground = #EA2D2F
+label-focused-foreground = 
 label-focused-background = 
 ;label-focused-underline = #2F9EC7
 ;label-focused-overline = #ABB2BF
@@ -292,8 +292,8 @@ format-full = <label-full>
 
 
 label-charging = "%percentage%%"
-label-discharging =  %percentage%%
-label-full =  %percentage%%
+label-discharging = %percentage%%
+label-full = %percentage%%
 
 format-full-foreground = "#15A000"
 ;format-full-underline = ${self.format-charging-underline}
@@ -352,6 +352,7 @@ interval = 300
 ;format-background = #8D4143
 ;format-underline = #005688
 click-left = ~/scripts/kdeconnect-dmenu
+
 
 [module/arch]
 type = custom/script

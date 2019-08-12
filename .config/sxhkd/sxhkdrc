@@ -86,24 +86,26 @@ super + F4
 
 #Screenshots
 Print
-	flameshot gui -p ~/Pictures/screenshots
+	flameshot gui
 super + shift + Print	
-      flameshot gui -d 2000 -p ~/Pictures/screenshots
+      flameshot gui -d 2000
 super + Print	
       flameshot full -c
 
 #Audio
 XF86AudioMute
-	pamixer -t
-XF86AudioRaiseVolume
-	pamixer -i 2 
+#	pamixer -t
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
 XF86AudioLowerVolume
-	pamixer -d 2
+#	pamixer -d 2
+	amixer sset 'Master' 2%-
+XF86AudioRaiseVolume
+	amixer sset 'Master' 2%+
 XF86AudioPlay
 	playerctl play-pause
 XF86AudioNext
 	playerctl next
-XF86AudioPrev
+XF86AdioPrev
 	playerctl previous
 XF86AudioStop
 	playerctl stop

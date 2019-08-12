@@ -1,18 +1,10 @@
 #! /bin/sh
-notify-send -a "GTD" "[I]nbox | [G]TD | [C]apturar | [A]genda" -t 10000
+sel=$(echo "Inbox\n GTD\n Capturar\n Agenda"| dmenu -i -p "GTD")
 
-read -rsn1 -t 10 input
-case $input in
-    i) emacsclient -c -n "~/Drive/sync/GTD/0inbox.org" && killall dunst;;
-    g) emacsclient -c -n "~/Drive/sync/GTD/0gtd.org" && killall dunst;;
-    c) emacsclient -c -F '(quote (name . "capture") (width  . 120) (height . 30) (left . 150))' -e "(make-capture-frame)" && killall dunst;;
-    a) emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 40) (left . 250) (top . 60))' -n -e "(agenda-frame)" && killall dunst;;
-
-# Compatibilidad para mayúsulas UwU
-    I) emacsclient -c -n "~/Drive/sync/GTD/0inbox.org" && killall dunst;;
-    G) emacsclient -c -n "~/Drive/sync/GTD/0gtd.org" && killall dunst;;
-    C) emacsclient -c -F '(quote (name . "capture") (width  . 120) (height . 30) (left . 150))' -e "(make-capture-frame)" && killall dunst;;
-    A) emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 40) (left . 250) (top . 60))' -n -e "(agenda-frame)" && killall dunst;;
-    *) killall dunst;;
+case $sel in
+    Inbox) emacsclient -c -n "~/Drive/sync/GTD/0inbox.org";;
+    GTD) emacsclient -c -n "~/Drive/sync/GTD/0gtd.org";;
+    Capturar) emacsclient -c -F '(quote (name . "capture") (width  . 120) (height . 30) (left . 150))' -e "(make-capture-frame)";;
+    Agenda) emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 40) (left . 250) (top . 60))' -n -e "(agenda-frame)";;
 esac
 
