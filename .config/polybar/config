@@ -70,7 +70,7 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left = bspwm sep-null clima-icon clima sep-null spotify
+modules-left = bspwm sep-null sep-null spotify
 modules-center = date
 modules-right = pulseaudio battery xkeyboard red copy notif 
 
@@ -155,7 +155,7 @@ label-urgent-padding = 2
 
 label-empty = "吏"
 ;label-empty = %icon%
-label-empty-foreground = #adb2ba
+label-empty-foreground = 
 label-empty-background = 
 label-empty-padding = 0
 

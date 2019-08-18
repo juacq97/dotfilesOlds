@@ -746,7 +746,7 @@
  '(org-re-reveal-script-files (quote ("js/reveal.js")))
  '(package-selected-packages
    (quote
-    (bug-hunter writefreely ewal-spacemacs-theme ewal-evil-cursors ewal-spacemacs-themes ewal writeroom-mode writeroom flymake-shellcheck rc-mode ivy-prescient prescient flyspell-correct-ivy oer-reveal org-re-reveal-ref org-re-reveal haskell-mode beacon doom-themes auctex-latexmk doom-modeline dired-open evil-org org-super-agenda evil-collection all-the-icons-ivy all-the-icons-dired all-the-icons smtpmail-multi frames-only-mode flymd yequake noflet evil-magit lua-mode counsel pdf-tools nov powerline solarized-theme magit helm-projectile swiper-helm mu4e-alert citeproc-org ox-word ox-pandoc auctex org-ref neotree spaceline smart-mode-line-atom-one-dark-theme smart-mode-line airline-themes evil rainbow-delimiters rainbow-delimeters expand-region auto-complete try foo 2048-game chess ace-window ztree counsel-projectile projectile org-beamer-mode demo-it latex-math-preview yasnippet-snippets yasnippet markdown-preview-mode markdown-mode+ markdown-mode epresent htmlize ox-reveal company dashboard switch-window avy smex ido-vertical-mode spacemacs-theme org-bullets nord-theme zenburn-theme telephone-line which-key use-package rich-minority python material-theme arjen-grey-theme)))
+    (org bug-hunter writefreely ewal-spacemacs-theme ewal-evil-cursors ewal-spacemacs-themes ewal writeroom-mode writeroom flymake-shellcheck rc-mode ivy-prescient prescient flyspell-correct-ivy oer-reveal org-re-reveal-ref org-re-reveal haskell-mode beacon doom-themes auctex-latexmk doom-modeline dired-open evil-org org-super-agenda evil-collection all-the-icons-ivy all-the-icons-dired all-the-icons smtpmail-multi frames-only-mode flymd yequake noflet evil-magit lua-mode counsel pdf-tools nov powerline solarized-theme magit helm-projectile swiper-helm mu4e-alert citeproc-org ox-word ox-pandoc auctex org-ref neotree spaceline smart-mode-line-atom-one-dark-theme smart-mode-line airline-themes evil rainbow-delimiters rainbow-delimeters expand-region auto-complete try foo 2048-game chess ace-window ztree counsel-projectile projectile org-beamer-mode demo-it latex-math-preview yasnippet-snippets yasnippet markdown-preview-mode markdown-mode+ markdown-mode epresent htmlize ox-reveal company dashboard switch-window avy smex ido-vertical-mode spacemacs-theme org-bullets nord-theme zenburn-theme telephone-line which-key use-package rich-minority python material-theme arjen-grey-theme)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pdf-view-resize-factor 1.05)
  '(pos-tip-background-color "#073642")
@@ -827,7 +827,7 @@
  '(highlight ((t nil)))
  '(hl-line ((t (:background "#2c2124"))))
  '(ivy-prompt-match ((t (:background "red"))))
- '(line-number ((t (:inherit default :background "#090809" :foreground "#4F282E"))))
+ '(line-number ((t (:foreground "#ac575a"))))
  '(line-number-current-line ((t (:inherit line-number :background "#090a0c" :foreground "#EA2D2F"))))
  '(mode-line ((t (:background "#121212" :foreground "#adb2ba" :box (:line-width 1 :color "#121212")))))
  '(org-done ((t (:inherit bold :background "#0b090a" :foreground "lime green" :weight bold))))

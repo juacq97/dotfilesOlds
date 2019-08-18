@@ -1,3 +1,33 @@
+/home/juan/ROMS/snes/Shin Megami Tensei if... (J).smc
+
+/home/juan/.config/retroarch/cores/snes9x_libretro.so
+Snes9x
+
+
+/home/juan/ROMS/snes/Shin Megami Tensei if....7z#Shin Megami Tensei if... (J) [p1].smc
+
+/home/juan/.config/retroarch/cores/snes9x_libretro.so
+Snes9x
+
+
+/home/juan/ROMS/snes/smtif/Shin Megami Tensei if... (J) [p1].smc
+
+/home/juan/.config/retroarch/cores/snes9x_libretro.so
+Snes9x
+
+
+/home/juan/ROMS/snes/Shin Megami Tensei if.../Shin Megami Tensei if... (J).smc
+
+/home/juan/.config/retroarch/cores/snes9x_libretro.so
+Snes9x
+
+
+/home/juan/ROMS/NES/Super C.7z#Super C (U) [!].nes
+
+/home/juan/.config/retroarch/cores/fceumm_libretro.so
+FCEUmm
+
+
 {
   "version": "1.0",
   "items": [
@@ -178,4 +208,3 @@
       "db_name": ""
     }
   ]
-}
