@@ -9,11 +9,11 @@ static const char *fonts[] = {
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 
-static const char *colors[SchemeLast][2] = {
+tatic const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { "#de9b98", "#0b090a" },
-	[SchemeSel] = { "#de9b98", "#4F282E" },
-	[SchemeOut] = { "#de9b98", "#995359" },
+	[SchemeNorm] = { "#e19b9d", "#080913" },
+	[SchemeSel] = { "#e19b9d", "#733641" },
+	[SchemeOut] = { "#e19b9d", "#AC655E" },
 };
 /*#include "/home/juan/.cache/wal/colors-wal-dmenu.h"*/
 

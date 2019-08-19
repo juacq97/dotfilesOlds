@@ -26,7 +26,7 @@ super + d
       j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
 
 super + r
-      dmenu_run_history -i -l 12
+      ~/scripts/dmenu_run_history -i -l 12
 #     rofi -modi "window,run,drun" -show run -theme material 
 
 

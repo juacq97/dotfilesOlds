@@ -815,7 +815,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#0b090a" :foreground "#de9b98" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "PfEd" :family "Fantasque Sans Mono"))))
+ '(default ((t (:inherit nil :stipple nil :background "#080913" :foreground "#e19b9d" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "PfEd" :family "Fantasque Sans Mono"))))
  '(doom-modeline-evil-emacs-state ((t (:inherit doom-modeline-warning))))
  '(doom-modeline-evil-insert-state ((t (:inherit doom-modeline-urgent :foreground "sea green"))))
  '(doom-modeline-evil-motion-state ((t (:inherit doom-modeline-buffer-path :foreground "dark blue"))))
@@ -824,12 +824,9 @@
  '(doom-modeline-evil-replace-state ((t (:inherit doom-modeline-buffer-modified :foreground "black"))))
  '(doom-modeline-evil-visual-state ((t (:inherit doom-modeline-buffer-file :foreground "dark orange"))))
  '(fringe ((t (:foreground "#adb2ba"))))
- '(highlight ((t nil)))
  '(hl-line ((t (:background "#2c2124"))))
  '(ivy-prompt-match ((t (:background "red"))))
- '(line-number ((t (:foreground "#ac575a"))))
- '(line-number-current-line ((t (:inherit line-number :background "#090a0c" :foreground "#EA2D2F"))))
- '(mode-line ((t (:background "#121212" :foreground "#adb2ba" :box (:line-width 1 :color "#121212")))))
+ '(line-number-current-line ((t (:foreground "#973343"))))
  '(org-done ((t (:inherit bold :background "#0b090a" :foreground "lime green" :weight bold))))
  '(org-todo ((t (:inherit bold :background "#0b090a" :foreground "#CC798B" :weight bold))))
  '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "gray45"))))

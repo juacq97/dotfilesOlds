@@ -58,7 +58,6 @@ bspc rule -a Firefox-esr desktop='^2' follow=on
 bspc rule -a Chromium desktop='^2' follow=on
 bspc rule -a spotify desktop='^6'
 bspc rule -a Lxappareance state=floating
-bspc rule -a Nitrogen desktop='3' state=floating
 bspc rule -a Lightdm-settings state=floating
 bspc rule -a Pavucontrol state=floating
 bspc rule -a qt5ct state=floating
