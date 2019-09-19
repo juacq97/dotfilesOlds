@@ -1,7 +1,7 @@
 #!/bin/sh
 
-#var=$(echo -e " Apagar\n Bloquear\n Reiniciar\n Cerrar sesión\n Cancelar" | rofi -dmenu -theme drofi -i -p "¿Desea salir?") 
-var=$(echo " Apagar\n Bloquear\n Reiniciar\n Cerrar sesión\n Cancelar" | dmenu -i -p "¿Desea salir?") 
+#var=$(echo -e " Apagar\n Bloquear\n Suspender\n Reiniciar\n Cerrar sesión\n Cancelar" | rofi -dmenu -theme drofi -i -p "¿Desea salir?") 
+var=$(echo " Apagar\n Bloquear\n Suspender\n  Reiniciar\n Cerrar sesión\n Cancelar" | dmenu -i -p "¿Desea salir?") 
 
 case $var in
     ' Apagar') 
@@ -10,7 +10,7 @@ case $var in
 	
 
     ' Bloquear')
-	i3lock -f -i /home/juan/Pictures/lock.png;;
+	i3lock -f -i /home/juan/.cache/i3lock/1633x768/blur.png;;
 
     ' Reiniciar')
 	rm /tmp/bspwm-startup.lock
@@ -19,6 +19,9 @@ case $var in
     ' Cerrar sesión')
 		rm /tmp/bspwm-startup.lock
 		bspc quit;;
+    ' Suspender')
+	systemctl suspend;;
+    
 	' Cancelar')
-	    exit 0
+	    exit 0;;
 esac

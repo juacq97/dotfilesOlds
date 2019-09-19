@@ -1,10 +1,12 @@
-#! /bin/sh
-sel=$(echo "Inbox\n GTD\n Capturar\n Agenda"| dmenu -i -p "GTD")
+#!/bin/sh
+sel=$(echo "Inbox\nTODO\nCapturar\nReferencias\nAgenda\nHorario"| dmenu -i -p "GTD")
 
 case $sel in
-    Inbox) emacsclient -c -n "~/Drive/sync/GTD/0inbox.org";;
-    GTD) emacsclient -c -n "~/Drive/sync/GTD/0gtd.org";;
+    Inbox) emacsclient -c -n "~/Drive/GTD/inbox.org";;
+    Referencias) emacsclient -c -n "~/Drive/GTD/referencias.org";;
+    TODO) emacsclient -c -F '(quote (name . "todotxt") (width  . 100) (height . 35) (left . 250) (top . 60))' -n -e "(todotxt-frame)";;
     Capturar) emacsclient -c -F '(quote (name . "capture") (width  . 120) (height . 30) (left . 150))' -e "(make-capture-frame)";;
-    Agenda) emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 40) (left . 250) (top . 60))' -n -e "(agenda-frame)";;
+    Agenda) emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 30) (left . 250) (top . 60))' -n -e "(agenda-frame)";;
+    Horario) emacsclient -c -n '~/Drive/SEC-ABREOJOS/HORARIO.ORG';;
 esac
 

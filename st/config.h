@@ -84,47 +84,26 @@ unsigned int tabspaces = 8;
 
 /* bg opacity */
 float alpha = 1;
-const char *colorname[] = {
 
-  /* 8 normal colors */
-  [0] = "#080913", /* black   */
-  [1] = "#733641", /* red     */
-  [2] = "#902F3B", /* green   */
-  [3] = "#973343", /* yellow  */
-  [4] = "#954643", /* blue    */
-  [5] = "#AB4D46", /* magenta */
-  [6] = "#AC655E", /* cyan    */
-  [7] = "#e19b9d", /* white   */
+/* Terminal colors (16 used in escape sequence) */
+static const char *palettes[][16] = {
+		  {"#5C6370", "#E06C75", "#98C379", "#D19A66", "#61AFEF", "#C678DD", "#56B6C2", "#ABB2BF", 
+		   "#282c34", "#E06C75", "#98C379", "#D19A66", "#61AFEF", "#C678DD", "#56B6C2", "#FFFFFF"},
+		  {"#FFFFFF", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#383A42",
+		   "#A0A1A7", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#000000"},
 
-  /* 8 bright colors */
-  [8]  = "#9d6c6d",  /* black   */
-  [9]  = "#733641",  /* red     */
-  [10] = "#902F3B", /* green   */
-  [11] = "#973343", /* yellow  */
-  [12] = "#954643", /* blue    */
-  [13] = "#AB4D46", /* magenta */
-  [14] = "#AC655E", /* cyan    */
-  [15] = "#e19b9d", /* white   */
-
-  /* special colors */
-  [256] = "#080913", /* background */
-  [257] = "#e19b9d", /* foreground */
-  [258] = "#e19b9d",     /* cursor */
 };
+static const char **colorname;
 
-/* Default colors (colorname index)
- * foreground, background, cursor */
- unsigned int defaultbg = 0;
- unsigned int defaultfg = 257;
- unsigned int defaultcs = 258;
- unsigned int defaultrcs= 258;
-/*
- * Colors used, when the specific fg == defaultfg. So in reverse mode this
- * will reverse too. Another logic would only make the simple feature too
- * complex.
- */
-static unsigned int defaultitalic = 7;
-static unsigned int defaultunderline = 7;
+ 
+ /*
+  * Default colors (colorname index)
+  * foreground, background, cursor, reverse cursor
+  */
+unsigned int defaultfg = 7;
+unsigned int defaultbg = 8;
+static unsigned int defaultcs = 6;
+static unsigned int defaultrcs = 6;
 
 
 
@@ -200,6 +179,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_D,           kscrolldown,    {.i = -1} },
 	{ TERMMOD,              XK_K,           kscrollup,      {.i = 1} },
 	{ TERMMOD,              XK_J,           kscrolldown,    {.i = 1} },
+	{ XK_NO_MOD,            XK_F6,          setpalette,     {.i =  0} },
+	{ XK_NO_MOD,            XK_F7,          setpalette,     {.i =  1} },
 };
 
 /*

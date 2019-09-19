@@ -20,9 +20,9 @@
 ;============================
 
 [colors]
-background = #c9080913
+background = #00282c34
 background-alt = #444
-foreground = #de9b98
+foreground = #ABB2BF
 foreground-alt = #555
 primary = #BF616A
 secondary = #e60053
@@ -70,7 +70,7 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left = bspwm sep-null sep-null spotify
+modules-left = bspwm sep-null clima-icon clima sep-null spotify mpd
 modules-center = date
 modules-right = pulseaudio battery xkeyboard red copy notif 
 
@@ -231,7 +231,18 @@ label-foreground = ${root.foreground}
 
 format-padding = 
 
+[module/mpd]
+type = internal/mpd
+; Host where mpd is running (either ip or domain name)
+; Can also be the full path to a unix socket where mpd is running.
+host = 127.0.0.1
+port = 6600
 
+; Seconds to sleep between progressbar/song timer sync
+; Default: 1
+interval = 2
+label-song =  %artist% - %title%
+label-offline = ""
 [module/pulseaudio]
 type = internal/pulseaudio
 
@@ -329,18 +340,18 @@ exec = ~/.config/polybar/scripts/clima-icon
 interval = 3600
 format-background = 
 ; click-left = ~/scripts/clima-img
-click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in/LAP; read x"
+click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
 label-font = 4
 ;format-underline = #e6c9c4
 
 [module/clima]
 type = custom/script
-;exec = curl -s "es.wttr.in/LAP?format=%c+%t"
-exec = curl -s "wttr.in/LAP?format=%t"
+;exec = curl -s "wttr.in/LAP?format=%t"
+exec = curl -s "wttr.in/?format=%t"
 interval = 3600
 format-background =
 ;click-left = ~/scripts/clima-img
-click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in/LAP; read x"
+click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
 ;format-underline = #e6c9c4
 
 [module/kde]
@@ -527,4 +538,4 @@ screenchange-reload = true
 ;compositing-background = screen
 ;compositing-foreground = source
 ;compositing-border = over
-;pseudo-transparency = true
+pseudo-transparency = true

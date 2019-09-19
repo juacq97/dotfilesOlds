@@ -1,5 +1,3 @@
-;=================================================
-;
 ;   █████  ██████████   ██████    █████   ██████
 ;  ██░░░██░░██░░██░░██ ░░░░░░██  ██░░░██ ██░░░░ 
 ; ░███████ ░██ ░██ ░██  ███████ ░██  ░░ ░░█████ 
@@ -137,23 +135,23 @@
 (setq org-capture-templates
       '(
 	("i" "Inbox" entry
-	 (file "~/Drive/sync/GTD/0inbox.org")
+	 (file "~/Drive/GTD/inbox.org")
 	 "* %?\n%u" :prepend t)
 
-	("t" "TODO" entry
-	 (file "~/Drive/sync/GTD/0gtd.org")
-	 "* TODO %?\n%u" :prepend t)
+;	("t" "TODO" entry
+;	 (file "~/Drive/GTD/0gtd.org")
+;	 "* TODO %?\n%u" :prepend t)
 
-	("a" "Agenda"  entry
-	 (file+headline "~/Drive/sync/GTD/0gtd.org" "Agenda")
-	 "* EVENTO %?\n SCHEDULED: %t")
+;	("a" "Agenda"  entry
+;	 (file+headline "~/Drive/sync/GTD/0gtd.org" "Agenda")
+;	 "* EVENTO %?\n SCHEDULED: %t")
 	
 	("n" "Notas" entry
-	 (file+headline "~/Drive/sync/gtd/a.org" "Notas")
+	 (file+headline "~/Drive/GTD/referencias.org" "Notas")
 	 "* %?" :prepend t)
 
 	("d" "Diario" entry
-	 (file+olp+datetree "~/Drive/sync/cuaderno/diario.org")
+	 (file+olp+datetree "~/Drive/SEC-ABREOJOS/DIARIO.org")
 	 "* %?" :prepend t)))
 
 ;; Soporte para seleccionar con shift 
@@ -290,8 +288,7 @@
   :ensure t
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-items '((agenda . 5)
-			  (projects . 5)
+  (setq dashboard-items '((projects . 5)
 			  (recents . 5)
 			  (registers . 5)))
   (setq dashboard-startup-banner 2)
@@ -300,6 +297,10 @@
   (setq dashboard-banner-logo-title "Pizza Mozzarella! Pizza Mozzarella! Rella Rella Rella Rella...")
   (setq show-week-agenda-p t)
   (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
+  (defun dashboard-insert-custom (list-size)
+    (insert "Custom text"))
+  (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
+  (add-to-list 'dashboard-items '(custom) t)
 )
 
 (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
@@ -436,32 +437,48 @@
   :config (all-the-icons-ivy-setup))
 
 ;;;; Doom-themes ;;;;
-;;  (use-package doom-themes
-;;    :ensure t
-;;    :config
-;;
-;;  ;; Global settings (defaults)
-;;  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-;;	doom-themes-enable-italic t) ; if nil, italics is universally disabled
-;;
-;;  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
-;;  ;; may have their own settings.
-;;  (load-theme 'doom-one t)
-;;
-;;  ;; Enable flashing mode-line on errors
-;;  (doom-themes-visual-bell-config)
-;;
-;;  ;; Enable custom neotree theme (all-the-icons must be installed!)
-;;  (doom-themes-neotree-config)
-;;  ;; or for treemacs users
-;;  (doom-themes-treemacs-config)
-;;
-;;  ;; Corrects (and improves) org-mode's native fontification.
-;;  (doom-themes-org-config)
-;;  )
-;;
-;;(add-hook 'after-make-frame-functions 'my-frame-config)
-;;(add-hook 'after-init-hook 'my-frame-config)
+(use-package doom-themes
+  :ensure t
+  :config
+  
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+	doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  
+  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+  ;; may have their own settings.
+  (load-theme 'doom-vibrant t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (doom-themes-treemacs-config)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config)
+  )
+
+(add-hook 'after-make-frame-functions 'my-frame-config)
+(add-hook 'after-init-hook 'my-frame-config)
+
+
+;; heaven and hell ;;;;
+(use-package heaven-and-hell
+  :ensure t
+  :init
+  (setq heaven-and-hell-theme-type 'dark) ;; Omit to use light by default
+  (setq heaven-and-hell-themes
+        '((light . doom-one-light)
+          (dark . doom-one))) ;; Themes can be the list: (dark . (tsdh-dark wombat))
+  ;; Optionall, load themes without asking for confirmation.
+  (setq heaven-and-hell-load-theme-no-confirm t)
+  :hook (after-init . heaven-and-hell-init-hook)
+  :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
+         ("<f7>" . heaven-and-hell-toggle-theme)))
+
 
 ;;;; Beacon ;;;;
 (use-package beacon
@@ -476,16 +493,44 @@
 (global-set-key [f6] 'writeroom-mode)
 
 ;;; Ewal ;;;;
-(use-package ewal
-  :ensure t
-  :config
-  (setq ewal-wal-cache-dir "~/.cache/wal/ewal.json")
-  )
-
-(when (ewal-load-wal-colors)
-  (custom-set-faces
-   `(line-number ((t (:foreground ,(ewal-get-color 'magenta 4)))))))
-(load-theme 'ewal-spacemacs-modern t)
+;(use-package ewal
+;  :init (setq ewal-use-built-in-always-p nil
+;              ewal-use-built-in-on-failure-p t
+;              ewal-built-in-palette "sexy-material"))
+;
+;(use-package ewal-spacemacs-themes
+;  :init (progn
+;          (setq spacemacs-theme-underline-parens t
+;                my:rice:font (font-spec
+;                              :family "Fantasque Sans Mono"
+;                              :weight 'semi-bold
+;                              :size 12.0))
+;          (show-paren-mode +1)
+;          (global-hl-line-mode)
+;          (set-frame-font my:rice:font nil t)
+;          (add-to-list  'default-frame-alist
+;                        `(font . ,(font-xlfd-name my:rice:font))))
+;  :config (progn
+;            (load-theme 'ewal-spacemacs-modern t)
+;            (enable-theme 'ewal-spacemacs-modern)))
+;
+;(use-package ewal-evil-cursors
+;  :after (ewal-spacemacs-themes)
+;  :config (ewal-evil-cursors-get-colors
+;           :apply t :spaceline t))
+;(use-package ewal
+;  :ensure t
+;  :config
+;  (setq ewal-wal-cache-dir "~/.cache/wal/ewal.json")
+;
+; :init (setq ewal-use-built-in-always-p nil
+;              ewal-use-built-in-on-failure-p t
+;              ewal-built-in-palette "sexy-material")
+;)
+;;(when (ewal-load-wal-colors)
+;;  (custom-set-faces
+;;   `(line-number ((t (:foreground ,(ewal-get-color 'magenta 4)))))))
+;(load-theme 'ewal-spacemacs-modern t)
 
 
 ;; Nord theme ;;;;
@@ -514,6 +559,18 @@
          ;(:todo "EPERANDO" :order 8)  ; Set order of this section
          ;))
   ;(org-agenda nil "a")
+
+;;;; TODO-TXT ;;;;
+(use-package todotxt
+  :ensure t
+  :config
+  (setq todotxt-file "~/Drive/GTD/todo.txt")
+  (add-to-list 'evil-emacs-state-modes 'todotxt-mode))
+;; Todo list flotante
+(defun todotxt-frame ()
+  (interactive)
+  (todotxt)
+  (delete-other-windows))
 
 ;;==================
 ;; UI
@@ -635,13 +692,14 @@
  '(cua-normal-cursor-color "#839496")
  '(cua-overwrite-cursor-color "#b58900")
  '(cua-read-only-cursor-color "#859900")
- '(custom-enabled-themes (quote (ewal-spacemacs-modern)))
+ '(custom-enabled-themes (quote (doom-one)))
  '(custom-safe-themes
    (quote
-    ("f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "a8c210aa94c4eae642a34aaf1c5c0552855dfca2153fa6dd23f3031ce19453d4" "82358261c32ebedfee2ca0f87299f74008a2e5ba5c502bde7aaa15db20ee3731" "f1e97d06df4664396093529be437bac344f2737b60d9d60b70d85455f9c26a7f" "0fb2699a9fdcb5a0eda9f90c002e7c65cd4c6a82096e4ad05deef1a9a2292e49" "cbcfae366ef502108e54223da514f24b9162d8d191d436fdc447f938015f74da" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "75d3dde259ce79660bac8e9e237b55674b910b470f313cdf4b019230d01a982a" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" "8d5f22f7dfd3b2e4fc2f2da46ee71065a9474d0ac726b98f647bc3c7e39f2819" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "43eea8fb35170e00dbe2b4422af5eb26c29c7cff9055ecca511ffae2f3aa51aa" "13325a954fce38bc72d81a93572585e21bdff745892f643a7c9d038486d3516d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "946e871c780b159c4bb9f580537e5d2f7dba1411143194447604ecbaf01bd90c" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "f66ffeadda7b52d40c8d698967ae9e9836f54324445af95610d257fa5e3e1e21" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a94f1a015878c5f00afab321e4fef124b2fc3b823c8ddd89d360d710fc2bddfc" "0cd56f8cd78d12fc6ead32915e1c4963ba2039890700458c13e12038ec40f6f5" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "251348dcb797a6ea63bbfe3be4951728e085ac08eee83def071e4d2e3211acc3" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "1e9001d2f6ffb095eafd9514b4d5974b720b275143fbc89ea046495a99c940b0" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
+    ("423435c7b0e6c0942f16519fa9e17793da940184a50201a4d932eafe4c94c92d" "728eda145ad16686d4bbb8e50d540563573592013b10c3e2defc493f390f7d83" "0fe9f7a04e7a00ad99ecacc875c8ccb4153204e29d3e57e9669691e6ed8340ce" "fe76f3d5094967034192f6a505085db8db6deb0e135749d9a54dc488d6d3ee2f" "428754d8f3ed6449c1078ed5b4335f4949dc2ad54ed9de43c56ea9b803375c23" "0d087b2853473609d9efd2e9fbeac088e89f36718c4a4c89c568dd1b628eae41" "2d392972cbe692ee4ac61dc79907af65051450caf690a8c4d36eb40c1857ba7d" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "e7666261f46e2f4f42fd1f9aa1875bdb81d17cc7a121533cad3e0d724f12faf2" "a2286409934b11f2f3b7d89b1eaebb965fd63bc1e0be1c159c02e396afb893c8" "43c808b039893c885bdeec885b4f7572141bd9392da7f0bd8d8346e02b2ec8da" "6d589ac0e52375d311afaa745205abb6ccb3b21f6ba037104d71111e7e76a3fc" "10461a3c8ca61c52dfbbdedd974319b7f7fd720b091996481c8fb1dded6c6116" "9954ed41d89d2dcf601c8e7499b6bb2778180bfcaeb7cdfc648078b8e05348c6" "6b289bab28a7e511f9c54496be647dc60f5bd8f9917c9495978762b99d8c96a0" "151bde695af0b0e69c3846500f58d9a0ca8cb2d447da68d7fbf4154dcf818ebc" "cd736a63aa586be066d5a1f0e51179239fe70e16a9f18991f6f5d99732cabb32" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" "f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "a8c210aa94c4eae642a34aaf1c5c0552855dfca2153fa6dd23f3031ce19453d4" "82358261c32ebedfee2ca0f87299f74008a2e5ba5c502bde7aaa15db20ee3731" "f1e97d06df4664396093529be437bac344f2737b60d9d60b70d85455f9c26a7f" "0fb2699a9fdcb5a0eda9f90c002e7c65cd4c6a82096e4ad05deef1a9a2292e49" "cbcfae366ef502108e54223da514f24b9162d8d191d436fdc447f938015f74da" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "75d3dde259ce79660bac8e9e237b55674b910b470f313cdf4b019230d01a982a" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" "8d5f22f7dfd3b2e4fc2f2da46ee71065a9474d0ac726b98f647bc3c7e39f2819" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "43eea8fb35170e00dbe2b4422af5eb26c29c7cff9055ecca511ffae2f3aa51aa" "13325a954fce38bc72d81a93572585e21bdff745892f643a7c9d038486d3516d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "946e871c780b159c4bb9f580537e5d2f7dba1411143194447604ecbaf01bd90c" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "f66ffeadda7b52d40c8d698967ae9e9836f54324445af95610d257fa5e3e1e21" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a94f1a015878c5f00afab321e4fef124b2fc3b823c8ddd89d360d710fc2bddfc" "0cd56f8cd78d12fc6ead32915e1c4963ba2039890700458c13e12038ec40f6f5" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "251348dcb797a6ea63bbfe3be4951728e085ac08eee83def071e4d2e3211acc3" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "1e9001d2f6ffb095eafd9514b4d5974b720b275143fbc89ea046495a99c940b0" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
  '(dashboard-page-separator "
 
 ")
+ '(dashboard-set-heading-icons nil)
  '(dashboard-set-init-info nil)
  '(debug-on-error nil)
  '(delete-selection-mode nil)
@@ -649,6 +707,7 @@
  '(display-line-numbers (quote visual))
  '(elfeed-goodies/powerline-default-separator (quote wave))
  '(evil-want-C-i-jump nil)
+ '(ewal-dark-palette-p nil)
  '(fci-rule-color "#383838")
  '(flyspell-default-dictionary "espanol")
  '(frame-background-mode nil)
@@ -715,9 +774,7 @@
       ((agenda "" nil)
        (todo "TODO" nil))
       nil))))
- '(org-agenda-files
-   (quote
-    ("~/Drive/PROFESOR/PLANEACIÓN.ORG" "~/Drive/sync/GTD/0gtd.org")))
+ '(org-agenda-files (quote ("~/Drive/SEC-ABREOJOS/PLANEACIONES/3.org")))
  '(org-archive-default-command (quote org-archive-subtree))
  '(org-file-apps
    (quote
@@ -725,6 +782,10 @@
      ("\\.mm\\'" . default)
      ("\\.x?html?\\'" . default)
      ("\\.pdf\\'" . "zathura %s"))))
+ '(org-format-latex-options
+   (quote
+    (:foreground default :background default :scale 3.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+		 ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(org-link-frame-setup
    (quote
     ((vm . vm-visit-folder-other-frame)
@@ -736,7 +797,7 @@
    (quote
     ((done . "CLOSING NOTE %t")
      (state . "%-12s %d")
-     (note . "Nota tomada el %t")
+     (note . "Nota tomada el %d")
      (reschedule . "Rescheduled from %S on %t")
      (delschedule . "Not scheduled, was %S on %t")
      (redeadline . "New deadline from %S on %t")
@@ -746,7 +807,7 @@
  '(org-re-reveal-script-files (quote ("js/reveal.js")))
  '(package-selected-packages
    (quote
-    (org bug-hunter writefreely ewal-spacemacs-theme ewal-evil-cursors ewal-spacemacs-themes ewal writeroom-mode writeroom flymake-shellcheck rc-mode ivy-prescient prescient flyspell-correct-ivy oer-reveal org-re-reveal-ref org-re-reveal haskell-mode beacon doom-themes auctex-latexmk doom-modeline dired-open evil-org org-super-agenda evil-collection all-the-icons-ivy all-the-icons-dired all-the-icons smtpmail-multi frames-only-mode flymd yequake noflet evil-magit lua-mode counsel pdf-tools nov powerline solarized-theme magit helm-projectile swiper-helm mu4e-alert citeproc-org ox-word ox-pandoc auctex org-ref neotree spaceline smart-mode-line-atom-one-dark-theme smart-mode-line airline-themes evil rainbow-delimiters rainbow-delimeters expand-region auto-complete try foo 2048-game chess ace-window ztree counsel-projectile projectile org-beamer-mode demo-it latex-math-preview yasnippet-snippets yasnippet markdown-preview-mode markdown-mode+ markdown-mode epresent htmlize ox-reveal company dashboard switch-window avy smex ido-vertical-mode spacemacs-theme org-bullets nord-theme zenburn-theme telephone-line which-key use-package rich-minority python material-theme arjen-grey-theme)))
+    (nyan-mode heaven-and-hell doom-themes todotxt org bug-hunter writefreely ewal-spacemacs-theme ewal-evil-cursors ewal-spacemacs-themes ewal writeroom-mode writeroom flymake-shellcheck rc-mode ivy-prescient prescient flyspell-correct-ivy oer-reveal org-re-reveal-ref org-re-reveal haskell-mode beacon auctex-latexmk doom-modeline dired-open evil-org org-super-agenda evil-collection all-the-icons-ivy all-the-icons-dired all-the-icons smtpmail-multi frames-only-mode flymd yequake noflet evil-magit lua-mode counsel pdf-tools nov powerline solarized-theme magit helm-projectile swiper-helm mu4e-alert citeproc-org ox-word ox-pandoc auctex org-ref neotree spaceline smart-mode-line-atom-one-dark-theme smart-mode-line airline-themes evil rainbow-delimiters rainbow-delimeters expand-region auto-complete try foo 2048-game chess ace-window ztree counsel-projectile projectile org-beamer-mode demo-it latex-math-preview yasnippet-snippets yasnippet markdown-preview-mode markdown-mode+ markdown-mode epresent htmlize ox-reveal company dashboard switch-window avy smex ido-vertical-mode spacemacs-theme org-bullets nord-theme zenburn-theme telephone-line which-key use-package rich-minority python material-theme arjen-grey-theme)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pdf-view-resize-factor 1.05)
  '(pos-tip-background-color "#073642")
@@ -815,7 +876,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#080913" :foreground "#e19b9d" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "PfEd" :family "Fantasque Sans Mono"))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "PfEd" :family "Fantasque Sans Mono"))))
  '(doom-modeline-evil-emacs-state ((t (:inherit doom-modeline-warning))))
  '(doom-modeline-evil-insert-state ((t (:inherit doom-modeline-urgent :foreground "sea green"))))
  '(doom-modeline-evil-motion-state ((t (:inherit doom-modeline-buffer-path :foreground "dark blue"))))
@@ -824,11 +885,12 @@
  '(doom-modeline-evil-replace-state ((t (:inherit doom-modeline-buffer-modified :foreground "black"))))
  '(doom-modeline-evil-visual-state ((t (:inherit doom-modeline-buffer-file :foreground "dark orange"))))
  '(fringe ((t (:foreground "#adb2ba"))))
- '(hl-line ((t (:background "#2c2124"))))
  '(ivy-prompt-match ((t (:background "red"))))
+ '(line-number ((t (:foreground "#bb706a"))))
  '(line-number-current-line ((t (:foreground "#973343"))))
- '(org-done ((t (:inherit bold :background "#0b090a" :foreground "lime green" :weight bold))))
- '(org-todo ((t (:inherit bold :background "#0b090a" :foreground "#CC798B" :weight bold))))
+ '(org-block ((t (:background "#080913" :foreground "#e19b9d"))))
+ '(org-block-begin-line ((t (:background "#080913" :foreground "#bb706b"))))
+ '(org-block-end-line ((t (:background "#080913" :foreground "#bb706b"))))
  '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "gray45"))))
  '(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark violet"))))
  '(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "goldenrod"))))

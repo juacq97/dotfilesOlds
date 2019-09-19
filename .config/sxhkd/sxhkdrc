@@ -63,15 +63,19 @@ super + shift + e
       emacsclient -ne '(new-frame)'
       
 super + a
-      emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 40) (left . 250) (top . 60))' -n -e "(agenda-frame)"
+#      emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 35) (left . 250) (top . 60))' -n -e "(agenda-frame)"
+       st -e calcurse
 
 # emacs gtd
-super + c; c
+super + c
       emacsclient -c -F '(quote (name . "capture") (width  . 120) (height . 30) (left . 150))' -e "(make-capture-frame)"
 
 super + i
 ##      emacsclient -c -n "~/Drive/sync/GTD/0gtd.org"
-       bspc rule -a \* -o state=floating rectangle 1x1+1+1 && st -e ~/scripts/orgmode-gtd
+      	bspc rule -a \* -o state=floating rectangle 1x1+1+1 && st -e ~/scripts/orgmode-gtd
+
+super + ctrl + t
+      	emacsclient -c -F '(quote (name . "todotxt") (width  . 100) (height . 35) (left . 250) (top . 60))' -n -e "(todotxt-frame)"
 
 
 # Newsboat

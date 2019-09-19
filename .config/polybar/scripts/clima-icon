@@ -1,6 +1,6 @@
 #! /bin/sh
 
-estado=$(curl -s "wttr.in/LAP?format=%C" )
+estado=$(curl -s "wttr.in/?format=%C" )
 case $estado in
     Unknown) icon="";;
     Cloudy) icon="";;
