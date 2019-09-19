@@ -1,0 +1,11 @@
+--- x.c
++++ x.c
+@@ -715,7 +699,7 @@ xloadcols(void)
+ 	static int loaded;
+ 	Color *cp;
+ 
+-	dc.collen = MAX(LEN(colorname), 256);
++	dc.collen = 16;
+ 	dc.col = xmalloc(dc.collen * sizeof(Color));
+ 
+ 	if (loaded) {
