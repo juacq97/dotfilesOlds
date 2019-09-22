@@ -86,13 +86,21 @@ unsigned int tabspaces = 8;
 float alpha = 1;
 
 /* Terminal colors (16 used in escape sequence) */
-static const char *palettes[][16] = {
-		  {"#5C6370", "#E06C75", "#98C379", "#D19A66", "#61AFEF", "#C678DD", "#56B6C2", "#ABB2BF", 
-		   "#282c34", "#E06C75", "#98C379", "#D19A66", "#61AFEF", "#C678DD", "#56B6C2", "#FFFFFF"},
-		  {"#FFFFFF", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#383A42",
-		   "#A0A1A7", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#000000"},
-
-};
+static const char *palettes[][16] =
+  {
+   /*
+    *DOOM ONE SCHEME
+    *{"#5C6370", "#E06C75", "#98C379", "#D19A66", "#61AFEF", "#C678DD", "#56B6C2", "#ABB2BF", 
+    * "#282c34", "#E06C75", "#98C379", "#D19A66", "#61AFEF", "#C678DD", "#56B6C2", "#FFFFFF"},
+    *{"#FFFFFF", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#383A42",
+    * "#A0A1A7", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#000000"},
+    */
+   /*wal UwU */
+   {"#00000D", "#3A4B73", "#1E2F8E", "#1C57A5", "#454FBC", "#AB42A4", "#219EDC", "#93d8ed",
+    "#6697a5", "#3A4B73", "#1E2F8E", "#1C57A5", "#454FBC", "#AB42A4", "#219EDC", "#93d8ed"},
+   {"#93d8ed", "#3A4B73", "#1E2F8E", "#1C57A5", "#454FBC", "#AB42A4", "#219EDC", "#00000D",
+    "#6697a5", "#3A4B73", "#1E2F8E", "#1C57A5", "#454FBC", "#AB42A4", "#219EDC", "#00000D"},
+  };
 static const char **colorname;
 
  
@@ -101,9 +109,9 @@ static const char **colorname;
   * foreground, background, cursor, reverse cursor
   */
 unsigned int defaultfg = 7;
-unsigned int defaultbg = 8;
-static unsigned int defaultcs = 6;
-static unsigned int defaultrcs = 6;
+unsigned int defaultbg = 0;
+static unsigned int defaultcs = 7;
+static unsigned int defaultrcs = 7;
 
 
 
