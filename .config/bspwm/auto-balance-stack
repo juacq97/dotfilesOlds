@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 bspc subscribe node_add node_remove | 
     while read -r line; do

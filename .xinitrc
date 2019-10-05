@@ -7,7 +7,7 @@ xfce4-power-manager &
 copyq &
 #conky -c ~/conkys/reloj-texto &
 #~/.config/polybar/polybar-monitors.sh &
-#/usr/lib/kdeconnectd &
+/usr/lib/kdeconnectd &
 /lib/x86_64-linux-gnu/libexec/kdeconnectd &
 dunst & 
 redshift &
@@ -16,4 +16,3 @@ flameshot &
 mpDris2 &
 #
 exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) bspwm
-

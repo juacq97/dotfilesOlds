@@ -4,9 +4,9 @@ sel=$(echo "Derecha\nIzquierda\nArriba\nAbajo\nEspejo" | dmenu -i -p "¿Dónde d
     
 echo $sel
 case $sel in
-    Espejo) mons -d;;
-    Derecha) mons -e right;;
-    Izquierda) mons -e left;;
-    Arriba) mons -e top;;
-    Abajo) mons -e bottom;;
+    Espejo) mons -d && killall compton && compton -b --config ~/.config/compton.conf;;
+    Derecha) mons -e right killall compton && compton -b --config ~/.config/compton.conf;;
+    Izquierda) mons -e left killall compton && compton -b --config ~/.config/compton.conf;;
+    Arriba) mons -e top killall compton && compton -b --config ~/.config/compton.conf;;
+    Abajo) mons -e bottom killall compton && compton -b --config ~/.config/compton.conf;;
 esac

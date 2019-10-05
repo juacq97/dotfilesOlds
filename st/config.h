@@ -74,8 +74,7 @@ char *termname = "st-256color";
  *
  *	it#$tabspaces,
  *
- * Secondly make sure your kernel is not expanding tabs. When running `stty
- * -a` »tab0« should appear. You can tell the terminal to not expand tabs by
+ * Secondly make sure your kernel is not expanding tabs. When running `stty * -a` »tab0« should appear. You can tell the terminal to not expand tabs by
  *  running following command:
  *
  *	stty tabs
@@ -96,10 +95,12 @@ static const char *palettes[][16] =
     * "#A0A1A7", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#000000"},
     */
    /*wal UwU */
-   {"#00000D", "#3A4B73", "#1E2F8E", "#1C57A5", "#454FBC", "#AB42A4", "#219EDC", "#93d8ed",
-    "#6697a5", "#3A4B73", "#1E2F8E", "#1C57A5", "#454FBC", "#AB42A4", "#219EDC", "#93d8ed"},
-   {"#93d8ed", "#3A4B73", "#1E2F8E", "#1C57A5", "#454FBC", "#AB42A4", "#219EDC", "#00000D",
-    "#6697a5", "#3A4B73", "#1E2F8E", "#1C57A5", "#454FBC", "#AB42A4", "#219EDC", "#00000D"},
+
+   {"#120f1c", "#6F3349", "#3B4371", "#504771", "#6F4C6C", "#A44C44", "#A05767", "#e0aca2",
+    "#9c7871", "#6F3349", "#3B4371", "#504771", "#6F4C6C", "#A44C44", "#A05767", "#e0aca2"},
+
+   {"#e0aca2", "#6F3349", "#3B4371", "#504771", "#6F4C6C", "#A44C44", "#A05767", "#120f1c",
+    "#9c7871", "#6F3349", "#3B4371", "#504771", "#6F4C6C", "#A44C44", "#A05767", "#120f1c"},
   };
 static const char **colorname;
 

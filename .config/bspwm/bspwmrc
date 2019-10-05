@@ -13,7 +13,8 @@
 sxhkd &
 #wal -R &
 nitrogen --restore &
-~/.config/polybar/polybar_launch.sh &
+#~/.config/polybar/polybar_launch.sh &
+~/.config/polybar/polybar-monitors.sh &
 # ~/.config/bspwm/conky-restart &
 
 ##################
@@ -27,12 +28,11 @@ bspc config initial_polarity first_child
 
 bspc monitor LVDS-1 -d 1 2 3 4 5 6
 bspc monitor VGA-1 -d 7 8 9
-bspc monitor HDMI-1 A S D
+bspc monitor HDMI-1 -d A S D
 bspc config remove_unplugged_monitors true
 bspc config remove_disabled_monitors true
 bspc config border_width        3
 bspc config window_gap           10
-
 bspc config split_ratio          0.5
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true

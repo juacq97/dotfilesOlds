@@ -300,7 +300,6 @@
   (defun dashboard-insert-custom (list-size)
     (insert "Custom text"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
-  (add-to-list 'dashboard-items '(custom) t)
 )
 
 (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
@@ -683,6 +682,9 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+ '(beacon-blink-delay 0.3)
+ '(beacon-blink-duration 0.5)
+ '(beacon-blink-when-focused t)
  '(citeproc-org-bibtex-export-use-affixes t)
  '(citeproc-org-suppress-author-cite-link-types (quote ("citet")))
  '(company-quickhelp-color-background "#4F4F4F")
@@ -894,8 +896,8 @@
  '(org-block ((t (:background "#080913" :foreground "#e19b9d"))))
  '(org-block-begin-line ((t (:background "#080913" :foreground "#bb706b"))))
  '(org-block-end-line ((t (:background "#080913" :foreground "#bb706b"))))
- '(org-done ((t (:inherit bold :background "#00192778" :foreground "#4b58a4"))))
- '(org-todo ((t (:inherit bold :background "#0017498c" :foreground "#1C57A5"))))
+ '(org-done ((t (:inherit bold :background "#006a7ca5" :foreground "#97a7cf"))))
+ '(org-todo ((t (:inherit bold :background "#007c8085" :foreground "#92979D"))))
  '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "gray45"))))
  '(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark violet"))))
  '(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "goldenrod"))))
