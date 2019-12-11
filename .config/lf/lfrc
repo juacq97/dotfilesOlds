@@ -1,10 +1,11 @@
 # interpreter for shell commands (needs to be POSIX compatible)
-set shell sh
+set shell bash
 set drawbox
 set ratios '1:3:2'
 set ifs "\n"
 set incsearch
 set findlen 0
+set icons
 
 # set '-eu' options for shell commands
 # These options are used to have safer shell commands. Option '-e' is used to
@@ -27,12 +28,24 @@ set scrolloff 10
 # use either file extensions and/or mime types here. Below uses an editor for
 # text files and a file opener for the rest.
 
+%{{
+    w=$(tput cols)
+    if [ $w -le 80 ]; then
+        lf -remote "send $id set ratios 5:1"
+    elif [ $w -le 160 ]; then
+        lf -remote "send $id set ratios 1:3:2"
+    else
+        lf -remote "send $id set ratios 1:3:2"
+    fi
+}}
+
+
 cmd open &{{
     case $(file --mime-type "$f" -b) in
         text/*) setsid /home/$USER/.config/lf/emc $f;;
 	audio/mpeg) mpv $f;;
 	video/*) setsid mpv $f > /dev/null 2 2>&1 & ;;
-	image/*) sxiv-view $f;;
+	image/*) rifle_sxiv.sh $f;;
         *) for f in $f; do setsid $OPENER $f > /dev/null 2> /dev/null & done;;
     esac 
 }}
@@ -86,6 +99,8 @@ cmd zip ${{
     rm -rf $1
 }}
 
+
+
 cmd paste &{{
     load=$(lf -remote 'load')
     mode=$(echo "$load" | sed -n '1p')
@@ -103,6 +118,27 @@ cmd paste &{{
     lf -remote 'send clear'
 }}
 
+
+
+
+#cmd paste &{{
+#    load=$(lf -remote 'load')
+#    mode=$(echo "$load" | sed -n '1p')
+#    list=$(echo "$load" | sed '1d')
+#    if [ $mode = 'copy' ]; then
+##        rsync -av --ignore-existing --progress $list . \
+##        | stdbuf -i0 -o0 -e0 tr '\r' '\n' \
+##        | while read line; do
+##            lf -remote "send $id echo $line"
+##        done
+#	 cp $list .
+#    elif [ $mode = 'move' ]; then
+#        mv -n $list .
+#    fi
+#    lf -remote 'send load'
+#    lf -remote 'send clear'
+#}}
+
 cmd kdeconnect &{{
 		    id=$(kdeconnect-cli -a --id-only | awk '{print $1}')
 		    kdeconnect-cli -d $id --share $f
@@ -118,7 +154,7 @@ cmd rclone-pull ${{
 }}
 
 # use enter for shell commands
-map <enter> shell
+#map <enter> shell
 
 ##############
 # keys
@@ -137,9 +173,7 @@ map e &emacsclient -c "$f" & disown
 map F $find | lf -remote "send $id select $(fzf --height 50% --reverse --border --margin 5% --inline-info --color border:#005688,bg+:#16252E,fg+:#26c6da,hl+:#ffffff,hl:#26c6da)"
 
 
-map ak :kdeconnect
-map ap :rclone-push
-map aP :rclone-pull
+map a push %mkdir<space>
 
 map gh cd ~
 map ge cd /etc
@@ -155,7 +189,7 @@ map gv cd /var
 map gm cd /media
 map gM cd /mnt
 map gs cd /srv
-map gr cd /run/media/equipo
+map gr cd /run/media/juan
 map g/ cd /
 map gb cd ~/.local/share/Trash/files
 

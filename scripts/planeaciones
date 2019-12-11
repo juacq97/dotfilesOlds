@@ -1,0 +1,18 @@
+#! /bin/bash
+var=$(echo -e "PRIMERO\nSEGUNDO\nTERCERO\nMATEMATICAS 1\nMATEMATICAS 2\nMATEMATICAS 3" | dmenu -i)
+
+case $var in
+    'PRIMERO')
+	emacsclient -c ~/Drive/SEC-ABREOJOS/PLANEACIONES/1.org;;
+    'SEGUNDO')
+	emacsclient -c ~/Drive/SEC-ABREOJOS/PLANEACIONES/2.org;;
+    'TERCERO')
+	emacsclient -c ~/Drive/SEC-ABREOJOS/PLANEACIONES/3.org;;
+    'MATEMATICAS 1')
+	zathura ~/Drive/SEC-ABREOJOS/MATEMATICAS1.PDF;;
+    'MATEMATICAS 2')
+	zathura ~/Drive/SEC-ABREOJOS/MATEMATICAS2.PDF;;
+    'MATEMATICAS 3')
+	zathura ~/Drive/SEC-ABREOJOS/MATEMATICAS3.PDF;;
+esac
+

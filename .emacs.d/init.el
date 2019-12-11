@@ -890,6 +890,7 @@
  '(doom-modeline-evil-replace-state ((t (:inherit doom-modeline-buffer-modified :foreground "black"))))
  '(doom-modeline-evil-visual-state ((t (:inherit doom-modeline-buffer-file :foreground "dark orange"))))
  '(fringe ((t (:foreground "#adb2ba"))))
+ '(hl-line ((t (:background "#000038"))))
  '(ivy-prompt-match ((t (:background "red"))))
  '(line-number ((t (:foreground "#bb706a"))))
  '(line-number-current-line ((t (:foreground "#973343"))))

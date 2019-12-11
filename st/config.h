@@ -84,37 +84,68 @@ unsigned int tabspaces = 8;
 /* bg opacity */
 float alpha = 1;
 
-/* Terminal colors (16 used in escape sequence) */
+ /*  {
 static const char *palettes[][16] =
+ *    *DOOM ONE SCHEME
+ *    *{"#5C6370", "#E06C75", "#98C379", "#D19A66", "#61AFEF", "#C678DD", "#56B6C2", "#ABB2BF", 
+ *    * "#282c34", "#E06C75", "#98C379", "#D19A66", "#61AFEF", "#C678DD", "#56B6C2", "#FFFFFF"},
+ *    *{"#FFFFFF", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#383A42",
+ *    * "#A0A1A7", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#000000"},
+
   {
-   /*
-    *DOOM ONE SCHEME
-    *{"#5C6370", "#E06C75", "#98C379", "#D19A66", "#61AFEF", "#C678DD", "#56B6C2", "#ABB2BF", 
-    * "#282c34", "#E06C75", "#98C379", "#D19A66", "#61AFEF", "#C678DD", "#56B6C2", "#FFFFFF"},
-    *{"#FFFFFF", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#383A42",
-    * "#A0A1A7", "#E45649", "#50A14F", "#986801", "#4078F2", "#A626A4", "#0184BC", "#000000"},
-    */
-   /*wal UwU */
 
-   {"#120f1c", "#6F3349", "#3B4371", "#504771", "#6F4C6C", "#A44C44", "#A05767", "#e0aca2",
-    "#9c7871", "#6F3349", "#3B4371", "#504771", "#6F4C6C", "#A44C44", "#A05767", "#e0aca2"},
+   { "#00001B", "#64039F", "#7A4DBD", "#5E22CF", "#544EE6", "#9C05A3", "#DC0FA5", "#d197e2",
+     "#92699e", "#64039F", "#7A4DBD", "#5E22CF", "#544EE6", "#9C05A3", "#DC0FA5", "#d197e2"},
 
-   {"#e0aca2", "#6F3349", "#3B4371", "#504771", "#6F4C6C", "#A44C44", "#A05767", "#120f1c",
-    "#9c7871", "#6F3349", "#3B4371", "#504771", "#6F4C6C", "#A44C44", "#A05767", "#120f1c"},
-  };
+   { "#d197e2", "#64039F", "#7A4DBD", "#5E22CF", "#544EE6", "#9C05A3", "#DC0FA5", "#00001b",
+     "#92699e", "#64039F", "#7A4DBD", "#5E22CF", "#544EE6", "#9C05A3", "#DC0FA5", "#d197e2"},
+
+
+     };
 static const char **colorname;
 
  
- /*
-  * Default colors (colorname index)
-  * foreground, background, cursor, reverse cursor
-  */
 unsigned int defaultfg = 7;
 unsigned int defaultbg = 0;
 static unsigned int defaultcs = 7;
 static unsigned int defaultrcs = 7;
 
+ */
 
+const char *colorname[] = {
+
+  /* 8 normal colors */
+  [0] = "#090a0c", /* black   */
+  [1] = "#5E4E59", /* red     */
+  [2] = "#BE363C", /* green   */
+  [3] = "#EA2D2F", /* yellow  */
+  [4] = "#9C505A", /* blue    */
+  [5] = "#EE5C54", /* magenta */
+  [6] = "#F99569", /* cyan    */
+  [7] = "#adb2ba", /* white   */
+
+  /* 8 bright colors */
+  [8]  = "#797c82",  /* black   */
+  [9]  = "#5E4E59",  /* red     */
+  [10] = "#BE363C", /* green   */
+  [11] = "#EA2D2F", /* yellow  */
+  [12] = "#9C505A", /* blue    */
+  [13] = "#EE5C54", /* magenta */
+  [14] = "#F99569", /* cyan    */
+  [15] = "#adb2ba", /* white   */
+
+  /* special colors */
+  [256] = "#090a0c", /* background */
+  [257] = "#adb2ba", /* foreground */
+  [258] = "#adb2ba",     /* cursor */
+};
+
+/* Default colors (colorname index)
+ * foreground, background, cursor */
+ unsigned int defaultbg = 0;
+ unsigned int defaultfg = 257;
+ unsigned int defaultcs = 258;
+ unsigned int defaultrcs= 258;
 
 /*#include "/home/equipo/.cache/wal/colors-wal-st.h"*/
 
@@ -188,8 +219,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_D,           kscrolldown,    {.i = -1} },
 	{ TERMMOD,              XK_K,           kscrollup,      {.i = 1} },
 	{ TERMMOD,              XK_J,           kscrolldown,    {.i = 1} },
-	{ XK_NO_MOD,            XK_F6,          setpalette,     {.i =  0} },
-	{ XK_NO_MOD,            XK_F7,          setpalette,     {.i =  1} },
+	/*	{ XK_NO_MOD,            XK_F6,          setpalette,     {.i =  0} },
+		{ XK_NO_MOD,            XK_F7,          setpalette,     {.i =  1} },*/
 };
 
 /*

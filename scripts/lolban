@@ -2,4 +2,4 @@
 
 #MUESTRA UN BANNER COLORIDO AL EJECUTARLO
 
-toilet -f 3d.flf "$1" | lolcat
+toilet -f pagga "$1" | lolcat

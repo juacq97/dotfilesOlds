@@ -79,3 +79,8 @@
  /*
   * Special keys (change & recompile st.info accordingly)
   *
+@@ -460,3 +455,4 @@ static char ascii_printable[] =
+ 	" !\"#$%&'()*+,-./0123456789:;<=>?"
+ 	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
+ 	"`abcdefghijklmnopqrstuvwxyz{|}~";
++

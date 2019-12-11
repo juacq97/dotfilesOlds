@@ -13,7 +13,7 @@ if [ "$id" != "0" ]; then
 	    #termite -e ranger --choosefiles=/tmp/kde-files
 	    if [ -e /tmp/kde-files ]; then
 		# send=$(cat /tmp/kde-files)
-		kdeconnect-cli -d $id --share $(cat /tmp/kde-files)
+		kdeconnect-cli -d $id --share "$(cat /tmp/kde-files)"
 		notify-send -a "Kdeconnect" "Enviando $(cat /tmp/kde-files) a $name"
 		rm /tmp/kde-files
 	    else

@@ -14,5 +14,9 @@ redshift &
 xsetroot -cursor_name left_ptr &
 flameshot &
 mpDris2 &
+volumeicon &
 #
 exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) bspwm
+#exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) startfluxbox
+#exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) openbox-session
+

@@ -23,7 +23,7 @@ super + Return
 #Rofi
 super + d
 #     rofi -modi "window,run,drun" -show drun -theme material 
-      j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40 -m 0" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
+      j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
 
 super + r
       ~/scripts/dmenu_run_history -i -l 12
@@ -47,8 +47,7 @@ super + w
 super + f
 #      termite -e ranger
 #      termite -e lf
-#      st -e ~/scripts/nwrap
-       st -e lf
+       st -e ~/scripts/nwrap
 super + shift + f
       thunar
 
@@ -76,7 +75,8 @@ super + i
       	bspc rule -a \* -o state=floating rectangle 1x1+1+1 && st -e ~/scripts/orgmode-gtd
 
 super + ctrl + t
-      ~/scripts/planeaciones
+      	emacsclient -c -F '(quote (name . "todotxt") (width  . 100) (height . 35) (left . 250) (top . 60))' -n -e "(todotxt-frame)"
+
 
 # Newsboat
 super + n
@@ -96,15 +96,15 @@ super + shift + Print
 super + Print	
       flameshot full -c
 
-##Audio
-#XF86AudioMute
-##	pamixer -t
-#	pactl set-sink-mute @DEFAULT_SINK@ toggle
-#XF86AudioLowerVolume
-##	pamixer -d 2
-#	amixer sset 'Master' 2%-
-#XF86AudioRaiseVolume
-#	amixer sset 'Master' 2%+
+#Audio
+XF86AudioMute
+#	pamixer -t
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+XF86AudioLowerVolume
+#	pamixer -d 2
+	amixer sset 'Master' 2%-
+XF86AudioRaiseVolume
+	amixer sset 'Master' 2%+
 XF86AudioPlay
 	playerctl play-pause
 XF86AudioNext
@@ -187,133 +187,3 @@ super + shift + p
       ~/scripts/pacwrap
 
 
-##########################
-# Manejo de ventanas
-##########################
-
-# Alternar entre esquemas
-super + control + space
-      ~/.config/bspwm/toggle-stack
-
-
-#Cerrar ventana
-super + shift + q
-      bspc node -c
-alt + F4
-    bspc node -c
-
-#Matar con xkill
-super + ctrl + x
-      xkill
-
-#Monocle
-super + m
-      bspc desktop -l next
-
-#Monocle cambiar
-super + {j,k}
-      bspc node -f {next,prev}.local
-super + {south,north}
-      bspc node -f {next,prev}.local
-
-#Intercambiar nodo con el más grande (en todos los escritorios)
-super + g
-      bspc node -s biggest.local
-
-
-# focus the older or newer node in the focus history
-super + {9,0}
-        wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h o n
-
-
-#Cambiar estado de ventana
-super + {t,shift + t,s,F11}
-      bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
-#Set node flags
-super + ctrl + {m,y,z}
-      bspc node -g {hidden,sticky,private}
-
-#Enfocar en dirección, con shift, mover.
-#super + {_,shift + }{h,j,k,l}
-#      bspc node -{f,s} {west,south,north,east}
-#super + {_,shift + }{Left,Down,Up,Right}
-#      bspc node -{f,s} {west,south,north,east}
-super + {_,shift + }{j,k}
-      bspc node -{f,s} {next,prev}.local
-super + {_,shift + }{south,north}
-      bspc node -{f,s} {next,prev}.local
-
-#Cambiar de escritorio
-super + ctrl + {h,l}		
-      bspc desktop -f {prev,next}.local
-super + ctrl + {Left,Right}
-      bspc desktop -f {prev,next}.local
-
-#Moverse al escritorio anterior
-super + b
-      bspc desktop -f last
-
-#Enfocar o enviar a un escritorio 
-super + {_,shift + }{1-9,0}
-      bspc {desktop -f,node -d} '^{1-9,10}' --follow
-super + ctrl {1-9,0} 	  
-      bspc node -d '^{1-9,10}'
-
-# Inrercambiar con el escritorio dado
-super + ctrl + alt {1-9,0}
-      bspc desktop -s '^{1-9,10}'
-      
-
-
-#Rotar la interfaz
-super + shift + {period,comma}
-   bspc node @/ -R {90,270}
-
-
-###################
-# Split manual
-###################
-
-#Elegir dirección
-super + alt + {h,j,k,l}
-      bspc node -p {west,south,north,east}
-
-#Elegir tamaño de nueva ventana
-super + alt + {1-9}
-      bspc node -o 0.{1-9}
-
-#Cancelar split manual
-super + alt + space
-      bspc node -p cancel
-
-super + v
-      bspc node @parent -B
-
-#####################
-# Tamaño de ventanas
-#####################
-
-#Hacer más grande la ventana
-super + alt + ctrl {h,j,k,l}
-      bspc node -z {left -5 0,bottom 0 5,top 0 -5,right 5 0}
-
-#Hacer más pequeña la ventana
-super + alt + shift + {h,j,k,l}
-      bspc node -z {right - 0,top 0 5,bottom 0 -5,left 5 0}
-
-# Cambiar tamaño de gaps
-super + bracket{left,right}
-      bspc config -d focused window_gap "$(($(bspc config -d focused window_gap) {-,+} 5 ))"
-
-# Reiniciar gaps
-super + ctrl + bracketleft
-      bspc config -d focused window_gap 10
-super + ctrl + bracketright
-      bspc config -d focused window_gap 10
-
-# Move floating windows with the arrow keys
-super + shift + {Left,Down,Up,Right}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
