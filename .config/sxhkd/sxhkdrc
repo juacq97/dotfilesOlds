@@ -22,8 +22,8 @@ super + Return
 
 #Rofi
 super + d
-#     rofi -modi "window,run,drun" -show drun -theme material 
-      j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40 -m 0" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
+     rofi -modi "window,run,drun" -show drun -theme sidebar -terminal st
+#      j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40 -m 0" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
 
 super + r
       ~/scripts/dmenu_run_history -i -l 12
@@ -136,11 +136,11 @@ super + control + F2
 
 #matar compton
 super + o
-     pkill compton 
+      killall anicom
 
 #revivir compton
 super + shift + o
-     compton -b --config ~/.config/compton.conf
+     anicom --config ~/.config/anicom.conf
 
 # Reiniciar sxhdk 
 super + shift + r

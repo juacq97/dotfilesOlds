@@ -53,6 +53,7 @@ bspc config presel_feedback_color "#ca2026"
 
 bspc rule -a Gimp desktop='^5' follow=on
 bspc rule -a Screenkey manage=off
+bspc rule -a Rofi manage=off
 bspc rule -a firefox desktop='^2' follow=on
 bspc rule -a Firefox-esr desktop='^2' follow=on
 bspc rule -a Chromium desktop='^2' follow=on

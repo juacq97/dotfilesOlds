@@ -11,12 +11,12 @@ configuration {
 }
 
 * {
-	background-color:            rgb(18, 30, 37);
-	text-color:                  #d3d7cf;
-	selbg:                       rgb(0, 86, 136);
-	actbg:                       rgb(22, 37, 46);
-	urgbg:                       #e53935;
-	winbg:			     #26c6da;
+	background-color:            #090a0c;
+	text-color:                  #b0b3ba;
+	selbg:                       #ca2026;
+	actbg:                       #ca2026;
+	urgbg:                       #9c5059;
+	winbg:			     #090a0c;
 
 	selected-normal-foreground:  @winbg;
 	normal-foreground:           @text-color;
@@ -92,10 +92,12 @@ element {
 entry {
 	expand:         true;
 	text-color:     @normal-foreground;
-	background-color: rgb(25, 41, 51);
+	background-color: @normal-background;
 	vertical-align: 1;
 	padding:        12px;
 	font:            "Roboto medium 13";
+	border: 	  0 0 2 0px solid;
+	border-color:	    #030304;
 }
 
 element normal.normal {
@@ -114,11 +116,11 @@ element normal.active {
 }
 
 element selected.normal {
-	background-color: @selected-normal-background;
-	text-color:       @selected-normal-foreground;
+	background-color: @normal-background;
+	text-color:       @normal-foreground;
 	padding: 16px;
-	border:           0 0 0 5px solid;
-	border-color:	    @active-background;
+	border:           0 5 0 5px solid;
+	border-color:	    @selbg;
 }
 
 element selected.urgent {

@@ -70,7 +70,7 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left = sep-null i3 bspwm clima-icon clima spotify mpd sep-null
+modules-left = sep-null i3 bspwm clima-icon clima sep-null spotify mpd 
 modules-center = date
 modules-right = sep-null pulseaudio battery sep-null red sep-null
 
@@ -242,8 +242,9 @@ port = 6600
 ; Seconds to sleep between progressbar/song timer sync
 ; Default: 1
 interval = 2
-label-song =  %artist% - %title%
+label-song = "  %artist% - %title%"
 label-offline = ""
+
 [module/pulseaudio]
 type = internal/pulseaudio
 
