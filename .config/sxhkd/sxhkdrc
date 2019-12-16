@@ -136,11 +136,11 @@ super + control + F2
 
 #matar compton
 super + o
-      killall anicom
+      killall picom
 
 #revivir compton
 super + shift + o
-     anicom --config ~/.config/anicom.conf
+     picom --config ~/.config/picom.conf
 
 # Reiniciar sxhdk 
 super + shift + r
