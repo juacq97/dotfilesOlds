@@ -1,3 +1,39 @@
+/home/juan/ROMS/n64/zelda-nuevo2-0.z64
+
+/home/juan/.config/retroarch/cores/mupen64plus_libretro.so
+Mupen64Plus OpenGL
+
+
+/home/juan/ROMS/n64/zelda-nuevo2-0.z64
+
+/home/juan/.config/retroarch/cores/parallel_n64_libretro.so
+ParaLLEl N64
+
+
+/home/juan/ROMS/NES/Teenage Mutant Ninja Turtles II - The Arcade Game.7z#Teenage Mutant Ninja Turtles II - The Arcade Game (U) [!].nes
+
+/home/juan/.config/retroarch/cores/fceumm_libretro.so
+FCEUmm
+
+
+/home/juan/ROMS/NES/Double Dragon II - The Revenge.7z#Double Dragon II - The Revenge (U) (PRG0) [!].nes
+
+/home/juan/.config/retroarch/cores/fceumm_libretro.so
+FCEUmm
+
+
+/home/juan/ROMS/NES/Super C (U) [!].nes
+
+/home/juan/.config/retroarch/cores/fceumm_libretro.so
+FCEUmm
+
+
+/home/juan/ROMS/n64/Super Mario 64 (USA).n64
+
+/home/juan/.config/retroarch/cores/mupen64plus_libretro.so
+Mupen64Plus OpenGL
+
+
 /home/juan/ROMS/NES/Final Fantasy I & II.7z#Final Fantasy I & II (J) [o1][T+Eng1.00_Demiforce].nes
 
 /home/juan/.config/retroarch/cores/fceumm_libretro.so
@@ -20,12 +56,6 @@ FCEUmm
 
 /home/juan/.config/retroarch/cores/fceumm_libretro.so
 FCEUmm
-
-
-/home/juan/ROMS/n64/zelda-nuevo2-0.z64
-
-/home/juan/.config/retroarch/cores/parallel_n64_libretro.so
-ParaLLEl N64
 
 
 /home/juan/ROMS/n64/Super Mario 64 (E) (M3).n64

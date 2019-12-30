@@ -11,9 +11,9 @@ configuration {
 }
 
 * {
-	background-color:            #090a0c;
-	text-color:                  #b0b3ba;
-	selbg:                       #ca2026;
+	background-color:            #0b1016;
+	text-color:                  #b4b9be;
+	selbg:                       #cf7514;
 	actbg:                       #ca2026;
 	urgbg:                       #9c5059;
 	winbg:			     #090a0c;
@@ -116,10 +116,10 @@ element normal.active {
 }
 
 element selected.normal {
-	background-color: @normal-background;
-	text-color:       @normal-foreground;
+	background-color: @selbg;
+	text-color:       @background-color;
 	padding: 16px;
-	border:           0 5 0 5px solid;
+	border:           0 0 0 0px solid;
 	border-color:	    @selbg;
 }
 

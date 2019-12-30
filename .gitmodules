@@ -10,3 +10,6 @@
 [submodule "dmenu"]
 	path = dmenu
 	url = https://git.suckless.org/dmenu
+[submodule "homepage/Startpage"]
+	path = homepage/Startpage
+	url = https://github.com/Urimu/Startpage.git

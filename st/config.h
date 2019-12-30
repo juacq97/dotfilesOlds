@@ -112,43 +112,7 @@ static unsigned int defaultrcs = 7;
 
  */
 
-const char *colorname[] = {
-
-  /* 8 normal colors */
-  [0] = "#090a0c", /* black   */
-  [1] = "#5E4E59", /* red     */
-  [2] = "#BE363C", /* green   */
-  [3] = "#EA2D2F", /* yellow  */
-  [4] = "#9C505A", /* blue    */
-  [5] = "#EE5C54", /* magenta */
-  [6] = "#F99569", /* cyan    */
-  [7] = "#adb2ba", /* white   */
-
-  /* 8 bright colors */
-  [8]  = "#797c82",  /* black   */
-  [9]  = "#5E4E59",  /* red     */
-  [10] = "#BE363C", /* green   */
-  [11] = "#EA2D2F", /* yellow  */
-  [12] = "#9C505A", /* blue    */
-  [13] = "#EE5C54", /* magenta */
-  [14] = "#F99569", /* cyan    */
-  [15] = "#adb2ba", /* white   */
-
-  /* special colors */
-  [256] = "#090a0c", /* background */
-  [257] = "#adb2ba", /* foreground */
-  [258] = "#adb2ba",     /* cursor */
-};
-
-/* Default colors (colorname index)
- * foreground, background, cursor */
- unsigned int defaultbg = 0;
- unsigned int defaultfg = 257;
- unsigned int defaultcs = 258;
- unsigned int defaultrcs= 258;
-
-/*#include "/home/equipo/.cache/wal/colors-wal-st.h"*/
-
+#include "/home/juan/.cache/wal/colors-wal-st.h"
 /*
  * Default shape of cursor
  * 2: Block ("█")

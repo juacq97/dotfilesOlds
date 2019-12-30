@@ -19,44 +19,46 @@
 ; CONFIGURACIONES GLOBALES
 ;============================
 
+
+
 [colors]
-background = #090a0c
-background-alt = #444
-foreground = #adb2ba
-foreground-alt = #555
-primary = #BF616A
-secondary = #e60053
-alert = #238792
+background		= 
+background-alt 		= ${xrdb:background}
+background-wdg 		= 
+foreground     		= ${xrdb:foreground}
+foreground-alt 		= ${xrdb:color1}
+primary        		= ${xrdb:color4}
+secondary 		= ${xrdb:color3}
+alert 			= ${xrdb:color2}
 
 [global/wm]
-margin-top = 0
-margin-bottom = 0
+margin-top		= 0
+margin-bottom 		= 0
 
 [bar/example]
-monitor = ${env:MONITOR:}
-width = 100%
-height = 24
-radius = 0
-fixed-center = true
-enable-ipc = true
-background = ${colors.background}
+monitor			= ${env:MONITOR:}
+width 			= 100%
+height 			= 24
+radius 			= 0
+fixed-center 		= true
+enable-ipc 		= true
+background 		= ${colors.background}
+foreground 		= ${colors.foreground}
+offset-x 		= 0
 
-foreground = ${colors.foreground}
-offset-x = 0
-
-line-size = 2
-line-color = 
-border-bottom-size = 0
-border-top-size = 0
-border-top-color = 
-border-bottom-color = 
-border-size = 
-border-color = #920B13
-padding-left = 0
-padding-right = 0
-module-margin-left = 
-module-margin-right = 
-locale = es_MX.UTF-8
+line-size		= 2
+line-color		= 
+border-bottom-size	= 0
+border-top-size 	= 0
+border-top-color 	= 
+border-bottom-color 	= 
+border-size 		= 
+border-color 		= #920B13
+padding-left 		= 0
+padding-right 		= 0
+module-margin-left 	= 
+module-margin-right 	= 
+locale 			= es_MX.UTF-8
 
 ;========================================
 ; FUENTES
@@ -70,22 +72,22 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left = sep-null i3 bspwm clima-icon clima sep-null spotify mpd 
-modules-center = date
-modules-right = sep-null pulseaudio battery sep-null red sep-null
+modules-left 	= i3 bspwm mpd spotify
+modules-center 	= date
+modules-right 	=  clima-icon clima  pulseaudio battery xkeyboard red
 
-tray-position = none
-tray-padding = 1
-;tray-background = #bf6a87
-;tray-underline = #1C98C9
-;tray-detached = true
-wm-restack = bspwm
-;wm-restack = i3
-override-redirect = false
+tray-position 	= none
+tray-padding 	= 1
+;tray-background  = #bf6a87
+;tray-underline   = #1C98C9
+;tray-detached 	  = true
+wm-restack 	  = bspwm
+;wm-restack 	  = i3
+override-redirect   = false
 
 ;cosas para bspwn que no se
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
+;scroll-up  = bspwm-desknext
+;scroll-down  = bspwm-deskprev
 
 ;cambiar de escritorio con la mousewheel
 ;scroll-up = i3wm-wsnext
@@ -99,27 +101,31 @@ cursor-scroll = ns-resize
 
 [module/xwindow]
 type = internal/xwindow
-format-padding = 2
+format-padding = 
 label = %title:0:30:...%
-format-background = 
+format-background = ${colors.background-wdg} 
 
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock 
 blacklist-1 = caps lock
 format-prefix = "  "
-format-background = #ca2026
-format-foreground = #ffffff
-label-layout = %layout%
+format-background = ${colors.background-wdg}
+format-foreground = ${colors.foreground}
+label-layout = %icon%
 ;label-layout-underline = ${colors.secondary}
 label-indicator-padding = 2
 label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+;label-indicator-background = ${colors.secondary}
+;label-indicator-underline = ${colors.secondary}
 ;format-underline = #e6c9c4
 
+layout-icon-0 = latam;mex
+layout-icon-1 = us;usa
 [module/bspwm]
 type = internal/bspwm
+
+
 
 ws-icon-0 = 1;
 ws-icon-1 = 2;
@@ -132,33 +138,34 @@ ws-icon-7 = 8;
 ws-icon-8 = 9;
 
 ;inline-mode = true
-format = <label-state> 
+format = <label-state>
 ;format = <label-state>
 
-label-focused = "瘝" 
-;label-focused = %icon%
-label-focused-foreground = #ffffff
-label-focused-background =
+;label-focused = "瘝" 
+label-focused = %icon%
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.background}
 ;label-focused-underline = #d197e2
-;label-focused-overline = #BD3944
-;label-focused-padding = 2
+label-focused-overline = ${colors.primary}
+label-focused-padding = 2
 
-;label-occupied = %icon%
-label-occupied = ""
-;label-occupied-padding = 2
-label-occupied-foreground = #ffffff
-label-occupied-background =
+label-occupied = %icon%
+;label-occupied = ""
+label-occupied-padding = 2
+label-occupied-foreground = ${colors.foreground}
+label-occupied-background = ${colors.background}
 ;label-occupied-underline = #64039f
+label-occupied-overline = ${colors.foreground-alt}
 
 label-urgent = %icon%!
 label-urgent-background = 
 ;label-urgent-padding = 2
 
-label-empty = "吏"
-;label-empty = %icon%
-label-empty-foreground = #ffffff
-label-empty-background = 
-;label-empty-padding = 2
+;label-empty = "吏"
+label-empty = %icon%
+label-empty-foreground = ${colors.foreground}
+label-empty-background = ${colors.background}
+label-empty-padding = 2
 
 label-monocle = 﨣
 ;label-tiled = ﮨ
@@ -173,7 +180,7 @@ label-floating = 
 ;label-sticky-foreground = ${colors.purple}
 ;label-private-foreground = ${colors.urgent}
 
-format-background = #ca2026
+format-background = ${colors.background-wdg}
 ; Separator in between workspaces
 ;label-separator = " "
 
@@ -222,12 +229,12 @@ time = "%H:%M "
 time-alt = "%H:%M:%S "
 
 format-prefix = " "
-format-prefix-foreground =
+format-prefix-foreground = ${colors.foreground}
 ;format-underline = #e6c9c4
 
 label =%{A3:bspc rule -a \* -o state=floating rectangle=200x200+583+25 && st -e sh -c "cal; read x" & disown:}%date% %time%%{A} %{A}
 ;label = %date% %time%'
-format-background =
+format-background = ${colors.background}
 label-foreground = ${root.foreground}
 
 format-padding = 
@@ -244,19 +251,21 @@ port = 6600
 interval = 2
 label-song = "  %artist% - %title%"
 label-offline = ""
+label-foreground = ${root.foreground}
+format-background = ${colors.background}
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = "  <ramp-volume> <label-volume> " 
+format-volume = "  <ramp-volume><label-volume> " 
 label-volume = %percentage%%
 ;label-volume-foreground = ${root.foreground}
-format-volume-foreground = #ffffff
+format-volume-foreground = ${colors.foreground}
 ;format-volume-underline = #8b484e
 
 label-muted =  %percentage%%
 label-muted-foreground = #666666
-label-muted-background = 
+label-muted-background = ${colors.background-wdg}
 format-muted-underline =
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
@@ -280,7 +289,7 @@ ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 
-format-volume-background =#ca2026
+format-volume-background = ${colors.background-wdg}
 click-right = exec pavucontrol & 
 
 [module/battery]
@@ -289,7 +298,7 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
-format-charging-background =#ca2026
+format-charging-background = ${colors.background-wdg}
 format-discharging-background = ${self.format-charging-background}
 format-full-background = ${self.format-charging-background}
 format-charging = <label-charging>
@@ -310,8 +319,8 @@ label-discharging = %percentage%%
 label-full = %percentage%%
 
 format-full-foreground = "#15A000"
-format-charging-foreground = #ffffff
-format-discharging-foreground = #ffffff
+format-charging-foreground = ${colors.foreground}
+format-discharging-foreground = ${colors.foreground}
 ;format-full-underline = ${self.format-charging-underline}
 
 [module/red]
@@ -319,8 +328,8 @@ type = custom/script
 exec = ~/.config/polybar/scripts/check-network
 click-left = ~/scripts/check-network-es &
 click-right = ~/scripts/check-network-es &
-format-background = #ca2026
-format-foreground = #ffffff
+format-background = ${colors.background-wdg}
+format-foreground = ${colors.foreground}
 label-padding = 1
 tail = true
 ;format-underline = #e6c9c4
@@ -330,11 +339,11 @@ tail = true
 ; muestra la información de spotify
 type = custom/script
 interval = 1
-format-prefix = " " 
+format-prefix = "  " 
 format = "<label> "
 exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
 ;format-underline = #99B898
-format-background = 
+format-background = ${colors.background} 
 format-foreground = ${colors.foreground}
 click-right = playerctl play-pause
 click-left = bspc desktop -f ^6 
@@ -344,8 +353,8 @@ click-left = bspc desktop -f ^6
 type = custom/script
 exec = ~/.config/polybar/scripts/clima-icon
 interval = 3600
-format-background = #ca2026
-format-foreground = #ffffff
+format-background = ${colors.background-wdg}
+format-foreground = ${colors.foreground}
 ; click-left = ~/scripts/clima-img
 click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
 label-font = 4
@@ -357,9 +366,9 @@ type = custom/script
 ;exec = curl -s "wttr.in/LAP?format=%t"
 exec = curl -s "wttr.in/?format=%t"
 interval = 3600
-format-background = #ca2026
-format-foreground = #ffffff
-label = " %output% "
+format-background = ${colors.background-wdg}
+format-foreground = ${colors.foreground}
+label = "%output%  "
 ;click-left = ~/scripts/clima-img
 click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
 ;format-underline = #e6c9c4
