@@ -1,0 +1,151 @@
+;=========================================================
+;
+;                   ██          ██                      
+; ██████           ░██  ██   ██░██                      
+;░██░░░██  ██████  ░██ ░░██ ██ ░██       ██████   ██████
+;░██  ░██ ██░░░░██ ░██  ░░███  ░██████  ░░░░░░██ ░░██░░█
+;░██████ ░██   ░██ ░██   ░██   ░██░░░██  ███████  ░██ ░ 
+;░██░░░  ░██   ░██ ░██   ██    ░██  ░██ ██░░░░██  ░██   
+;░██     ░░██████  ███  ██     ░██████ ░░████████░███   
+;░░       ░░░░░░  ░░░  ░░      ░░░░░    ░░░░░░░░ ░░░  
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;=========================================================
+
+;============================
+; CONFIGURACIONES GLOBALES
+;============================
+
+
+
+[colors]
+background		= 
+background-alt 		= ${xrdb:background}
+background-wdg 		= 
+foreground     		= ${xrdb:foreground}
+foreground-alt 		= ${xrdb:color1}
+primary        		= ${xrdb:color5}
+secondary 		= ${xrdb:color3}
+alert 			= ${xrdb:color2}
+
+[global/wm]
+margin-top		= 0
+margin-bottom 		= 0
+
+[bar/dock]
+monitor			= ${env:MONITOR:}
+width 			= 100%
+height 			= 3
+radius 			= 0
+fixed-center 		= true
+enable-ipc 		= true
+background 		= ${colors.background}
+foreground 		= ${colors.foreground}
+offset-x 		= 0
+bottom			= true
+
+line-size		= 2
+line-color		= 
+border-bottom-size	= 0
+border-top-size 	= 0
+border-top-color 	= 
+border-bottom-color 	= 
+border-size 		= 
+border-color 		= #920B13
+padding-left 		= 0
+padding-right 		= 0
+module-margin-left 	= 
+module-margin-right 	= 
+locale 			= es_MX.UTF-8
+
+;========================================
+; FUENTES
+;========================================
+
+font-0 = Roboto:regular:size=10;1
+font-1 = Material Design Icons:style=Regular:pixelsize=12;2
+font-2 = Powerline Extra Symbols:style=Regular:size=15;4
+font-3 = Weather Icons:size=12;2
+font-4 = Material Design Icons:style=Regular:pixelsize=16;1
+;=========================================
+
+;====== MODULOS =========
+modules-left 	= 
+modules-center 	= bspwm
+modules-right 	= 
+
+tray-position 	= none
+tray-padding 	= 1
+wm-restack 	  = bspwm
+override-redirect   = false
+
+[module/bspwm]
+type = internal/bspwm
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;吝
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+
+;inline-mode = true
+format = <label-state>
+;format = <label-state>
+
+label-focused = "escritorio"
+;label-focused = %icon%
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.foreground}
+;label-focused-underline = #d197e2
+label-focused-overline = 
+label-focused-padding = 2
+
+label-occupied = "escritorio"
+;label-occupied = %icon%
+label-occupied-padding = 2
+label-occupied-foreground = ${colors.primary}
+label-occupied-background = ${colors.primary}
+;label-occupied-underline = #64039f
+label-occupied-overline = 
+
+label-urgent = %icon%!
+label-urgent-background = 
+;label-urgent-padding = 2
+
+label-empty = "escritorio"
+;label-empty = %icon%
+label-empty-foreground = #00000000
+label-empty-background = #00000000
+label-empty-padding = 2
+
+label-monocle = 﨣
+;label-tiled = ﮨ
+label-tiled = 
+;label-tiled = 
+;label-fullscreen = 
+label-floating = 
+;label-pseudotiled = P
+;label-locked = 
+;label-sticky = 
+;label-private = 
+;label-sticky-foreground = ${colors.purple}
+;label-private-foreground = ${colors.urgent}
+
+format-background = #000000
+; Separator in between workspaces
+;label-separator = " "
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+pseudo-transparency = true

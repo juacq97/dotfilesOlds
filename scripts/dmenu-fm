@@ -1,0 +1,14 @@
+#! /bin/bash
+
+while :
+do
+    file=$(ls -a | dmenu -l 15)
+    check=$(mimetype "$file" | awk -F "/" '{print $2}')
+    echo $check
+    if [ "$check" == "directory" ]; then
+	cd $file
+    else
+	break
+	echo "enviado"
+    fi
+done

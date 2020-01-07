@@ -1,0 +1,66 @@
+diff --git a/config.def.h b/config.def.h
+index a6d2fb9..16830c8 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -162,8 +162,8 @@ static MouseShortcut mshortcuts[] = {
+ 
+ MouseKey mkeys[] = {
+ 	/* button               mask            function        argument */
+-	{ Button4,              ShiftMask,      kscrollup,      {.i =  1} },
+-	{ Button5,              ShiftMask,      kscrolldown,    {.i =  1} },
++	{ Button4,              XK_NO_MOD,      kscrollup,      {.i =  1} },
++	{ Button5,              XK_NO_MOD,      kscrolldown,    {.i =  1} },
+ };
+ 
+ /* Internal keyboard shortcuts. */
+diff --git a/st.c b/st.c
+index 218ae73..f543305 100644
+--- a/st.c
++++ b/st.c
+@@ -1058,6 +1058,11 @@ tnew(int col, int row)
+ 	treset();
+ }
+ 
++int tisaltscr(void)
++{
++	return IS_SET(MODE_ALTSCREEN);
++}
++
+ void
+ tswapscreen(void)
+ {
+diff --git a/st.h b/st.h
+index 3592957..23f4ca3 100644
+--- a/st.h
++++ b/st.h
+@@ -95,6 +95,7 @@ void sendbreak(const Arg *);
+ void toggleprinter(const Arg *);
+ 
+ int tattrset(int);
++int tisaltscr(void);
+ void tnew(int, int);
+ void tresize(int, int);
+ void tsetdirtattr(int);
+diff --git a/x.c b/x.c
+index e9fd6e9..2dc315e 100644
+--- a/x.c
++++ b/x.c
+@@ -417,11 +417,13 @@ bpress(XEvent *e)
+ 		return;
+ 	}
+ 
+-	for (ms = mshortcuts; ms < mshortcuts + LEN(mshortcuts); ms++) {
+-		if (e->xbutton.button == ms->b
+-				&& match(ms->mask, e->xbutton.state)) {
+-			ttywrite(ms->s, strlen(ms->s), 1);
+-			return;
++	if (tisaltscr()) {
++		for (ms = mshortcuts; ms < mshortcuts + LEN(mshortcuts); ms++) {
++			if (e->xbutton.button == ms->b
++					&& match(ms->mask, e->xbutton.state)) {
++				ttywrite(ms->s, strlen(ms->s), 1);
++				return;
++			}
+ 		}
+ 	}
+ 

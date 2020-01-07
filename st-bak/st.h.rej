@@ -1,0 +1,7 @@
+--- st.h
++++ st.h
+@@ -136,3 +143,4 @@ extern char *termname;
+ extern unsigned int tabspaces;
+ extern unsigned int defaultfg;
+ extern unsigned int defaultbg;
++extern MouseKey mkeys[];
