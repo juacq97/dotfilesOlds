@@ -22,7 +22,7 @@ super + Return
 
 #Rofi
 super + d
-     rofi -modi "window,run,drun" -show drun -theme sidebar -terminal st
+     rofi -modi "window,run,drun" -show drun -theme full -terminal st
 #    j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40 -m 0" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
 
 super + r
@@ -172,7 +172,8 @@ super + p
 
 #Apagar
 super + F12
-      ~/scripts/apagar
+#      ~/scripts/apagar
+       clearine 
 
 # Clipboard
 super + ctrl + p

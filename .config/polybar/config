@@ -22,8 +22,8 @@
 
 
 [colors]
-background		= 
-background-alt 		= ${xrdb:background}
+background		= #cc111111
+background-alt 		= #cc111111
 background-wdg 		= 
 foreground     		= ${xrdb:foreground}
 foreground-alt 		= ${xrdb:color1}
@@ -35,10 +35,11 @@ alert 			= ${xrdb:color2}
 margin-top		= 0
 margin-bottom 		= 0
 
+
 [bar/example]
 monitor			= ${env:MONITOR:}
 width 			= 100%
-height 			= 24
+height 			= 25
 radius 			= 0
 fixed-center 		= true
 enable-ipc 		= true
@@ -46,14 +47,14 @@ background 		= ${colors.background}
 foreground 		= ${colors.foreground}
 offset-x 		= 0
 
-line-size		= 2
+line-size		= 0
 line-color		= 
-border-bottom-size	= 0
+border-bottom-size	= 
 border-top-size 	= 0
 border-top-color 	= 
 border-bottom-color 	= 
 border-size 		= 
-border-color 		= #920B13
+border-color 		= 
 padding-left 		= 0
 padding-right 		= 0
 module-margin-left 	= 
@@ -66,15 +67,15 @@ locale 			= es_MX.UTF-8
 
 font-0 = Roboto:regular:size=10;1
 font-1 = Material Design Icons:style=Regular:pixelsize=12;2
-font-2 = Powerline Extra Symbols:style=Regular:size=15;4
+font-2 = MesloLGS NF:style=Regular:size=15;3
 font-3 = Weather Icons:size=12;2
 font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left 	= i3 bspwm mpd spotify
-modules-center 	= date
-modules-right 	=  clima-icon clima  pulseaudio battery xkeyboard red
+modules-left 	= bspwm sep-der2 mpd spotify
+modules-center 	= sep-iz2 date sep-der2
+modules-right 	=  sep-iz2 clima-icon  clima sep-iz2 pulseaudio sep-iz2 battery sep-iz2 xkeyboard sep-iz2 red
 
 tray-position 	= none
 tray-padding 	= 1
@@ -109,8 +110,8 @@ format-background = ${colors.background-wdg}
 type = internal/xkeyboard
 blacklist-0 = num lock 
 blacklist-1 = caps lock
-format-prefix = "  "
-format-background = ${colors.background-wdg}
+format-prefix = " "
+format-background = ${colors.background-alt}
 format-foreground = ${colors.foreground}
 label-layout = %icon%
 ;label-layout-underline = ${colors.secondary}
@@ -143,19 +144,19 @@ format = <label-state>
 
 ;label-focused = "瘝" 
 label-focused = %icon%
-label-focused-foreground = ${colors.foreground}
+label-focused-foreground = ${colors.foreground-alt}
 label-focused-background = ${colors.background}
 ;label-focused-underline = #d197e2
-label-focused-overline = ${colors.primary}
+label-focused-overline = 
 label-focused-padding = 2
 
 label-occupied = %icon%
 ;label-occupied = ""
 label-occupied-padding = 2
-label-occupied-foreground = ${colors.foreground}
+label-occupied-foreground = ${colors.primary}
 label-occupied-background = ${colors.background}
 ;label-occupied-underline = #64039f
-label-occupied-overline = ${colors.foreground-alt}
+label-occupied-overline =
 
 label-urgent = %icon%!
 label-urgent-background = 
@@ -163,7 +164,7 @@ label-urgent-background =
 
 ;label-empty = "吏"
 label-empty = %icon%
-label-empty-foreground = ${colors.foreground}
+label-empty-foreground = #535353
 label-empty-background = ${colors.background}
 label-empty-padding = 2
 
@@ -180,7 +181,7 @@ label-floating = 
 ;label-sticky-foreground = ${colors.purple}
 ;label-private-foreground = ${colors.urgent}
 
-format-background = ${colors.background-wdg}
+format-background = ${colors.background-alt}
 ; Separator in between workspaces
 ;label-separator = " "
 
@@ -225,7 +226,7 @@ interval = 1
 
 date =" %b %e,"
 date-alt = " %A %e de %B de %Y,"
-time = "%H:%M "
+time = "%H:%M  "
 time-alt = "%H:%M:%S "
 
 format-prefix = " "
@@ -234,7 +235,7 @@ format-prefix-foreground = ${colors.foreground}
 
 label =%{A3:bspc rule -a \* -o state=floating rectangle=200x200+583+25 && st -e sh -c "cal; read x" & disown:}%date% %time%%{A} %{A}
 ;label = %date% %time%'
-format-background = ${colors.background}
+format-background = ${colors.background-alt}
 label-foreground = ${root.foreground}
 
 format-padding = 
@@ -257,7 +258,7 @@ format-background = ${colors.background}
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = "  <ramp-volume><label-volume> " 
+format-volume = "<ramp-volume><label-volume> " 
 label-volume = %percentage%%
 ;label-volume-foreground = ${root.foreground}
 format-volume-foreground = ${colors.foreground}
@@ -265,7 +266,7 @@ format-volume-foreground = ${colors.foreground}
 
 label-muted =  %percentage%%
 label-muted-foreground = #666666
-label-muted-background = ${colors.background-wdg}
+label-muted-background = ${colors.background-alt}
 format-muted-underline =
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
@@ -289,7 +290,7 @@ ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 
-format-volume-background = ${colors.background-wdg}
+format-volume-background = ${colors.background-alt}
 click-right = exec pavucontrol & 
 
 [module/battery]
@@ -298,7 +299,7 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
-format-charging-background = ${colors.background-wdg}
+format-charging-background = ${colors.background-alt}
 format-discharging-background = ${self.format-charging-background}
 format-full-background = ${self.format-charging-background}
 format-charging = <label-charging>
@@ -314,7 +315,7 @@ format-full-underline = ${self.format-charging-underline}
 format-full = <label-full>
 
 
-label-charging = "%percentage%%"
+label-charging = "%percentage%% "
 label-discharging = %percentage%%
 label-full = %percentage%%
 
@@ -328,7 +329,7 @@ type = custom/script
 exec = ~/.config/polybar/scripts/check-network
 click-left = ~/scripts/check-network-es &
 click-right = ~/scripts/check-network-es &
-format-background = ${colors.background-wdg}
+format-background = ${colors.background-alt}
 format-foreground = ${colors.foreground}
 label-padding = 1
 tail = true
@@ -353,7 +354,7 @@ click-left = bspc desktop -f ^6
 type = custom/script
 exec = ~/.config/polybar/scripts/clima-icon
 interval = 3600
-format-background = ${colors.background-wdg}
+format-background = ${colors.background-alt}
 format-foreground = ${colors.foreground}
 ; click-left = ~/scripts/clima-img
 click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
@@ -366,9 +367,9 @@ type = custom/script
 ;exec = curl -s "wttr.in/LAP?format=%t"
 exec = curl -s "wttr.in/?format=%t"
 interval = 3600
-format-background = ${colors.background-wdg}
+format-background = ${colors.background-alt}
 format-foreground = ${colors.foreground}
-label = "%output%  "
+label = "%output% "
 ;click-left = ~/scripts/clima-img
 click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
 ;format-underline = #e6c9c4
@@ -424,133 +425,46 @@ content-background =
 content-padding = 1
 ;content-underline = #e6c9c4
 
-[module/monitor]
-type = cuustom/script
-exec = ~/.config/polybar/scripts/monitor-nombre
-click-left = ~/scripts/monitores
-tail = true
-
-[module/sep-date]
+[module/sep-der1]
 type = custom/text
-content = "%{T3}%{T-}"
+content = "%{T3}%{T-}"
 content-font = 3
-content-foreground = #BF6715
-content-background = #BB0E132F
+content-foreground = ${colors.background-alt}
+content-background = ${colors.background}
 
-
-[module/sep-arch]
+[module/sep-der2]
 type = custom/text
-content = "%{T3}%{T-}"
+content = "%{T3}%{T-}"
 content-font = 3
-content-foreground = ${colors.background}
-content-background = #BF6715
+content-foreground = ${colors.foreground}
+content-background = ${colors.background-alt}
 
-
-[module/sep-vol]
+[module/sep-iz1]
 type = custom/text
-content = "%{T3}%{T-}"
-content-font = 2
-content-foreground = #BB0E132F
-content-background = #9DB788
-
-
-[module/sep-spo]
-type = custom/text
-content = "%{T3}%{T-}"
+content = "%{T3}%{T-}"
 content-font = 3
-content-foreground = #9DB788
-content-background = #BB0E132F
+content-foreground = ${colors.background-alt}
+content-background = 
 
-
-[module/sep-kde]
+[module/sep-iz2]
 type = custom/text
-content = "%{T3}%{T-}"
+content = "%{T3}%{T-}"
 content-font = 3
-content-foreground = #BF6715
-content-background = #BB0E132F
-
-
-[module/sep-mu]
-type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-foreground = #BF6715
-content-background = #BB0E132F
-
-[module/sep-mazul]
-type = custom/text
-content = "%{T1}%{T-}"
-content-foreground = #132332
-content-background = #173D4A
-
-[module/sep-azul]
-type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-foreground = #173D4A
-content-background = #132332
-
-[module/sep-deraz]
-type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-foreground = #173D4A
-content-background = #132332
-
-[module/sep-cir-der]
-type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-foreground = #60234A
-content-background =
-
-[module/sep-cir-iz]
-type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-background = #5D284F
-content-foreground = #0b0a18
-
-[module/sep-wm]
-type = custom/text
-content ="%{T3}%{T-}"
-content-font = 3
-content-foreground = #5d284f
-content-background =  
-
-[module/sep-lm]
-type = custom/text
-content ="%{T3}%{T-}"
-content-font = 3
-content-foreground = #5d284f
-content-background =  
+content-foreground = ${colors.foreground}
+content-background = ${colors.background-alt}
 
 [module/sep-null]
 type = custom/text
 content = "  "
 content-foreground = 
-content-background =#ca2026
+content-background =
 ;content-underline = #e6c9c4
 
-[module/sep-der]
-type = custom/text
-content = "%{T3}%{T-}"
-content-font = 3
-content-foreground = #5D284F
-content-background = 
 
-[module/sep-iz]
+[module/icon]
 type = custom/text
-content = "%{T3}%{T-}"
+content = "%{T3}%{T}"
 content-font = 3
-content-foreground = #5D284F
-content-background = 
-
-[module/|]
-type = custom/text
-content = "%{T3}|%{T}"
-content-font = 3
-
 [settings]
 screenchange-reload = true
 ;compositing-background = xor

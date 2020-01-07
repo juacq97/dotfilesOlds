@@ -17,6 +17,10 @@ xsetroot -cursor_name left_ptr &
 flameshot &
 mpDris2 &
 volumeicon &
+
+
+export QT_QPA_PLATFORMTHEME="qt5ct"
+
 #
 exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) bspwm
 #exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) startfluxbox
