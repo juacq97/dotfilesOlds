@@ -1,7 +1,7 @@
 #+title: Dotfiles
 #+options: toc:nil num:nil author:nil date:nil
 
-[[file:screenshot.jpg]]
+[[file:screenshot.png]]
 Este repositorio es un respaldo para los archivos de configuración de los programas que más uso. Cualquiera puede descargar, utilizar, clonar, etc. este repositorio de acuerdo a la licencia MIT.
 
 * Uso de GNU/Stow
