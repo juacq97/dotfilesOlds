@@ -1,12 +1,14 @@
 #!/bin/sh
 
 emacs --daemon &
-#compton -b --config ~/.config/compton.conf &
-picom -b --config ~/.config/compton.conf &
+compton -b --config ~/.config/compton.conf &
+#picom -b --config ~/.config/compton.conf &
 #anicom -b --config ~/.config/anicom.conf &
 xfce4-power-manager &
 #pcloud &
-copyq &
+#copyq &
+clipit -n &
+nm-applet &
 #conky -c ~/conkys/reloj-texto &
 #~/.config/polybar/polybar-monitors.sh &
 /usr/lib/kdeconnectd &
@@ -16,7 +18,7 @@ redshift &
 xsetroot -cursor_name left_ptr &
 flameshot &
 mpDris2 &
-volumeicon &
+#volumeicon &
 
 
 export QT_QPA_PLATFORMTHEME="qt5ct"

@@ -4,12 +4,14 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Fantasque Sans Mono:pixelsize=15:antialias=true:autohint=true";
+static char *font = "Fantasque Sans Mono:pixelsize=16:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
  * What program is execed by st depends of these precedence rules:
  * 1: program passed with -e
+
+
  * 2: utmp option
  * 3: SHELL environment variable
  * 4: value of shell in /etc/passwd
@@ -110,8 +112,51 @@ static unsigned int defaultcs = 7;
 static unsigned int defaultrcs = 7;
 
  */
+/* Terminal colors (16 first used in escape sequence) */
+const char *colorname[] = {
 
-#include "/home/juan/.cache/wal/colors-wal-st.h"
+  /* 8 normal colors */
+  [0] = "#011932", /* black   */
+  [1] = "#664E6C", /* red     */
+  [2] = "#8A3255", /* green   */
+  [3] = "#A53756", /* yellow  */
+  [4] = "#BB4457", /* blue    */
+  [5] = "#053887", /* magenta */
+  [6] = "#155499", /* cyan    */
+  [7] = "#9da4ca", /* white   */
+
+  /* 8 bright colors */
+  [8]  = "#6d728d",  /* black   */
+  [9]  = "#664E6C",  /* red     */
+  [10] = "#8A3255", /* green   */
+  [11] = "#A53756", /* yellow  */
+  [12] = "#BB4457", /* blue    */
+  [13] = "#053887", /* magenta */
+  [14] = "#155499", /* cyan    */
+  [15] = "#9da4ca", /* white   */
+
+  /* special colors */
+  [256] = "#011932", /* background */
+  [257] = "#9da4ca", /* foreground */
+  [258] = "#9da4ca",     /* cursor */
+};
+
+/* Default colors (colorname index)
+ * foreground, background, cursor */
+ unsigned int defaultbg = 0;
+ unsigned int defaultfg = 257;
+ unsigned int defaultcs = 258;
+ unsigned int defaultrcs= 258;
+
+/*
+ * Colors used, when the specific fg == defaultfg. So in reverse mode this
+ * will reverse too. Another logic would only make the simple feature too
+ * complex.
+ */
+static unsigned int defaultitalic = 7;
+static unsigned int defaultunderline = 7;
+
+
 /*
  * Default shape of cursor
  * 2: Block ("█")

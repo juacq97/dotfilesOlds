@@ -1,21 +1,10 @@
-/**
- * User: deadguy
- * Copyright: deadguy
- */
-
-configuration {
-	display-drun:    "Aplicaciones";
-	show-icons:      false;	
-	window-format: "{t}";
-}
-
 * {
-	background-color:            #0b1016;
-	text-color:                  #b4b9be;
-	selbg:                       #cf7514;
-	actbg:                       #ca2026;
+	background-color:            #011932;
+	text-color:                  #9da4ca;
+	selbg:                       #011932;
+	actbg:                       #ffffff;
 	urgbg:                       #9c5059;
-	winbg:			     #090a0c;
+	winbg:			     #053887;
 
 	selected-normal-foreground:  @winbg;
 	normal-foreground:           @text-color;
@@ -32,8 +21,8 @@ configuration {
 	selected-active-background:  @actbg;
 	active-background:           @selbg;
 
-	line-margin:                 2;
-	line-padding:                2;
+	line-margin:                 0;
+	line-padding:                0;
 	separator-style:             "none";
 	hide-scrollbar:              "true";
 	margin:                      0px;
@@ -43,29 +32,27 @@ configuration {
 
 window {
 	location:	 west;
-	anchor:		 west;
-	x-offset: 0px;
-	height:		 100%;
+	anchor:		 north;
+	x-offset: 	 200px;
+	y-offset:	 -360px;
+	height:		 60%;
 	width:		 400px;
-	margin-right: 60px;
-	orientation: horizontal;
+	margin-right: 	 60px;
+	border:		 4px;
+	padding:	 5px;
+	border-color:	 @winbg;
 	children:	 [mainbox];
 }
 
 mainbox {
 	spacing:  0em;
 	padding: 0px;
-	width:200px;
-	children: [ inputbar, listview, sidebar ];
+	width: 	 100px;
+	height: 100px;
+	children: [ inputbar, listview ];
 	expand: true;
 }
 
-button { padding: 5px 2px; }
-
-button selected {
-	background-color: @active-background;
-	text-color:       @background-color;
-}
 
 inputbar {
      children: [ entry ];
@@ -74,7 +61,7 @@ inputbar {
 textbox-prompt-colon {                                                
      text-color: inherit;                                              
      expand: false;                                                    
-     margin: 0 0.3em 0em 0em;
+     margin: 0 0em 0em 0em;
  }  
 
 listview {
@@ -84,18 +71,18 @@ listview {
 }
 
 element { 
-	padding: 16px;
-	border:  0 0 0 5px solid;
+	padding: 2px;
+	border:  0 0 0 0px solid;
 }
 
 entry {
-	expand:         true;
-	text-color:     @normal-foreground;
-	background-color: @normal-background;
-	vertical-align: 1;
-	padding:        12px;
-	font:            "Roboto medium 13";
-	border: 	  0 0 2 0px solid;
+	expand:			true;
+	text-color:     	@normal-foreground;
+	background-color: 	@normal-background;
+	vertical-align: 	1;
+	padding:        	1px;
+	font:            	"Roboto medium 10";
+	border: 	 	 0 0 0 0px solid;
 	border-color:	    #030304;
 }
 
@@ -115,9 +102,9 @@ element normal.active {
 }
 
 element selected.normal {
-	background-color: @selbg;
-	text-color:       @background-color;
-	padding: 16px;
+	background-color: @background-color;
+	text-color:       @winbg;
+	padding: 1px;
 	border:           0 0 0 0px solid;
 	border-color:	    @selbg;
 }

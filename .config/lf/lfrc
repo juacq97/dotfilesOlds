@@ -1,11 +1,11 @@
 # interpreter for shell commands (needs to be POSIX compatible)
 set shell bash
-set drawbox
-set ratios '1:3:2'
+#set drawbox
+#set ratios '1:3:2'
 set ifs "\n"
 set incsearch
 set findlen 0
-set icons
+#set icons
 
 # set '-eu' options for shell commands
 # These options are used to have safer shell commands. Option '-e' is used to
@@ -179,9 +179,9 @@ map gh cd ~
 map ge cd /etc
 map gu cd /usr
 #map gd cd /dev
-map gd cd ~/Drive
+map gd cd /mnt/DATA/juan/Drive
 map gc cd ~/.config
-map gD cd ~/Documentos/.dotfiles
+map gD cd ~/mnt/DATA/juan
 map gl cd -r .
 map gL cd -r %f
 map go cd /opt

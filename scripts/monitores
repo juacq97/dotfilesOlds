@@ -1,12 +1,11 @@
 #! /bin/sh
 
-sel=$(echo "Derecha\nIzquierda\nArriba\nAbajo\nEspejo" | dmenu -i -p "¿Dónde desea ubicar el monitor conectado?")
+sel=$(echo "Horizontal\nEspejo\nEspejo-2" | dmenu -i -p "¿Dónde desea ubicar el monitor conectado?")
     
 echo $sel
 case $sel in
-    Espejo) mons -d && killall compton && compton -b --config ~/.config/compton.conf;;
-    Derecha) mons -e right killall compton && compton -b --config ~/.config/compton.conf;;
-    Izquierda) mons -e left killall compton && compton -b --config ~/.config/compton.conf;;
-    Arriba) mons -e top killall compton && compton -b --config ~/.config/compton.conf;;
-    Abajo) mons -e bottom killall compton && compton -b --config ~/.config/compton.conf;;
+    Horizontal) autorandr horizontal;;
+    Espejo) autorandr clone-largest;;
+    Espejo-2) autorandr common;;
+    
 esac

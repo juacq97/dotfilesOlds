@@ -22,7 +22,7 @@ super + Return
 
 #Rofi
 super + d
-     rofi -modi "window,run,drun" -show drun -theme full -terminal st
+     rofi -modi "drun" -show drun -theme minimal -terminal st
 #    j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40 -m 0" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
 
 super + r
@@ -98,12 +98,13 @@ super + Print
 
 ##Audio
 #XF86AudioMute
-##	pamixer -t
+	pamixer -t
 #	pactl set-sink-mute @DEFAULT_SINK@ toggle
 #XF86AudioLowerVolume
-##	pamixer -d 2
+	pamixer -d 2
 #	amixer sset 'Master' 2%-
 #XF86AudioRaiseVolume
+	pamixer -i 2
 #	amixer sset 'Master' 2%+
 XF86AudioPlay
 	playerctl play-pause
@@ -115,12 +116,12 @@ XF86AudioStop
 	playerctl stop
 
 # Subir brillo
-XF86MonBrightnessUp
-	light -A 5 & notify-send -a "Brillo" "$(light -G)"
-
-# Bajar brillo
-XF86MonBrightnessDown
-	light -U 5 & notify-send -a "Brillo" "$(light -G)"
+#XF86MonBrightnessUp
+#	light -A 5 & notify-send -a "Brillo" "$(light -G)"
+#
+## Bajar brillo
+#XF86MonBrightnessDown
+#	light -U 5 & notify-send -a "Brillo" "$(light -G)"
 
 
 # bloquear teclado

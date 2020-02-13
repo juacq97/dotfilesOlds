@@ -8,7 +8,12 @@ static const char *fonts[] = {
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 
-#include "/home/juan/.cache/wal/colors-wal-dmenu.h"
+static const char *colors[SchemeLast][2] = {
+	/*     fg         bg       */
+	[SchemeNorm] = { "#9da4ca", "#011932" },
+	[SchemeSel] = { "#9da4ca", "#664E6C" },
+	[SchemeOut] = { "#9da4ca", "#155499" },
+};
 
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;

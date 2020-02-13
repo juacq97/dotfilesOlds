@@ -22,24 +22,22 @@
 
 
 [colors]
-background		= #cc111111
-background-alt 		= #cc111111
+;background		= ${xrdb:color0}
+background		= #00000000
+background-alt 		= #111111
 background-wdg 		= 
-foreground     		= ${xrdb:foreground}
-foreground-alt 		= ${xrdb:color1}
-primary        		= ${xrdb:color4}
-secondary 		= ${xrdb:color3}
-alert 			= ${xrdb:color2}
+foreground     		= ${xrdb:color7}
+foreground-alt 		= ${xrdb:color5}
+primary        		= ${xrdb:color1}
+secondary 		= ${xrdb:color6}
+alert 			= ${xrdb:color4}
 
-[global/wm]
-margin-top		= 0
-margin-bottom 		= 0
 
 
 [bar/example]
 monitor			= ${env:MONITOR:}
 width 			= 100%
-height 			= 25
+height 			= 24
 radius 			= 0
 fixed-center 		= true
 enable-ipc 		= true
@@ -55,8 +53,8 @@ border-top-color 	=
 border-bottom-color 	= 
 border-size 		= 
 border-color 		= 
-padding-left 		= 0
-padding-right 		= 0
+padding-left 		= 2
+padding-right 		= 2
 module-margin-left 	= 
 module-margin-right 	= 
 locale 			= es_MX.UTF-8
@@ -65,7 +63,7 @@ locale 			= es_MX.UTF-8
 ; FUENTES
 ;========================================
 
-font-0 = Roboto:regular:size=10;1
+font-0 = Roboto:style:regular:size=10;1
 font-1 = Material Design Icons:style=Regular:pixelsize=12;2
 font-2 = MesloLGS NF:style=Regular:size=15;3
 font-3 = Weather Icons:size=12;2
@@ -73,13 +71,13 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left 	= bspwm sep-der2 mpd spotify
-modules-center 	= sep-iz2 date sep-der2
-modules-right 	=  sep-iz2 clima-icon  clima sep-iz2 pulseaudio sep-iz2 battery sep-iz2 xkeyboard sep-iz2 red
+modules-left 	= bspwm 
+modules-center 	= date
+modules-right 	= pulseaudio battery xkeyboard
 
-tray-position 	= none
+tray-position 	= right
 tray-padding 	= 1
-;tray-background  = #bf6a87
+tray-background  = ${colors.background}
 ;tray-underline   = #1C98C9
 ;tray-detached 	  = true
 wm-restack 	  = bspwm
@@ -110,8 +108,8 @@ format-background = ${colors.background-wdg}
 type = internal/xkeyboard
 blacklist-0 = num lock 
 blacklist-1 = caps lock
-format-prefix = " "
-format-background = ${colors.background-alt}
+format-prefix = "  "
+format-background = ${colors.background}
 format-foreground = ${colors.foreground}
 label-layout = %icon%
 ;label-layout-underline = ${colors.secondary}
@@ -142,18 +140,18 @@ ws-icon-8 = 9;
 format = <label-state>
 ;format = <label-state>
 
-;label-focused = "瘝" 
-label-focused = %icon%
-label-focused-foreground = ${colors.foreground-alt}
+label-focused = "瘝"
+;label-focused = %icon%
+label-focused-foreground = ${colors.foreground}
 label-focused-background = ${colors.background}
 ;label-focused-underline = #d197e2
 label-focused-overline = 
-label-focused-padding = 2
+label-focused-padding = 1
 
-label-occupied = %icon%
-;label-occupied = ""
-label-occupied-padding = 2
-label-occupied-foreground = ${colors.primary}
+;label-occupied = %icon%
+label-occupied = ""
+label-occupied-padding = 1
+label-occupied-foreground = ${colors.alert}
 label-occupied-background = ${colors.background}
 ;label-occupied-underline = #64039f
 label-occupied-overline =
@@ -162,11 +160,11 @@ label-urgent = %icon%!
 label-urgent-background = 
 ;label-urgent-padding = 2
 
-;label-empty = "吏"
-label-empty = %icon%
-label-empty-foreground = #535353
+label-empty = ""
+;label-empty = %icon%
+label-empty-foreground = ${colors.secondary}
 label-empty-background = ${colors.background}
-label-empty-padding = 2
+label-empty-padding = 1
 
 label-monocle = 﨣
 ;label-tiled = ﮨ
@@ -229,13 +227,13 @@ date-alt = " %A %e de %B de %Y,"
 time = "%H:%M  "
 time-alt = "%H:%M:%S "
 
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground}
 ;format-underline = #e6c9c4
 
 label =%{A3:bspc rule -a \* -o state=floating rectangle=200x200+583+25 && st -e sh -c "cal; read x" & disown:}%date% %time%%{A} %{A}
 ;label = %date% %time%'
-format-background = ${colors.background-alt}
+format-background = ${colors.background}
 label-foreground = ${root.foreground}
 
 format-padding = 
@@ -290,7 +288,7 @@ ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 
-format-volume-background = ${colors.background-alt}
+format-volume-background = ${colors.background}
 click-right = exec pavucontrol & 
 
 [module/battery]
@@ -299,7 +297,7 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
-format-charging-background = ${colors.background-alt}
+format-charging-background = ${colors.background}
 format-discharging-background = ${self.format-charging-background}
 format-full-background = ${self.format-charging-background}
 format-charging = <label-charging>
@@ -315,7 +313,7 @@ format-full-underline = ${self.format-charging-underline}
 format-full = <label-full>
 
 
-label-charging = "%percentage%% "
+label-charging = " %percentage%% "
 label-discharging = %percentage%%
 label-full = %percentage%%
 
@@ -466,7 +464,7 @@ type = custom/text
 content = "%{T3}%{T}"
 content-font = 3
 [settings]
-screenchange-reload = true
+;screenchange-reload = true
 ;compositing-background = xor
 ;compositing-background = screen
 ;compositing-foreground = source

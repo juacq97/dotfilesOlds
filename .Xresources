@@ -1,3 +1,8 @@
+Xcursor.theme: Bibata_Oil
+Xcursor.size: 16
+Xcursor.theme_core: 1
+
+
 UXTerm*faceName: FantasqueSansMono Nerd Font Mono
 UXTerm*faceSize: 11
 xterm*selectToClipboard: true
