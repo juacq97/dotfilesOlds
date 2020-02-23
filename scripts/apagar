@@ -6,7 +6,8 @@ var=$(echo " Apagar\n Bloquear\n Suspender\n  Reiniciar\n Cerrar 
 case $var in
     ' Apagar') 
 	rm /tmp/bspwm-startup.lock
-	systemctl poweroff;;
+#	systemctl poweroff;;
+	sudo poweroff;;
 	
 
     ' Bloquear')
@@ -14,13 +15,15 @@ case $var in
 
     ' Reiniciar')
 	rm /tmp/bspwm-startup.lock
-	systemctl reboot;;
+#	systemctl reboot;;
+	sudo reboot
 
     ' Cerrar sesión')
 		rm /tmp/bspwm-startup.lock
 		bspc quit;;
     ' Suspender')
-	systemctl suspend;;
+#	systemctl suspend;;
+	sudo zzz;;
     
 	' Cancelar')
 	    exit 0;;

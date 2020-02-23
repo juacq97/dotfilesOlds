@@ -30,7 +30,7 @@ foreground     		= ${xrdb:color7}
 foreground-alt 		= ${xrdb:color5}
 primary        		= ${xrdb:color1}
 secondary 		= ${xrdb:color6}
-alert 			= ${xrdb:color4}
+alert 			= ${xrdb:color3}
 
 
 
@@ -142,7 +142,7 @@ format = <label-state>
 
 label-focused = "瘝"
 ;label-focused = %icon%
-label-focused-foreground = ${colors.foreground}
+label-focused-foreground = #5B9ED0
 label-focused-background = ${colors.background}
 ;label-focused-underline = #d197e2
 label-focused-overline = 
@@ -151,7 +151,7 @@ label-focused-padding = 1
 ;label-occupied = %icon%
 label-occupied = ""
 label-occupied-padding = 1
-label-occupied-foreground = ${colors.alert}
+label-occupied-foreground = ${colors.secondary}
 label-occupied-background = ${colors.background}
 ;label-occupied-underline = #64039f
 label-occupied-overline =
@@ -162,7 +162,7 @@ label-urgent-background =
 
 label-empty = ""
 ;label-empty = %icon%
-label-empty-foreground = ${colors.secondary}
+label-empty-foreground = ${colors.foreground}
 label-empty-background = ${colors.background}
 label-empty-padding = 1
 

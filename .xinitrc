@@ -1,8 +1,8 @@
 #!/bin/sh
 
 emacs --daemon &
-compton -b --config ~/.config/compton.conf &
-#picom -b --config ~/.config/compton.conf &
+#compton -b --config ~/.config/compton.conf &
+picom -b --config ~/.config/compton.conf &
 #anicom -b --config ~/.config/anicom.conf &
 xfce4-power-manager &
 #pcloud &

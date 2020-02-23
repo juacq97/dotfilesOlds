@@ -1,11 +1,11 @@
 [colors]
-    background	= "#011932"
-    foreground 	= "#9da4ca"
-    frame_color = "#053887"
+    background	= "#1a2024"
+    foreground 	= "#c7d5de"
+    frame_color = "#f7ce89"
 
 
 [global]
-   frame_width = 3
+   frame_width = 0
     font = Roboto 11
     follow = none
     

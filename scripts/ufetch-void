@@ -38,7 +38,7 @@ else
 fi
 
 ## DEFINE COLORS
-    f="$(fortune)"
+    f="$(fortune-es)"
 
 # probably don't change these
 if [ -x "$(command -v tput)" ]; then

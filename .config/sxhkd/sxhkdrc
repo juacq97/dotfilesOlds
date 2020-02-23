@@ -97,13 +97,13 @@ super + Print
       flameshot full -c
 
 ##Audio
-#XF86AudioMute
+XF86AudioMute
 	pamixer -t
 #	pactl set-sink-mute @DEFAULT_SINK@ toggle
-#XF86AudioLowerVolume
+XF86AudioLowerVolume
 	pamixer -d 2
 #	amixer sset 'Master' 2%-
-#XF86AudioRaiseVolume
+XF86AudioRaiseVolume
 	pamixer -i 2
 #	amixer sset 'Master' 2%+
 XF86AudioPlay
@@ -137,11 +137,13 @@ super + control + F2
 
 #matar compton
 super + o
-      killall compton
+#      killall compton
+       killall picom
 
 #revivir compton
 super + shift + o
-     compton --config ~/.config/compton.conf
+#     compton --config ~/.config/compton.conf
+     picom --config ~/.config/compton.conf
 
 # Reiniciar sxhdk 
 super + shift + r
@@ -173,8 +175,8 @@ super + p
 
 #Apagar
 super + F12
-#      ~/scripts/apagar
-       clearine 
+      ~/scripts/apagar
+#       clearine 
 
 # Clipboard
 super + ctrl + p

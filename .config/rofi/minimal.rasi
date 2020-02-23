@@ -1,10 +1,10 @@
 * {
-	background-color:            #011932;
-	text-color:                  #9da4ca;
+	background-color:            #1a2024;
+	text-color:                  #c7d5de;
 	selbg:                       #011932;
 	actbg:                       #ffffff;
 	urgbg:                       #9c5059;
-	winbg:			     #053887;
+	winbg:			     #f7ce89;
 
 	selected-normal-foreground:  @winbg;
 	normal-foreground:           @text-color;
@@ -27,7 +27,7 @@
 	hide-scrollbar:              "true";
 	margin:                      0px;
 	padding:                     0px;
-	font:            "Roboto medium 10";
+	font:            "Fantasque Sans Mono medium 10";
 }
 
 window {
