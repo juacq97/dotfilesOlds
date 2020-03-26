@@ -1,0 +1,109 @@
+configuration {
+  fullscreen:                     true;
+  show-icons:                     true;
+  icon-theme:                     "Zafiro";
+  font:                           "Font Roboto 9";
+  drun-display-format:            "{name}";
+}
+
+* {
+  background-color:               transparent;
+  background:                     #00000066;
+  background-alt:                 #f2f2f200;
+  text-color:                     #e4ecec33;
+  selected-text-color:            #ffffff;
+  primary:                        #A3BE8C;
+  urgent:                         #BF616A;
+}
+
+window {
+  transparency:                   "real";
+  background-color:               @background;
+  location:                       northwest;
+  anchor:                         northwest;
+  border-radius:                  0;
+}
+
+prompt {
+  enabled: false;
+}
+
+mainbox {
+  children: [ inputbar, listview ];
+  padding: 10px 40px 10px 40px;
+}
+
+
+inputbar {
+  expand:                         false;
+  background-color:               #00000020;
+  border-radius:                  30;
+  margin:                         4% 30% 2% 30%;
+  padding:                        10px;
+  position:                       north;
+  width:                          1px;
+}
+
+entry {
+  /*expand:                        false;
+  width:                          60px;
+  margin:                         40px -275px 20px 355px;
+  border-radius:                  6;
+  padding:                        10px 10px 10px 10px;
+  background-color:               #00000020;
+  border:                         0px 0px solid 0px 0px;
+  border-color:                   @text-color;*/
+  horizontal-align:               0.5;
+  placeholder:                    "Buscar";
+  placeholder-color:              @text-color;
+  blink:                          true;
+}
+
+
+listview {
+  columns: 8;
+  spacing: 2;
+  dynamic: true;
+}
+
+element {
+  border-radius: 2;
+  orientation: vertical;
+  padding: 40 0 40 0;
+}
+
+
+element normal.urgent, element alternate.urgent {
+    background-color:               @urgent;
+}
+
+element normal.active, element alternate.active {
+    background-color:               @background-alt;
+    color:                          @selected-text-color;
+}
+
+element selected {
+    background-color:               @background-alt;
+    color:                          @selected-text-color;
+    border-radius:                  6;
+}
+
+element selected.urgent {
+    background-color:               @urgent;
+}
+
+element selected.active {
+    background-color:               @background-alt;
+    color:                          @selected-text-color;
+}
+
+element-icon {
+    size:                           50px;
+    border:                         0px;
+}
+
+element-text {
+    expand:                         true;
+    horizontal-align:               0.5;
+    margin:                         10px 15px 0px 15px;
+}
