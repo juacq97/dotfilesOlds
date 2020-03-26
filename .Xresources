@@ -36,3 +36,5 @@ xterm*ScrollBar: false
 xterm*scrollTtyOutput: false
 
 #include "/home/juan/.cache/wal/colors.Xresources"
+
+!Dracula theme

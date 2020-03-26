@@ -91,7 +91,7 @@ export LESS='-Ri '
 # Alias "n" para usar nnn con la opción cd at quit
 n()
 {
-        nnn -dn "$@"
+        nnn -d "$@"
 
         if [ -f $NNN_TMPFILE ]; then
                 . $NNN_TMPFILE
@@ -108,3 +108,7 @@ bindkey -v
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/TTY1 ]]; then
+    exec startx
+fi

@@ -7,7 +7,7 @@ case $var in
     ' Apagar') 
 	rm /tmp/bspwm-startup.lock
 #	systemctl poweroff;;
-	sudo poweroff;;
+	poweroff;;
 	
 
     ' Bloquear')
@@ -16,7 +16,7 @@ case $var in
     ' Reiniciar')
 	rm /tmp/bspwm-startup.lock
 #	systemctl reboot;;
-	sudo reboot
+	reboot;;
 
     ' Cerrar sesión')
 		rm /tmp/bspwm-startup.lock

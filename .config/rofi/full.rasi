@@ -49,6 +49,7 @@ configuration {
 }
 
 window {
+       transparency: "real";
 	location:	 north;
 	anchor:		north;
 	x-offset:	 0px;
@@ -83,7 +84,7 @@ textbox-prompt-colon {
  }  
 
 listview {
-	 columns: 1;
+	 columns: 7;
 	spacing: 6;
 	dynamic: false;
 	cycle:   true;
@@ -97,6 +98,7 @@ sidebar {
 
 element { 
 	padding: 16;
+	orientation: vertical;
 	border:  0 0 0 0px ;
 }
  

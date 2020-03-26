@@ -116,29 +116,29 @@ static unsigned int defaultrcs = 7;
 const char *colorname[] = {
 
   /* 8 normal colors */
-  [0] = "#1a2024", /* black   */
-  [1] = "#CEAA6A", /* red     */
-  [2] = "#5E7889", /* green   */
-  [3] = "#6F95B0", /* yellow  */
-  [4] = "#868E92", /* blue    */
-  [5] = "#A4AAAD", /* magenta */
-  [6] = "#F7CE89", /* cyan    */
-  [7] = "#c7d5de", /* white   */
+  [0] = "#0c0f15", /* black   */
+  [1] = "#B28C6E", /* red     */
+  [2] = "#73878B", /* green   */
+  [3] = "#A4A8A2", /* yellow  */
+  [4] = "#C1C4B9", /* blue    */
+  [5] = "#CCD8D2", /* magenta */
+  [6] = "#D2E1DD", /* cyan    */
+  [7] = "#e4ecec", /* white   */
 
   /* 8 bright colors */
-  [8]  = "#8b959b",  /* black   */
-  [9]  = "#CEAA6A",  /* red     */
-  [10] = "#5E7889", /* green   */
-  [11] = "#6F95B0", /* yellow  */
-  [12] = "#868E92", /* blue    */
-  [13] = "#A4AAAD", /* magenta */
-  [14] = "#F7CE89", /* cyan    */
-  [15] = "#c7d5de", /* white   */
+  [8]  = "#9fa5a5",  /* black   */
+  [9]  = "#B28C6E",  /* red     */
+  [10] = "#73878B", /* green   */
+  [11] = "#A4A8A2", /* yellow  */
+  [12] = "#C1C4B9", /* blue    */
+  [13] = "#CCD8D2", /* magenta */
+  [14] = "#D2E1DD", /* cyan    */
+  [15] = "#e4ecec", /* white   */
 
   /* special colors */
-  [256] = "#1a2024", /* background */
-  [257] = "#c7d5de", /* foreground */
-  [258] = "#c7d5de",     /* cursor */
+  [256] = "#0c0f15", /* background */
+  [257] = "#e4ecec", /* foreground */
+  [258] = "#e4ecec",     /* cursor */
 };
 
 /* Default colors (colorname index)
@@ -147,14 +147,36 @@ const char *colorname[] = {
  unsigned int defaultfg = 257;
  unsigned int defaultcs = 258;
  unsigned int defaultrcs= 258;
+/*DRACULA THEME*/
+/* Terminal colors (16 first used in escape sequence) */
 /*
- * Colors used, when the specific fg == defaultfg. So in reverse mode this
- * will reverse too. Another logic would only make the simple feature too
- * complex.
- */
-static unsigned int defaultitalic = 7;
-static unsigned int defaultunderline = 7;
+static const char *colorname[] = {
 
+  [0] = "#000000", 
+  [1] = "#ff5555", 
+  [2] = "#50fa7b", 
+  [3] = "#f1fa8c", 
+  [4] = "#bd93f9", 
+  [5] = "#ff79c6", 
+  [6] = "#8be9fd", 
+  [7] = "#bfbfbf", 
+  [8]  = "#4d4d4d",
+  [9]  = "#ff6e67",
+  [10] = "#5af78e",
+  [11] = "#f4f99d",
+  [12] = "#caa9fa",
+  [13] = "#ff92d0",
+  [14] = "#9aedfe",
+  [15] = "#e6e6e6",
+  [256] = "#282a36", 
+  [257] = "#f8f8f2", 
+  [258] = "#f8f8f2", 
+};
+ unsigned int defaultbg = 256;
+ unsigned int defaultfg = 257;
+ unsigned int defaultcs = 258;
+ unsigned int defaultrcs= 258;
+*/
 
 /*
  * Default shape of cursor
@@ -178,7 +200,6 @@ static unsigned int rows = 24;
 static unsigned int mouseshape = XC_xterm;
 static unsigned int mousefg = 7;
 static unsigned int mousebg = 0;
-
 /*
  * Color used to display font attributes when fontconfig sele
 cted a font which

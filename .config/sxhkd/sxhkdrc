@@ -22,7 +22,7 @@ super + Return
 
 #Rofi
 super + d
-     rofi -modi "drun" -show drun -theme minimal -terminal st
+     rofi -modi "drun" -show drun -theme apps -terminal st
 #    j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40 -m 0" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
 
 super + r
@@ -47,8 +47,9 @@ super + w
 super + f
 #      termite -e ranger
 #      termite -e lf
-#      st -e ~/scripts/nwrap
-       st -e lf
+      st -e ~/scripts/nwrap
+#       st -e lf
+
 super + shift + f
       thunar
 
@@ -175,8 +176,8 @@ super + p
 
 #Apagar
 super + F12
-      ~/scripts/apagar
-#       clearine 
+#      ~/scripts/apagar
+       clearine 
 
 # Clipboard
 super + ctrl + p

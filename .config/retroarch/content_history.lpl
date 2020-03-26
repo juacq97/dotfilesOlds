@@ -7,396 +7,804 @@
   "left_thumbnail_mode": 0,
   "items": [
     {
-      "path": "/mnt/DATA/juan/ROMS/snes/Shin Megami Tensei if... (Eng. patched v1.0).sfc",
+      "path": "/mnt/DATA/juan/ROMS/NES/Action 52.7z#Action 52 (Active Enterprises) [!].nes",
       "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/snes9x_libretro.so",
-      "core_name": "snes9x_libretro.so",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/n64/zelda-nuevo2-0.z64",
+      "path": "/mnt/DATA/juan/ROMS/n64/Mario Kart 64 (U).n64",
       "label": "",
       "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
-      "core_name": "Mupen64Plus OpenGL",
+      "core_name": "mupen64plus_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/n64/zelda-nuevo2-0.z64",
-      "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
-      "core_name": "ParaLLEl N64",
-      "crc32": "",
-      "db_name": ""
-    },
-    {
-      "path": "/home/juan/ROMS/NES/Teenage Mutant Ninja Turtles II - The Arcade Game.7z#Teenage Mutant Ninja Turtles II - The Arcade Game (U) [!].nes",
-      "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
-      "core_name": "FCEUmm",
-      "crc32": "",
-      "db_name": ""
-    },
-    {
-      "path": "/home/juan/ROMS/NES/Double Dragon II - The Revenge.7z#Double Dragon II - The Revenge (U) (PRG0) [!].nes",
-      "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
-      "core_name": "FCEUmm",
-      "crc32": "",
-      "db_name": ""
-    },
-    {
-      "path": "/home/juan/ROMS/NES/Super C (U) [!].nes",
-      "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
-      "core_name": "FCEUmm",
-      "crc32": "",
-      "db_name": ""
-    },
-    {
-      "path": "/home/juan/ROMS/n64/Super Mario 64 (USA).n64",
+      "path": "/mnt/DATA/juan/ROMS/n64/Super Mario 64 (USA).n64",
       "label": "",
       "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
-      "core_name": "Mupen64Plus OpenGL",
+      "core_name": "mupen64plus_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/NES/Final Fantasy I & II.7z#Final Fantasy I & II (J) [o1][T+Eng1.00_Demiforce].nes",
+      "path": "/mnt/DATA/juan/ROMS/n64/Super Mario 64 (E) (M3).n64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/n64/Donkey Kong 64 (E) (M4).n64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/n64/Banjo-Kazooie.z64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/n64/Kirby 64 - The Crystal Shards (E).n64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Battletoads.7z#Battletoads (U) [!].nes",
       "label": "",
       "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
-      "core_name": "FCEUmm",
+      "core_name": "fceumm_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/NES/Super C.7z#Super C (U) [!].nes",
+      "path": "/mnt/DATA/juan/ROMS/NES/Baseball.7z#Baseball (U) [!].nes",
       "label": "",
       "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
-      "core_name": "FCEUmm",
+      "core_name": "fceumm_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/NES/Super C.7z",
+      "path": "/mnt/DATA/juan/ROMS/NES/Bird Week.7z#Bird Week (J) [!].nes",
       "label": "",
       "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
-      "core_name": "FCEUmm",
+      "core_name": "fceumm_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/NES/Super Mario Bros. + Duck Hunt + World Class Track Meet.7z",
+      "path": "/mnt/DATA/juan/ROMS/NES/Urban Champion.7z#Urban Champion (W) [!].nes",
       "label": "",
       "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
-      "core_name": "FCEUmm",
+      "core_name": "fceumm_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/n64/Super Mario 64 (E) (M3).n64",
+      "path": "/mnt/DATA/juan/ROMS/NES/Pooyan.7z#Pooyan (J).nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Joust.7z#Joust (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Super C (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Spider-Man - Return of the Sinister Six.7z#Spider-Man - Return of the Sinister Six (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Donkey Kong Jr..7z#Donkey Kong Jr. (J) (PRG0) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Balloon Fight.7z#Balloon Fight (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/n64/Pokemon Snap (E).n64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/n64/Pokemon Stadium (E) (v1.1).n64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/n64/Donkey Kong 64 (E) (M4).n64",
       "label": "",
       "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
-      "core_name": "ParaLLEl N64",
+      "core_name": "parallel_n64_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/n64/SMB64.z64",
+      "path": "/mnt/DATA/juan/ROMS/n64/Super Mario 64.z64",
       "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/parallel_n64_libretro.so",
-      "core_name": "ParaLLEl N64",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/snes/Shin Megami Tensei if... (Eng. patched v1.0).sfc",
+      "path": "/mnt/DATA/juan/ROMS/NES/Alfred Chicken.7z#Alfred Chicken (U) [!].nes",
       "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/snes9x_libretro.so",
-      "core_name": "Snes9x",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/snes/Shin Megami Tensei if... (Japan) (Rev 1).sfc",
+      "path": "/mnt/DATA/juan/ROMS/NES/Abadox - The Deadly Inner War.7z#Abadox - The Deadly Inner War (U) [!].nes",
       "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/snes9x_libretro.so",
-      "core_name": "Snes9x",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/snes/Shin Megami Tensei if... (J).smc",
+      "path": "/mnt/DATA/juan/ROMS/NES/Arctic.7z#Arctic (J).nes",
       "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/snes9x_libretro.so",
-      "core_name": "Snes9x",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/snes/Shin Megami Tensei if....7z#Shin Megami Tensei if... (J) [p1].smc",
+      "path": "/mnt/DATA/juan/ROMS/NES/Babel no Tou.7z#Babel no Tou (J) [!].nes",
       "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/snes9x_libretro.so",
-      "core_name": "Snes9x",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/snes/smtif/Shin Megami Tensei if... (J) [p1].smc",
+      "path": "/mnt/DATA/juan/ROMS/NES/Legend of Zelda, The.7z#Zelda no Densetsu 1 - The Hyrule Fantasy (J).nes",
       "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/snes9x_libretro.so",
-      "core_name": "Snes9x",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "/home/juan/ROMS/snes/Shin Megami Tensei if.../Shin Megami Tensei if... (J).smc",
+      "path": "/mnt/DATA/juan/ROMS/n64/Yoshi's Story (U) [!].z64",
       "label": "",
-      "core_path": "/home/juan/.config/retroarch/cores/snes9x_libretro.so",
-      "core_name": "Snes9x",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
       "crc32": "",
       "db_name": ""
     },
     {
-      "path": "{",
-      "label": "  \"version\": \"1.0\",",
-      "core_path": "  \"items\": [",
-      "core_name": "    {",
-      "crc32": "      \"path\": \"/home/juan/ROMS/n64/Super Mario 64.z64\",",
-      "db_name": "      \"label\": \"\","
+      "path": "/mnt/DATA/juan/ROMS/NES/After Burner.7z#After Burner (Tengen) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/parallel_n64_libretro.so\",",
-      "label": "      \"core_name\": \"parallel_n64_libretro.so\",",
-      "core_path": "      \"crc32\": \"\",",
-      "core_name": "      \"db_name\": \"\"",
-      "crc32": "    },",
-      "db_name": "    {"
+      "path": "/mnt/DATA/juan/ROMS/NES/Cybernoid - The Fighting Machine.7z#Cybernoid - The Fighting Machine (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"path\": \"/home/juan/ROMS/NES/Super Mario Bros. 3.7z#Super Mario Bros. 3 (U) (PRG0) [!].nes\",",
-      "label": "      \"label\": \"\",",
-      "core_path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/fceumm_libretro.so\",",
-      "core_name": "      \"core_name\": \"fceumm_libretro.so\",",
-      "crc32": "      \"crc32\": \"\",",
-      "db_name": "      \"db_name\": \"\""
+      "path": "/mnt/DATA/juan/ROMS/NES/Xevious.7z#Xevious (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "    },",
-      "label": "    {",
-      "core_path": "      \"path\": \"/home/juan/ROMS/snes/smtif/Shin Megami Tensei if... (J) [p1].smc\",",
-      "core_name": "      \"label\": \"\",",
-      "crc32": "      \"core_path\": \"/home/juan/.config/retroarch/cores/snes9x_libretro.so\",",
-      "db_name": "      \"core_name\": \"snes9x_libretro.so\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Flying Hero.7z#Flying Hero (J).nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"crc32\": \"\",",
-      "label": "      \"db_name\": \"\"",
-      "core_path": "    },",
-      "core_name": "    {",
-      "crc32": "      \"path\": \"/home/juan/ROMS/n64/randomizer-oot-30-mejorquenunca.z64\",",
-      "db_name": "      \"label\": \"\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Journey to Silius.7z#Journey to Silius (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/parallel_n64_libretro.so\",",
-      "label": "      \"core_name\": \"parallel_n64_libretro.so\",",
-      "core_path": "      \"crc32\": \"\",",
-      "core_name": "      \"db_name\": \"\"",
-      "crc32": "    },",
-      "db_name": "    {"
+      "path": "/mnt/DATA/juan/ROMS/NES/Door Door.7z#Door Door (J) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"path\": \"/home/juan/ROMS/n64/Super Mario 64 (USA).n64\",",
-      "label": "      \"label\": \"\",",
-      "core_path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/parallel_n64_libretro.so\",",
-      "core_name": "      \"core_name\": \"parallel_n64_libretro.so\",",
-      "crc32": "      \"crc32\": \"\",",
-      "db_name": "      \"db_name\": \"\""
+      "path": "/mnt/DATA/juan/ROMS/NES/Formation Z.7z#Formation Z (J) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "    },",
-      "label": "    {",
-      "core_path": "      \"path\": \"/home/juan/ROMS/n64/Pokemon Stadium 2 (E).n64\",",
-      "core_name": "      \"label\": \"\",",
-      "crc32": "      \"core_path\": \"/home/juan/.config/retroarch/cores/parallel_n64_libretro.so\",",
-      "db_name": "      \"core_name\": \"parallel_n64_libretro.so\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Don Doko Don.7z#Don Doko Don (J) [o1].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"crc32\": \"\",",
-      "label": "      \"db_name\": \"\"",
-      "core_path": "    },",
-      "core_name": "    {",
-      "crc32": "      \"path\": \"/home/juan/ROMS/n64/SMB64.z64\",",
-      "db_name": "      \"label\": \"\","
+      "path": "/mnt/DATA/juan/ROMS/NES/8 Eyes.7z#8 Eyes (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/parallel_n64_libretro.so\",",
-      "label": "      \"core_name\": \"parallel_n64_libretro.so\",",
-      "core_path": "      \"crc32\": \"\",",
-      "core_name": "      \"db_name\": \"\"",
-      "crc32": "    },",
-      "db_name": "    {"
+      "path": "/mnt/DATA/juan/ROMS/NES/Super C.7z#Probotector II - Return of the Evil Forces (E) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"path\": \"/home/juan/ROMS/genesis/Sonic3C.gen\",",
-      "label": "      \"label\": \"\",",
-      "core_path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/picodrive_libretro.so\",",
-      "core_name": "      \"core_name\": \"picodrive_libretro.so\",",
-      "crc32": "      \"crc32\": \"\",",
-      "db_name": "      \"db_name\": \"\""
+      "path": "/mnt/DATA/juan/ROMS/NES/Holy Diver.7z#Holy Diver (J).nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "    },",
-      "label": "    {",
-      "core_path": "      \"path\": \"/home/juan/ROMS/NES/Final Fantasy.7z#Final Fantasy (U) [!].nes\",",
-      "core_name": "      \"label\": \"\",",
-      "crc32": "      \"core_path\": \"/home/juan/.config/retroarch/cores/fceumm_libretro.so\",",
-      "db_name": "      \"core_name\": \"fceumm_libretro.so\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Holy Diver.7z#Holy Diver (J) [hFFE][p1].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"crc32\": \"\",",
-      "label": "      \"db_name\": \"\"",
-      "core_path": "    },",
-      "core_name": "    {",
-      "crc32": "      \"path\": \"/home/juan/ROMS/NES/Super C.7z#Super C (U) [!].nes\",",
-      "db_name": "      \"label\": \"\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Zelda II - The Adventure of Link (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/fceumm_libretro.so\",",
-      "label": "      \"core_name\": \"fceumm_libretro.so\",",
-      "core_path": "      \"crc32\": \"\",",
-      "core_name": "      \"db_name\": \"\"",
-      "crc32": "    },",
-      "db_name": "    {"
+      "path": "/mnt/DATA/juan/ROMS/NES/Balda.7z#Balda (R) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"path\": \"/home/juan/ROMS/NES/Super Mario Bros. 2 (J).7z#Super Mario Bros 2 (Lost Levels) (Unl).nes\",",
-      "label": "      \"label\": \"\",",
-      "core_path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/fceumm_libretro.so\",",
-      "core_name": "      \"core_name\": \"fceumm_libretro.so\",",
-      "crc32": "      \"crc32\": \"\",",
-      "db_name": "      \"db_name\": \"\""
+      "path": "/mnt/DATA/juan/ROMS/NES/Jesus - Kyoufu no Bio Monster.7z#Jesus - Kyoufu no Bio Monster (J) [T+Eng_Niahak].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "    },",
-      "label": "    {",
-      "core_path": "      \"path\": \"/home/juan/ROMS/NES/Super C.7z#Super Contra (J) [b1].nes\",",
-      "core_name": "      \"label\": \"\",",
-      "crc32": "      \"core_path\": \"/home/juan/.config/retroarch/cores/fceumm_libretro.so\",",
-      "db_name": "      \"core_name\": \"fceumm_libretro.so\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Jesus - Kyoufu no Bio Monster.7z#Jesus - Kyoufu no Bio Monster (J) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"crc32\": \"\",",
-      "label": "      \"db_name\": \"\"",
-      "core_path": "    },",
-      "core_name": "    {",
-      "crc32": "      \"path\": \"/home/juan/ROMS/NES/Super C.7z\",",
-      "db_name": "      \"label\": \"\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Ai Sensei no Oshiete - Watashi no Hoshi.7z#Ai Sensei no Oshiete - Watashi no Hoshi (J).nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/fceumm_libretro.so\",",
-      "label": "      \"core_name\": \"fceumm_libretro.so\",",
-      "core_path": "      \"crc32\": \"\",",
-      "core_name": "      \"db_name\": \"\"",
-      "crc32": "    },",
-      "db_name": "    {"
+      "path": "/mnt/DATA/juan/ROMS/NES/Final Fantasy I & II (J) [o1][T+Eng1.00_Demiforce].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"path\": \"/home/juan/ROMS/n64/Star Fox 64 (U) (v1.1).n64\",",
-      "label": "      \"label\": \"\",",
-      "core_path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/parallel_n64_libretro.so\",",
-      "core_name": "      \"core_name\": \"parallel_n64_libretro.so\",",
-      "crc32": "      \"crc32\": \"\",",
-      "db_name": "      \"db_name\": \"\""
+      "path": "/mnt/DATA/juan/ROMS/NES/Paperboy.7z#Paperboy (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "    },",
-      "label": "    {",
-      "core_path": "      \"path\": \"/home/juan/ROMS/n64/Conker's Bad Fur Day (USA).n64\",",
-      "core_name": "      \"label\": \"\",",
-      "crc32": "      \"core_path\": \"/home/juan/.config/retroarch/cores/mupen64plus_libretro.so\",",
-      "db_name": "      \"core_name\": \"mupen64plus_libretro.so\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Paperboy 2.7z#Paperboy 2 (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"crc32\": \"\",",
-      "label": "      \"db_name\": \"\"",
-      "core_path": "    },",
-      "core_name": "    {",
-      "crc32": "      \"path\": \"/home/juan/ROMS/n64/Conker's Bad Fur Day (USA).n64\",",
-      "db_name": "      \"label\": \"\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Super Mario Bros. 3.7z#Super Mario Bros. 3 (U) (PRG0) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/parallel_n64_libretro.so\",",
-      "label": "      \"core_name\": \"parallel_n64_libretro.so\",",
-      "core_path": "      \"crc32\": \"\",",
-      "core_name": "      \"db_name\": \"\"",
-      "crc32": "    },",
-      "db_name": "    {"
+      "path": "/mnt/DATA/juan/ROMS/n64/SM64 Ocarina of Time/Super Mario 64 (U) [!].z64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"path\": \"/home/juan/ROMS/n64/Hazy Maze Temple.Z64\",",
-      "label": "      \"label\": \"\",",
-      "core_path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/parallel_n64_libretro.so\",",
-      "core_name": "      \"core_name\": \"parallel_n64_libretro.so\",",
-      "crc32": "      \"crc32\": \"\",",
-      "db_name": "      \"db_name\": \"\""
+      "path": "/mnt/DATA/juan/ROMS/n64/SMB64.z64",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/mupen64plus_libretro.so",
+      "core_name": "mupen64plus_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "    },",
-      "label": "    {",
-      "core_path": "      \"path\": \"/home/juan/ROMS/NES/Auto-Upturn.7z\",",
-      "core_name": "      \"label\": \"\",",
-      "crc32": "      \"core_path\": \"/home/juan/.config/retroarch/cores/fceumm_libretro.so\",",
-      "db_name": "      \"core_name\": \"fceumm_libretro.so\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Yume Penguin Monogatari.7z#Yume Penguin Monogatari (J) [T+Spa1.0_PaladinKnights].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"crc32\": \"\",",
-      "label": "      \"db_name\": \"\"",
-      "core_path": "    },",
-      "core_name": "    {",
-      "crc32": "      \"path\": \"/home/juan/ROMS/snes/smtif.zip\",",
-      "db_name": "      \"label\": \"\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Super Mario Bros. 2 (J).7z#Super Mario Bros 2 (Lost Levels) (Unl).nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/snes9x_libretro.so\",",
-      "label": "      \"core_name\": \"snes9x_libretro.so\",",
-      "core_path": "      \"crc32\": \"\",",
-      "core_name": "      \"db_name\": \"\"",
-      "crc32": "    },",
-      "db_name": "    {"
+      "path": "/mnt/DATA/juan/ROMS/NES/Super Mario Bros. 2 (J).7z#Super Mario Bros. 2 (J) (FDS Conversion).nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"path\": \"/home/juan/Downloads/Super Mario Bros 3 (U) (PRG 1) [h2].nes\",",
-      "label": "      \"label\": \"\",",
-      "core_path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/fceumm_libretro.so\",",
-      "core_name": "      \"core_name\": \"fceumm_libretro.so\",",
-      "crc32": "      \"crc32\": \"\",",
-      "db_name": "      \"db_name\": \"\""
+      "path": "/mnt/DATA/juan/ROMS/NES/Super Mario Bros. 2 (J).7z#Super Mario Bros. 2j (Unl) [U][!].unf",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "    },",
-      "label": "    {",
-      "core_path": "      \"path\": \"/home/juan/Downloads/Super Mario 64 (U) [!].zip\",",
-      "core_name": "      \"label\": \"\",",
-      "crc32": "      \"core_path\": \"/home/juan/.config/retroarch/cores/parallel_n64_libretro.so\",",
-      "db_name": "      \"core_name\": \"parallel_n64_libretro.so\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Super Mario Bros. 2 (U).7z#Super Mario Bros. 2 (U) (PRG0) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"crc32\": \"\",",
-      "label": "      \"db_name\": \"\"",
-      "core_path": "    },",
-      "core_name": "    {",
-      "crc32": "      \"path\": \"/home/juan/Downloads/Super Mario Bros 3 (U) (PRG 1) [h2].zip\",",
-      "db_name": "      \"label\": \"\","
+      "path": "/mnt/DATA/juan/ROMS/NES/Popeye.7z#Popeye (W) (PRG1) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     },
     {
-      "path": "      \"core_path\": \"/home/juan/.config/retroarch/cores/fceumm_libretro.so\",",
-      "label": "      \"core_name\": \"fceumm_libretro.so\",",
-      "core_path": "      \"crc32\": \"\",",
-      "core_name": "      \"db_name\": \"\"",
-      "crc32": "    }",
-      "db_name": "  ]"
+      "path": "/mnt/DATA/juan/ROMS/NES/Pac-Man.7z#Pac-Man (U) (Namco) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Mickey's Adventures in Numberland.7z#Mickey's Adventures in Numberland (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Megaman.7z#Megaman (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Mario Bros..7z#Mario Bros. (JU) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Mappy.7z#Mappy (J) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Little Samson.7z#Little Samson (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Little Mermaid, The.7z#Little Mermaid, The (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Legendary Wings.7z#Legendary Wings (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Legend of Zelda, The.7z#Legend of Zelda, The (U) (PRG0) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Ice Climber.7z#Ice Climber (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Hudson's Adventure Island III.7z#Hudson's Adventure Island III (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Hudson's Adventure Island II.7z#Hudson's Adventure Island II (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Hudson's Adventure Island.7z#Hudson's Adventure Island (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Hudson's Adventure Island.7z#Adventure Island Classic Spanish (Adventure Island Hack).nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Gradius.7z#Gradius (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Galaga - Demons of Death.7z#Galaga - Demons of Death (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Duck Tales.7z#Duck Tales (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Donkey Kong 3.7z#Donkey Kong 3 (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Donkey Kong Jr. Math.7z#Donkey Kong Jr. Math (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Donkey Kong Classics.7z#Donkey Kong Classics (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Dig Dug.7z#Dig Dug (J) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Contra.7z#Contra (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Clu Clu Land.7z#Clu Clu Land (W) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/City Connection.7z#City Connection (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Circus Charlie.7z#Circus Charlie (J) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/BurgerTime.7z#BurgerTime (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Battle City.7z#Battle City (J) [o1].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Battle Tank.7z#Battle Tank (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Arkanoid.7z#Arkanoid (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Antarctic Adventure.7z#Antarctic Adventure (J) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/River City Ransom.7z#River City Ransom (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Ninja Crusaders.7z#Ninja Crusaders (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Ninja Hattori-kun - Ninja wa Shuugyou de Gozaru no Maki.7z#Ninja Hattori-kun - Ninja wa Shuugyou de Gozaru no Maki (J) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Ninja Jajamaru-kun.7z#Ninja Jajamaru-kun (J) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Ninja-kun - Ashura no Shou.7z#Ninja-kun - Ashura no Shou (J) [b1].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Ninja Kid.7z#Ninja Kid (U) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Multi-Game Pirate Carts.7z#52 Games [p1].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Multi-Game Pirate Carts.7z#15-in-1 [p1].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Multi-Game Pirate Carts.7z#106-in-1 [p1].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Multi-Game Pirate Carts.7z#110-in-1 [p1].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Multi-Game Pirate Carts.7z#9999999-in-1 [p1].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Multi-Game Pirate Carts.7z#10000000-in-1 [p1][!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Metal Fighter.7z#Metal Fighter (Sachen) [U][!].unf",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "/mnt/DATA/juan/ROMS/NES/Contra.7z#Probotector (E) [!].nes",
+      "label": "",
+      "core_path": "/home/juan/.config/retroarch/cores/fceumm_libretro.so",
+      "core_name": "fceumm_libretro.so",
+      "crc32": "",
+      "db_name": ""
     }
   ]
 }
