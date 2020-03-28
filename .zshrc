@@ -55,6 +55,7 @@ source $ZSH/oh-my-zsh.sh
 PATH="$HOME/scripts:$PATH"
 export PATH
 export LANG=es_MX.UTF-8
+export PATH="$HOME/.emacs.d/bin:$PATH"
 
 ###### DEFINIENDO ALIAS ######
 
