@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: Secuencias 
+# key: sec
+# --
+
+\dotfill
+** Secuencia $1 ($2 sesiones: $3 --> $4)
+$5
++ *Aprendizaje esperado:* $6
++ *Eje temático:* $7
++ *Tema:* $8
++ *Consideraciones previas:* $0
+\dotfill

@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: Contenido
+# key: cont
+# --
+
+\dotfill
+** Contenido $1 ($2 sesiones: $3 --> $4)
+$5
++ *Aprendizaje esperado:* $6
++ *Eje temático:* $7
++ *Tema:* $8
++ *Estándar:*
+  - $9
+  - $10
+  - $11
++ *Campo formativo:* Pensamiento matemático
++ *Consideraciones previas:* $0
+\dotfill

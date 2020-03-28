@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: Sesiones
+# key: ses
+# --
+
+*** Sesión $1
+***** *Inicio* ( $2 min.) 
+- $0
+
+***** *Desarrollo* ( $3 min.)
+- 
+
+***** *Cierre* ( $4 min.)
+- 
+
+***** *Recursos*
++ 
+
+***** *Evaluación*
++ 
