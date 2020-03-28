@@ -3,3 +3,7 @@
 .config/nnn/.selection
 /.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
 mpd.conf
+.config/spicetify/Backups
+.config/spicetify/Extracted
+.config/spicetify/CustomApps
+
