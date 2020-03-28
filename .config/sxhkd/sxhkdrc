@@ -60,6 +60,8 @@ super + F5
 #Emacsclient
 super + e
       emacsclient -c
+super + shift + e
+	emacs
 
 super + shift + e
       emacsclient -ne '(new-frame)'
