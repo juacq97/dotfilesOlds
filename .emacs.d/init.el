@@ -183,9 +183,8 @@
 
 ;; Exportar en reveal.js
 (use-package org-re-reveal
-       :ensure t
-       )
-     (use-package org-re-reveal-ref
+  :ensure t)
+(use-package org-re-reveal-ref
        :ensure t)
      (use-package oer-reveal
        :ensure t)
@@ -226,6 +225,12 @@
 (eval-after-load 'org-agenda
 		    '(define-key org-agenda-mode-map (kbd "ñ") 'org-agenda-todo))
 
+;; Rainbow delimiters
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; Evil-mode
 ;;;;;;;;;;;;;;
@@ -235,7 +240,7 @@
   :init
   (setq evil-want-keybinding nil)
   :config
-  (evil-mode 1)
+  (evil-mode 1))
   
 ;; Make movement keys work respect visual lines
 (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
@@ -255,7 +260,7 @@
 (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
 
 ;; Make horizontal movement cross lines
-(setq-default evil-cross-lines t))
+(setq-default evil-cross-lines t)
 
 ;; Macro para tachar líneas
 (fset 'Tachar\ lineas\ org-mode
@@ -322,14 +327,12 @@
   (setq ivy-use-virtual-buffers t
         ivy-count-format "%d/%d ")
   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-                                (t . ivy--regex-fuzzy)))
-)
+                                (t . ivy--regex-fuzzy))))
 
 (use-package ivy-prescient
   :ensure t
   :config
-  (ivy-prescient-mode 1)
-  )
+  (ivy-prescient-mode 1))
 
 (use-package counsel
   :ensure t
@@ -350,11 +353,11 @@
 (use-package yasnippet
    :ensure t
    :config
-   (yas-global-mode)
+   (yas-global-mode))
 
    (use-package yasnippet-snippets
    :ensure t)
-   (yas-reload-all))
+   (yas-reload-all)
 
 ;;;; Hydra ;;;;;
 (use-package hydra
@@ -490,8 +493,7 @@
 
 ;;;; Writeroom-mode ;;;;
 (use-package writeroom-mode
-    :ensure t
-    )
+    :ensure t)
 (global-set-key [f6] 'writeroom-mode)
 
 ;;; Ewal ;;;;
@@ -506,9 +508,8 @@
   :init (progn
           (setq spacemacs-theme-underline-parens t
                 my:rice:font (font-spec
-                              :family "Fantasque Sans Mono"
-                              :weight 'semi-bold
-                              :size 12.0))
+                              :family "Source Code Pro"
+                              :size 10.0))
           (show-paren-mode +1)
           (global-hl-line-mode)
           (set-frame-font my:rice:font nil t)
@@ -518,12 +519,11 @@
             (load-theme 'ewal-spacemacs-modern t)
             (enable-theme 'ewal-spacemacs-modern)))
 
-(use-package ewal-evil-cursors
+;; Smart Parents
+(use-package smartparens
   :ensure t
-  :after (ewal-spacemacs-themes)
-  :config (ewal-evil-cursors-get-colors
-           :apply t :spaceline t))
-
+  :config
+  (smartparens-mode t))
 
 ;;;; TODO-TXT ;;;;
 (use-package todotxt
@@ -572,8 +572,7 @@
 ;;;; Reevaluar config.org ;;;;
   (defun config-reload ()
     (interactive)
-    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
-    )
+    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
   (global-set-key (kbd "C-c r") 'config-reload)
 
 ;;;; Seguir al buffer nuevo ;;;;;
@@ -591,15 +590,6 @@
   (other-window 1))
 (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 
-;;;; Paréntesis electricos ;;;;
-  (setq electric-pair-pairs '(
-			      (?\( . ?\))
-			      (?\[ . ?\])
-			      (?\{ . ?\})
-			      ))
-  (setq electric-pair-preserve-balance nil)
-  (electric-pair-mode)
-
 ;;;; Mostrar línea actual en modeline ;;;;;
 (line-number-mode 1)
 (column-number-mode 1)
@@ -614,7 +604,7 @@
 (global-set-key (kbd "<f5>")  'ispell-word) 
 
 ;;;; Mostrar números de líneas ;;;;
-(global-display-line-numbers-mode))
+(global-display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
 
 ;;;; Buffer inicial ;;;;

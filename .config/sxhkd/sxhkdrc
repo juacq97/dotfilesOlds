@@ -27,8 +27,6 @@ super + d
 
 super + r
       ~/scripts/dmenu_run_history -i -l 12
-#     rofi -modi "window,run,drun" -show run -theme material 
-
 
 alt + Tab
       rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Papirus Dark
@@ -39,16 +37,9 @@ super + F2
 super + w
       ~/scripts/links-dmenu
 
-#Chromium
-#super + F2
-#      chromium
-
 #File Manager
 super + f
-#      termite -e ranger
-#      termite -e lf
       st -e ~/scripts/nwrap
-#       st -e lf
 
 super + shift + f
       thunar
