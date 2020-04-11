@@ -1,0 +1,5 @@
+#! /bin/sh
+
+ /home/juan/scripts/nwrap
+
+nnn -d

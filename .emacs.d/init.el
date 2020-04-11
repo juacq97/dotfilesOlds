@@ -249,7 +249,7 @@
 (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
 
-;; Algunos atajos basados en SPC como keader key
+;; Algunos atajos basados en SPC como leader key
 (define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
 (define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
 (define-key evil-normal-state-map (kbd "SPC b") 'switch-to-buffer)
@@ -309,8 +309,18 @@
   (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
   (defun dashboard-insert-custom (list-size)
     (insert "Custom text"))
-  (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom)))
-(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+  (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
+  (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+  )
+
+(define-key dashboard-mode-map (kbd "SPC SPC") 'counsel-find-file)
+(define-key dashboard-mode-map (kbd "SPC k") 'kill-current-buffer)
+(define-key dashboard-mode-map (kbd "SPC b") 'switch-to-buffer)
+(define-key dashboard-mode-map (kbd "SPC s") 'swiper)
+(define-key dashboard-mode-map (kbd "SPC p p") 'projectile-switch-project)
+(define-key dashboard-mode-map (kbd "SPC p f") 'projectile-find-file)
+(define-key dashboard-mode-map (kbd "SPC g") 'magit)
+(define-key dashboard-mode-map (kbd "SPC v") 'visual-line-mode)
 
 
 ;;;; Which key ;;;;
@@ -476,9 +486,10 @@
   :init
   (setq heaven-and-hell-theme-type 'dark)
   (setq heaven-and-hell-themes
-        '((light . tango)
-          (dark . ewal-spacemacs-modern)))
-;          (dark . doom-dracula)))
+        '((light . gruvbox-light-hard)
+;          (dark . ewal-spacemacs-modern)))
+          (dark . dracula)))
+;          (dark . gruvbox-dark-hard)))
   (setq heaven-and-hell-load-theme-no-confirm t)
   :hook (after-init . heaven-and-hell-init-hook)
   :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
@@ -518,6 +529,20 @@
   :config (progn
             (load-theme 'ewal-spacemacs-modern t)
             (enable-theme 'ewal-spacemacs-modern)))
+
+;; theme sanitync
+
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t)
+
+;; theme solarized
+(use-package solarized-theme
+  :ensure t)
+
+;; theme dracula
+(use-package dracula-theme
+  :ensure
+  )
 
 ;; Smart Parents
 (use-package smartparens
@@ -630,6 +655,7 @@
  '(beacon-blink-delay 0.3)
  '(beacon-blink-duration 0.5)
  '(beacon-blink-when-focused t)
+ '(beacon-color "#cc6666")
  '(citeproc-org-bibtex-export-use-affixes t)
  '(citeproc-org-suppress-author-cite-link-types (quote ("citet")))
  '(company-quickhelp-color-background "#4F4F4F")
@@ -639,10 +665,10 @@
  '(cua-normal-cursor-color "#839496")
  '(cua-overwrite-cursor-color "#b58900")
  '(cua-read-only-cursor-color "#859900")
- '(custom-enabled-themes (quote (ewal-spacemacs-modern)))
+ '(custom-enabled-themes (quote (dracula)))
  '(custom-safe-themes
    (quote
-    ("f2b83b9388b1a57f6286153130ee704243870d40ae9ec931d0a1798a5a916e76" "6731049cee8f7cbd542d7b3e1c551f3fab716a92119bd7c77f0bd1ef20849fb8" "d13405bf452b05bf05ee12cac44810dcfa16a5bef7ad62116fd86a2ed8a6345b" "018c8326bced5102b4c1b84e1739ba3c7602019c645875459f5e6dfc6b9d9437" "70ed3a0f434c63206a23012d9cdfbe6c6d4bb4685ad64154f37f3c15c10f3b90" "c8f959fb1ea32ddfc0f50db85fea2e7d86b72bb4d106803018be1c3566fd6c72" "8f2390ac61c567e3576d684467aa6eb616b403f5ddfbd1f9daf9aea866f74b1e" "423435c7b0e6c0942f16519fa9e17793da940184a50201a4d932eafe4c94c92d" "728eda145ad16686d4bbb8e50d540563573592013b10c3e2defc493f390f7d83" "0fe9f7a04e7a00ad99ecacc875c8ccb4153204e29d3e57e9669691e6ed8340ce" "fe76f3d5094967034192f6a505085db8db6deb0e135749d9a54dc488d6d3ee2f" "428754d8f3ed6449c1078ed5b4335f4949dc2ad54ed9de43c56ea9b803375c23" "0d087b2853473609d9efd2e9fbeac088e89f36718c4a4c89c568dd1b628eae41" "2d392972cbe692ee4ac61dc79907af65051450caf690a8c4d36eb40c1857ba7d" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "e7666261f46e2f4f42fd1f9aa1875bdb81d17cc7a121533cad3e0d724f12faf2" "a2286409934b11f2f3b7d89b1eaebb965fd63bc1e0be1c159c02e396afb893c8" "43c808b039893c885bdeec885b4f7572141bd9392da7f0bd8d8346e02b2ec8da" "6d589ac0e52375d311afaa745205abb6ccb3b21f6ba037104d71111e7e76a3fc" "10461a3c8ca61c52dfbbdedd974319b7f7fd720b091996481c8fb1dded6c6116" "9954ed41d89d2dcf601c8e7499b6bb2778180bfcaeb7cdfc648078b8e05348c6" "6b289bab28a7e511f9c54496be647dc60f5bd8f9917c9495978762b99d8c96a0" "151bde695af0b0e69c3846500f58d9a0ca8cb2d447da68d7fbf4154dcf818ebc" "cd736a63aa586be066d5a1f0e51179239fe70e16a9f18991f6f5d99732cabb32" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" "f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "a8c210aa94c4eae642a34aaf1c5c0552855dfca2153fa6dd23f3031ce19453d4" "82358261c32ebedfee2ca0f87299f74008a2e5ba5c502bde7aaa15db20ee3731" "f1e97d06df4664396093529be437bac344f2737b60d9d60b70d85455f9c26a7f" "0fb2699a9fdcb5a0eda9f90c002e7c65cd4c6a82096e4ad05deef1a9a2292e49" "cbcfae366ef502108e54223da514f24b9162d8d191d436fdc447f938015f74da" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "75d3dde259ce79660bac8e9e237b55674b910b470f313cdf4b019230d01a982a" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" "8d5f22f7dfd3b2e4fc2f2da46ee71065a9474d0ac726b98f647bc3c7e39f2819" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "43eea8fb35170e00dbe2b4422af5eb26c29c7cff9055ecca511ffae2f3aa51aa" "13325a954fce38bc72d81a93572585e21bdff745892f643a7c9d038486d3516d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "946e871c780b159c4bb9f580537e5d2f7dba1411143194447604ecbaf01bd90c" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "f66ffeadda7b52d40c8d698967ae9e9836f54324445af95610d257fa5e3e1e21" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a94f1a015878c5f00afab321e4fef124b2fc3b823c8ddd89d360d710fc2bddfc" "0cd56f8cd78d12fc6ead32915e1c4963ba2039890700458c13e12038ec40f6f5" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "251348dcb797a6ea63bbfe3be4951728e085ac08eee83def071e4d2e3211acc3" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "1e9001d2f6ffb095eafd9514b4d5974b720b275143fbc89ea046495a99c940b0" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
+    ("4cf9ed30ea575fb0ca3cff6ef34b1b87192965245776afa9e9e20c17d115f3fb" "ba72dfc6bb260a9d8609136b9166e04ad0292b9760a3e2431cf0cd0679f83c3a" "51ec7bfa54adf5fff5d466248ea6431097f5a18224788d0bd7eb1257a4f7b773" "13a8eaddb003fd0d561096e11e1a91b029d3c9d64554f8e897b2513dbf14b277" "00445e6f15d31e9afaa23ed0d765850e9cd5e929be5e8e63b114a3346236c44c" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" "0fffa9669425ff140ff2ae8568c7719705ef33b7a927a0ba7c5e2ffcfac09b75" "830877f4aab227556548dc0a28bf395d0abe0e3a0ab95455731c9ea5ab5fe4e1" "2809bcb77ad21312897b541134981282dc455ccd7c14d74cc333b6e549b824f3" "7f1d414afda803f3244c6fb4c2c64bea44dac040ed3731ec9d75275b9e831fe5" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "f2b83b9388b1a57f6286153130ee704243870d40ae9ec931d0a1798a5a916e76" "6731049cee8f7cbd542d7b3e1c551f3fab716a92119bd7c77f0bd1ef20849fb8" "d13405bf452b05bf05ee12cac44810dcfa16a5bef7ad62116fd86a2ed8a6345b" "018c8326bced5102b4c1b84e1739ba3c7602019c645875459f5e6dfc6b9d9437" "70ed3a0f434c63206a23012d9cdfbe6c6d4bb4685ad64154f37f3c15c10f3b90" "c8f959fb1ea32ddfc0f50db85fea2e7d86b72bb4d106803018be1c3566fd6c72" "8f2390ac61c567e3576d684467aa6eb616b403f5ddfbd1f9daf9aea866f74b1e" "423435c7b0e6c0942f16519fa9e17793da940184a50201a4d932eafe4c94c92d" "728eda145ad16686d4bbb8e50d540563573592013b10c3e2defc493f390f7d83" "0fe9f7a04e7a00ad99ecacc875c8ccb4153204e29d3e57e9669691e6ed8340ce" "fe76f3d5094967034192f6a505085db8db6deb0e135749d9a54dc488d6d3ee2f" "428754d8f3ed6449c1078ed5b4335f4949dc2ad54ed9de43c56ea9b803375c23" "0d087b2853473609d9efd2e9fbeac088e89f36718c4a4c89c568dd1b628eae41" "2d392972cbe692ee4ac61dc79907af65051450caf690a8c4d36eb40c1857ba7d" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "e7666261f46e2f4f42fd1f9aa1875bdb81d17cc7a121533cad3e0d724f12faf2" "a2286409934b11f2f3b7d89b1eaebb965fd63bc1e0be1c159c02e396afb893c8" "43c808b039893c885bdeec885b4f7572141bd9392da7f0bd8d8346e02b2ec8da" "6d589ac0e52375d311afaa745205abb6ccb3b21f6ba037104d71111e7e76a3fc" "10461a3c8ca61c52dfbbdedd974319b7f7fd720b091996481c8fb1dded6c6116" "9954ed41d89d2dcf601c8e7499b6bb2778180bfcaeb7cdfc648078b8e05348c6" "6b289bab28a7e511f9c54496be647dc60f5bd8f9917c9495978762b99d8c96a0" "151bde695af0b0e69c3846500f58d9a0ca8cb2d447da68d7fbf4154dcf818ebc" "cd736a63aa586be066d5a1f0e51179239fe70e16a9f18991f6f5d99732cabb32" "41098e2f8fa67dc51bbe89cce4fb7109f53a164e3a92356964c72f76d068587e" "f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "a8c210aa94c4eae642a34aaf1c5c0552855dfca2153fa6dd23f3031ce19453d4" "82358261c32ebedfee2ca0f87299f74008a2e5ba5c502bde7aaa15db20ee3731" "f1e97d06df4664396093529be437bac344f2737b60d9d60b70d85455f9c26a7f" "0fb2699a9fdcb5a0eda9f90c002e7c65cd4c6a82096e4ad05deef1a9a2292e49" "cbcfae366ef502108e54223da514f24b9162d8d191d436fdc447f938015f74da" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "75d3dde259ce79660bac8e9e237b55674b910b470f313cdf4b019230d01a982a" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" "8d5f22f7dfd3b2e4fc2f2da46ee71065a9474d0ac726b98f647bc3c7e39f2819" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "43eea8fb35170e00dbe2b4422af5eb26c29c7cff9055ecca511ffae2f3aa51aa" "13325a954fce38bc72d81a93572585e21bdff745892f643a7c9d038486d3516d" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "946e871c780b159c4bb9f580537e5d2f7dba1411143194447604ecbaf01bd90c" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "f66ffeadda7b52d40c8d698967ae9e9836f54324445af95610d257fa5e3e1e21" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a94f1a015878c5f00afab321e4fef124b2fc3b823c8ddd89d360d710fc2bddfc" "0cd56f8cd78d12fc6ead32915e1c4963ba2039890700458c13e12038ec40f6f5" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "251348dcb797a6ea63bbfe3be4951728e085ac08eee83def071e4d2e3211acc3" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "1e9001d2f6ffb095eafd9514b4d5974b720b275143fbc89ea046495a99c940b0" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
  '(dashboard-page-separator "
 
 ")
@@ -656,7 +682,9 @@
  '(evil-want-C-i-jump nil)
  '(ewal-dark-palette-p nil)
  '(fci-rule-color "#383838")
+ '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
  '(flyspell-default-dictionary "espanol")
+ '(frame-background-mode (quote dark))
  '(helm-mode nil)
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
@@ -708,6 +736,7 @@
  '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#51afef"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
+ '(lsp-ui-doc-border "#FFFFEF")
  '(magit-diff-use-overlays nil)
  '(neo-theme (quote icons))
  '(nrepl-message-colors
@@ -753,7 +782,7 @@
  '(org-re-reveal-script-files (quote ("js/reveal.js")))
  '(package-selected-packages
    (quote
-    (org-superstar nyan-mode heaven-and-hell doom-themes todotxt org bug-hunter writefreely ewal-spacemacs-theme ewal-evil-cursors ewal-spacemacs-themes ewal writeroom-mode writeroom flymake-shellcheck rc-mode ivy-prescient prescient flyspell-correct-ivy oer-reveal org-re-reveal-ref org-re-reveal haskell-mode beacon auctex-latexmk doom-modeline dired-open evil-org org-super-agenda evil-collection all-the-icons-ivy all-the-icons-dired all-the-icons smtpmail-multi frames-only-mode flymd yequake noflet evil-magit lua-mode counsel pdf-tools nov powerline solarized-theme magit helm-projectile swiper-helm mu4e-alert citeproc-org ox-word ox-pandoc auctex org-ref neotree spaceline smart-mode-line-atom-one-dark-theme smart-mode-line airline-themes evil rainbow-delimiters rainbow-delimeters expand-region auto-complete try foo 2048-game chess ace-window ztree counsel-projectile projectile org-beamer-mode demo-it latex-math-preview yasnippet-snippets yasnippet markdown-preview-mode markdown-mode+ markdown-mode epresent htmlize ox-reveal company dashboard switch-window avy smex ido-vertical-mode spacemacs-theme org-bullets nord-theme zenburn-theme telephone-line which-key use-package rich-minority python material-theme arjen-grey-theme)))
+    (dracula-theme gruvbox-theme prettify-greek color-theme-sanityinc-tomorrow org-superstar nyan-mode heaven-and-hell doom-themes todotxt org bug-hunter writefreely ewal-spacemacs-theme ewal-evil-cursors ewal-spacemacs-themes ewal writeroom-mode writeroom flymake-shellcheck rc-mode ivy-prescient prescient flyspell-correct-ivy oer-reveal org-re-reveal-ref org-re-reveal haskell-mode beacon auctex-latexmk doom-modeline dired-open evil-org org-super-agenda evil-collection all-the-icons-ivy all-the-icons-dired all-the-icons smtpmail-multi frames-only-mode flymd yequake noflet evil-magit lua-mode counsel pdf-tools nov powerline solarized-theme magit helm-projectile swiper-helm mu4e-alert citeproc-org ox-word ox-pandoc auctex org-ref neotree spaceline smart-mode-line-atom-one-dark-theme smart-mode-line airline-themes evil rainbow-delimiters rainbow-delimeters expand-region auto-complete try foo 2048-game chess ace-window ztree counsel-projectile projectile org-beamer-mode demo-it latex-math-preview yasnippet-snippets yasnippet markdown-preview-mode markdown-mode+ markdown-mode epresent htmlize ox-reveal company dashboard switch-window avy smex ido-vertical-mode spacemacs-theme org-bullets nord-theme zenburn-theme telephone-line which-key use-package rich-minority python material-theme arjen-grey-theme)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pdf-view-resize-factor 1.05)
  '(pos-tip-background-color "#073642")
@@ -797,6 +826,7 @@
  '(weechat-color-list
    (quote
     (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
+ '(window-divider-mode nil)
  '(writeroom-fullscreen-effect (quote maximized))
  '(writeroom-global-effects
    (quote
@@ -834,11 +864,9 @@
  '(doom-modeline-evil-replace-state ((t (:inherit doom-modeline-buffer-modified :foreground "black"))))
  '(doom-modeline-evil-visual-state ((t (:inherit doom-modeline-buffer-file :foreground "dark orange"))))
  '(fringe ((t (:foreground "#adb2ba"))))
- '(hl-line ((t (:background "#44475a"))))
+ '(hl-line ((t nil)))
  '(ivy-prompt-match ((t (:background "red"))))
- '(line-number ((t (:foreground "#bb706a"))))
- '(line-number-current-line ((t (:foreground "#973343"))))
- '(mode-line ((t (:foreground "#e4c6a4" :box nil))))
+ '(line-number-current-line ((t (:foreground "#FF79C6"))))
  '(org-block ((t (:background "#080913" :foreground "#e19b9d"))))
  '(org-block-begin-line ((t (:background "#080913" :foreground "#bb706b"))))
  '(org-block-end-line ((t (:background "#080913" :foreground "#bb706b"))))

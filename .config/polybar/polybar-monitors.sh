@@ -10,8 +10,8 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 if type "xrandr"; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar -c ~/.config/polybar/config example -r &
+    MONITOR=$m polybar -c ~/.config/polybar/blocks example -r &
   done
 else
-polybar -c ~/.config/polybar/config example -r &
+polybar -c ~/.config/polybar/blocks example -r &
 fi

@@ -12,26 +12,21 @@
 ###############################################
 
 ########################
-
 # Aplicaciones
 ########################
 
 #Terminal
 super + Return
-      st
+      st 
 
 #Rofi
 super + d
-#     rofi -modi "window,run,drun" -show drun -theme material 
-#      j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
-
-super + r
-      dmenu_run_history -i -l 12
-#     rofi -modi "window,run,drun" -show run -theme material 
-
+#    rofi -modi "drun" -show drun -theme apps -terminal st
+#    j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40 -m 0" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
+     dmenu_run_history -h 24 -i
 
 alt + Tab
-#      rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Papirus Dark
+      rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Papirus Dark
 
 ## Firefox
 super + F2
@@ -39,15 +34,10 @@ super + F2
 super + w
       ~/scripts/links-dmenu
 
-#Chromium
-#super + F2
-#      chromium
-
 #File Manager
 super + f
-#      termite -e ranger
-#      termite -e lf
-       st -e ~/scripts/nwrap
+      st -e ~/scripts/nwrap
+
 super + shift + f
       thunar
 
@@ -58,18 +48,26 @@ super + F5
 #Emacsclient
 super + e
       emacsclient -c
+super + shift + e
+	emacs
 
 super + shift + e
       emacsclient -ne '(new-frame)'
       
 super + a
-      emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 40) (left . 250) (top . 60))' -n -e "(agenda-frame)"
+#      emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 35) (left . 250) (top . 60))' -n -e "(agenda-frame)"
+       st -e calcurse
 
 # emacs gtd
-super + c; c
+super + c
       emacsclient -c -F '(quote (name . "capture") (width  . 120) (height . 30) (left . 150))' -e "(make-capture-frame)"
+
 super + i
-      emacsclient -c -n "~/Drive/sync/gtd/a.org"
+##      emacsclient -c -n "~/Drive/sync/GTD/0gtd.org"
+      	bspc rule -a \* -o state=floating rectangle 1x1+1+1 && st -e ~/scripts/orgmode-gtd
+
+super + ctrl + t
+      ~/scripts/planeaciones
 
 # Newsboat
 super + n
@@ -83,63 +81,65 @@ super + F4
 
 #Screenshots
 Print
-	flameshot gui -p ~/Pictures/screenshots
+	flameshot gui
 super + shift + Print	
-      flameshot gui -d 2000 -p ~/Pictures/screenshots
+      flameshot gui -d 2000
 super + Print	
       flameshot full -c
 
-#Audio
-#XF86AudioMute
-#	pamixer -t
-#XF86AudioRaiseVolume
-#	pamixer -i 2 & notify-send "Up"
-#XF86AudioLowerVolume
-#	pamixer -d 2
-#XF86AudioPlay
-#	playerctl play-pause
-#XF86AudioNext
-#	playerctl next
-#XF86AudioPrev
-#	playerctl previous
-#XF86AudioStop
-#	playerctl stop
+##Audio
+XF86AudioMute
+	pamixer -t & notify-send -a "Volumen" "MUTE"
+#	pactl set-sink-mute @DEFAULT_SINK@ toggle
+XF86AudioLowerVolume
+#	pamixer -d 2 && 
+	amixer set Master 2%- ; notify-send -a "Volumen" "$(amixer get Master | awk -F'[][]' 'END{ print $2 }')"
+XF86AudioRaiseVolume
+#	pamixer -i 2 && pkill dunst ; notify-send -a "Volumen" "$(pamixer --get-volume)"
+	amixer set Master 2%+ 
+XF86AudioPlay
+	playerctl play-pause
+XF86AudioNext
+	playerctl next
+XF86AudioPrev
+	playerctl previous
+XF86AudioStop
+	playerctl stop
 
 # Subir brillo
-XF86MonBrightnessUp
-	light -A 5 & notify-send -a "Brillo" "$(light -G)"
-
-# Bajar brillo
-XF86MonBrightnessDown
-	light -U 5 & notify-send -a "Brillo" "$(light -G)"
+#XF86MonBrightnessUp
+#	light -A 5 & notify-send -a "Brillo" "$(light -G)"
+#
+## Bajar brillo
+#XF86MonBrightnessDown
+#	light -U 5 & notify-send -a "Brillo" "$(light -G)"
 
 
 # bloquear teclado
-#control + alt + l
-#	betterlockscreen --lock blur
+control + alt + l
+	betterlockscreen --lock blur
 
 # Bloquear trackpad
-#XF86TouchpadToggle
-#	~/scripts/toggle-touchpad
+XF86TouchpadToggle
+	~/scripts/toggle-touchpad
 
 super + control + F2
-      networkmanager_dmenu
+      ~/scripts/check-network-es
 
 #matar compton
-#super + o
-#     pkill compton 
+super + o
+#      killall compton
+       killall picom
 
 #revivir compton
-#super + shift + o
-#     compton -b --config ~/.config/compton.conf
+super + shift + o
+#     compton --config ~/.config/compton.conf
+     picom --config ~/.config/compton.conf
 
 # Reiniciar sxhdk 
 super + shift + r
-      pkill -USR1 -x sxhkd
+      pkill -USR1 -x sxhkd 
 
-#Reinicar bspwm
-#super + ctrl + r
-#      bspc wm -r
 
 ##########################
 # Scripts
@@ -154,8 +154,8 @@ super + ctrl + u
       ~/scripts/usb-extraer
 
 #Via
-#alt + space
-#    ~/scripts/via/via
+alt + space
+    ~/scripts/via/via
 
 #Kde-connect
 super + p
@@ -164,9 +164,18 @@ super + p
 #Apagar
 super + F12
       ~/scripts/apagar
+#       clearine 
 
 # Clipboard
-#super + ctrl + p
-#      ~/scripts/clipboard
+super + ctrl + p
+      ~/scripts/clipboard
+
+# Monitores
+super + ctrl + F1
+      ~/scripts/monitores
+
+# Pacman-dmenu
+super + shift + p
+      ~/scripts/pacwrap
 
 

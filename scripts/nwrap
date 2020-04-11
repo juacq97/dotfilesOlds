@@ -1,20 +1,5 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
 
 #(cat ~/.cache/wal/sequences &)
 
-export NNN_TRASH=1
-export NNN_OPENER_DETACH=1
-export EDITOR="emacsclient -c"
-#export NNN_OPS_PROG=1
-export NNN_BMS='h:/mnt/DATA/juan;r:/run/media/;d:/mnt/DATA/juan/Drive;D:~/Downloads;c:~/.config'
-export LC_COLLATE="C"
-#export NNN_CONTEXT_COLORS="3214"
-#export NNN_IDLE_TIMEOUT=900
-export NNN_PLAIN_FILTER=1
-#export NNN_COPIER="/home/equipo/scripts/nnn/copier"
-export NNN_TMPFILE=/tmp/nnn
-export NNN_OPENER=mimeopen
-export PAGER=less
-[ -r "$HOME/scripts/lesspipe.sh" ] && export LESSOPEN="| $HOME/scripts/lesspipe.sh %s"
-export LESS='-Ri '
-nnn -d
+nnn -dE

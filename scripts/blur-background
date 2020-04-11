@@ -1,7 +1,7 @@
 #! /bin/sh
 
 bspc subscribe | while read -r line; do
-    node_num=$(bspc query --nodes --desktop | wc -l)
+    node_num=$(bspc query --nodes --desktop any.focused | wc -l)
     if [ "$node_num" != "0" ]; then
 	nitrogen --set-zoom-fill ~/BLUR.PNG
     else

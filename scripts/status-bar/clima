@@ -1,0 +1,12 @@
+#! /bin/sh
+
+#localización
+#initloc=$(curl -s ifconfig.co/city)
+#if [ "$initloc" == "La Paz" ]; then
+#    loc="LAP"
+#else
+#    loc=init-loc
+#fi
+# obtener clima
+#curl -s "wttr.in/$loc?format=%t"
+curl -s "wttr.in/?format=%t"

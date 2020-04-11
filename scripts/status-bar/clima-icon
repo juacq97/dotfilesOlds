@@ -1,0 +1,27 @@
+#! /bin/sh
+
+estado=$(curl -s "wttr.in/?format=%C" )
+case $estado in
+    Unknown) icon="";;
+    Cloudy) icon="";;
+    Fog) icon="";;
+    "Heavy rain") icon="";;
+    "Heavy showers") icon="";;
+    "Heavy snow") icon="";;
+    "Heavy snow showers") icon="";;
+    "Light rain") icon="";;
+    "Light showers") icon="";;
+    "Light sleet") icon="";;
+    "Light sleet showers") icon="";;
+    "Light snow") icon="";;
+    "Light snow showers") icon="";;
+    "Partly cloudy") icon="";;
+    "Sunny") icon="";;
+    "Clear") icon="";;
+    "Thundery heavy rain") icon="";;
+    "Thundery showers") icon="";;
+    "Thundery snow showers") icon="";;
+    "Very cloudy") icon="";;
+esac
+
+echo $icon

@@ -1,0 +1,3 @@
+#! /bin/sh
+
+	amixer get Master | grep "\[off\]" | grep -o "\[[0-9]\+%\]" | sed "s/[^0-9]*//g;1q"

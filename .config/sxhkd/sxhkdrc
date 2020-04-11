@@ -22,11 +22,12 @@ super + Return
 
 #Rofi
 super + d
-     rofi -modi "drun" -show drun -theme apps -terminal st
+#     rofi -modi "drun" -show drun -theme apps -terminal st
 #    j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40 -m 0" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
+     dmenu_run_history -h 24 -i
 
-super + r
-      ~/scripts/dmenu_run_history -i -l 12
+#super + r
+#      ~/scripts/dmenu_run_history -i -l 12
 
 alt + Tab
       rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Papirus Dark
@@ -169,8 +170,8 @@ super + p
 
 #Apagar
 super + F12
-#      ~/scripts/apagar
-       clearine 
+      ~/scripts/apagar
+#       clearine 
 
 # Clipboard
 super + ctrl + p
@@ -300,7 +301,7 @@ super + alt + ctrl {h,j,k,l}
 
 #Hacer más pequeña la ventana
 super + alt + shift + {h,j,k,l}
-      bspc node -z {right - 0,top 0 5,bottom 0 -5,left 5 0}
+      bspc node -z {right -5 0,top 0 5,bottom 0 -5,left 5 0}
 
 # Cambiar tamaño de gaps
 super + bracket{left,right}

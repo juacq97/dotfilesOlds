@@ -2,76 +2,53 @@ Xcursor.theme: Bibata_Oil
 Xcursor.size: 16
 Xcursor.theme_core: 1
 
+dwm.normbordercolor: #282a36
+dwm.normbgcolor: #282a36
+dwm.normfgcolor: #f8f8f2
+dwm.selbordercolor: #AA67C6
+dwm.selbgcolor: #aa67c6
+dwm.selfgcolor: #ebdbb2
 
-UXTerm*faceName: FantasqueSansMono Nerd Font Mono
-UXTerm*faceSize: 11
-xterm*selectToClipboard: true
+! Dracula Xresources palette
+*.foreground: #F8F8F2
+*.background: #282A36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
 
-! Xclock colors.
-XClock*foreground: #e6c9c4
-XClock*background: #0a0709
-XClock*majorColor:  rgba:e6/c9/c4/ff
-XClock*minorColor:  rgba:e6/c9/c4/ff
-XClock*hourColor:   rgba:e6/c9/c4/ff
-XClock*minuteColor: rgba:e6/c9/c4/ff
-XClock*secondColor: rgba:e6/c9/c4/ff
-
-! Set depth to make transparency work.
-URxvt*depth: 32
-! Every shell is a login shell by default (for inclusion of all necessary environment variables)
-xterm*loginshell: true
-
-! I like a LOT of scrollback...
-xterm*savelines: 16384
-
-! double-click to select whole URLs :D
-xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
-
-XTerm*selectToClipboard:true
-! right hand side scrollbar...
-xterm*rightScrollBar: false
-xterm*ScrollBar: false
-
-! stop output to terminal from jumping down to bottom of scroll again
-xterm*scrollTtyOutput: false
-
-
-*.foreground:   #cbe3e7
-*.background:   #1e1c31
-*.cursorColor:  #fbfcfc
-
-! black
-*.color0:       #565575
-*.color8:       #100e23
-
-! red
-*.color1:       #ff8080
-*.color9:       #ff5458
-
-! green
-*.color2:       #95ffa4
-*.color10:      #62d196
-
-! yellow
-*.color3:       #ffe9aa
-*.color11:      #ffb378
-
-! blue
-*.color4:       #91ddff
-*.color12:      #65b2ff
-
-! magenta
-*.color5:       #c991e1
-*.color13:      #906cff
-
-! cyan
-*.color6:       #aaffe4
-*.color14:      #63f2f1
-
-! white
-*.color7:       #cbe3e7
-*.color15:      #a6b3cc
-
+! Gruvbox
+!*.background:   #1d2021
+!*.foreground:   #fbf2c7
+!*.cursorColor:  #fbf2c7
+!*.color0:       #282828
+!*.color8:       #928374
+!*.color1:       #cc241d
+!*.color9:       #fb4934
+!*.color2:       #98971a
+!*.color10:      #b8bb26
+!*.color3:       #d79921
+!*.color11:      #fabd2f
+!*.color4:	#458588
+!*.color12:     	#83a598
+!*.color5:       #b16286
+!*.color13:      #d3869b
+!*.color6:       #689d6a
+!*.color14:      #8ec07c
+!*.color7:       #a89984
+!*.color15:      #ebdbb2
 
 
 

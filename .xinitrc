@@ -1,28 +1,20 @@
 #!/bin/sh
 
 emacs --daemon &
-#picom -b --config ~/.config/compton.conf &
-picom-blur -b --experimental-backends --config ~/.config/compton.conf &
 xfce4-power-manager &
-#pcloud &
-#copyq &
 clipit -n &
-nm-applet &
-#conky -c ~/conkys/reloj-texto &
-#~/.config/polybar/polybar-monitors.sh &
-/usr/lib/kdeconnectd &
-/lib/x86_64-linux-gnu/libexec/kdeconnectd &
-dunst & 
+/usr/lib/libexec/kdeconnectd &
 redshift &
 xsetroot -cursor_name left_ptr &
 flameshot &
 mpDris2 &
-#volumeicon &
-
+xrdb -load .Xresources &
+nitrogen --restore &
+#sxhkd -c ~/.config/sxhkd/sxhkd-no-bspwm &
+picom --experimental-backends &
 
 export QT_QPA_PLATFORMTHEME="qt5ct"
 
-#
 exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) bspwm
 #exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) startfluxbox
 #exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) openbox-session

@@ -1,0 +1,7 @@
+#! /bin/sh
+
+vol=$(amixer get Master | awk -F'[][]' 'END{ print $2 }' )
+
+echo " $vol "
+
+pkill  -RTMIN+10 dwmblocks

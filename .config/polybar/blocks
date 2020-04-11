@@ -53,8 +53,8 @@ offset-x 		= 0
 
 line-size		= 2
 line-color		= 
-border-bottom-size	= 2
-border-top-size 	= 2
+border-bottom-size	= 0
+border-top-size 	= 0
 border-top-color 	= ${colors.background}
 border-bottom-color 	= ${colors.background}
 border-size 		= 
@@ -77,9 +77,9 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left 	= app  bspwm mpd spotify 
+modules-left 	= bspwm mpd spotify 
 modules-center 	= date
-modules-right 	= xkeyboard sep-null vol-img pulseaudio sep-null bat-img battery sep-null red
+modules-right 	= xkeyboard sep vol-img pulseaudio sep bat-img battery sep net
 
 tray-position 	= none
 tray-padding 	= 0
@@ -133,12 +133,10 @@ layout-icon-1 = us; usa
 [module/bspwm]
 type = internal/bspwm
 
-
-
-ws-icon-0 = 1;I
-ws-icon-1 = 2;II
-ws-icon-2 = 3;III
-ws-icon-3 = 4;IV
+ws-icon-0 = 1;1 
+ws-icon-1 = 2;2 
+ws-icon-2 = 3;3 
+ws-icon-3 = 4;4 
 ;ws-icon-0 = 1;
 ;ws-icon-1 = 2;
 ;ws-icon-2 = 3;
@@ -149,48 +147,46 @@ ws-icon-3 = 4;IV
 ;ws-icon-7 = 8;
 ;ws-icon-8 = 9;
 
-;inline-mode = true
-format = <label-state>
-;format = <label-state>
+format = <label-mode><label-state> 
 
-;label-focused = "瘝"
-label-focused = %icon%
-label-focused-foreground = ${colors.foreground}
-label-focused-background = ${colors.background}
-label-focused-underline =
+label-focused = %name%
+label-focused-foreground = ${colors.background}
+label-focused-background = ${colors.foreground}
+label-focused-underline = ${colors.color4}
 label-focused-overline = 
 label-focused-padding = 1
 
-label-occupied = %icon%
-;label-occupied = ""
+label-occupied = %name%
 label-occupied-padding = 1
-label-occupied-foreground = #60ffffff
-label-occupied-background = ${colors.background}
-;label-occupied-underline = #64039f
-label-occupied-overline =
+label-occupied-foreground = ${colors.background}
+label-occupied-background = ${colors.foreground}
 
-label-urgent = %icon%!
-label-urgent-background = 
-;label-urgent-padding = 2
-
-;label-empty = ""
-label-empty = %icon%
-label-empty-foreground = #10ffffff
+label-empty = %name%
+label-empty-foreground = ${colors.color8}
 label-empty-background = ${colors.background}
 label-empty-padding = 1
 
-label-monocle = 﨣
-;label-tiled = ﮨ
-label-tiled = 
-;label-tiled = 
-;label-fullscreen = 
-label-floating = 
-;label-pseudotiled = P
-;label-locked = 
-;label-sticky = 
-;label-private = 
-;label-sticky-foreground = ${colors.purple}
-;label-private-foreground = ${colors.urgent}
+label-monocle = ""
+label-tiled = 
+label-floating = " "
+label-sticky = " "
+
+label-sticky-foreground = ${colors.background}
+label-sticky-background = ${colors.color4}
+
+label-tiled-foreground = ${colors.background}
+label-tiled-background = ${colors.color4}
+label-tiled-padding = 1
+
+label-monocle-foreground = ${colors.background}
+label-monocle-background = ${colors.color4}
+label-monocle-padding = 1
+
+label-floating-foreground = ${colors.background}
+label-floating-background = ${colors.color4}
+
+
+
 
 format-background = ${colors.background}
 ; Separator in between workspaces
@@ -237,12 +233,12 @@ interval = 1
 
 date =" %b %e,"
 date-alt = " %A %e de %B de %Y,"
-time = "%H:%M  "
+time = "%H:%M "
 time-alt = "%H:%M:%S "
 
 format-prefix = "  "
 format-prefix-foreground = ${colors.background}
-format-prefix-background = ${colors.color4}
+format-prefix-background = ${colors.color5}
 ;format-underline = #e6c9c4
 
 label =%date% %time%
@@ -268,7 +264,7 @@ format-background = ${colors.background}
 
 [module/pulseaudio]
 type = internal/pulseaudio
-format-volume = " <label-volume> " 
+format-volume = "<label-volume>" 
 format-muted = "<label-muted>" 
 label-volume = " %percentage%% "
 
@@ -301,87 +297,94 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
-format-charging-background = ${colors.color2}
+format-charging-background = ${colors.foreground}
 format-discharging-background = ${self.format-charging-background}
 format-full-background = ${self.format-charging-background}
+
 format-charging = <label-charging>
-;format-charging-underline = #ffb52a
-
 format-discharging = <label-discharging>
-;format-discharging-underline = ${self.format-charging-underline}
-
-format-charging-underline = 
-format-discharging-underline = ${self.format-charging-underline}
-format-full-underline = ${self.format-charging-underline}
-
 format-full = <label-full>
 
 
-label-charging = " %percentage%% "
-label-discharging = %percentage%%
-label-full = %percentage%%
+label-charging = " %percentage%% "
+label-discharging = " %percentage%% "
+label-full = " %percentage%% "
 
-format-full-foreground = "#15A000"
-format-charging-foreground = ${colors.foreground}
-format-discharging-foreground = ${colors.foreground}
-;format-full-underline = ${self.format-charging-underline}
-
+format-full-foreground		= ${colors.background}
+format-charging-foreground	= ${self.format-full-foreground}
+format-discharging-foreground 	= ${self.format-full-foreground}
 
 [module/bat-img]
 type = internal/battery
 battery = BAT0
 adapter = ADP1
-full-at = 98
+full-at = 90
 
 format-charging-background = ${colors.color2}
-format-discharging-background = ${self.format-charging-background}
-format-full-background = ${self.format-charging-background}
-format-charging = <label-charging>
-;format-charging-underline = #ffb52a
+format-discharging-background = ${colors.color3}
+format-full-background = ${colors.color2}
 
-format-discharging = <label-discharging>
-;format-discharging-underline = ${self.format-charging-underline}
+format-charging-foreground = ${colors.background}
+format-discharging-foreground = ${colors.background}
+format-full-foreground = ${colors.background}
 
-format-charging-underline = 
-format-discharging-underline = ${self.format-charging-underline}
-format-full-underline = ${self.format-charging-underline}
 
+format-charging = <animation-charging>
+format-discharging = <ramp-capacity>
 format-full = <label-full>
 
 
-label-charging = " %percentage%% "
-label-discharging = %percentage%%
-label-full = %percentage%%
+ramp-capacity-0 = "  "
+ramp-capacity-1 = "  "
+ramp-capacity-2 = "  "
+ramp-capacity-3 = "  "
+ramp-capacity-4 = "  "
+ramp-capacity-5 = "  "
+ramp-capacity-6 = "  "
+ramp-capacity-7 = "  "
+ramp-capacity-8 = "  "
 
-format-full-foreground = "#15A000"
-format-charging-foreground = ${colors.foreground}
-format-discharging-foreground = ${colors.foreground}
-;format-full-underline = ${self.format-charging-underline}
+animation-charging-0 = "  "
+animation-charging-1 = "  "
+animation-charging-2 = "  "
+animation-charging-3 = "  "
+animation-charging-4 = "  "
+animation-charging-5 = "  "
+animation-charging-6 = "  "
+animation-charging-7 = "  "
+animation-charging-8 = "  "
+animation-charging-framerate = 750
 
+label-full = "  "
 
+[module/net]
+type = internal/network
+interface = wlp2s0b1
+interval = 15
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
 
-[module/red]
-type = custom/script
-exec = ~/.config/polybar/scripts/check-network
-click-left = ~/scripts/check-network-es &
-click-right = ~/scripts/check-network-es &
-format-background = ${colors.background}
-format-foreground = ${colors.foreground}
-label-padding = 1
-tail = true
-;format-underline = #e6c9c4
+label-connected = "  "
+label-disconnected = "  "
 
+format-connected-background = ${colors.color10}
+format-connected-foreground = ${colors.background}
+
+format-disconnected-background = ${colors.color8}
+format-disconnected-foreground = ${colors.background}
 
 [module/spotify]
-; muestra la información de spotify
 type = custom/script
 interval = 1
-format-prefix = " |  " 
-format = "<label> "
+format-prefix = "  " 
+format = "<label>"
 exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
-;format-underline = #99B898
-format-background =
-format-foreground = ${colors.foreground}
+format-background = ${colors.foreground}
+format-foreground = ${colors.background}
+
+format-prefix-background = #23CF5F
+format-prefix-foreground = ${colors.background}
+
 click-right = playerctl play-pause
 click-left = bspc desktop -f ^6 
 ;format-underline = #e6c9c4
@@ -527,9 +530,9 @@ content-font = 3
 content-foreground = #20ffffff
 content-background = ${colors.background}
 
-[module/sep-null]
+[module/sep]
 type = custom/text
-content = " | "
+content = " "
 content-foreground = 
 content-background =
 ;content-underline = #e6c9c4
