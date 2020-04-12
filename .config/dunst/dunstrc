@@ -1,12 +1,12 @@
 [colors]
-    background	= "#0c0f15"
-    foreground 	= "#ffffff"
-    frame_color = "#98bdcd"
+    background	= "#161511"
+    foreground 	= "#c8c4c0"
+    frame_color = "#c8c4c0"
 
 
 [global]
    frame_width = 0
-    font = Roboto 11
+    font = Source Code Pro 10
     follow = none
     
     # Allow a small subset of html markup:
@@ -82,7 +82,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing windowmanager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 40
+    transparency = 0
     
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.

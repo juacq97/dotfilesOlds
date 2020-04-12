@@ -23,37 +23,39 @@
 
 [colors]
 background		= ${xrdb:background}
-;background		= #9a07171D
-background-alt 		= #111111
-background-wdg 		= 
-foreground     	= ${xrdb:foreground}
-foreground-alt 	= ${xrdb:color5}
-primary        	= ${xrdb:color4}
-secondary 		= ${xrdb:color2}
-alert 			= ${xrdb:color1}
-;foreground		= #f8f8f2
-;secondary		= #165C7E
-;primary			= #B05666
-;alert			= #8be9fd
-
+foreground     		= ${xrdb:foreground}
+color1			= ${xrdb:color1}
+color2			= ${xrdb:color2}
+color3			= ${xrdb:color3}
+color4			= ${xrdb:color4}
+color5			= ${xrdb:color5}
+color6			= ${xrdb:color6}
+color7			= ${xrdb:color7}
+color8			= ${xrdb:color8}
+color9			= ${xrdb:color9}
+color10			= ${xrdb:color10}
+color11			= ${xrdb:color11}
+color12			= ${xrdb:color12}
+color13			= ${xrdb:color13}
+color14			= ${xrdb:color14}
+color15			= ${xrdb:color15}
 
 [bar/example]
 monitor			= ${env:MONITOR:}
 width 			= 100%
-height 			= 24
+height 			= 25
 radius 			= 0
 fixed-center 		= true
 enable-ipc 		= true
 background 		= ${colors.background}
 foreground 		= ${colors.foreground}
 offset-x 		= 0
-
 line-size		= 2
 line-color		= 
-border-bottom-size	= 
+border-bottom-size	= 0
 border-top-size 	= 0
-border-top-color 	= 
-border-bottom-color 	= 
+border-top-color 	= ${colors.background}
+border-bottom-color 	= ${colors.background}
 border-size 		= 
 border-color 		= 
 padding-left 		= 0
@@ -66,7 +68,7 @@ locale 			= es_MX.UTF-8
 ; FUENTES
 ;========================================
 
-font-0 = Roboto:style:regular:size=10;1
+font-0 = Source Code Pro:style:medium:size=8;1
 font-1 = Material Design Icons:style=Regular:pixelsize=12;2
 font-2 = MesloLGS NF:style=Regular:size=15;3
 font-3 = Weather Icons:size=12;2
@@ -74,9 +76,9 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left 	= app  bspwm mpd spotify 
+modules-left 	= bspwm mpd spotify xwindow
 modules-center 	= date
-modules-right 	= xkeyboard sep-null pulseaudio sep-null battery sep-null red
+modules-right 	= xkeyboard sep pulseaudio sep battery sep net
 
 tray-position 	= none
 tray-padding 	= 0
@@ -104,35 +106,36 @@ cursor-scroll = ns-resize
 [module/xwindow]
 type = internal/xwindow
 format-padding = 
-label = %title:0:30:...%
-format-background = ${colors.background-wdg} 
+label =%title:0:30:...%
+format-background = ${colors.background} 
+format-foreground = ${colors.foreground} 
 
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock 
 blacklist-1 = caps lock
-format-prefix = " "
-format-background = 
+format-prefix = "Kbd:"
+format-background =
 format-foreground = ${colors.foreground}
+format-prefix-background =
+format-prefix-foreground = ${colors.foreground}
 label-layout = %icon%
-;label-layout-underline = ${colors.secondary}
 label-indicator-padding = 2
 label-indicator-margin = 1
 ;label-indicator-background = ${colors.secondary}
 ;label-indicator-underline = ${colors.secondary}
 ;format-underline = #e6c9c4
 
-layout-icon-0 = latam;mex
-layout-icon-1 = us;usa
+layout-icon-0 = latam; MEX
+layout-icon-1 = us; USA
+
 [module/bspwm]
 type = internal/bspwm
 
-
-
-ws-icon-0 = 1;I
-ws-icon-1 = 2;II
-ws-icon-2 = 3;III
-ws-icon-3 = 4;IV
+ws-icon-0 = 1;1 
+ws-icon-1 = 2;2 
+ws-icon-2 = 3;3 
+ws-icon-3 = 4;4 
 ;ws-icon-0 = 1;
 ;ws-icon-1 = 2;
 ;ws-icon-2 = 3;
@@ -143,87 +146,47 @@ ws-icon-3 = 4;IV
 ;ws-icon-7 = 8;
 ;ws-icon-8 = 9;
 
-;inline-mode = true
-format = <label-state>
-;format = <label-state>
+format = <label-mode><label-state>
 
-;label-focused = "瘝"
-label-focused = %icon%
+label-focused = %name%
 label-focused-foreground = ${colors.foreground}
-label-focused-background = ${colors.background}
-label-focused-underline =
+label-focused-background =
+label-focused-underline = 
 label-focused-overline = 
 label-focused-padding = 1
 
-label-occupied = %icon%
-;label-occupied = ""
+label-occupied = %name%
 label-occupied-padding = 1
-label-occupied-foreground = #60ffffff
-label-occupied-background = ${colors.background}
-;label-occupied-underline = #64039f
-label-occupied-overline =
+label-occupied-foreground = ${colors.color2}
+label-occupied-background = 
 
-label-urgent = %icon%!
-label-urgent-background = 
-;label-urgent-padding = 2
-
-;label-empty = ""
-label-empty = %icon%
-label-empty-foreground = #10ffffff
-label-empty-background = ${colors.background}
+label-empty = %name%
+label-empty-foreground = #0fc8c4c0 
+label-empty-background = 
 label-empty-padding = 1
 
-label-monocle = 﨣
-;label-tiled = ﮨ
-label-tiled = 
-;label-tiled = 
-;label-fullscreen = 
-label-floating = 
-;label-pseudotiled = P
-;label-locked = 
-;label-sticky = 
-;label-private = 
-;label-sticky-foreground = ${colors.purple}
-;label-private-foreground = ${colors.urgent}
+label-monocle = "[M]"
+label-tiled = "[]="
+#label-floating = "<>"
+label-sticky = "°"
 
-format-background = ${colors.background-alt}
+label-sticky-foreground = ${colors.foreground}
+label-sticky-background =
+
+label-tiled-foreground = ${colors.foreground}
+label-tiled-background =
+label-tiled-padding = 1
+
+label-monocle-foreground = ${colors.foreground}
+label-monocle-background =
+label-monocle-padding = 1
+
+label-floating-foreground = ${colors.foreground}
+label-floating-background =
+
+format-background = ${colors.background}
 ; Separator in between workspaces
 ;label-separator = " "
-
-[module/i3]
-type = internal/i3
-format = <label-state> <label-mode>
-index-sort = false
-wrapping-scroll = false
-format-background= #5C7DA7
-
-;pin-workspaces = true
-
-label-mode-padding = 1
-label-mode-foreground = #FFF
-label-mode-background = 
-
-
-label-focused = %name%
-;label-focused-background = $
-label-focused-background =
-label-focused-underline = #E2C487
-label-focused-padding = ${module/bspwm.label-focused-padding}
-
-label-unfocused = %name%
-label-unfocused-padding = ${module/bspwm.label-occupied-padding}
-labl-unfocused-background = 
-
-label-visible = %name%
-label-visible-background = 
-label-visible-underline = ${self.label-focused-underline}
-label-visible-padding = ${self.label-focused-padding}
-
-label-urgent = %name%
-label-urgent-background = ${module/bspwm.label-urgent-background}
-label-urgent-padding = ${module/bspwm.label-urgent-padding}
-
-;label-separator ="%{T3} %{T-}"
 
 [module/date]
 type = internal/date
@@ -231,17 +194,17 @@ interval = 1
 
 date =" %b %e,"
 date-alt = " %A %e de %B de %Y,"
-time = "%H:%M  "
+time = "%H:%M "
 time-alt = "%H:%M:%S "
 
-format-prefix = " "
+format-prefix =
 format-prefix-foreground = ${colors.foreground}
+format-prefix-background = ${colors.color4}
 ;format-underline = #e6c9c4
 
-label =%{A3:bspc rule -a \* -o state=floating rectangle=200x200+583+25 && st -e sh -c "cal; read x" & disown:}%date% %time%%{A} %{A}
-;label = %date% %time%'
-format-background =
-label-foreground = ${root.foreground}
+label =%date% %time%
+label-background = 
+label-foreground = ${colors.foreground}
 
 format-padding = 
 
@@ -262,39 +225,18 @@ format-background = ${colors.background}
 
 [module/pulseaudio]
 type = internal/pulseaudio
-format-volume = "<ramp-volume><label-volume> " 
-label-volume = %percentage%%
-;label-volume-foreground = ${root.foreground}
-format-volume-foreground = ${colors.foreground}
-;format-volume-underline = #8b484e
+format-volume-prefix = "Vol:"
+format-muted-prefix = "Vol:"
+format-volume = "<label-volume>" 
+format-muted = "<label-muted>" 
+label-volume = " %percentage%% "
 
-label-muted =  %percentage%%
-label-muted-foreground = #666666
-label-muted-background = ${colors.background-alt}
-format-muted-underline =
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
-;format-volume-underline = #e6c9c4
+label-muted = " Mute "
+label-muted-foreground = ${colors.foreground}
+label-muted-background = ${colors.background}
+label-volume-foreground = ${colors.foreground}
+label-volume-background = 
 
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-
-format-volume-background = 
 click-right = exec pavucontrol & 
 
 [module/battery]
@@ -303,53 +245,57 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
-format-charging-background =
+format-charging-prefix = "Bat:"
+format-discharging-prefix = "Bat:"
+format-full-prefix = "Bat:"
+
+format-charging-background = 
 format-discharging-background = ${self.format-charging-background}
 format-full-background = ${self.format-charging-background}
+
 format-charging = <label-charging>
-;format-charging-underline = #ffb52a
-
 format-discharging = <label-discharging>
-;format-discharging-underline = ${self.format-charging-underline}
-
-format-charging-underline = 
-format-discharging-underline = ${self.format-charging-underline}
-format-full-underline = ${self.format-charging-underline}
-
 format-full = <label-full>
 
 
-label-charging = " %percentage%% "
-label-discharging = %percentage%%
-label-full = %percentage%%
+label-charging = " %percentage%% "
+label-discharging = " %percentage%% "
+label-full = " %percentage%% "
 
-format-full-foreground = "#15A000"
-format-charging-foreground = ${colors.foreground}
-format-discharging-foreground = ${colors.foreground}
-;format-full-underline = ${self.format-charging-underline}
+format-discharging-foreground 	= ${colors.foreground}
+format-charging-foreground	= ${self.format-discharging-foreground}
+format-full-foreground		= ${colors.color2}
 
-[module/red]
-type = custom/script
-exec = ~/.config/polybar/scripts/check-network
-click-left = ~/scripts/check-network-es &
-click-right = ~/scripts/check-network-es &
-format-background = ${colors.background}
-format-foreground = ${colors.foreground}
-label-padding = 1
-tail = true
-;format-underline = #e6c9c4
+[module/net]
+type = internal/network
+interface = wlp2s0b1
+interval = 15
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+format-connected-prefix = "WiFi: "
+format-disconnected-prefix = "WiFi: " 
 
+label-connected =%downspeed%
+label-disconnected = "No"
+
+format-connected-background = 
+format-connected-foreground = ${colors.foreground}
+
+format-disconnected-background =
+format-disconnected-foreground = ${colors.foreground}
 
 [module/spotify]
-; muestra la información de spotify
 type = custom/script
 interval = 1
-format-prefix = " |  " 
-format = "<label> "
+format-prefix = "  " 
+format = "<label>"
 exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
-;format-underline = #99B898
-format-background =
-format-foreground = ${colors.foreground}
+format-background = ${colors.foreground}
+format-foreground = ${colors.background}
+
+format-prefix-background = #23CF5F
+format-prefix-foreground = ${colors.background}
+
 click-right = playerctl play-pause
 click-left = bspc desktop -f ^6 
 ;format-underline = #e6c9c4
@@ -358,7 +304,7 @@ click-left = bspc desktop -f ^6
 type = custom/script
 exec = ~/.config/polybar/scripts/clima-icon
 interval = 3600
-format-background = ${colors.background-alt}
+format-background = ${colors.background}
 format-foreground = ${colors.foreground}
 ; click-left = ~/scripts/clima-img
 click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
@@ -371,7 +317,7 @@ type = custom/script
 ;exec = curl -s "wttr.in/LAP?format=%t"
 exec = curl -s "wttr.in/?format=%t"
 interval = 3600
-format-background = ${colors.background-alt}
+format-background = ${colors.background}
 format-foreground = ${colors.foreground}
 label = "%output% "
 ;click-left = ~/scripts/clima-img
@@ -443,21 +389,21 @@ content-padding = 1
 type = custom/text
 content = "%{T3}%{T-}"
 content-font = 3
-content-foreground = ${colors.primary}
-content-background = ${colors.secondary}
+content-foreground = 
+content-background =
 
 [module/sep-der2]
 type = custom/text
 content = "%{T3}%{T-}"
 content-font = 3
-content-foreground = ${colors.secondary}
-content-background = ${colors.primary}
+content-foreground =
+content-background =
 
 [module/sep-der0]
 type = custom/text
 content = "%{T3}%{T-}"
 content-font = 3
-content-foreground = ${colors.secondary}
+content-foreground =
 content-background =
 
 [module/sep-der3]
@@ -471,21 +417,21 @@ content-background = ${colors.background}
 type = custom/text
 content = "%{T3}%{T-}"
 content-font = 3
-content-foreground = ${colors.primary}
-content-background = ${colors.secondary}
+content-foreground =
+content-background =
 
 [module/sep-iz2]
 type = custom/text
 content = "%{T3}%{T-}"
 content-font = 3
-content-foreground = ${colors.secondary}
-content-background = ${colors.primary}
+content-foreground =
+content-background =
 
 [module/sep-iz0]
 type = custom/text
 content = "%{T3}%{T-}"
 content-font = 3
-content-foreground = ${colors.primary}
+content-foreground = 
 content-background = 
 
 [module/sep-iz3]
@@ -495,9 +441,9 @@ content-font = 3
 content-foreground = #20ffffff
 content-background = ${colors.background}
 
-[module/sep-null]
+[module/sep]
 type = custom/text
-content = " | "
+content = "| "
 content-foreground = 
 content-background =
 ;content-underline = #e6c9c4

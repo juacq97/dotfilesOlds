@@ -50,11 +50,10 @@ enable-ipc 		= true
 background 		= ${colors.background}
 foreground 		= ${colors.foreground}
 offset-x 		= 0
-
 line-size		= 2
 line-color		= 
-border-bottom-size	= 0
-border-top-size 	= 0
+border-bottom-size	= 2
+border-top-size 	= 2
 border-top-color 	= ${colors.background}
 border-bottom-color 	= ${colors.background}
 border-size 		= 
@@ -119,7 +118,7 @@ format-prefix = "  "
 ;format-foreground = ${colors.background}
 format-background = ${colors.foreground}
 format-foreground = ${colors.background}
-format-prefix-background = ${colors.color9}
+format-prefix-background = ${colors.color1}
 format-prefix-foreground = ${colors.background}
 label-layout = %icon%
 label-indicator-padding = 2
@@ -130,6 +129,7 @@ label-indicator-margin = 1
 
 layout-icon-0 = latam; mex
 layout-icon-1 = us; usa
+
 [module/bspwm]
 type = internal/bspwm
 
@@ -163,7 +163,7 @@ label-occupied-background = ${colors.foreground}
 
 label-empty = %name%
 label-empty-foreground = ${colors.color8}
-label-empty-background = ${colors.background}
+label-empty-background = 
 label-empty-padding = 1
 
 label-monocle = ""
@@ -238,7 +238,7 @@ time-alt = "%H:%M:%S "
 
 format-prefix = "  "
 format-prefix-foreground = ${colors.background}
-format-prefix-background = ${colors.color5}
+format-prefix-background = ${colors.color4}
 ;format-underline = #e6c9c4
 
 label =%date% %time%
