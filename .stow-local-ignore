@@ -6,10 +6,8 @@ README.org
 screenshot.png
 fortune
 st
-dwm
-homepage
-dmenu
 chrome
+
 \.stow-local-ignore
 .gitignore
 .gitmodules

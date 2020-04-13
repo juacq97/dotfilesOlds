@@ -27,7 +27,7 @@ super + d
      dmenu_run_history -h 24 -i
 
 #super + r
-#      ~/scripts/dmenu_run_history -i -l 12
+#      ~/.local/bin/dmenu_run_history -i -l 12
 
 alt + Tab
       rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Papirus Dark
@@ -36,11 +36,11 @@ alt + Tab
 super + F2
       firefox
 super + w
-      ~/scripts/links-dmenu
+      ~/.local/bin/links-dmenu
 
 #File Manager
 super + f
-      st -e ~/scripts/nwrap
+      st -e ~/.local/bin/nwrap
 
 super + shift + f
       thunar
@@ -68,19 +68,19 @@ super + c
 
 super + i
 ##      emacsclient -c -n "~/Drive/sync/GTD/0gtd.org"
-      	bspc rule -a \* -o state=floating rectangle 1x1+1+1 && st -e ~/scripts/orgmode-gtd
+      	bspc rule -a \* -o state=floating rectangle 1x1+1+1 && st -e ~/.local/bin/orgmode-gtd
 
 super + ctrl + t
-      ~/scripts/planeaciones
+      ~/.local/bin/planeaciones
 
 # Newsboat
 super + n
-#      st -e ~/scripts/newsboat-run
+#      st -e ~/.local/bin/newsboat-run
        st -e newsboat
 
 #htop
 super + F4
-#      st -e ~/scripts/htop-run
+#      st -e ~/.local/bin/htop-run
       st -e htop
 
 #Screenshots
@@ -125,10 +125,10 @@ control + alt + l
 
 # Bloquear trackpad
 XF86TouchpadToggle
-	~/scripts/toggle-touchpad
+	~/.local/bin/toggle-touchpad
 
 super + control + F2
-      ~/scripts/check-network-es
+      ~/.local/bin/check-network-es
 
 #matar compton
 super + o
@@ -149,41 +149,41 @@ super + ctrl + r
       bspc wm -r
 
 ##########################
-# Scripts
+# .Local/Bin
 ##########################
 
 #Montar USB
 super + u
-      ~/scripts/usb-montar
+      ~/.local/bin/usb-montar
 
 #Extraer USB
 super + ctrl + u
-      ~/scripts/usb-extraer
+      ~/.local/bin/usb-extraer
 
 #Via
 alt + space
-    ~/scripts/via/via
+    ~/.local/bin/via/via
 
 #Kde-connect
 super + p
-      ~/scripts/kdeconnect-dmenu
+      ~/.local/bin/kdeconnect-dmenu
 
 #Apagar
 super + F12
-      ~/scripts/apagar
+      ~/.local/bin/apagar
 #       clearine 
 
 # Clipboard
 super + ctrl + p
-      ~/scripts/clipboard
+      ~/.local/bin/clipboard
 
 # Monitores
 super + ctrl + F1
-      ~/scripts/monitores
+      ~/.local/bin/monitores
 
 # Pacman-dmenu
 super + shift + p
-      ~/scripts/pacwrap
+      ~/.local/bin/pacwrap
 
 
 ##########################
@@ -212,8 +212,6 @@ super + m
 #Monocle cambiar
 super + {j,k}
       bspc node -f {next,prev}.local
-super + {south,north}
-      bspc node -f {next,prev}.local
 
 #Intercambiar nodo con el más grande (en todos los escritorios)
 super + g
@@ -236,13 +234,7 @@ super + ctrl + {m,y,z}
       bspc node -g {hidden,sticky,private}
 
 #Enfocar en dirección, con shift, mover.
-#super + {_,shift + }{h,j,k,l}
-#      bspc node -{f,s} {west,south,north,east}
-#super + {_,shift + }{Left,Down,Up,Right}
-#      bspc node -{f,s} {west,south,north,east}
 super + {_,shift + }{j,k}
-      bspc node -{f,s} {next,prev}.local
-super + {_,shift + }{south,north}
       bspc node -{f,s} {next,prev}.local
 
 #Cambiar de escritorio

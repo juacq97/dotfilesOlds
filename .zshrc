@@ -1,7 +1,13 @@
+PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH"
+export PATH
 ufetch-void
+
+
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
 
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -21,8 +27,6 @@ COMPLETION_WAITING_DOTS="true"
  HIST_STAMPS="mm/dd/yyyy"
 
 source $ZSH/oh-my-zsh.sh
-PATH="$HOME/scripts:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH"
-export PATH
 export LANG=es_MX.UTF-8
 
 ###### DEFINIENDO ALIAS ######
@@ -31,7 +35,6 @@ alias et="emacsclient -t"
 alias E="SUDO_EDITOR=\"emacsclient -c -a emacs\" sudoedit"
 alias d="cd ~/.repos/dotfiles-lap"
 alias clima="curl -s es.wttr.in/"
-alias t="~/scripts/todotxt"
 alias h="cd /mnt/DATA/juan"
 alias r="cd ~/.repos"
 alias cp="/bin/advcp -g"
@@ -48,7 +51,7 @@ export NNN_PLAIN_FILTER=1
 export NNN_TMPFILE=~/.config/nnn/.lastd
 export NNN_OPENER=nuke
 export PAGER=less
-[ -r "$HOME/scripts/lesspipe.sh" ] && export LESSOPEN="| $HOME/scripts/lesspipe.sh %s"
+[ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
 export LESS='-Ri '
 
 n(){
