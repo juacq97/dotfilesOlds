@@ -37,13 +37,8 @@ else
 	uitype='UI'
 fi
 
-## JOJOS MEME
-date=$(date +%A)
-if [ "$date" == "viernes" ]; then
-    f="$(fortune jojos)"
-else
-    f="$(fortune)"
-fi
+f="$(fortune-es)"
+
 ## DEFINE COLORS
 
 # probably don't change these

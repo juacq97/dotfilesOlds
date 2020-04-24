@@ -22,6 +22,7 @@
 
 
 [colors]
+;background		= #ca0E0A06
 background		= ${xrdb:background}
 foreground     		= ${xrdb:foreground}
 color1			= ${xrdb:color1}
@@ -76,7 +77,7 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left 	= bspwm mpd spotify xwindow
+modules-left 	= bspwm mpd xwindow
 modules-center 	= date
 modules-right 	= xkeyboard sep pulseaudio sep battery sep net
 
@@ -126,8 +127,8 @@ label-indicator-margin = 1
 ;label-indicator-underline = ${colors.secondary}
 ;format-underline = #e6c9c4
 
-layout-icon-0 = latam; MEX
-layout-icon-1 = us; USA
+layout-icon-0 = latam; MX
+layout-icon-1 = us; US
 
 [module/bspwm]
 type = internal/bspwm
@@ -149,7 +150,7 @@ ws-icon-3 = 4;4
 format = <label-mode><label-state>
 
 label-focused = %name%
-label-focused-foreground = ${colors.foreground}
+label-focused-foreground = ${colors.color1}
 label-focused-background =
 label-focused-underline = 
 label-focused-overline = 
@@ -157,7 +158,7 @@ label-focused-padding = 1
 
 label-occupied = %name%
 label-occupied-padding = 1
-label-occupied-foreground = ${colors.color2}
+label-occupied-foreground = ${colors.foreground}
 label-occupied-background = 
 
 label-empty = %name%
@@ -453,6 +454,7 @@ content-background =
 type = custom/text
 content = "%{T3}%{T}"
 content-font = 3
+
 [settings]
 ;screenchange-reload = true
 ;compositing-background = xor

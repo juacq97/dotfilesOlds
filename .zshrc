@@ -1,8 +1,7 @@
+export WM=bspwm
 PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH"
 export PATH
-ufetch-void
-
-
+ufetch-arch
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -10,7 +9,7 @@ fi
 
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+#ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
     git
 )
@@ -29,6 +28,7 @@ COMPLETION_WAITING_DOTS="true"
 source $ZSH/oh-my-zsh.sh
 export LANG=es_MX.UTF-8
 
+
 ###### DEFINIENDO ALIAS ######
 alias e="emacsclient -c"
 alias et="emacsclient -t"
@@ -37,11 +37,15 @@ alias d="cd ~/.repos/dotfiles-lap"
 alias clima="curl -s es.wttr.in/"
 alias h="cd /mnt/DATA/juan"
 alias r="cd ~/.repos"
-alias cp="/bin/advcp -g"
-alias mv="/bin/advmv -g"
+alias lf="lfwrap"
+alias vim="nvim"
+alias v="nvim"
 
-export EDITOR="emacsclient -c"
-export VISUAL="emacsclient -c"
+#alias cp="/bin/advcp -g"
+#alias mv="/bin/advmv -g"
+
+#export EDITOR="emacsclient -c"
+export EDITOR="nvim"
 
 export NNN_TRASH=1
 export NNN_OPENER_DETACH=1
@@ -49,7 +53,7 @@ export NNN_BMS='h:/mnt/DATA/juan;r:/run/media/;d:/mnt/DATA/juan/Drive;D:~/Downlo
 export LC_COLLATE="C"
 export NNN_PLAIN_FILTER=1
 export NNN_TMPFILE=~/.config/nnn/.lastd
-export NNN_OPENER=nuke
+export NNN_OPENER=nnn-opener
 export PAGER=less
 [ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
 export LESS='-Ri '
@@ -78,3 +82,4 @@ bindkey -v
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/TTY1 ]]; then
     exec startx
 fi
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme

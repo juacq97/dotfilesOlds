@@ -1,10 +1,10 @@
 #!/bin/sh
 
-id=$(kdeconnect-cli -a --id-only | awk '{print $1}')
-name=$(kdeconnect-cli -a --name-only)
+id=$(kdeconnect-cli -a | grep MiA1 | awk '{print $3}')
+name="Mi A1"
 #bat=$(qdbus org.kde.kdeconnect /modules/kdeconnect/devices/$id org.kde.kdeconnect.device.battery.charge)
 if [ "$id" != "0" ]; then
-    menu=$(echo "Enviar\nEncontrar\nPing\nSMS" | dmenu -i -p "$name")
+    menu=$(echo -e "Enviar\nEncontrar\nPing\nSMS" | dmenu -i -p "$name")
     
     case $menu in
 	"Enviar")

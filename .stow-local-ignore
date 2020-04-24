@@ -6,8 +6,9 @@ README.org
 screenshot.png
 fortune
 st
+dmenu
+xorg.conf.d
 chrome
-
 \.stow-local-ignore
 .gitignore
 .gitmodules

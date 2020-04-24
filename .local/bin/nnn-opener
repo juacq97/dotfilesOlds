@@ -1,0 +1,11 @@
+#! /bin/sh
+
+case $(file --mime-type "$1" -b) in
+	text/*) $EDITOR "$1";;
+	audio/mpeg) mpv "$1";;
+	video/*) mpv "$1" > /dev/null 2 2>&1 & ;;
+	image/*) rifle_sxiv.sh "$1" > /dev/null 2 2>&1 &;;
+	*/pdf) zathura "$1" & disown;;
+        *) for f in $f; do setsid $OPENER "$1" > /dev/null 2> /dev/null & done;;
+esac
+

@@ -1,35 +1,31 @@
-#include "/home/juan/.cache/wal/colors.Xresources"
+!#include "/home/juan/.cache/wal/colors.Xresources"
 
 Xcursor.theme: Bibata_Oil
 Xcursor.size: 16
 Xcursor.theme_core: 1
 
-dwm.normbordercolor: #282a36
-dwm.normbgcolor: #282a36
-dwm.normfgcolor: #f8f8f2
-dwm.selbordercolor: #AA67C6
-dwm.selbgcolor: #aa67c6
-dwm.selfgcolor: #ebdbb2
+*.foreground:       #a3c7d9
+*.background:       #0E0A06
 
 ! Dracula Xresources palette
 !*.foreground: #f8f8f2
-!*.background: #282A36
-!*.color0:     #000000
-!*.color8:     #4D4D4D
-!*.color1:     #FF5555
-!*.color9:     #FF6E67
-!*.color2:     #50FA7B
-!*.color10:    #5AF78E
-!*.color3:     #F1FA8C
-!*.color11:    #F4F99D
-!*.color4:     #BD93F9
-!*.color12:    #CAA9FA
-!*.color5:     #FF79C6
-!*.color13:    #FF92D0
-!*.color6:     #8BE9FD
-!*.color14:    #9AEDFE
-!*.color7:     #BFBFBF
-!*.color15:    #E6E6E6
+!*.background: #282a36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
 
 ! Gruvbox
 !*.background:   #1d2021
@@ -44,7 +40,7 @@ dwm.selfgcolor: #ebdbb2
 !*.color3:       #d79921
 !*.color11:      #fabd2f
 !*.color4:	#458588
-!*.color12:     	#83a598
+!*.color12:      #83a598
 !*.color5:       #b16286
 !*.color13:      #d3869b
 !*.color6:       #689d6a
@@ -52,8 +48,44 @@ dwm.selfgcolor: #ebdbb2
 !*.color7:       #a89984
 !*.color15:      #ebdbb2
 
+! Nord
+!*.background:   #2E3440
+!*.foreground:   #D8DEE9
+!*.cursorColor:  #D8DEE9
+!*.color0: 	#2E3440
+!*.color1: 	#3B4252
+!*.color2: 	#434C5E
+!*.color3: 	#4C566A
+!*.color4: 	#D8DEE9
+!*.color5: 	#E5E9F0
+!*.color6: 	#ECEFF4
+!*.color7: 	#8FBCBB
+!*.color8: 	#88C0D0
+!*.color9: 	#81A1C1
+!*.color10: 	#5E81AC
+!*.color11: 	#BF616A
+!*.color12: 	#D08770
+!*.color13: 	#EBCB8B
+!*.color14: 	#A3BE8C
+!*.color15: 	#B48EAD
 
-
-
-
-!Dracula theme
+! Iceberg
+!*.foreground:   #c6c8d1
+!*.background:   #161821
+!*.cursorColor:  #c6c8d1
+!*.color0:       #161821
+!*.color8:       #6b7089
+!*.color1:       #e27878
+!*.color9:       #e98989
+!*.color2:       #b4be82
+!*.color10:      #c0ca8e
+!*.color3:       #e2a478
+!*.color11:      #e9b189
+!*.color4:       #84a0c6
+!*.color12:      #91acd1
+!*.color5:       #a093c7
+!*.color13:      #ada0d3
+!*.color6:       #89b8c2
+!*.color14:      #95c4ce
+!*.color7:       #c6c8d1
+!*.color15:      #d2d4de

@@ -20,17 +20,9 @@
 super + Return
       st 
 
-#Rofi
+# App menu
 super + d
-#     rofi -modi "drun" -show drun -theme apps -terminal st
-#    j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40 -m 0" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
-     dmenu_run_history -h 24 -i
-
-#super + r
-#      ~/.local/bin/dmenu_run_history -i -l 12
-
-alt + Tab
-      rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Papirus Dark
+     ~/.local/bin/dmenu_run_history -h 24 -i
 
 ## Firefox
 super + F2
@@ -40,7 +32,8 @@ super + w
 
 #File Manager
 super + f
-      st -e ~/.local/bin/nwrap
+#      st -e ~/.local/bin/nwrap
+       st -e ~/.local/bin/lfwrap
 
 super + shift + f
       thunar
@@ -51,7 +44,8 @@ super + F5
 
 #Emacsclient
 super + e
-      emacsclient -c
+#      emacsclient -c
+	st -e nvim
 super + shift + e
 	emacs
 
@@ -64,7 +58,7 @@ super + a
 
 # emacs gtd
 super + c
-      emacsclient -c -F '(quote (name . "capture") (width  . 120) (height . 30) (left . 150))' -e "(make-capture-frame)"
+      emacsclient -c -F '(quote (name . "capture") )' -e "(make-capture-frame)"
 
 super + i
 ##      emacsclient -c -n "~/Drive/sync/GTD/0gtd.org"
@@ -175,7 +169,7 @@ super + F12
 
 # Clipboard
 super + ctrl + p
-      ~/.local/bin/clipboard
+      clipmenu
 
 # Monitores
 super + ctrl + F1

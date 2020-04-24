@@ -1,0 +1,199 @@
+window:
+  # Window dimensions (changes require restart)
+  #
+  # Specified in number of columns/lines, not pixels.
+  # If both are `0`, this setting is ignored.
+  #dimensions:
+    columns: 80
+    lines: 0
+
+scrolling:
+  history: 100000
+
+  # Number of lines the viewport will move for every line scrolled when
+  # scrollback is enabled (history > 0).
+  #multiplier: 3
+
+# Font configuration
+font:
+  normal:
+    family: Source Code Pro
+    style: medium
+  #bold:
+    #family: monospace
+  #italic:
+    #family: monospace
+  #bold_italic:
+    #family: monospace
+
+  # Point size
+  size: 8.0
+
+  #offset:
+  #  x: 0
+  #  y: 0
+
+  #glyph_offset:
+  #  x: 0
+  #  y: 0
+
+#draw_bold_text_with_bright_colors: false
+
+#colors:
+  #primary:
+  #  background: '#000000'
+  #  foreground: '#eaeaea'
+
+    #dim_foreground: '#9a9a9a'
+    #bright_foreground: '#ffffff'
+
+  # Cursor colors
+  #  text: '#000000'
+  #  cursor: '#ffffff'
+
+  # Selection colors
+  #  text: '#eaeaea'
+  #  background: '#404040'
+
+  #normal:
+  #  black:   '#000000'
+  #  red:     '#d54e53'
+  #  green:   '#b9ca4a'
+  #  yellow:  '#e6c547'
+  #  blue:    '#7aa6da'
+  #  magenta: '#c397d8'
+  #  cyan:    '#70c0ba'
+  #  white:   '#eaeaea'
+
+  #bright:
+  #  black:   '#666666'
+  #  red:     '#ff3334'
+  #  green:   '#9ec400'
+  #  yellow:  '#e7c547'
+  #  blue:    '#7aa6da'
+  #  magenta: '#b77ee0'
+  #  cyan:    '#54ced6'
+  #  white:   '#ffffff'
+
+  #dim:
+  #  black:   '#000000'
+  #  red:     '#8c3336'
+  #  green:   '#7a8530'
+  #  yellow:  '#97822e'
+  #  blue:    '#506d8f'
+  #  magenta: '#80638e'
+  #  cyan:    '#497e7a'
+  #  white:   '#9a9a9a'
+
+  # Indexed Colors
+  #
+  # The indexed colors include all colors from 16 to 256.
+  # When these are not set, they're filled with sensible defaults.
+  #
+  # Example:
+  #   `- { index: 16, color: '#ff00ff' }`
+  #
+  #indexed_colors: []
+
+# Background opacity
+#
+# Window opacity as a floating point number from `0.0` to `1.0`.
+# The value `0.0` is completely transparent and `1.0` is opaque.
+background_opacity: 1
+
+#selection:
+  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  #save_to_clipboard: false
+
+# Allow terminal applications to change Alacritty's window title.
+#dynamic_title: true
+
+#cursor:
+  # Cursor style
+  #
+  # Values for `style`:
+  #   - ▇ Block
+  #   - _ Underline
+  #   - | Beam
+  #style: Block
+  #unfocused_hollow: true
+
+live_config_reload: true
+
+# Send ESC (\x1b) before characters when alt is pressed.
+#alt_send_esc: true
+
+#mouse:
+  # Click settings
+  #
+  # The `double_click` and `triple_click` settings control the time
+  # alacritty should wait for accepting multiple clicks as one double
+  # or triple click.
+  #double_click: { threshold: 300 }
+  #triple_click: { threshold: 300 }
+
+  # If this is `true`, the cursor is temporarily hidden when typing.
+  #hide_when_typing: false
+
+  #url:
+    # URL launcher
+    #
+    # This program is executed when clicking on a text which is recognized as a URL.
+    # The URL is always added to the command as the last parameter.
+    #
+    # When set to `None`, URL launching will be disabled completely.
+    #
+    # Default:
+    #   - (macOS) open
+    #   - (Linux/BSD) xdg-open
+    #   - (Windows) explorer
+    #launcher:
+    #  program: xdg-open
+    #  args: []
+
+    # URL modifiers
+    #
+    # These are the modifiers that need to be held down for opening URLs when clicking
+    # on them. The available modifiers are documented in the key binding section.
+    #modifiers: None
+
+# Mouse bindings
+#
+# Mouse bindings are specified as a list of objects, much like the key
+# bindings further below.
+#
+# To trigger mouse bindings when an application running within Alacritty captures the mouse, the
+# `Shift` modifier is automatically added as a requirement.
+#
+# Each mouse binding will specify a:
+#
+# - `mouse`:
+#
+#   - Middle
+#   - Left
+#   - Right
+#   - Numeric identifier such as `5`
+#
+# - `action` (see key bindings)
+#
+# And optionally:
+#
+# - `mods` (see key bindings)
+#mouse_bindings:
+#  - { mouse: Middle, action: PasteSelection }
+
+key_bindings:
+  # (Windows, Linux, and BSD only)
+  - { key: V,        mods: Control|Shift,  action: Paste            }
+  - { key: C,        mods: Control|Shift,  action: Copy             }
+  - { key: Key0,     mods: Control,        action: ResetFontSize    }
+  - { key: Add,      mods: Control,        action: IncreaseFontSize }
+  - { key: Subtract, mods: Control,        action: DecreaseFontSize }
+  - { key: Minus,    mods: Control,        action: DecreaseFontSize }
+  - { key: K,        mods: Control|Shift,  action: ScrollLineUp,   mode: ~Alt       }
+  - { key: J,        mods: Control|Shift,  action: ScrollLineDown, mode: ~Alt       }
+  - { key: U,        mods: Control|Shift,  action: ScrollPageUp,    mode: ~Alt       }
+  - { key: D,        mods: Control|Shift,  action: ScrollPageDown, mode: ~Alt       }
+
