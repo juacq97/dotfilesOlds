@@ -672,7 +672,7 @@
  '(objed-cursor-color "#625a51")
  '(package-selected-packages
    (quote
-    (yaml-mode haskell-mode bug-hunter ewal-doom-themes yasnippet-snippets writeroom-mode which-key use-package todotxt solarized-theme smartparens rainbow-mode rainbow-delimiters projectile ox-pandoc org-superstar org-re-reveal-ref oer-reveal nov noflet neotree markdown-mode ivy-prescient heaven-and-hell ewal-spacemacs-themes evil-org evil-magit evil-collection dracula-theme doom-modeline dashboard counsel color-theme-sanityinc-tomorrow beacon auto-complete all-the-icons-ivy all-the-icons-dired ace-window)))
+    (gnome-calendar yaml-mode haskell-mode bug-hunter ewal-doom-themes yasnippet-snippets writeroom-mode which-key use-package todotxt solarized-theme smartparens rainbow-mode rainbow-delimiters projectile ox-pandoc org-superstar org-re-reveal-ref oer-reveal nov noflet neotree markdown-mode ivy-prescient heaven-and-hell ewal-spacemacs-themes evil-org evil-magit evil-collection dracula-theme doom-modeline dashboard counsel color-theme-sanityinc-tomorrow beacon auto-complete all-the-icons-ivy all-the-icons-dired ace-window)))
  '(pdf-view-midnight-colors (cons "#c8c4c0" "#161511"))
  '(rustic-ansi-faces
    ["#161511" "#625a51" "#7b692c" "#786c5b" "#B1994E" "#9C8C6A" "#7B8280" "#c8c4c0"])

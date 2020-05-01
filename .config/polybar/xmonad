@@ -1,0 +1,464 @@
+;=========================================================
+;
+;                   ██          ██                      
+; ██████           ░██  ██   ██░██                      
+;░██░░░██  ██████  ░██ ░░██ ██ ░██       ██████   ██████
+;░██  ░██ ██░░░░██ ░██  ░░███  ░██████  ░░░░░░██ ░░██░░█
+;░██████ ░██   ░██ ░██   ░██   ░██░░░██  ███████  ░██ ░ 
+;░██░░░  ░██   ░██ ░██   ██    ░██  ░██ ██░░░░██  ░██   
+;░██     ░░██████  ███  ██     ░██████ ░░████████░███   
+;░░       ░░░░░░  ░░░  ░░      ░░░░░    ░░░░░░░░ ░░░  
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;=========================================================
+
+;============================
+; CONFIGURACIONES GLOBALES
+;============================
+
+
+
+[colors]
+;background		= #ca0E0A06
+background		= ${xrdb:background}
+foreground     		= ${xrdb:foreground}
+color1			= ${xrdb:color1}
+color2			= ${xrdb:color2}
+color3			= ${xrdb:color3}
+color4			= ${xrdb:color4}
+color5			= ${xrdb:color5}
+color6			= ${xrdb:color6}
+color7			= ${xrdb:color7}
+color8			= ${xrdb:color8}
+color9			= ${xrdb:color9}
+color10			= ${xrdb:color10}
+color11			= ${xrdb:color11}
+color12			= ${xrdb:color12}
+color13			= ${xrdb:color13}
+color14			= ${xrdb:color14}
+color15			= ${xrdb:color15}
+
+[bar/example]
+monitor			= ${env:MONITOR:}
+width 			= 100%
+height 			= 25
+radius 			= 0
+fixed-center 		= true
+enable-ipc 		= true
+background 		= ${colors.background}
+foreground 		= ${colors.foreground}
+offset-x 		= 0
+line-size		= 2
+line-color		= 
+border-bottom-size	= 0
+border-top-size 	= 0
+border-top-color 	= ${colors.background}
+border-bottom-color 	= ${colors.background}
+border-size 		= 
+border-color 		= 
+padding-left 		= 0
+padding-right 		= 0
+module-margin-left 	= 
+module-margin-right 	= 
+locale 			= es_MX.UTF-8
+
+;========================================
+; FUENTES
+;========================================
+
+font-0 = Source Code Pro:style:medium:size=8;1
+font-1 = Material Design Icons:style=Regular:pixelsize=12;2
+font-2 = MesloLGS NF:style=Regular:size=15;3
+font-3 = Weather Icons:size=12;2
+font-4 = Material Design Icons:style=Regular:pixelsize=16;1
+;=========================================
+
+;====== MODULOS =========
+modules-left 	= bspwm mpd xwindow
+modules-center 	= date
+modules-right 	= xkeyboard sep pulseaudio sep battery sep net
+
+tray-position 	= none
+tray-padding 	= 0
+tray-background  = 
+;tray-underline   = #1C98C9
+;tray-detached 	  = true
+wm-restack 	  = bspwm
+;wm-restack 	  = i3
+override-redirect   = false
+
+;cosas para bspwn que no se
+;scroll-up  = bspwm-desknext
+;scroll-down  = bspwm-deskprev
+
+;cambiar de escritorio con la mousewheel
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+;============
+; MÓDULOS
+;============
+
+[module/xwindow]
+type = internal/xwindow
+format-padding = 
+label =%title:0:30:...%
+format-background = ${colors.background} 
+format-foreground = ${colors.foreground} 
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock 
+blacklist-1 = caps lock
+format-prefix = "Kbd:"
+format-background =
+format-foreground = ${colors.foreground}
+format-prefix-background =
+format-prefix-foreground = ${colors.foreground}
+label-layout = %icon%
+label-indicator-padding = 2
+label-indicator-margin = 1
+;label-indicator-background = ${colors.secondary}
+;label-indicator-underline = ${colors.secondary}
+;format-underline = #e6c9c4
+
+layout-icon-0 = latam; MX
+layout-icon-1 = us; US
+
+[module/bspwm]
+type = internal/bspwm
+
+ws-icon-0 = 1;1 
+ws-icon-1 = 2;2 
+ws-icon-2 = 3;3 
+ws-icon-3 = 4;4 
+;ws-icon-0 = 1;
+;ws-icon-1 = 2;
+;ws-icon-2 = 3;
+;ws-icon-3 = 4;吝
+;ws-icon-4 = 5;
+;ws-icon-5 = 6;
+;ws-icon-6 = 7;
+;ws-icon-7 = 8;
+;ws-icon-8 = 9;
+
+format = <label-mode><label-state>
+
+label-focused = %name%
+label-focused-foreground = ${colors.color1}
+label-focused-background =
+label-focused-underline = 
+label-focused-overline = 
+label-focused-padding = 1
+
+label-occupied = %name%
+label-occupied-padding = 1
+label-occupied-foreground = ${colors.foreground}
+label-occupied-background = 
+
+label-empty = %name%
+label-empty-foreground = #0fc8c4c0 
+label-empty-background = 
+label-empty-padding = 1
+
+label-monocle = "[M]"
+label-tiled = "[]="
+#label-floating = "<>"
+label-sticky = "°"
+
+label-sticky-foreground = ${colors.foreground}
+label-sticky-background =
+
+label-tiled-foreground = ${colors.foreground}
+label-tiled-background =
+label-tiled-padding = 1
+
+label-monocle-foreground = ${colors.foreground}
+label-monocle-background =
+label-monocle-padding = 1
+
+label-floating-foreground = ${colors.foreground}
+label-floating-background =
+
+format-background = ${colors.background}
+; Separator in between workspaces
+;label-separator = " "
+
+[module/date]
+type = internal/date
+interval = 1
+
+date =" %b %e,"
+date-alt = " %A %e de %B de %Y,"
+time = "%H:%M "
+time-alt = "%H:%M:%S "
+
+format-prefix =
+format-prefix-foreground = ${colors.foreground}
+format-prefix-background = ${colors.color4}
+;format-underline = #e6c9c4
+
+label =%date% %time%
+label-background = 
+label-foreground = ${colors.foreground}
+
+format-padding = 
+
+[module/mpd]
+type = internal/mpd
+; Host where mpd is running (either ip or domain name)
+; Can also be the full path to a unix socket where mpd is running.
+host = 127.0.0.1
+port = 6600
+
+; Seconds to sleep between progressbar/song timer sync
+; Default: 1
+interval = 2
+label-song = "  %artist% - %title%"
+label-offline = ""
+label-foreground = ${root.foreground}
+format-background = ${colors.background}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+format-volume-prefix = "Vol:"
+format-muted-prefix = "Vol:"
+format-volume = "<label-volume>" 
+format-muted = "<label-muted>" 
+label-volume = " %percentage%% "
+
+label-muted = " Mute "
+label-muted-foreground = ${colors.foreground}
+label-muted-background = ${colors.background}
+label-volume-foreground = ${colors.foreground}
+label-volume-background = 
+
+click-right = exec pavucontrol & 
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+
+format-charging-prefix = "Bat:"
+format-discharging-prefix = "Bat:"
+format-full-prefix = "Bat:"
+
+format-charging-background = 
+format-discharging-background = ${self.format-charging-background}
+format-full-background = ${self.format-charging-background}
+
+format-charging = <label-charging>
+format-discharging = <label-discharging>
+format-full = <label-full>
+
+
+label-charging = " %percentage%% "
+label-discharging = " %percentage%% "
+label-full = " %percentage%% "
+
+format-discharging-foreground 	= ${colors.foreground}
+format-charging-foreground	= ${self.format-discharging-foreground}
+format-full-foreground		= ${colors.color2}
+
+[module/net]
+type = internal/network
+interface = wlp2s0b1
+interval = 15
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+format-connected-prefix = "WiFi: "
+format-disconnected-prefix = "WiFi: " 
+
+label-connected =%downspeed%
+label-disconnected = "No"
+
+format-connected-background = 
+format-connected-foreground = ${colors.foreground}
+
+format-disconnected-background =
+format-disconnected-foreground = ${colors.foreground}
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = "  " 
+format = "<label>"
+exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
+format-background = ${colors.foreground}
+format-foreground = ${colors.background}
+
+format-prefix-background = #23CF5F
+format-prefix-foreground = ${colors.background}
+
+click-right = playerctl play-pause
+click-left = bspc desktop -f ^6 
+;format-underline = #e6c9c4
+
+[module/clima-icon]
+type = custom/script
+exec = ~/.config/polybar/scripts/clima-icon
+interval = 3600
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+; click-left = ~/scripts/clima-img
+click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
+label-font = 4
+label = " %output%"
+;format-underline = #e6c9c4
+
+[module/clima]
+type = custom/script
+;exec = curl -s "wttr.in/LAP?format=%t"
+exec = curl -s "wttr.in/?format=%t"
+interval = 3600
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+label = "%output% "
+;click-left = ~/scripts/clima-img
+click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
+;format-underline = #e6c9c4
+
+[module/kde]
+type = custom/script
+format-prefix = "  "
+label = "%output%% "
+exec = ~/.config/polybar/scripts/kde-bat
+interval = 300
+;format-background = #8D4143
+;format-underline = #005688
+click-left = ~/scripts/kdeconnect-dmenu
+
+
+[module/arch]
+type = custom/script
+format-prefix = " ﮋ "
+format-prefix-foreground = #F1C124
+label = "%output% " 
+format-background =
+format-foreground = 
+click-left = st -e sudo pacman -Syuu
+click-right = ~/scripts/pacman-dmenu
+exec = ~/.config/polybar/scripts/updates-arch.sh
+interval = 600
+;format-underline = #e6c9c4
+
+[module/notif]
+type = custom/script
+exec = ~/.config/polybar/scripts/no-molestar
+interval = 0
+tail = true
+click-left = ~/scripts/toggle-notification
+content-padding = 1
+;format-underline = #e6c9c4
+
+[module/app]
+type= custom/text
+content = "  "
+click-left = rofi -theme apps -show drun -terminal st
+content-background = 
+;content-foregound = #1E2127
+content-foreground = ${colors.foreground}
+content-padding = 1
+
+
+[module/apagar]
+type= custom/text
+content = "串"
+click-left = ~/scripts/apagar
+content-background = 
+;content-foregound = #1E2127
+content-foreground = ${colors.foreground}
+content-padding = 1
+
+[module/copy]
+type = custom/text
+content = ""
+click-left = copyq copy $(copyq read 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 | dmenu -i -p "Portapapeles" -l 15)
+content-background = 
+;content-background = #483A54
+content-padding = 1
+;content-underline = #e6c9c4
+
+[module/sep-der1]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = 
+content-background =
+
+[module/sep-der2]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground =
+content-background =
+
+[module/sep-der0]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground =
+content-background =
+
+[module/sep-der3]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = #20ffffff
+content-background = ${colors.background}
+
+[module/sep-iz1]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground =
+content-background =
+
+[module/sep-iz2]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground =
+content-background =
+
+[module/sep-iz0]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = 
+content-background = 
+
+[module/sep-iz3]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = #20ffffff
+content-background = ${colors.background}
+
+[module/sep]
+type = custom/text
+content = "| "
+content-foreground = 
+content-background =
+;content-underline = #e6c9c4
+
+
+[module/icon]
+type = custom/text
+content = "%{T3}%{T}"
+content-font = 3
+
+[settings]
+;screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+pseudo-transparency = true

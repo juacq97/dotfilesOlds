@@ -1,7 +1,10 @@
 #! /bin/sh
 
+mute=$(amixer get Master | awk -F'[][]' 'END{ print $6 }' )
 vol=$(amixer get Master | awk -F'[][]' 'END{ print $2 }' )
 
-echo " $vol "
-
-pkill  -RTMIN+10 dwmblocks
+if [[ $mute == "on" ]]; then
+    echo "Mute"
+else
+echo "$vol"
+fi

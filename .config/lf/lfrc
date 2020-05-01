@@ -5,7 +5,6 @@ set ifs "\n"
 set incsearch
 set findlen 0
 set icons
-set hidden true
 set shellopts '-eu'
 
 cmd open $ {{

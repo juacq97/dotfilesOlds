@@ -21,50 +21,28 @@ super + Return
 
 #Rofi
 super + d
-#    rofi -modi "drun" -show drun -theme apps -terminal st
-#    j4-dmenu-desktop --dmenu="dmenu -i -w 600 -x 386 -y 123 -l 12 -h 40 -m 0" --display-binary --no-generic --usage-log=/home/$USER/.cache/j4-dmenu.log
      dmenu_run_history -h 24 -i
-
-alt + Tab
-      rofi -modi "window,run,drun" -show window -theme material -lines 5 -show-icons -icon-theme Papirus Dark
 
 ## Firefox
 super + F2
       firefox
 super + w
-      ~/scripts/links-dmenu
+      ~/.local/bin/links-dmenu
 
 #File Manager
 super + f
-      st -e ~/scripts/nwrap
+    st -e lf
 
 super + shift + f
       thunar
 
+# Editor
+super + e
+    st -e nvim
+
 #Spotify
 super + F5
       spotify
-
-#Emacsclient
-super + e
-      emacsclient -c
-super + shift + e
-	emacs
-
-super + shift + e
-      emacsclient -ne '(new-frame)'
-      
-super + a
-#      emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 35) (left . 250) (top . 60))' -n -e "(agenda-frame)"
-       st -e calcurse
-
-# emacs gtd
-super + c
-      emacsclient -c -F '(quote (name . "capture") (width  . 120) (height . 30) (left . 150))' -e "(make-capture-frame)"
-
-super + i
-##      emacsclient -c -n "~/Drive/sync/GTD/0gtd.org"
-      	bspc rule -a \* -o state=floating rectangle 1x1+1+1 && st -e ~/scripts/orgmode-gtd
 
 super + ctrl + t
       ~/scripts/planeaciones
@@ -89,14 +67,11 @@ super + Print
 
 ##Audio
 XF86AudioMute
-	pamixer -t & notify-send -a "Volumen" "MUTE"
-#	pactl set-sink-mute @DEFAULT_SINK@ toggle
+	pamixer -t ; pkill -RTMIN+2 dwmblocks
 XF86AudioLowerVolume
-#	pamixer -d 2 && 
-	amixer set Master 2%- ; notify-send -a "Volumen" "$(amixer get Master | awk -F'[][]' 'END{ print $2 }')"
+	amixer set Master 2%- ; pkill -RTMIN+2 dwmblocks
 XF86AudioRaiseVolume
-#	pamixer -i 2 && pkill dunst ; notify-send -a "Volumen" "$(pamixer --get-volume)"
-	amixer set Master 2%+ 
+	amixer set Master 2%+ ; pkill -RTMIN+2 dwmblocks
 XF86AudioPlay
 	playerctl play-pause
 XF86AudioNext
@@ -106,25 +81,16 @@ XF86AudioPrev
 XF86AudioStop
 	playerctl stop
 
-# Subir brillo
-#XF86MonBrightnessUp
-#	light -A 5 & notify-send -a "Brillo" "$(light -G)"
-#
-## Bajar brillo
-#XF86MonBrightnessDown
-#	light -U 5 & notify-send -a "Brillo" "$(light -G)"
-
-
 # bloquear teclado
 control + alt + l
 	betterlockscreen --lock blur
 
 # Bloquear trackpad
 XF86TouchpadToggle
-	~/scripts/toggle-touchpad
+	~/.local/bin/toggle-touchpad
 
 super + control + F2
-      ~/scripts/check-network-es
+      networkmanager_dmenu
 
 #matar compton
 super + o
@@ -134,7 +100,7 @@ super + o
 #revivir compton
 super + shift + o
 #     compton --config ~/.config/compton.conf
-     picom --config ~/.config/compton.conf
+     picom --experimental-backends --config ~/.config/compton.conf
 
 # Reiniciar sxhdk 
 super + shift + r
@@ -147,35 +113,34 @@ super + shift + r
 
 #Montar USB
 super + u
-      ~/scripts/usb-montar
+      ~/.local/bin/usb-montar
 
 #Extraer USB
 super + ctrl + u
-      ~/scripts/usb-extraer
+      ~/.local/bin/usb-extraer
 
 #Via
 alt + space
-    ~/scripts/via/via
+    ~/.local/bin/via/via
 
 #Kde-connect
 super + p
-      ~/scripts/kdeconnect-dmenu
+      ~/.local/bin/kdeconnect-dmenu
 
 #Apagar
 super + F12
-      ~/scripts/apagar
+      ~/.local/bin/apagar
 #       clearine 
 
 # Clipboard
 super + ctrl + p
-      ~/scripts/clipboard
-
+    clipmenu
 # Monitores
 super + ctrl + F1
-      ~/scripts/monitores
+      ~/.local/bin/monitores
 
 # Pacman-dmenu
 super + shift + p
-      ~/scripts/pacwrap
+      ~/.local/bin/pacwrap
 
 

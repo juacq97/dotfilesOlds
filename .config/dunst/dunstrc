@@ -1,7 +1,7 @@
 [colors]
-    background	= "#161511"
-    foreground 	= "#c8c4c0"
-    frame_color = "#c8c4c0"
+    background	= "#0E0A06"
+    foreground 	= "#a3c7d9"
+    frame_color = "#0e0a06"
 
 
 [global]
@@ -82,7 +82,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing windowmanager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 0
+    transparency = 20
     
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
