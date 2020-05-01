@@ -99,7 +99,7 @@ nnoremap <expr> k (v:count > 4 ? "m'" . v:count . 'k' : 'gk')
 nnoremap <leader><tab> /<++><CR>cw
 
 "Activar Goyo con F6
-"noremap <F6> :Goyo \| highlight CursorLine cterm=NONE ctermbg=16<CR>
+noremap <F6> :Goyo \| highlight CursorLine cterm=NONE ctermbg=16<CR>
 
 "Activar spellcheck con F5
 noremap <F5> :setlocal spell! spelllang=es<CR>

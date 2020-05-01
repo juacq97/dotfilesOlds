@@ -1,0 +1,98 @@
+From 1e4f29c34c3631e1d7350b02a199ae6000b33f6d Mon Sep 17 00:00:00 2001
+From: Miles Alan <m@milesalan.com>
+Date: Wed, 25 Mar 2020 21:40:10 -0500
+Subject: [PATCH] Add invert function which changes the current colors' RGB
+ values to be inversed
+
+Bind invert function in example config.def.h to Ctrl-Shift-x
+---
+ config.def.h |  1 +
+ x.c          | 37 ++++++++++++++++++++++++++++++++++---
+ 2 files changed, 35 insertions(+), 3 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 0e01717..6c7293c 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -178,6 +178,7 @@ static Shortcut shortcuts[] = {
+ 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+ 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+ 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
++	{ TERMMOD,              XK_X,           invert,         { }       },
+ };
+ 
+ /*
+diff --git a/x.c b/x.c
+index 0422421..7379969 100644
+--- a/x.c
++++ b/x.c
+@@ -56,6 +56,7 @@ static void selpaste(const Arg *);
+ static void zoom(const Arg *);
+ static void zoomabs(const Arg *);
+ static void zoomreset(const Arg *);
++static void invert(const Arg *);
+ 
+ /* config.h for applying patches and the configuration. */
+ #include "config.h"
+@@ -238,8 +239,28 @@ static char *opt_line  = NULL;
+ static char *opt_name  = NULL;
+ static char *opt_title = NULL;
+ 
++static int invertcolors = 0;
+ static int oldbutton = 3; /* button event on startup: 3 = release */
+ 
++void
++invert(const Arg *dummy)
++{
++	invertcolors = !invertcolors;
++	redraw();
++}
++
++Color
++invertedcolor(Color *clr) {
++	XRenderColor rc;
++	Color inverted;
++	rc.red = ~clr->color.red;
++	rc.green = ~clr->color.green;
++	rc.blue = ~clr->color.blue;
++	rc.alpha = clr->color.alpha;
++	XftColorAllocValue(xw.dpy, xw.vis, xw.cmap, &rc, &inverted);
++	return inverted;
++}
++
+ void
+ clipcopy(const Arg *dummy)
+ {
+@@ -775,9 +796,12 @@ xsetcolorname(int x, const char *name)
+ void
+ xclear(int x1, int y1, int x2, int y2)
+ {
+-	XftDrawRect(xw.draw,
+-			&dc.col[IS_SET(MODE_REVERSE)? defaultfg : defaultbg],
+-			x1, y1, x2-x1, y2-y1);
++	Color c;
++	c = dc.col[IS_SET(MODE_REVERSE)? defaultfg : defaultbg];
++	if (invertcolors) {
++		c = invertedcolor(&c);
++	}
++	XftDrawRect(xw.draw, &c, x1, y1, x2-x1, y2-y1);
+ }
+ 
+ void
+@@ -1347,6 +1371,13 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
+ 	if (base.mode & ATTR_INVISIBLE)
+ 		fg = bg;
+ 
++	if (invertcolors) {
++		revfg = invertedcolor(fg);
++		revbg = invertedcolor(bg);
++		fg = &revfg;
++		bg = &revbg;
++	}
++
+ 	/* Intelligent cleaning up of the borders. */
+ 	if (x == 0) {
+ 		xclear(0, (y == 0)? 0 : winy, borderpx,
+-- 
+2.23.1
+
