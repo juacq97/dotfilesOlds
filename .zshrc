@@ -1,3 +1,6 @@
+if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+    exec startx
+fi
 export WM=bspwm
 PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH"
 export PATH
@@ -46,7 +49,7 @@ alias v="nvim"
 
 #export EDITOR="emacsclient -c"
 export EDITOR="nvim"
-
+export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
 export NNN_TRASH=1
 export NNN_OPENER_DETACH=1
 export NNN_BMS='h:/mnt/DATA/juan;r:/run/media/;d:/mnt/DATA/juan/Drive;D:~/Downloads;c:~/.config'

@@ -25,10 +25,14 @@ call plug#begin()
 "Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
 "Plug 'gabrielelana/vim-markdown'
+"Plug 'vim-pandoc/vim-pandoc'
 Plug 'chrisbra/Colorizer'
 "Plug 'itchyny/calendar.vim'
-Plug 'vimwiki/vimwiki'
+"Plug 'vimwiki/vimwiki'
+Plug 'SidOfc/mkdx'
+Plug 'dhruvasagar/vim-table-mode'
 Plug 'godlygeek/tabular'
+Plug 'tpope/vim-eunuch'
 call plug#end()
 
 """""""""""""""""""
@@ -75,17 +79,7 @@ set smarttab		        " No se, pero sirve para borrar tabs
 set virtualedit=block	        " Cursor libre cuando se usa visualblock
 set backspace=eol,start,indent  " Backspace funciona bien con tabs
 set whichwrap+=<,>,h,l	        " h y j respeta tabs
-
-let g:markdown_enable_spell_checking = 0 " Desactivar spellcheck en markdown por defecto
-let g:markdown_enable_folding = 1
-
-
-"""""""""""""""""""
-" VimWiki
-"""""""""""""""""""
-let g:vimwiki_list = [{'path': '~/vimwiki/primero', 'syntax': 'markdown', 'ext': '.md'},
-		    \ {'path': '~/vimwiki/segundo', 'syntax': 'markdown', 'ext': '.md'},
-	    	    \ {'path': '~/vimwiki/tercero', 'syntax': 'markdown', 'ext': '.md'}]
+autocmd FileType markdown TableModeEnable
 
 
 """""""""""""
@@ -112,3 +106,9 @@ noremap <leader><leader> :Ntree<CR>
 noremap q: <Nop>
 nnoremap Q <Nop>
 
+
+autocmd FileType markdown inoremap ses<tab> <esc>:read ~/.config/nvim/snips/sesion<CR>kddA 
+autocmd FileType markdown inoremap sec<tab> <esc>:read ~/.config/nvim/snips/secuencia<CR>kdd2wcw 
+autocmd FileType markdown inoremap sec<tab> <esc>:read ~/.config/nvim/snips/secuencia<CR>kdd2wcw 
+
+command D :Rename DONE_%:t|wq

@@ -1,76 +1,49 @@
-
-/* constrain popup to urlbar width */
-.urlbarView:not(.megabar){
-  max-width: 100% !important;
-  top: calc(2px + var(--toolbarbutton-outer-padding)) !important;
-  border-width: 0 !important;
-  background-color: transparent !important;
-  pointer-events: none;
-  border-radius: inherit;
-}
-
-/* Apply popup background color to the urlbar background when focused */
-#urlbar:not(.megabar):focus-within{ background-color: var(--autocomplete-popup-background) }
-
-/* Spacer to offset actual results. This is placed over urlbar text  */
-.urlbarView:not(.megabar)::before{
-  content: "";
-  display: -moz-box;
-  height: calc(0.8em + var(--toolbarbutton-outer-padding))
-}
-
-/* Add popup background color to sub-elements, since it was removed from the popup itself */
-.urlbarView:not(.megabar) > .search-one-offs,
-.urlbarView:not(.megabar) > .urlbarView-body-outer{
-  background-color: var(--autocomplete-popup-background); /* Set background-color here */
-  color: var(--autocomplete-popup-color); /* Set text color here */
-  pointer-events: auto
-}
-
-/* Add separator line under urlbar text field */
-.urlbarView:not(.megabar) > .urlbarView-body-outer::before{
-  content:"";
-  display: block;
-  height: 1px;
-  width: 100%;
-  background-image: linear-gradient(to right,transparent,grey 35%, grey 65%, transparent)
-}
-
-/* Remove normal urlbar border and background */
-#urlbar:not(.megabar)[focused]{
-  border-color: transparent !important;
-  background-color: var(--autocomplete-popup-background) !important;
-}
-
-
-/* Add shadow to focused popup + urlbar */
-#urlbar:not(.megabar)[focused]:not([open]),
-#urlbar.megabar[focused] > #urlbar-background,
-#urlbar[open] > .urlbarView:not(.megabar) { box-shadow: 0 0 5px 3px var(--autocomplete-popup-highlight-background) !important; }
-
-#urlbar.megabar[focused] > #urlbar-background{ border-width: 0px !important;; }
-
-/* Remove horizontal paddings from texts */
-.urlbarView-row{ padding: 6px 0px !important; }
-
-/* Always show tab close button on hover and never otherwise */
-.tabbrowser-tab .tab-close-button{
-  display:none;
-}
-.tabbrowser-tab:not([pinned]):hover .tab-close-button{
-  display:-moz-box !important;
-}
-
-
+/*Texto en Urlbar centrado */
 #urlbar:not([focused]) #urlbar-input, /* ID for Firefox 70 */
 #urlbar:not([focused]) .urlbar-input{ text-align: center !important; }
 
 
-
-
-
 /* Page action-buttons "slide in" when cursor is on top of them and don't reserve space when not used */
+/* Show tab close button when cursor is over the tab icon */
 
+.tab-close-button{
+  -moz-box-ordinal-group: 0;
+  display: -moz-box !important;
+  position: relative;
+  margin-right: -18px !important;
+  z-index: -1;
+  visibility: hidden;
+}
+.tabbrowser-tab[pinned] .tab-close-button{ display: none !important; }
+.tab-close-button:hover{ background-color: var(--lwt-accent-color); }
+
+.tabbrowser-tab[selected] .tab-close-button:hover{ background-color: var(--lwt-selected-tab-background-color, var(--toolbar-bgcolor)); }
+
+/**** ONLY USE ONE OF THE FOLLOWING ****/
+/**** These select the behavior of a scenario where the page has no favicon ****/
+
+/*** Option 1 - no favicon - no close-button ***/
+
+/*
+.tab-icon-image:hover ~ .tab-close-button, .tab-close-button:hover{ visibility: visible; z-index: 1 }
+*/
+
+/*** Option 2 - No icon - always show close-button ***/
+
+/*
+.tab-icon-image:hover ~ .tab-close-button,
+.tab-close-button:hover,
+.tab-icon-image:not([src]) ~ .tab-close-button{ visibility: visible; z-index: 1 }
+.tab-icon-image:not([src]) ~  .tab-close-button{ margin-right:0px !important; }
+*/
+
+/*** Option 3 - No icon - show close-button when cursor is over the tab text ***/
+
+.tab-icon-image:hover ~ .tab-close-button,
+.tab-close-button:hover,
+.tab-icon-image:not([src]) ~ .tab-label-container:hover ~ .tab-close-button{ visibility: visible; z-index: 1 }
+.tab-icon-image:not([src]) ~ .tab-label-container:hover ~ .tab-close-button,
+.tab-icon-image:not([src]) ~  .tab-close-button:hover {margin-right: 0px !important; }
 #page-action-buttons > *[class^=urlbar-icon]{
   margin-inline-end: -26px;
   opacity: 0;
@@ -84,73 +57,168 @@
   margin-inline-end: 0px !important;
 }
 
-
-/* Changes various in-UI scrollabars to be slim and more subtle */
-
-.panel-subview-body,
-#permList,
-scrollbar{
- color: inherit;
- scrollbar-color: currentColor transparent;
- scrollbar-width: thin 
+:root:not([customizing]){
+  --lwt-toolbar-field-background-color: transparent !important;
+  --lwt-toolbar-field-border-color: transparent !important;
 }
 
-/*Tabs below nav bar*/
-#nav-bar {
-  -moz-box-ordinal-group: 1 !important;
-}
-#PersonalToolbar {
-  -moz-box-ordinal-group: 2 !important;
-}
-#titlebar {
-  -moz-box-ordinal-group: 3 !important;
+#urlbar[open]{ background-color: var(--toolbar-bgcolor) !important; }
+
+#urlbar,
+#searchbar,
+#search-box{
+  -moz-appearance: none !important;
+  background-color: var(--lwt-toolbar-field-background-color) !important;
+  color: inherit !important;
 }
 
-#navigator-toolbox{
-  margin-top: 0px;
-  padding-top:0px !important;
-}
-#navigator-toolbox { --tabs-border-color: transparent !important; }
-
-/*Hide tabs bar if one tab is opened*/
-#tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox {
-  min-height: 0 !important;
+#searchbar,
+#urlbar,
+.searchbar-textbox{
+  box-shadow: none !important;
 }
 
-#tabbrowser-tabs tab[first-visible-tab="true"][last-visible-tab="true"] {
+#tracking-protection-icon-container,
+#identity-box ~ *,
+.searchbar-textbox > *{
+  opacity: 0;
+  transition: opacity 150ms linear
+}
+
+#urlbar .urlbar-input-box,
+.searchbar-textbox > moz-input-box{ opacity: 0.6 }
+
+#identity-box ~ *:hover,
+#tracking-protection-icon-container:hover, 
+#tracking-protection-icon-container ~ *:hover,
+#urlbar:focus-within > *,
+#urlbar-input-container:focus-within > *,
+.searchbar-textbox:hover > *,
+.searchbar-textbox:focus-within > *{ opacity: 1 }
+
+#identity-box{ border: none !important }
+
+#urlbar:not(:hover) #identity-box{ background-image: radial-gradient(closest-side circle at 16px, orange 10%,transparent 35% ); }
+#urlbar:not(:hover) #identity-box.verifiedIdentity{ background-image: radial-gradient(closest-side circle at 16px, lime 10%,transparent 35% ); }
+#urlbar:not(:hover) #identity-box > *{ opacity: 0 }
+/*
+:root[title="Firefox Nightly"] #identity-box,
+:root[title="Mozilla Firefox"] #identity-box,
+*/
+#urlbar[pageproxystate=invalid]:not([usertyping]) #identity-box,
+#identity-box:hover,
+#identity-box.chromeUI,
+#identity-box.verifiedDomain{
+  background-image: none !important;
+}
+
+#identity-box > #identity-icon-labels{ transition: max-width 150ms linear !important; }
+#identity-box:not(:hover) > #identity-icon-labels{ max-width: 0px !important; }
+
+/* Apply popup background color to the urlbar background when focused */
+#urlbar:not(.megabar):focus-within{ background-color: var(--autocomplete-popup-background)
+  
+
+  /* Show tab close button when cursor is over the tab icon */
+
+.tab-close-button{
+  -moz-box-ordinal-group: 0;
+  display: -moz-box !important;
+  position: relative;
+  margin-right: -18px !important;
+  z-index: -1;
+  visibility: hidden;
+}
+.tabbrowser-tab[pinned] .tab-close-button{ display: none !important; }
+.tab-close-button:hover{ background-color: var(--lwt-accent-color); }
+
+.tabbrowser-tab[selected] .tab-close-button:hover{ background-color: var(--lwt-selected-tab-background-color, var(--toolbar-bgcolor)); }
+
+/**** ONLY USE ONE OF THE FOLLOWING ****/
+/**** These select the behavior of a scenario where the page has no favicon ****/
+
+/*** Option 1 - no favicon - no close-button ***/
+
+/*
+.tab-icon-image:hover ~ .tab-close-button, .tab-close-button:hover{ visibility: visible; z-index: 1 }
+*/
+
+/*** Option 2 - No icon - always show close-button ***/
+
+/*
+.tab-icon-image:hover ~ .tab-close-button,
+.tab-close-button:hover,
+.tab-icon-image:not([src]) ~ .tab-close-button{ visibility: visible; z-index: 1 }
+.tab-icon-image:not([src]) ~  .tab-close-button{ margin-right:0px !important; }
+*/
+
+/*** Option 3 - No icon - show close-button when cursor is over the tab text ***/
+
+.tab-icon-image:hover ~ .tab-close-button,
+.tab-close-button:hover,
+.tab-icon-image:not([src]) ~ .tab-label-container:hover ~ .tab-close-button{ visibility: visible; z-index: 1 }
+.tab-icon-image:not([src]) ~ .tab-label-container:hover ~ .tab-close-button,
+.tab-icon-image:not([src]) ~  .tab-close-button:hover {margin-right: 0px !important; }
+  
+  
+.toolbar-items {
+margin-bottom: -5px !important;
+}
+  
+  
+  
+/* Make urlbar megabar appear more compact */
+/* Set the pref browser.urlbar.megabar to true */
+#urlbar[breakout]{
+  margin-inline-start: 0px !important;
+  width: 100% !important;
+  left: 0 !important;
+  top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
+}
+#urlbar[breakout]:not([open]){ bottom: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important; }
+.urlbarView{ margin-inline: 0 !important; width: auto !important; }
+.urlbarView-row{ padding: 0 4px !important; }
+#urlbar-background{ animation: none !important; }
+#urlbar-input-container{ padding: 0 !important; height: 100% !important; }
+#identity-box{ padding-block: var(--urlbar-icon-padding) }
+  
+  /* Makes tabs toolbar items zero-height initially and sets enlarge them to fill up space equal to tab-min-height set on tabs */
+/* Firefox 65+ only */
+
+:root[sizemode="normal"] #nav-bar{ --uc-window-drag-space-width: 20px }
+
+#titlebar{ -moz-appearance: none !important; }
+
+#tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox, #tabbrowser-arrowscrollbox{ min-height: 0 !important; }
+
+:root:not([customizing]) #tabbrowser-tabs .tabs-newtab-button,
+:root:not([customizing]) #tabs-newtab-button,
+:root:not([customizing]) #TabsToolbar-customization-target > .toolbarbutton-1,
+:root:not([customizing]) #TabsToolbar .titlebar-button{
+  -moz-appearance: none !important;
+  height: 0px;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  -moz-box-align: stretch;
+  margin: 0 !important;
+}
+
+:root:not([customizing]) #TabsToolbar-customization-target > .toolbarbutton-1 > .toolbarbutton-icon{
+  padding-block: 0px !important;
+  max-height: 28px;
+  height: 20px !important
+}
+
+#tabbrowser-tabs .tabbrowser-tab{ height: var(--tab-min-height) }
+
+#tabbrowser-tabs .tabbrowser-tab[first-visible-tab="true"][last-visible-tab="true"]{
   visibility: collapse !important;
 }
+  
+  
+  /* Set blank page background-color */
+/* Uses color from theme_colors if available */
 
-/* ocultar el icono de la página web*/
-.tabbrowser-tab:not([pinned])  .tab-icon-image {
-  display: none !important;
-}
-
-
-/* Hide urlbar */
-#nav-bar {
-    position: relative !important;
-    z-index: 1 !important;
-    height: 0px !important;
-    min-height: 2px !important;
-    margin-bottom: -2px !important;
-    opacity: 0 !important;
-    overflow: hidden !important;
-    border: none !important;
-}
-#nav-bar:hover {
-    height: auto !important;
-    margin-bottom: 0px !important;
-    opacity: 1 !important;
-    overflow: hidden !important;
-}
-#nav-bar:focus-within {
-    height: auto !important;
-    margin-bottom: 0px !important;
-    opacity: 1 !important;
-    overflow: show !important;
-}
-#content-deck{
-    position:relative !important;
-    z-index: 0 !important;
+#tabbrowser-tabpanels{
+  background-color: var(--uc-light-bkgnd-color,rgb(14,16,14)) !important;
 }

@@ -1,4 +1,4 @@
-################################################
+
 #
 #                  ██      ██          ██
 #                 ░██     ░██         ░██
@@ -21,7 +21,7 @@ super + Return
       st 
 
 # App menu
-super + d
+super + space
      ~/.local/bin/dmenu_run_history -h 24 -i
 
 ## Firefox
@@ -159,7 +159,7 @@ alt + space
     ~/.local/bin/via/via
 
 #Kde-connect
-super + p
+super + shift + p
       ~/.local/bin/kdeconnect-dmenu
 
 #Apagar
@@ -176,8 +176,18 @@ super + ctrl + F1
       ~/.local/bin/monitores
 
 # Pacman-dmenu
-super + shift + p
+super + alt + p
       ~/.local/bin/pacwrap
+
+# Planeaciones
+super + p
+     ~/.local/bin/plans
+
+super + d
+    ~/.local/bin/diario nuevo
+
+super + shift + d
+    ~/.local/bin/diario lista
 
 
 ##########################

@@ -876,35 +876,36 @@ readxresources(void) {
 			fonts[0] = strdup(xval.addr);
 		else
 			fonts[0] = strdup(fonts[0]);
+
 		if (XrmGetResource(xdb, "*.background", "*", &type, &xval))
 			colors[SchemeNorm][ColBg] = strdup(xval.addr);
 		else
 			colors[SchemeNorm][ColBg] = strdup(colors[SchemeNorm][ColBg]);
-		if (XrmGetResource(xdb, "*.foreground", "*", &type, &xval))
+
+		if (XrmGetResource(xdb, "*.color8", "*", &type, &xval))
 			colors[SchemeNorm][ColFg] = strdup(xval.addr);
 		else
 			colors[SchemeNorm][ColFg] = strdup(colors[SchemeNorm][ColFg]);
-		if (XrmGetResource(xdb, "*.foreground", "*", &type, &xval))
+
+		if (XrmGetResource(xdb, "*.background", "*", &type, &xval))
 			colors[SchemeSel][ColBg] = strdup(xval.addr);
 		else
 			colors[SchemeSel][ColBg] = strdup(colors[SchemeSel][ColBg]);
-		if (XrmGetResource(xdb, "*.background", "*", &type, &xval))
+
+		if (XrmGetResource(xdb, "*.foreground", "*", &type, &xval))
 			colors[SchemeSel][ColFg] = strdup(xval.addr);
 		else
 			colors[SchemeSel][ColFg] = strdup(colors[SchemeSel][ColFg]);
-
-
 
 		if (XrmGetResource(xdb, "*.color9", "*", &type, &xval))
 			colors[SchemeSelHighlight][ColFg] = strdup(xval.addr);
 		else
 			colors[SchemeSelHighlight][ColFg] = strdup(colors[SchemeSel][ColFg]);
 
-		if (XrmGetResource(xdb, "*.foreground", "*", &type, &xval))
+		if (XrmGetResource(xdb, "*.background", "*", &type, &xval))
 			colors[SchemeSelHighlight][ColBg] = strdup(xval.addr);
 		else
 			colors[SchemeSelHighlight][ColBg] = strdup(colors[SchemeSel][ColFg]);
-
 
 		if (XrmGetResource(xdb, "*.color9", "*", &type, &xval))
 			colors[SchemeNormHighlight][ColFg] = strdup(xval.addr);
@@ -915,9 +916,6 @@ readxresources(void) {
 			colors[SchemeNormHighlight][ColBg] = strdup(xval.addr);
 		else
 			colors[SchemeNormHighlight][ColBg] = strdup(colors[SchemeSel][ColFg]);
-
-
-
 		XrmDestroyDatabase(xdb);
 	}
 }

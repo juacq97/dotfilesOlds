@@ -3,7 +3,7 @@
 xwallpaper --zoom "$(cat ~/.config/bg)" &
 #wal -sR &
 xrdb  ~/.Xresources &
-picom --experimental-backends &
+picom &
 #emacs --daemon &
 xfce4-power-manager &
 clipmenud &
@@ -12,13 +12,14 @@ redshift &
 xsetroot -cursor_name left_ptr &
 flameshot &
 #mpDris2 &
-sxhkd -c ~/.config/sxhkd/sxhkd-no-bspwm &
+#sxhkd -c ~/.config/sxhkd/sxhkd-no-bspwm &
 dunst &
-dwmblocks & 
+#dwmblocks & 
 
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR="nvim"
 export OPENER="mimeopen"
 export TERMINAL="st"
+export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
 
-exec dwm
+exec bspwm

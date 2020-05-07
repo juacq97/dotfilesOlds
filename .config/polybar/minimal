@@ -22,8 +22,8 @@
 
 
 [colors]
-;background		= #ca0E0A06
-background		= ${xrdb:background}
+background		= #cc1d2021
+;background		= ${xrdb:background}
 foreground     		= ${xrdb:foreground}
 color1			= ${xrdb:color1}
 color2			= ${xrdb:color2}
@@ -69,17 +69,17 @@ locale 			= es_MX.UTF-8
 ; FUENTES
 ;========================================
 
-font-0 = Source Code Pro:style:medium:size=8;1
-font-1 = Material Design Icons:style=Regular:pixelsize=12;2
-font-2 = MesloLGS NF:style=Regular:size=15;3
+font-0 = JetBrains Mono:style:regular:pixelsize=9;1
+font-1 = Material Design Icons:style=Regular:pixelsize=8;2
+font-2 = MesloLGS NF:style=Regular:size=15;2
 font-3 = Weather Icons:size=12;2
-font-4 = Material Design Icons:style=Regular:pixelsize=16;1
+font-4 = Material Design Icons:style=Regular:pixelsize=12;1
 ;=========================================
 
 ;====== MODULOS =========
 modules-left 	= bspwm mpd xwindow
 modules-center 	= date
-modules-right 	= xkeyboard sep pulseaudio sep battery sep net
+modules-right 	= xkeyboard sep arch sep pulseaudio sep battery sep net
 
 tray-position 	= none
 tray-padding 	= 0
@@ -115,7 +115,7 @@ format-foreground = ${colors.foreground}
 type = internal/xkeyboard
 blacklist-0 = num lock 
 blacklist-1 = caps lock
-format-prefix = "Kbd:"
+format-prefix = " "
 format-background =
 format-foreground = ${colors.foreground}
 format-prefix-background =
@@ -147,10 +147,10 @@ ws-icon-3 = 4;4
 ;ws-icon-7 = 8;
 ;ws-icon-8 = 9;
 
-format = <label-mode><label-state>
+format = <label-state>
 
 label-focused = %name%
-label-focused-foreground = ${colors.color1}
+label-focused-foreground = ${colors.foreground}
 label-focused-background =
 label-focused-underline = 
 label-focused-overline = 
@@ -158,7 +158,7 @@ label-focused-padding = 1
 
 label-occupied = %name%
 label-occupied-padding = 1
-label-occupied-foreground = ${colors.foreground}
+label-occupied-foreground = ${colors.color8}
 label-occupied-background = 
 
 label-empty = %name%
@@ -166,10 +166,10 @@ label-empty-foreground = #0fc8c4c0
 label-empty-background = 
 label-empty-padding = 1
 
-label-monocle = "[M]"
-label-tiled = "[]="
+label-monocle = ""
+label-tiled = ""
 #label-floating = "<>"
-label-sticky = "°"
+label-sticky = ""
 
 label-sticky-foreground = ${colors.foreground}
 label-sticky-background =
@@ -198,9 +198,9 @@ date-alt = " %A %e de %B de %Y,"
 time = "%H:%M "
 time-alt = "%H:%M:%S "
 
-format-prefix =
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground}
-format-prefix-background = ${colors.color4}
+format-prefix-background = 
 ;format-underline = #e6c9c4
 
 label =%date% %time%
@@ -226,8 +226,8 @@ format-background = ${colors.background}
 
 [module/pulseaudio]
 type = internal/pulseaudio
-format-volume-prefix = "Vol:"
-format-muted-prefix = "Vol:"
+format-volume-prefix = ""
+format-muted-prefix = ""
 format-volume = "<label-volume>" 
 format-muted = "<label-muted>" 
 label-volume = " %percentage%% "
@@ -246,9 +246,9 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
-format-charging-prefix = "Bat:"
-format-discharging-prefix = "Bat:"
-format-full-prefix = "Bat:"
+format-charging-prefix = ""
+format-discharging-prefix = ""
+format-full-prefix = ""
 
 format-charging-background = 
 format-discharging-background = ${self.format-charging-background}
@@ -273,8 +273,8 @@ interface = wlp2s0b1
 interval = 15
 format-connected = <label-connected>
 format-disconnected = <label-disconnected>
-format-connected-prefix = "WiFi: "
-format-disconnected-prefix = "WiFi: " 
+format-connected-prefix = " "
+format-disconnected-prefix = " " 
 
 label-connected =%downspeed%
 label-disconnected = "No"
@@ -338,8 +338,8 @@ click-left = ~/scripts/kdeconnect-dmenu
 
 [module/arch]
 type = custom/script
-format-prefix = " ﮋ "
-format-prefix-foreground = #F1C124
+format-prefix = " "
+format-prefix-foreground =
 label = "%output% " 
 format-background =
 format-foreground = 
@@ -444,7 +444,7 @@ content-background = ${colors.background}
 
 [module/sep]
 type = custom/text
-content = "| "
+content = "  "
 content-foreground = 
 content-background =
 ;content-underline = #e6c9c4

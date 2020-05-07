@@ -8,7 +8,7 @@ do
 	    #	    sxiv -t /mnt/DATA/juan/Drive/WALLPAPERS/*
 	    echo "$file" > ~/.config/bg
 	    xwallpaper --zoom $(cat ~/.config/bg)
-#	    wal -i "$(cat ~/.config/bg)";;
+	    wal -i "$(cat ~/.config/bg)";;
     esac
 done
 

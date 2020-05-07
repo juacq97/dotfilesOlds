@@ -1,0 +1,26 @@
+#! /bin/sh
+
+DIARIO="/mnt/DATA/juan/Drive/SEC-ABREOJOS/DIARIO"
+MES=$(date +%B)
+DIA=$(date +"%d-%A")
+
+nuevo() {
+    mkdir $DIARIO/$MES
+    st -e nvim /$DIARIO/$MES/$DIA.md
+}
+
+lista () {
+    cd $DIARIO
+    sel=$(find * -type f | sort -M | dmenu -l 15 -p "Diario")
+    if [[ $sel == "" ]]; then
+	exit 0 #si se presiona ESC, el script termina
+    else
+	st -e nvim $sel
+    fi
+}
+
+case $1 in
+    'nuevo') nuevo;;
+    'lista') lista;;
+esac
+

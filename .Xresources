@@ -7,13 +7,15 @@ Xcursor.theme_core: 1
 dwm.normbordercolor: #1d2021
 dwm.normbgcolor:     #1d2021
 dwm.normfgcolor:     #3c3c3c
-dwm.selbordercolor:  #fbf2c7
+dwm.selbordercolor:  #98971a
 dwm.selbgcolor:	     #1d2021
 dwm.selfgcolor:	     #fbf2c7
 
+
 ! Dracula Xresources palette
+!*.background: #0e100e
 !*.foreground: #f8f8f2
-!*.background: #282a36
+!!*.background: #282a36
 !*.color0:     #000000
 !*.color8:     #4D4D4D
 !*.color1:     #FF5555
@@ -30,7 +32,6 @@ dwm.selfgcolor:	     #fbf2c7
 !*.color14:    #9AEDFE
 !*.color7:     #BFBFBF
 !*.color15:    #E6E6E6
-
 
 ! Gruvbox
 *.background:   #1d2021
