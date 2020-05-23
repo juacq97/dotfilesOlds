@@ -1,4 +1,4 @@
-################################################
+#
 #
 #                  ██      ██          ██
 #                 ░██     ░██         ░██
@@ -12,6 +12,7 @@
 ###############################################
 
 ########################
+
 # Aplicaciones
 ########################
 
@@ -19,9 +20,9 @@
 super + Return
       st 
 
-#Rofi
-super + d
-     dmenu_run_history -h 24 -i
+# App menu
+super + space
+     ~/.local/bin/dmenu_run_history -h 24 -i
 
 ## Firefox
 super + F2
@@ -31,30 +32,32 @@ super + w
 
 #File Manager
 super + f
-    st -e lf
+      st -e ~/.local/bin/nwrap
+#       st -e ~/.local/bin/lfwrap
 
 super + shift + f
       thunar
-
-# Editor
-super + e
-    st -e nvim
 
 #Spotify
 super + F5
       spotify
 
+#Emacsclient
+super + e
+      emacsclient -c
+#	st -e nvim
+
 super + ctrl + t
-      ~/scripts/planeaciones
+      ~/.local/bin/planeaciones
 
 # Newsboat
 super + n
-#      st -e ~/scripts/newsboat-run
+#      st -e ~/.local/bin/newsboat-run
        st -e newsboat
 
 #htop
 super + F4
-#      st -e ~/scripts/htop-run
+#      st -e ~/.local/bin/htop-run
       st -e htop
 
 #Screenshots
@@ -67,7 +70,7 @@ super + Print
 
 ##Audio
 XF86AudioMute
-	pamixer -t ; pkill -RTMIN+2 dwmblocks
+	amixer set Master toggle ; pkill -RTMIN+2 dwmblocks
 XF86AudioLowerVolume
 	amixer set Master 2%- ; pkill -RTMIN+2 dwmblocks
 XF86AudioRaiseVolume
@@ -81,6 +84,15 @@ XF86AudioPrev
 XF86AudioStop
 	playerctl stop
 
+# Subir brillo
+#XF86MonBrightnessUp
+#	light -A 5 & notify-send -a "Brillo" "$(light -G)"
+#
+## Bajar brillo
+#XF86MonBrightnessDown
+#	light -U 5 & notify-send -a "Brillo" "$(light -G)"
+
+
 # bloquear teclado
 control + alt + l
 	betterlockscreen --lock blur
@@ -90,7 +102,7 @@ XF86TouchpadToggle
 	~/.local/bin/toggle-touchpad
 
 super + control + F2
-      networkmanager_dmenu
+      ~/.local/bin/check-network-es
 
 #matar compton
 super + o
@@ -100,15 +112,18 @@ super + o
 #revivir compton
 super + shift + o
 #     compton --config ~/.config/compton.conf
-     picom --experimental-backends --config ~/.config/compton.conf
+     picom --config ~/.config/compton.conf
 
 # Reiniciar sxhdk 
 super + shift + r
-      pkill -USR1 -x sxhkd 
+      pkill -USR1 -x sxhkd
 
+#Reinicar bspwm
+super + ctrl + r
+      bspc wm -r
 
 ##########################
-# Scripts
+# .Local/Bin
 ##########################
 
 #Montar USB
@@ -124,7 +139,7 @@ alt + space
     ~/.local/bin/via/via
 
 #Kde-connect
-super + p
+super + shift + p
       ~/.local/bin/kdeconnect-dmenu
 
 #Apagar
@@ -134,13 +149,22 @@ super + F12
 
 # Clipboard
 super + ctrl + p
-    clipmenu
+      clipmenu
+
 # Monitores
 super + ctrl + F1
       ~/.local/bin/monitores
 
 # Pacman-dmenu
-super + shift + p
+super + alt + p
       ~/.local/bin/pacwrap
 
+# Planeaciones
+super + p
+     ~/.local/bin/plans
 
+super + d
+    ~/.local/bin/diario nuevo
+
+super + shift + d
+    ~/.local/bin/diario lista

@@ -1,5 +1,12 @@
 #!/usr/bin/env zsh
 
-#(cat ~/.cache/wal/sequences &)
+export NNN_TRASH=1
+export NNN_OPENER_DETACH=1
+export NNN_BMS='h:/mnt/DATA/juan;r:/run/media/;d:/mnt/DATA/juan/Drive;D:~/Downloads;c:~/.config'
+export LC_COLLATE="C"
+export NNN_PLAIN_FILTER=1
+export NNN_OPENER=~/.local/bin/nnn-opener
+export NNN_PLUG='d:pdfview;p:-_less -iR $nnn*;k:kdeconnect;w:wall'
 
 nnn -dE
+

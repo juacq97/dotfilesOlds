@@ -1,0 +1,12 @@
+#! /bin/sh
+
+while true; do
+    sel=$(ls -a | dmenu -l 15)
+    check=$(mimetype "$sel" | awk -F "/" '{print $2}')
+    if [[ "$check" == "directory" ]]; then
+	cd $sel
+    else
+    st -e nvim $sel
+    exit 0
+    fi
+done

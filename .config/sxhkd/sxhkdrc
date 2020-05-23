@@ -1,4 +1,3 @@
-
 #
 #                  ██      ██          ██
 #                 ░██     ░██         ░██
@@ -190,7 +189,6 @@ super + shift + d
     ~/.local/bin/diario lista
 
 
-##########################
 # Manejo de ventanas
 ##########################
 
@@ -265,7 +263,7 @@ super + ctrl + alt {1-9,0}
 
 #Rotar la interfaz
 super + shift + {period,comma}
-   bspc node @/ -R {90,270}
+   bspc node @/ -F {vertical,horizontal}
 
 
 ###################
@@ -312,3 +310,11 @@ super + ctrl + bracketright
 # Move floating windows with the arrow keys
 super + shift + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# Flip vertical
+super + bar
+    bspc node any -F vertical
+
+# Flip horizontal
+super + shift + bar
+    bspc node any -F horizontal

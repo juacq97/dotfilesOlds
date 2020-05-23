@@ -1,39 +1,56 @@
+### Definiendo path ###
+PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin"
+export PATH
+
+### Variables de entorno ###
+export WM=DWM
+export LANG=es_MX.UTF-8
+export EDITOR="nvim"
+export VISUAL="erwap"
+export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
+export PAGER=less
+export ZSH="$HOME/.oh-my-zsh"
+[ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
+export LESS='-Ri ' #Esto es para poder ver el contenido de archivos comprimidos
+
+### Ejecuta xinit si es la TTY 1 ###
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     exec startx
 fi
-export WM=bspwm
-PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH"
-export PATH
+
+### Ejecuta al abrir terminales (casi siempre ufetch) ###
 ufetch-arch
 
+### Instant prompt para p10k ###
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
-export ZSH="$HOME/.oh-my-zsh"
+### Oh My Zsh config ###
 #ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
     git
 )
 
-# CASE_SENSITIVE="true"
-# HYPHEN_INSENSITIVE="true"
-# DISABLE_AUTO_UPDATE="true"
-# export UPDATE_ZSH_DAYS=13
-# DISABLE_LS_COLORS="true"
-# DISABLE_AUTO_TITLE="true"
-# ENABLE_CORRECTION="true"
+DISABLE_AUTO_TITLE="true"
+ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
- HIST_STAMPS="mm/dd/yyyy"
-
+HIST_STAMPS="mm/dd/yyyy"
+bindkey -v #vim mode 
 source $ZSH/oh-my-zsh.sh
-export LANG=es_MX.UTF-8
+
+# Syntax highlight!
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Autocompletado
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^ ' autosuggest-accept #Completa con C-space
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
 
 
-###### DEFINIENDO ALIAS ######
+### Aliases ###
 alias e="emacsclient -c"
+alias emc="emacsclient -c"
 alias et="emacsclient -t"
 alias E="SUDO_EDITOR=\"emacsclient -c -a emacs\" sudoedit"
 alias d="cd ~/.repos/dotfiles-lap"
@@ -42,27 +59,15 @@ alias h="cd /mnt/DATA/juan"
 alias r="cd ~/.repos"
 alias lf="lfwrap"
 alias vim="nvim"
+alias nnn="nwrap"
 alias v="nvim"
-
 #alias cp="/bin/advcp -g"
 #alias mv="/bin/advmv -g"
 
-#export EDITOR="emacsclient -c"
-export EDITOR="nvim"
-export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
-export NNN_TRASH=1
-export NNN_OPENER_DETACH=1
-export NNN_BMS='h:/mnt/DATA/juan;r:/run/media/;d:/mnt/DATA/juan/Drive;D:~/Downloads;c:~/.config'
-export LC_COLLATE="C"
-export NNN_PLAIN_FILTER=1
-export NNN_TMPFILE=~/.config/nnn/.lastd
-export NNN_OPENER=nnn-opener
-export PAGER=less
-[ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
-export LESS='-Ri '
-
+### cd on quit para nnn ###
+NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 n(){
-nnn -dE "$@"
+nwrap "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
@@ -70,19 +75,6 @@ nnn -dE "$@"
     fi
 }
 
-
-
-
-
-# VIM-MODE activado
-bindkey -v
-
- source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
- source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
+# Usa p10k como tema para Oh my Zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/TTY1 ]]; then
-    exec startx
-fi
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme

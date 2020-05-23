@@ -22,17 +22,13 @@ let mapleader =" "			" Leader como espacio
 " Plugins
 """""""""""""""""""
 call plug#begin()
-"Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
-"Plug 'gabrielelana/vim-markdown'
-"Plug 'vim-pandoc/vim-pandoc'
 Plug 'chrisbra/Colorizer'
-"Plug 'itchyny/calendar.vim'
-"Plug 'vimwiki/vimwiki'
 Plug 'SidOfc/mkdx'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-eunuch'
+Plug 'junegunn/limelight.vim'
 call plug#end()
 
 """""""""""""""""""
@@ -79,7 +75,10 @@ set smarttab		        " No se, pero sirve para borrar tabs
 set virtualedit=block	        " Cursor libre cuando se usa visualblock
 set backspace=eol,start,indent  " Backspace funciona bien con tabs
 set whichwrap+=<,>,h,l	        " h y j respeta tabs
+set undofile
+set undodir=~/.config/nvim/undodir
 autocmd FileType markdown TableModeEnable
+set mouse=a
 
 
 """""""""""""
@@ -93,9 +92,12 @@ nnoremap <expr> k (v:count > 4 ? "m'" . v:count . 'k' : 'gk')
 nnoremap <leader><tab> /<++><CR>cw
 
 "Activar Goyo con F6
-noremap <F6> :Goyo \| highlight CursorLine cterm=NONE ctermbg=16<CR>
+noremap <F6> :Goyo <CR>
+"highlight CursorLine cterm=NONE ctermbg=black <CR>
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight! | highlight CursorLine cterm=NONE ctermbg=black
 
-"Activar spellcheck con F5
+autocmd  User GoyoLeave "Activar spellcheck con F5
 noremap <F5> :setlocal spell! spelllang=es<CR>
 
 " Abrir con space space
@@ -112,3 +114,12 @@ autocmd FileType markdown inoremap sec<tab> <esc>:read ~/.config/nvim/snips/secu
 autocmd FileType markdown inoremap sec<tab> <esc>:read ~/.config/nvim/snips/secuencia<CR>kdd2wcw 
 
 command D :Rename DONE_%:t|wq
+
+
+
+
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+let g:limelight_default_coefficient = 0.9
+autocmd InsertEnter * norm zz

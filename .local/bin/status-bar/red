@@ -1,9 +1,9 @@
 #! /bin/sh
 
 if [[ $(cat /sys/class/net/wlp2s0b1/operstate) == "up" ]]; then
-    echo ""
+    echo ""
 else
-    echo ""
+    echo ""
 fi
 
 

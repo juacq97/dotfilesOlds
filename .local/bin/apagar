@@ -21,7 +21,7 @@ case $var in
     'Salir')
 #	rm /tmp/bspwm-startup.lock
 #	bspc quit;;
-	pkill dwm;;
+	pkill xinit;;
     'Suspender')
 #	systemctl suspend;;
 	sudo zzz;;

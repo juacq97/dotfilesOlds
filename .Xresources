@@ -4,18 +4,38 @@ Xcursor.theme: Bibata_Oil
 Xcursor.size: 16
 Xcursor.theme_core: 1
 
-dwm.normbordercolor: #1d2021
-dwm.normbgcolor:     #1d2021
-dwm.normfgcolor:     #3c3c3c
-dwm.selbordercolor:  #98971a
-dwm.selbgcolor:	     #1d2021
-dwm.selfgcolor:	     #fbf2c7
+!dwm.normbordercolor: #1d2021
+!dwm.normbgcolor:     #1d2021
+!dwm.normfgcolor:     #3c3c3c
+!dwm.selbordercolor:  #fbf2c7
+!dwm.selbgcolor:	     #1d2021
+!dwm.selfgcolor:	     #fbf2c7
 
+! VSC Material theme
+!*.foreground:   #c4c7d1
+!*.background:   #1e282d
+!*.cursorColor:  #c4c7d1
+!*.color0:       #073642
+!*.color8:       #ff002b
+!*.color1:       #eb606b
+!*.color9:       #eb606b
+!*.color2:       #c3e88d
+!*.color10:      #c3e88d
+!*.color3:       #f7eb95
+!*.color11:      #f7eb95
+!*.color4:       #80cbc4
+!*.color12:      #7dc6bf
+!*.color5:       #ff2490
+!*.color13:      #6c71c4
+!*.color6:       #aeddff
+!*.color14:      #35434d
+!*.color7:       #ffffff
+!*.color15:      #ffffff
 
 ! Dracula Xresources palette
-!*.background: #0e100e
+!!*.background: #0e100e
 !*.foreground: #f8f8f2
-!!*.background: #282a36
+!*.background: #282a36
 !*.color0:     #000000
 !*.color8:     #4D4D4D
 !*.color1:     #FF5555
@@ -34,10 +54,10 @@ dwm.selfgcolor:	     #fbf2c7
 !*.color15:    #E6E6E6
 
 ! Gruvbox
-*.background:   #1d2021
+*.background:   #282828
 *.foreground:   #fbf2c7
 *.cursorColor:  #fbf2c7
-*.color0:       #282828
+*.color0:       #1d2021
 *.color8:       #928374
 *.color1:       #cc241d
 *.color9:       #fb4934

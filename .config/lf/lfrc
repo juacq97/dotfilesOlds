@@ -1,4 +1,4 @@
-set shell sh
+set shell zsh
 set drawbox
 set ratios '1:3:2'
 set ifs "\n"
@@ -9,7 +9,7 @@ set shellopts '-eu'
 
 cmd open $ {{
 	case $(file --mime-type "$f" -bL) in
-		text/*) $EDITOR $f ;;
+		text/*) $EDITOR $f;;
 		audio/mpeg) mpv --really-quiet $f & disown ;;
 		video/*) mpv --no-terminal $f & disown ;;
 		image/*) rifle_sxiv.sh $f & disown ;;
