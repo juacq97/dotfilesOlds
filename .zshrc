@@ -33,7 +33,7 @@ plugins=(
 )
 
 DISABLE_AUTO_TITLE="true"
-ENABLE_CORRECTION="true"
+#ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="mm/dd/yyyy"
 bindkey -v #vim mode 
