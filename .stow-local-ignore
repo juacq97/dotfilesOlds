@@ -8,6 +8,8 @@ fortune
 st
 dmenu
 xorg.conf.d
+trackpoint-config
+dwmblocks
 chrome
 \.stow-local-ignore
 .gitignore

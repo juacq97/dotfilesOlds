@@ -21,7 +21,8 @@ super + Return
 
 # App menu
 super + space
-     ~/.local/bin/dmenu_run_history -h 24 -i
+#     ~/.local/bin/dmenu_run_history -h 24 -i
+      rofi -show drun -theme apps 
 
 ## Firefox
 super + F2
@@ -31,8 +32,8 @@ super + w
 
 #File Manager
 super + f
-#      st -e ~/.local/bin/nwrap
-       st -e ~/.local/bin/lfwrap
+      st -e ~/.local/bin/nwrap
+#       st -e ~/.local/bin/lfwrap
 
 super + shift + f
       thunar
@@ -43,10 +44,8 @@ super + F5
 
 #Emacsclient
 super + e
-#      emacsclient -c
-	st -e nvim
-super + shift + e
-	emacs
+      emacsclient -c
+#	st -e nvim
 
 super + shift + e
       emacsclient -ne '(new-frame)'
@@ -86,14 +85,11 @@ super + Print
 
 ##Audio
 XF86AudioMute
-	pamixer -t
-#	pactl set-sink-mute @DEFAULT_SINK@ toggle
+	~/.local/bin/mute-audio
 XF86AudioLowerVolume
 	pamixer -d 2
-#	amixer sset 'Master' 2%-
 XF86AudioRaiseVolume
 	pamixer -i 2
-#	amixer sset 'Master' 2%+
 XF86AudioPlay
 	playerctl play-pause
 XF86AudioNext
@@ -162,7 +158,8 @@ super + shift + p
       ~/.local/bin/kdeconnect-dmenu
 
 #Apagar
-super + F12
+#super + F12
+XF86Launch1
       ~/.local/bin/apagar
 #       clearine 
 

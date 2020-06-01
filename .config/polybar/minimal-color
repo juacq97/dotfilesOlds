@@ -43,7 +43,7 @@ color15			= ${xrdb:color15}
 [bar/example]
 monitor			= ${env:MONITOR:}
 width 			= 100%
-height 			= 21
+height 			= 24
 radius 			= 0
 fixed-center 		= true
 enable-ipc 		= true
@@ -68,7 +68,7 @@ locale 			= es_MX.UTF-8
 ; FUENTES
 ;========================================
 
-font-0 = Source Code Pro:style:medium:size=8;1
+font-0 = JetBrains Mono:style:regular:pixelsize=11:antialias=true;1
 font-1 = Material Design Icons:style=Regular:pixelsize=14:antialias=true;2
 font-2 = MesloLGS NF:style=Regular:size=15;3
 font-3 = Weather Icons:size=12;2
@@ -76,9 +76,9 @@ font-4 = Material Design Icons:style=Regular:pixelsize=16;1
 ;=========================================
 
 ;====== MODULOS =========
-modules-left 	= bspwm mpd spotify 
+modules-left 	= bspwm mpd xwindow
 modules-center 	= date
-modules-right 	= key-icon xkeyboard sep vol-img pulseaudio sep bat-img battery sep net
+modules-right 	= key-icon xkeyboard sep arch sep vol-img pulseaudio sep bat-img battery sep net
 
 tray-position 	= none
 tray-padding 	= 0
@@ -106,28 +106,24 @@ cursor-scroll = ns-resize
 [module/xwindow]
 type = internal/xwindow
 format-padding = 
-label = %title:0:30:...%
-format-background = ${colors.background-wdg} 
+label = " %title:0:30:...%"
 
 [module/key-icon]
 type = internal/xkeyboard
 blacklist-0 = num lock 
 format = <label-indicator>
-format-background = ${colors.color2}
-format-foreground = ${colors.background}
+format-foreground = ${colors.color14}
 label-indicator-padding = 2
 label-indicator-margin = 1
 indicator-icon-0 = "caps lock; 󰌌 ; 󰘲 "
 label-indicator-on-capslock = %icon%
 label-indicator-off-capslock = %icon%
-label-indicator-on-capslock-background =${colors.color1}
+label-indicator-on-capslock-foreground =${colors.color1}
 
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock 
 format = " <label-layout> "
-format-background = ${colors.foreground}
-format-foreground = ${colors.background}
 format-prefix-background = ${colors.color2}
 format-prefix-foreground = ${colors.background}
 label-layout = %icon%
@@ -151,85 +147,24 @@ ws-icon-6 = 7;VII
 ws-icon-7 = 8;
 ws-icon-8 = 9;
 
-format = <label-mode><label-state> 
+format = <label-state> 
 
-label-focused = %name%
-label-focused-foreground = ${colors.background}
-label-focused-background = ${colors.foreground}
-label-focused-underline = ${colors.color4}
+label-focused = 󰪥
 label-focused-overline = 
-label-focused-padding = 1
 
-label-occupied = %name%
-label-occupied-padding = 1
-label-occupied-foreground = ${colors.background}
-label-occupied-background = ${colors.foreground}
+label-occupied = 󰝦
 
-label-empty = %name%
-label-empty-foreground = ${colors.color8}
+label-empty = 󰧞
 label-empty-background = 
-label-empty-padding = 1
 
-label-monocle = ""
-label-tiled = 
-label-floating = " "
-label-sticky = " "
+label-monocle = "󰊓"
+label-tiled = "󱒎"
+label-floating = "󱂬"
+label-sticky = "󰗐"
 
-label-sticky-foreground = ${colors.background}
-label-sticky-background = ${colors.color4}
-
-label-tiled-foreground = ${colors.background}
-label-tiled-background = ${colors.color4}
-label-tiled-padding = 1
-
-label-monocle-foreground = ${colors.background}
-label-monocle-background = ${colors.color4}
-label-monocle-padding = 1
-
-label-floating-foreground = ${colors.background}
-label-floating-background = ${colors.color4}
-
-
-
-
-format-background = ${colors.background}
-; Separator in between workspaces
-;label-separator = " "
-
-[module/i3]
-type = internal/i3
-format = <label-state> <label-mode>
-index-sort = false
-wrapping-scroll = false
-format-background= #5C7DA7
-
-;pin-workspaces = true
-
-label-mode-padding = 1
-label-mode-foreground = #FFF
-label-mode-background = 
-
-
-label-focused = %name%
-;label-focused-background = $
-label-focused-background =
-label-focused-underline = #E2C487
-label-focused-padding = ${module/bspwm.label-focused-padding}
-
-label-unfocused = %name%
-label-unfocused-padding = ${module/bspwm.label-occupied-padding}
-labl-unfocused-background = 
-
-label-visible = %name%
-label-visible-background = 
-label-visible-underline = ${self.label-focused-underline}
-label-visible-padding = ${self.label-focused-padding}
-
-label-urgent = %name%
-label-urgent-background = ${module/bspwm.label-urgent-background}
-label-urgent-padding = ${module/bspwm.label-urgent-padding}
-
-;label-separator ="%{T3} %{T-}"
+label-tiled-foreground = ${colors.color3}
+label-monocle-foreground = ${colors.color1}
+label-sticky-foreground = ${colors.color7}
 
 [module/date]
 type = internal/date
@@ -240,15 +175,11 @@ date-alt = " %A %e de %B de %Y,"
 time = "%H:%M "
 time-alt = "%H:%M:%S "
 
-format-prefix = "  "
-format-prefix-foreground = ${colors.background}
-format-prefix-background = ${colors.color4}
+format-prefix = "󰸘"
+format-prefix-foreground = ${colors.color4}
 ;format-underline = #e6c9c4
 
 label =%date% %time%
-label-background = ${colors.foreground}
-label-foreground = ${colors.background}
-
 format-padding = 
 
 [module/mpd]
@@ -269,30 +200,19 @@ format-background = ${colors.background}
 [module/pulseaudio]
 type = internal/pulseaudio
 format-volume = "<label-volume>" 
-format-muted = "<label-muted>" 
 label-volume = " %percentage%% "
-
-label-muted = " Mute "
-label-muted-foreground = ${colors.background}
-label-muted-background = ${colors.foreground}
-label-volume-foreground = ${colors.background}
-label-volume-background = ${colors.foreground}
-
 click-right = exec pavucontrol & 
-
 
 [module/vol-img]
 type = internal/pulseaudio
 format-volume = "<ramp-volume>" 
-format-muted = "<ramp-volume>" 
-format-volume-foreground = ${colors.background}
-format-muted-foreground  = ${colors.background}
-format-volume-background = ${colors.color6}
-format-muted-background  = ${colors.color9}
+format-muted = " 󰖁 " 
+format-volume-foreground = ${colors.color5}
+format-muted-foreground  = ${colors.color1}
 
-ramp-volume-0 = "  "
-ramp-volume-1 = "  "
-ramp-volume-2 = "  "
+ramp-volume-0 = " 󰕿"
+ramp-volume-1 = " 󰖀"
+ramp-volume-2 = " 󰕾"
 click-right = exec pavucontrol & 
 
 [module/battery]
@@ -301,7 +221,7 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
-format-charging-background = ${colors.foreground}
+format-charging-background = ${colors.background}
 format-discharging-background = ${self.format-charging-background}
 format-full-background = ${self.format-charging-background}
 
@@ -310,11 +230,11 @@ format-discharging = <label-discharging>
 format-full = <label-full>
 
 
-label-charging = " %percentage%% "
-label-discharging = " %percentage%% "
-label-full = " %percentage%% "
+label-charging = "%percentage%% "
+label-discharging = "%percentage%% "
+label-full = "%percentage%% "
 
-format-full-foreground		= ${colors.background}
+format-full-foreground		= ${colors.foreground}
 format-charging-foreground	= ${self.format-full-foreground}
 format-discharging-foreground 	= ${self.format-full-foreground}
 
@@ -324,13 +244,13 @@ battery = BAT0
 adapter = ADP1
 full-at = 90
 
-format-charging-background = ${colors.color2}
-format-discharging-background = ${colors.color3}
-format-full-background = ${colors.color2}
+format-charging-foreground = ${colors.color10}
+format-discharging-foreground = ${colors.color4}
+format-full-foreground = ${colors.color2}
 
-format-charging-foreground = ${colors.background}
-format-discharging-foreground = ${colors.background}
-format-full-foreground = ${colors.background}
+format-charging-background = ${colors.background}
+format-discharging-background = ${colors.background}
+format-full-background = ${colors.background}
 
 
 format-charging = <animation-charging>
@@ -338,44 +258,40 @@ format-discharging = <ramp-capacity>
 format-full = <label-full>
 
 
-ramp-capacity-0 = "  "
-ramp-capacity-1 = "  "
-ramp-capacity-2 = "  "
-ramp-capacity-3 = "  "
-ramp-capacity-4 = "  "
-ramp-capacity-5 = "  "
-ramp-capacity-6 = "  "
-ramp-capacity-7 = "  "
-ramp-capacity-8 = "  "
+ramp-capacity-0 = " 󰁺"
+ramp-capacity-1 = " 󰁻"
+ramp-capacity-2 = " 󰁼"
+ramp-capacity-3 = " 󰁽"
+ramp-capacity-4 = " 󰁾"
+ramp-capacity-5 = " 󰁿"
+ramp-capacity-6 = " 󰂀"
+ramp-capacity-7 = " 󰂁"
+ramp-capacity-8 = " 󰂂"
+ramp-capacity-9 = " 󰁹"
 
-animation-charging-0 = "  "
-animation-charging-1 = "  "
-animation-charging-2 = "  "
-animation-charging-3 = "  "
-animation-charging-4 = "  "
-animation-charging-5 = "  "
-animation-charging-6 = "  "
-animation-charging-7 = "  "
-animation-charging-8 = "  "
+animation-charging-0 = " 󰢜"
+animation-charging-1 = " 󰂆"
+animation-charging-2 = " 󰂇"
+animation-charging-3 = " 󰂈"
+animation-charging-4 = " 󰢝"
+animation-charging-5 = " 󰂉"
+animation-charging-6 = " 󰢞"
+animation-charging-7 = " 󰂊"
+animation-charging-8 = " 󰂋"
+animation-charging-9 = " 󰂅"
 animation-charging-framerate = 750
 
-label-full = "  "
+label-full = " 󰁹"
 
 [module/net]
 type = internal/network
-interface = wlp2s0b1
+interface =  wlp3s0
 interval = 15
 format-connected = <label-connected>
 format-disconnected = <label-disconnected>
 
-label-connected = "  "
-label-disconnected = "  "
-
-format-connected-background = ${colors.color10}
-format-connected-foreground = ${colors.background}
-
-format-disconnected-background = ${colors.color8}
-format-disconnected-foreground = ${colors.background}
+label-connected = " 󰤨 "
+label-disconnected = " 󰤭 "
 
 [module/spotify]
 type = custom/script
@@ -391,7 +307,8 @@ format-prefix-foreground = ${colors.background}
 
 click-right = playerctl play-pause
 click-left = bspc desktop -f ^6 
-;format-underline = #e6c9c4
+;format-underline
+ = #e6c9c4
 
 [module/clima-icon]
 type = custom/script
@@ -430,11 +347,9 @@ click-left = ~/scripts/kdeconnect-dmenu
 
 [module/arch]
 type = custom/script
-format-prefix = " ﮋ "
-format-prefix-foreground = #F1C124
+format-prefix = " 󰮯 "
+format-prefix-foreground = ${colors.color11}
 label = "%output% " 
-format-background =
-format-foreground = 
 click-left = st -e sudo pacman -Syuu
 click-right = ~/scripts/pacman-dmenu
 exec = ~/.config/polybar/scripts/updates-arch.sh

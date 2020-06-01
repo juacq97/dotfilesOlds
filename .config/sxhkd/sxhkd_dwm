@@ -12,7 +12,6 @@
 ###############################################
 
 ########################
-
 # Aplicaciones
 ########################
 
@@ -22,7 +21,8 @@ super + Return
 
 # App menu
 super + space
-     ~/.local/bin/dmenu_run_history -h 24 -i
+#     ~/.local/bin/dmenu_run_history -h 24 -i
+      rofi -show drun -theme gruvbox
 
 ## Firefox
 super + F2
@@ -70,11 +70,12 @@ super + Print
 
 ##Audio
 XF86AudioMute
-	amixer set Master toggle ; pkill -RTMIN+2 dwmblocks
+#	~/.local/bin/mute-audio
+	pamixer -t ; pkill -RTMIN+10 blocks
 XF86AudioLowerVolume
-	amixer set Master 2%- ; pkill -RTMIN+2 dwmblocks
+	pamixer -d 2 ; pkill -RTMIN+10 blocks
 XF86AudioRaiseVolume
-	amixer set Master 2%+ ; pkill -RTMIN+2 dwmblocks
+	pamixer -i 2 ; pkill -RTMIN+10 blocks
 XF86AudioPlay
 	playerctl play-pause
 XF86AudioNext

@@ -1,0 +1,10 @@
+#! /bin/sh
+
+icon=󰸘
+ifg=^c#8ec07c^
+tfg=^d^
+
+cmd=$(date +"%b %e, %R")
+
+
+echo "$ifg $icon $tfg$cmd"

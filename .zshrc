@@ -1,11 +1,11 @@
 ### Definiendo path ###
-PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin"
+PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin:$HOME/.config/rofi"
 export PATH
 
 ### Variables de entorno ###
-export WM=DWM
+export WM=dwm
 export LANG=es_MX.UTF-8
-export EDITOR="nvim"
+export EDITOR="vim"
 export VISUAL="erwap"
 export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
 export PAGER=less
@@ -27,12 +27,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 ### Oh My Zsh config ###
-#ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
     git
 )
 
-DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="false"
 #ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="mm/dd/yyyy"
@@ -53,14 +53,14 @@ alias e="emacsclient -c"
 alias emc="emacsclient -c"
 alias et="emacsclient -t"
 alias E="SUDO_EDITOR=\"emacsclient -c -a emacs\" sudoedit"
-alias d="cd ~/.repos/dotfiles-lap"
+alias d="cd ~/.repos/dotfiles"
 alias clima="curl -s es.wttr.in/"
 alias h="cd /mnt/DATA/juan"
 alias r="cd ~/.repos"
 alias lf="lfwrap"
-alias vim="nvim"
+#alias vim="nvim"
 alias nnn="nwrap"
-alias v="nvim"
+alias v="vim"
 #alias cp="/bin/advcp -g"
 #alias mv="/bin/advmv -g"
 
@@ -76,5 +76,8 @@ nwrap "$@"
 }
 
 # Usa p10k como tema para Oh my Zsh
+#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme

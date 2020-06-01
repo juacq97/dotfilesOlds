@@ -2,7 +2,6 @@
  * User: deadguy
  * Copyright: deadguy
  */
-
 configuration {
 	display-drun:    "Aplicaciones";
 	show-icons:      false;	

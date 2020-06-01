@@ -9,9 +9,9 @@ configuration {
 * {
   background-color:               transparent;
   background:                     #00000066;
-  background-alt:                 #f2f2f200;
-  text-color:                     #e4ecec33;
-  selected-text-color:            #ffffff;
+  background-alt:                 #1d2021a8;
+  text-color:                     #fbf2c7;
+  selected-text-color:            #fbf2c7;
   primary:                        #A3BE8C;
   urgent:                         #BF616A;
 }

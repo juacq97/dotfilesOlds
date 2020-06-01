@@ -1,11 +1,16 @@
 #!/bin/sh
 
+icon=󰮯 
+ifg=^c#fabd2f^
+tfg=^d^
+
 if ! updates=$(checkupdates 2> /dev/null | wc -l ); then
     updates=0
 fi
 
+
 if [ "$updates" -gt 0 ]; then
-    echo "$updates "
+    echo "$ifg $icon $tfg$updates"
 else
-    echo "0 "
+    echo "$ifg $icon $tfg 0"
 fi

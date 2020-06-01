@@ -1,0 +1,45 @@
+#! /bin/sh
+
+bat=$(cat /sys/class/power_supply/BAT0/capacity)
+status=$(cat /sys/class/power_supply/BAT0/status)
+
+ramp10=󰁺
+ramp20=󰁻
+ramp30=󰁼
+ramp40=󰁽
+ramp50=󰁾
+ramp60=󰁿
+ramp70=󰂀
+ramp80=󰂁
+ramp90=󰂂
+ramp100=󰁹
+
+if [[ $status == "Discharging" ]]; then
+    ifg=^c#458588^
+elif [[ $status == "Full" ]]; then
+    ifg=^c#458588^
+else
+    ifg=^c#98971a^
+fi
+
+if [[ $bat -lt 10 ]]; then
+    echo "$ifg $ramp10 ^d^$bat%"
+elif [[ $bat -lt 20 ]]; then
+    echo "$ifg $ramp20 ^d^$bat%"
+elif [[ $bat -lt "30" ]]; then
+    echo "$ifg $ramp30 ^d^$bat%"
+elif [[ $bat -lt "40" ]]; then
+    echo "$ifg $ramp40 ^d^$bat%"
+elif [[ $bat -lt "50" ]]; then
+    echo "$ifg $ramp50 ^d^$bat%"
+elif [[ $bat -lt "60" ]]; then
+    echo "$ifg $ramp60 ^d^$bat%"
+elif [[ $bat -lt "70" ]]; then
+    echo "$ifg $ramp70 ^d^$bat%"
+elif [[ $bat -lt "80" ]]; then
+    echo "$ifg $ramp80 ^d^$bat%"
+elif [[ $bat -lt "90" ]]; then
+    echo "$ifg $ramp90 ^d^$bat%"
+elif [[ $bat -le "100" ]]; then
+    echo "$ifg $ramp100 ^d^$bat%"
+fi

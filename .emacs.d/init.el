@@ -447,6 +447,9 @@
 (setq initial-major-mode (quote text-mode))
 (setq vc-follow-symlinks t)
 
+;; set font for emoji
+(set-fontset-font "fontset-default" '(#xF000 . #xF14FF) "Material Design Icons")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -460,7 +463,7 @@
  '(global-display-line-numbers-mode t)
  '(package-selected-packages
    (quote
-    (easy-hugo htmlize swiper-helm helm-swiper selectrum-prescient selectrum evil-magit evil-org evil-collection amx bug-hunter org-bullets focus smartparens ewal-doom-themes ewal olivetti writeroom-mode heaven-and-hell doom-themes all-the-icons-ivy-rich ivy-rich all-the-icons-ivy all-the-icons-dired neotree rainbow-mode markdown-mode magit yasnippet ivy-prescient counsel ivy helm which-key evil doom-modeline use-package)))
+    (volume easy-hugo htmlize swiper-helm helm-swiper selectrum-prescient selectrum evil-magit evil-org evil-collection amx bug-hunter org-bullets focus smartparens ewal-doom-themes ewal olivetti writeroom-mode heaven-and-hell doom-themes all-the-icons-ivy-rich ivy-rich all-the-icons-ivy all-the-icons-dired neotree rainbow-mode markdown-mode magit yasnippet ivy-prescient counsel ivy helm which-key evil doom-modeline use-package)))
  '(prescient-persist-mode t)
  '(writeroom-fullscreen-effect (quote maximized)))
 (custom-set-faces
@@ -468,5 +471,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#282828" :foreground "#ebdbb2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "ADBO" :family "JetBrains mono")))))
+ '(default ((t (:inherit nil :stipple nil :background "#282828" :foreground "#ebdbb2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "ADBO" :family "JetBrains Mono"))))
+ '(org-document-title ((t (:height 1.5 :underline nil))))
+ '(org-level-1 ((t (:inherit default :weight bold :foreground "unspecified-fg" :height 1.75))))
+ '(org-level-2 ((t (:inherit default :weight bold :foreground "unspecified-fg" :height 1.5))))
+ '(org-level-3 ((t (:inherit default :weight bold :foreground "unspecified-fg" :height 1.25))))
+ '(org-level-4 ((t (:inherit default :weight bold :foreground "unspecified-fg" :height 1.1))))
+ '(org-level-5 ((t (:inherit default :weight bold :foreground "unspecified-fg"))))
+ '(org-level-6 ((t (:inherit default :weight bold :foreground "unspecified-fg"))))
+ '(org-level-7 ((t (:inherit default :weight bold :foreground "unspecified-fg"))))
+ '(org-level-8 ((t (:inherit default :weight bold :foreground "unspecified-fg")))))
 
