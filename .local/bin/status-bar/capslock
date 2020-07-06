@@ -1,12 +1,14 @@
 #! /bin/sh
 
-icon=󰸘
-ifg=^c#8ec07c^
-tfg=^d^
-cmd=$(cat /sys/class/leds/input*::capslock/brightness)
+icon=󰘲
+bfg=^b#292541^
+tfg=^c#cc241d^
+reset=^d^
+
+cmd=$(cat /sys/class/leds/input3::capslock/brightness)
 
 if [[ "$cmd" == "1" ]]; then
-    echo "caps on"
+    echo "$tfg$tbg $icon $reset"
 else
-    echo "caps off"
+    echo ""
 fi

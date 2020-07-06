@@ -1,0 +1,17 @@
+#!/bin/sh
+
+icon=󰮯 
+ibg=^b#705B86^
+ifg=^c#fabd2f^
+tfg=^c#292541^
+tbg=^b#cdabb8^
+reset=^d^
+
+if ! updates=$(checkupdates 2> /dev/null | wc -l ); then
+    updates=0t
+fi
+
+echo $updates > ~/.cache/pacman_updates
+
+echo "$ibg$ifg $icon $tfg$tbg $(cat ~/.cache/pacman_updates) $reset"
+

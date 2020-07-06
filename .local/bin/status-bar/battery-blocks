@@ -1,0 +1,49 @@
+#! /bin/sh
+
+bat=$(cat /sys/class/power_supply/BAT0/capacity)
+status=$(cat /sys/class/power_supply/BAT0/status)
+
+ramp10=󰁺
+ramp20=󰁻
+ramp30=󰁼
+ramp40=󰁽
+ramp50=󰁾
+ramp60=󰁿
+ramp70=󰂀
+ramp80=󰂁
+ramp90=󰂂
+ramp100=󰁹
+
+tbg=^b#cdabb8^
+tfg=^c#292541^
+reset=^d^
+
+if [[ $status == "Discharging" ]]; then
+    ibg=^b#705b86^
+elif [[ $status == "Full" ]]; then
+    ibg=^b#50FA7B^
+else
+    ibg=^b#50FA7B^
+fi
+
+if [[ $bat -lt 10 ]]; then
+    echo "$ibg$tfg $ramp10 $tbg $bat% $reset"
+elif [[ $bat -lt 20 ]]; then
+    echo "$ibg$tfg $ramp20 $tbg $bat% $reset"
+elif [[ $bat -lt "30" ]]; then
+    echo "$ibg$tfg $ramp30 $tbg $bat% $reset"
+elif [[ $bat -lt "40" ]]; then
+    echo "$ibg$tfg $ramp40 $tbg $bat% $reset"
+elif [[ $bat -lt "50" ]]; then
+    echo "$ibg$tfg $ramp50 $tbg $bat% $reset"
+elif [[ $bat -lt "60" ]]; then
+    echo "$ibg$tfg $ramp60 $tbg $bat% $reset"
+elif [[ $bat -lt "70" ]]; then
+    echo "$ibg$tfg $ramp70 $tbg $bat% $reset"
+elif [[ $bat -lt "80" ]]; then
+    echo "$ibg$tfg $ramp80 $tbg $bat% $reset"
+elif [[ $bat -lt "90" ]]; then
+    echo "$ibg$tfg $ramp90 $tbg $bat% $reset"
+elif [[ $bat -le "100" ]]; then
+    echo "$ibg$tfg $ramp100 $tbg $bat% $reset"
+fi

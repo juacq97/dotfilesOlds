@@ -1,0 +1,29 @@
+#! /bin/sh
+
+#mute=$(amixer get Master | awk -F'[][]' 'END{ print $6 }' )
+#vol=$(amixer get Master | awk -F'[][]' 'END{ print $2 }' )
+mute=$(pamixer --get-mute)
+vol=$(pamixer --get-volume)
+iconmute=󰖁
+ramp1=󰕿
+ramp2=󰖀
+ramp3=󰕾
+mbg=^b#cc241d^
+tfg=^c#292541^
+ibg=^b#875b82^
+tbg=^b#cdabb8^
+reset=^d^
+
+if [[ $mute == "true" ]]; then
+    echo "$mbg$tfg $iconmute $tbg$tfg $vol% $reset"
+elif [[ "$vol" == "100" ]]; then
+    echo "$ibg$tfg $ramp3 $tbg$tfg $vol% $reset"
+elif [[ "$vol" < "33" ]]; then
+    echo "$ibg$tfg $ramp1 $tbg$tfg $vol% $reset"
+elif [[ "$vol" < "66" ]]; then
+    echo "$ibg$tfg $ramp2 $tbg$tfg $vol% $reset"
+elif [[ "$vol" = "66" ]]; then
+    echo "$ibg$tfg $ramp2 $tbg$tfg $vol% $reset"
+elif [[ "$vol" > "66" ]]; then
+    echo "$ibg$tfg $ramp3 $tbg$tfg $vol% $reset"
+fi

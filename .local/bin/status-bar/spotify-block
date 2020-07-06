@@ -1,0 +1,17 @@
+#! /bin/sh
+
+icon="󰓇" 
+ibg=^b#875B82^
+ifg=^c#1DB954^
+tfg=^c#292541^
+tbg=^b#cdabb8^
+reset=^d^
+status=$(~/.local/bin/status-bar/spotify_status.py)
+runstate=$(pgrep -c spotify)
+
+if [[ $runstate -le 1 ]]; then 
+    echo ""
+else
+    echo "$ibg$ifg $icon $tbg$tfg $status $reset"
+fi
+      

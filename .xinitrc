@@ -20,5 +20,5 @@ xinput disable 11 &
 export QT_QPA_PLATFORMTHEME="qt5ct"
 
 while true; do
-    dwm 2> /tmp/dwm.log
+    ~/.local/dwm 2> /tmp/dwm.log
 done
