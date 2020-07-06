@@ -7,9 +7,10 @@ export WM=dwm
 export LANG=es_MX.UTF-8
 export EDITOR="vim"
 export VISUAL="erwap"
-export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
+#export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
 export PAGER=less
 export ZSH="$HOME/.oh-my-zsh"
+export OPENER="mimeopen"
 [ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
 export LESS='-Ri ' #Esto es para poder ver el contenido de archivos comprimidos
 
@@ -36,11 +37,14 @@ DISABLE_AUTO_TITLE="false"
 #ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="mm/dd/yyyy"
-bindkey -v #vim mode 
+#bindkey -v #vim mode 
 source $ZSH/oh-my-zsh.sh
 
 # Syntax highlight!
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Vim mode
+source /usr/share/zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
 # Autocompletado
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -55,12 +59,12 @@ alias et="emacsclient -t"
 alias E="SUDO_EDITOR=\"emacsclient -c -a emacs\" sudoedit"
 alias d="cd ~/.repos/dotfiles"
 alias clima="curl -s es.wttr.in/"
-alias h="cd /mnt/DATA/juan"
+alias h="cd /mnt/Data"
 alias r="cd ~/.repos"
 alias lf="lfwrap"
-#alias vim="nvim"
+alias vim="nvim"
 alias nnn="nwrap"
-alias v="vim"
+alias v="nvim"
 #alias cp="/bin/advcp -g"
 #alias mv="/bin/advmv -g"
 

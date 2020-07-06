@@ -1,0 +1,14 @@
+#!/bin/sh
+
+
+cd /mnt/Data/Blog
+
+echo "Creando sitio estático"
+hugo
+
+echo "Publicando sitio"
+cd public
+git add .
+git commit -m "Post agregado el $(date '+%A %d de %B a las %R')"
+git push
+

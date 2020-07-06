@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: manga props
+# key: mangaprop
+# --
+
+:PROPERTIES:
+:Autor: $1
+:Demografía: $2
+:Género: $3
+:END:
+*Sinopsis:* $0

@@ -77,13 +77,15 @@ XF86AudioLowerVolume
 XF86AudioRaiseVolume
 	pamixer -i 2 ; pkill -RTMIN+10 blocks
 XF86AudioPlay
-	playerctl play-pause
+	playerctl play-pause ; pkill -RTMIN+12 blocks
 XF86AudioNext
-	playerctl next
+	playerctl next ; pkill -RTMIN+12 blocks
 XF86AudioPrev
-	playerctl previous
+	playerctl previous ; pkill -RTMIN+12 blocks
 XF86AudioStop
-	playerctl stop
+	playerctl stop ; pkill -RTMIN+12 blocks
+XF86AudioMicMute
+	amixer set Capture toggle
 
 # Subir brillo
 #XF86MonBrightnessUp
@@ -95,7 +97,7 @@ XF86AudioStop
 
 
 # bloquear teclado
-control + alt + l
+XF86ScreenSaver
 	betterlockscreen --lock blur
 
 # Bloquear trackpad
@@ -144,7 +146,8 @@ super + shift + p
       ~/.local/bin/kdeconnect-dmenu
 
 #Apagar
-super + F12
+#super + F12
+XF86Launch1
       ~/.local/bin/apagar
 #       clearine 
 

@@ -2,7 +2,7 @@
 
 export NNN_TRASH=1
 export NNN_OPENER_DETACH=1
-export NNN_BMS='h:/mnt/DATA/juan;r:/run/media/;d:/mnt/DATA/juan/Drive;D:~/Downloads;c:~/.config'
+export NNN_BMS='h:/mnt/Data;r:/run/media/;d:/mnt/Data/Drive;D:~/Downloads;c:~/.config'
 export LC_COLLATE="C"
 export NNN_PLAIN_FILTER=1
 export NNN_OPENER=~/.local/bin/nnn-opener

@@ -1,0 +1,10 @@
+#! /bin/sh
+
+while true; do
+    read -t 1 -n 1 key
+
+    if [[ $key == o ]]; then
+	notify-send "presionaste la o"
+    fi
+done
+

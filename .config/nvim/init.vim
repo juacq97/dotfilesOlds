@@ -27,8 +27,10 @@ Plug 'chrisbra/Colorizer'
 Plug 'SidOfc/mkdx'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'godlygeek/tabular'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tpope/vim-eunuch'
 Plug 'junegunn/limelight.vim'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 """""""""""""""""""
@@ -43,19 +45,20 @@ set wildmenu		       " es a dos puntos lo que counsel es a M-x
 set wildmode=list:longest,full
 "set noshowmode		       " Quitar el texto debajo de modeline
 set linebreak		       " Corta palabras al final de la misma
+set hidden
 set laststatus=0	       " Activa el modeline
 set textwidth=0		       " Desactiva el hard linebreak
 set formatoptions+=t
+colorscheme gruvbox
 set rulerformat=%18(%l,%c\ %m%r%)\ %P
 syntax enable
 filetype plugin indent on
-
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ }
-
 set cursorline			" activa el resaltado de la linea
-highlight CursorLine cterm=NONE ctermbg=black
+highlight Comment cterm=italic gui=italic
+set conceallevel=0
+let g:pandoc#syntax#conceal#cchar_overrides = {"atx" : "#"}
+let g:pandoc#syntax#conceal#urls = 1
+"highlight CursorLine cterm=NONE ctermbg=black
 
 """""""""""""""""
 " Funcionamiento
@@ -95,13 +98,13 @@ nnoremap <leader><tab> /<++><CR>cw
 noremap <F6> :Goyo <CR>
 "highlight CursorLine cterm=NONE ctermbg=black <CR>
 autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight! | highlight CursorLine cterm=NONE ctermbg=black
+autocmd! User GoyoLeave Limelight!
 
 autocmd  User GoyoLeave "Activar spellcheck con F5
 noremap <F5> :setlocal spell! spelllang=es<CR>
 
 " Abrir con space space
-noremap <leader><leader> :Ntree<CR>
+noremap <leader><leader> :silent !st -e nwrap<CR>
 
 " Teclas desactivadas
 """""""""""""""""""""
@@ -118,8 +121,3 @@ command D :Rename DONE_%:t|wq
 
 
 
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-let g:limelight_default_coefficient = 0.9
-autocmd InsertEnter * norm zz

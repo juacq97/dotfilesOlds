@@ -1,0 +1,5 @@
+[Unit]
+Description=Set TrackPoint attributes
+
+[Service]
+ExecStart=/usr/local/bin/trackpoint_configuration.sh

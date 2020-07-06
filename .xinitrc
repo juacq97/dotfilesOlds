@@ -15,7 +15,7 @@ flameshot &
 sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 dunst &
 ~/.local/dwmblocks & 
-xinput enable 11 &
+xinput disable 11 &
 
 export QT_QPA_PLATFORMTHEME="qt5ct"
 

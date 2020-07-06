@@ -33,7 +33,7 @@ Xcursor.theme_core: 1
 !*.color15:      #ffffff
 
 ! Dracula Xresources palette
-!!*.background: #0e100e
+!*.background: #0e100e
 !*.foreground: #f8f8f2
 !*.background: #282a36
 !*.color0:     #000000
@@ -135,4 +135,4 @@ Xcursor.theme_core: 1
 !*.color6:       #56B6C2
 !*.color14:      #56B6C2
 !*.color7:       #ABB2BF
-!*.color15:      #3E4452
+!*.color15:      #ABB2BF

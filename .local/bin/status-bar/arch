@@ -8,9 +8,6 @@ if ! updates=$(checkupdates 2> /dev/null | wc -l ); then
     updates=0
 fi
 
+echo $updates > ~/.cache/pacman_updates
 
-if [ "$updates" -gt 0 ]; then
-    echo "$ifg $icon $tfg$updates"
-else
-    echo "$ifg $icon $tfg 0"
-fi
+echo "$ifg $icon $tfg$(cat ~/.cache/pacman_updates)"

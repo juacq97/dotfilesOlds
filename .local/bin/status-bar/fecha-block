@@ -1,0 +1,13 @@
+#! /bin/sh
+
+icon=󰸘
+ifg=^c#282828^
+tfg=^c#282828^
+ibg=^b#8ec07c^
+tbg=^b#fbf2c7^
+reset=^d^
+
+cmd=$(date +"%b %e, %R")
+
+
+echo "$reset $ibg$ifg $icon $tbg$tfg$cmd"
