@@ -47,6 +47,11 @@ super + e
       emacsclient -c
 #	st -e nvim
 
+# referencias
+super + alt + r
+      emacsclient -c /mnt/Data/Drive/GTD/referencias.org
+
+
 super + ctrl + t
       ~/.local/bin/planeaciones
 
@@ -99,29 +104,6 @@ XF86AudioMicMute
 # bloquear teclado
 XF86ScreenSaver
 	betterlockscreen --lock blur
-
-# Bloquear trackpad
-XF86TouchpadToggle
-	~/.local/bin/toggle-touchpad
-
-super + control + F2
-      ~/.local/bin/check-network-es
-
-#matar compton
-super + o
-#      killall compton
-       killall picom
-
-#revivir compton
-super + shift + o
-#     compton --config ~/.config/compton.conf
-     picom --config ~/.config/compton.conf
-
-# Reiniciar sxhdk 
-super + shift + r
-      pkill -USR1 -x sxhkd
-
-#Reinicar bspwm
 super + ctrl + r
       bspc wm -r
 
@@ -156,7 +138,7 @@ super + ctrl + p
       clipmenu
 
 # Monitores
-super + ctrl + F1
+XF86Display
       ~/.local/bin/monitores
 
 # Pacman-dmenu

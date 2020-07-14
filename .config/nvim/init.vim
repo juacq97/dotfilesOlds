@@ -49,7 +49,7 @@ set hidden
 set laststatus=0	       " Activa el modeline
 set textwidth=0		       " Desactiva el hard linebreak
 set formatoptions+=t
-colorscheme gruvbox
+"colorscheme gruvbox
 set rulerformat=%18(%l,%c\ %m%r%)\ %P
 syntax enable
 filetype plugin indent on

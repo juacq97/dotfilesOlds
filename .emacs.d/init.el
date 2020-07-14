@@ -280,6 +280,9 @@
   :config
   (setq terminal-here-terminal-command "st"))
 
+(use-package ranger
+  :ensure t
+  )
 
 
 ;;==========
@@ -495,7 +498,7 @@
  '(objed-cursor-color "#D83441")
  '(package-selected-packages
    (quote
-    (terminal-here projectile zone-nyan nyan-mode selectric-mode landmark fireplace parrot volume easy-hugo htmlize swiper-helm helm-swiper selectrum-prescient selectrum evil-magit evil-org evil-collection amx bug-hunter org-bullets focus smartparens ewal-doom-themes ewal olivetti writeroom-mode heaven-and-hell doom-themes all-the-icons-ivy-rich ivy-rich all-the-icons-ivy all-the-icons-dired neotree rainbow-mode markdown-mode magit yasnippet ivy-prescient counsel ivy helm which-key evil doom-modeline use-package)))
+    (parse-csv edit-indirect image-dired+ ranger dired-ranger terminal-here projectile zone-nyan nyan-mode selectric-mode landmark fireplace parrot volume easy-hugo htmlize swiper-helm helm-swiper selectrum-prescient selectrum evil-magit evil-org evil-collection amx bug-hunter org-bullets focus smartparens ewal-doom-themes ewal olivetti writeroom-mode heaven-and-hell doom-themes all-the-icons-ivy-rich ivy-rich all-the-icons-ivy all-the-icons-dired neotree rainbow-mode markdown-mode magit yasnippet ivy-prescient counsel ivy helm which-key evil doom-modeline use-package)))
  '(pdf-view-midnight-colors (cons "#CEDBE5" "#0D0E16"))
  '(prescient-persist-mode t)
  '(rustic-ansi-faces
@@ -529,6 +532,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "ADBO" :family "JetBrains Mono"))))
- '(org-done ((t (:inherit org-headline-done :foreground "#b8bb26" :weight bold))))
+ '(org-done ((t (:inherit org-headline-done :background "#282a36" :foreground "#b8bb26" :strike-through nil :weight bold))))
  '(org-headline-done ((t (:foreground "#b8bb26"))))
  '(org-todo ((t (:foreground "#cc241d" :weight bold)))))

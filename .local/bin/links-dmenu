@@ -12,12 +12,14 @@ if [ "$sel" != "" ]; then
 	#Busca lo escrito según la palabra que lo anteceda
 	options=$(echo $sel | cut -d" " -f1)
 	page=$(echo $sel | cut -d" " -f2-)
+	echo $sel
 	case $options in
-	    arch) xdg-open https://wiki.archlinux.org/index.php?search="$page";;
-	    yt) firefox https://www.youtube.com/results?search_query="$page";;
-	    rae) xdg-open https://dle.rae.es/?id=DgIqVCc#&formList=form&w="$page";;
-	    r) xdg-open https://www.reddit.com/r/"$page";;
-	    *) xdg-open https://duckduckgo.com/?q="$sel";;
+	    !a) firefox https://wiki.archlinux.org/index.php?search="$page";;
+	    !yt) firefox https://www.youtube.com/results?search_query="$page";;
+	    !rae) firefox https://dle.rae.es/?id=DgIqVCc#&formList=form&w="$page";;
+	    !r) firefox https://www.reddit.com/r/"$page";;
+	    !) firefox "$page";;
+	    *) firefox https://duckduckgo.com/?q="$sel";;
 	esac
     fi
 fi
