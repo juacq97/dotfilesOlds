@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-07-17 vie 20:20 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Juan Adrian Castro Quintana" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<p>
+  █████  ██████████   ██████    █████   ██████
+ ██░░░██░░██░░██░░██ ░░░░░░██  ██░░░██ ██░░░░ 
+░███████ ░██ ░██ ░██  ███████ ░██  ░░ ░░█████ 
+░██░░░░  ░██ ░██ ░██ ██░░░░██ ░██   ██ ░░░░░██
+░░██████ ███ ░██ ░██░░████████░░█████  ██████ 
+ ░░░░░░ ░░░  ░░  ░░  ░░░░░░░░  ░░░░░  ░░░░░░ 
+</p>
+
+<p>
+<code>===============================================</code>
+</p>
+
+<p>
+;; Configurar MELPA para use-package
+(package-initialize)
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "<a href="https://melpa.org/packages/">https://melpa.org/packages/</a>"))
+</p>
+
+<p>
+;; Repositorio local
+(add-to-list 'load-path "~/.emacs.d/modes")
+</p>
+
+<p>
+;; Instala use-package en caso de no estar
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+</p>
+
+<p>
+;;=================
+;; PAQUETES
+;;=================
+</p>
+
+<p>
+;; Doom modeline
+;;=================
+(use-package doom-modeline
+:ensure t
+:hook (after-init . doom-modeline-mode)
+:config
+(setq doom-modeline-height 20)
+(setq doom-modeline-bar-width 4)
+(setq doom-modeline-buffer-file-name-style 'relative-from-project)
+(setq doom-modeline-icon t)
+(setq doom-modeline-major-mode-icon t)
+(setq doom-modeline-major-mode-color-icon t)
+(setq doom-modeline-minor-modes nil)
+(setq doom-modeline-enable-word-count t)
+(setq doom-modeline-checker-simple-format t)
+(setq doom-modeline-persp-name t)
+(setq doom-modeline-lsp nil)
+(setq doom-modeline-github t)
+(setq doom-modeline-github-interval (* 30 60))
+(setq doom-modeline-env-version t)
+(setq doom-modeline-env-enable-python t)
+(setq doom-modeline-env-enable-ruby t)
+(setq doom-modeline-env-enable-perl t)
+(setq doom-modeline-env-enable-go t)
+(setq doom-modeline-env-enable-elixir t)
+(setq doom-modeline-env-enable-rust t)
+(setq doom-modeline-env-python-executable "python")
+(setq doom-modeline-env-ruby-executable "ruby")
+(setq doom-modeline-env-perl-executable "perl")
+(setq doom-modeline-env-go-executable "go")
+(setq doom-modeline-env-elixir-executable "iex")
+(setq doom-modeline-env-rust-executable "rustc")
+(setq doom-modeline-mu4e t)
+(setq doom-modeline-irc t)
+(setq doom-modeline-irc-stylize 'identity))
+</p>
+
+<p>
+;; Evil-mode
+;;;;;;;;;;;;;;
+</p>
+
+<p>
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1)
+  (setq-default evil-cross-lines t)
+)
+</p>
+
+<p>
+;; Movimiento respeta las lineas visuales
+(define-key evil-normal-state-map (kbd "&lt;remap&gt; &lt;evil-next-line&gt;") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "&lt;remap&gt; &lt;evil-previous-line&gt;") 'evil-previous-visual-line)
+(define-key evil-motion-state-map (kbd "&lt;remap&gt; &lt;evil-next-line&gt;") 'evil-next-visual-line)
+(define-key evil-motion-state-map (kbd "&lt;remap&gt; &lt;evil-previous-line&gt;") 'evil-previous-visual-line)
+(define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
+</p>
+
+<p>
+;; Algunos atajos basados en SPC como leader key
+(define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
+(define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
+(define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
+(define-key evil-normal-state-map (kbd "SPC s") 'swiper)
+(define-key evil-normal-state-map (kbd "SPC p") 'projectile-find-file)
+(define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
+(define-key evil-normal-state-map (kbd "SPC g") 'magit)
+(define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
+(define-key evil-normal-state-map (kbd "SPC t") (lambda () (interactive) (shell-command "st &gt; /dev/null 2&gt;&amp;1 &amp; disown")))
+</p>
+
+<p>
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+</p>
+
+<p>
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+</p>
+
+<p>
+(use-package evil-magit
+  :ensure t)
+</p>
+
+<p>
+;;;; Which key
+;;;;;;;;;;;;;;;
+(use-package which-key
+  :ensure t
+  :init
+  (which-key-mode))
+</p>
+
+<p>
+;;;; Ivy-mode
+;;;;;;;;;;;;;;
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t
+        ivy-count-format "%d/%d ")
+  (setq ivy-re-builders-alist '((swiper . ivy&#x2013;regex-plus)
+                                (t . ivy&#x2013;regex-fuzzy))))
+(setq ivy-extra-directories nil)
+</p>
+
+<p>
+(use-package ivy-rich
+  :ensure t
+  :config
+  (ivy-rich-mode 1))
+</p>
+
+<p>
+(use-package ivy-prescient
+  :ensure t
+  :config
+  (prescient-persist-mode 1)
+  (ivy-prescient-mode 1))
+</p>
+
+<p>
+(use-package counsel
+  :ensure t
+  :config
+  (counsel-mode 1)
+  :bind (
+	  ("M-x" . counsel-M-x)
+	  ("C-x C-f" . counsel-find-file)))
+(define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+(define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+</p>
+
+<p>
+(use-package swiper
+  :ensure t
+  :bind (
+	 ("C-s" . swiper)))
+</p>
+
+<p>
+;;;; Yasnippet ;;;;;
+(use-package yasnippet
+   :ensure t
+   :config
+   (yas-global-mode))
+</p>
+
+<p>
+;;;; Magit ;;;;;
+(use-package magit
+  :ensure t)
+(global-set-key (kbd "C-x C-g") 'magit)
+</p>
+
+<p>
+;;;; Markdown-mode ;;;;
+(use-package markdown-mode
+  :ensure t
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+(setq markdown-command "/usr/bin/pandoc")
+</p>
+
+<p>
+;;;; rainbow-mode ;;;;
+(use-package rainbow-mode
+   :ensure t
+   :init (rainbow-mode 1))
+</p>
+
+<p>
+;;;; Neotree ;;;;
+(use-package neotree
+  :ensure t
+  :config
+  (global-set-key [f8] 'neotree-toggle))
+</p>
+
+<p>
+;;;; All the icons ;;;;
+(use-package all-the-icons
+  :ensure t)
+</p>
+
+<p>
+(use-package all-the-icons-ivy-rich
+  :ensure t
+  :init (all-the-icons-ivy-rich-mode 1))
+</p>
+
+<p>
+;;;; Doom-themes ;;;;
+(use-package doom-themes
+  :ensure t
+  :config
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+	doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-dracula t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config)
+  )
+;(add-hook 'after-make-frame-functions 'my-frame-config)
+;(add-hook 'after-init-hook 'my-frame-config)
+</p>
+
+<p>
+;; heaven and hell ;;;;
+(use-package heaven-and-hell
+  :ensure t
+  :init
+  (setq heaven-and-hell-theme-type 'dark)
+  (setq heaven-and-hell-themes
+        '((light . doom-one-light)
+          (dark . doom-dracula)))
+  (setq heaven-and-hell-load-theme-no-confirm t)
+  :hook (after-init . heaven-and-hell-init-hook)
+  :bind (("C-c &lt;f7&gt;" . heaven-and-hell-load-default-theme)
+         ("&lt;f7&gt;" . heaven-and-hell-toggle-theme)))
+</p>
+
+<p>
+;;;; Writeroom-mode ;;;;
+(use-package writeroom-mode
+  :ensure t
+  :bind (
+	 ("&lt;f6&gt;" . writeroom-mode)))
+</p>
+
+<p>
+;;; Focus-mode
+(use-package focus
+  :ensure t)
+</p>
+
+<p>
+;;; Ewal ;;;;
+(use-package ewal
+  :ensure t
+  :init (setq ewal-use-built-in-always-p nil
+              ewal-use-built-in-on-failure-p t
+              ewal-built-in-palette "sexy-material"))
+</p>
+
+<p>
+(use-package ewal-doom-themes
+  :ensure t)
+</p>
+
+<p>
+;;;; Smart Parents ;;;;
+(use-package smartparens
+  :ensure t
+  :config
+  (smartparens-mode t))
+</p>
+
+<p>
+;;;; Rainbow delimitersa ;;;;
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+</p>
+
+<p>
+;;; Projectile ;;;
+(use-package projectile
+  :ensure t
+;  :bind 
+;	 ("C-x C-p" . projectile)
+  :config
+  (projectile-mode 1)) 
+</p>
+
+<p>
+;;; Easy hugo ;;;
+(use-package easy-hugo
+  :ensure t
+  :init 
+;;; Main blog
+  (setq easy-hugo-basedir "<i>mnt/Data/Blog</i>")
+  (setq easy-hugo-postdir "content/posts/")
+  :config
+  (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
+  (setq easy-hugo-default-ext ".org")
+  (setq easy-hugo-org-header t)
+ )
+</p>
+
+<p>
+(use-package terminal-here
+  :ensure t
+  :config
+  (setq terminal-here-terminal-command "st"))
+</p>
+
+<p>
+(use-package ranger
+  :ensure t
+  )
+</p>
+
+
+<p>
+;;==========
+;; Org-mode
+;;==========
+</p>
+
+<p>
+(setq org-fontify-done-headline nil)
+(use-package org-bullets
+  :ensure t
+  :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  )
+</p>
+
+<p>
+;;(font-lock-add-keywords 'org-mode
+;;                        '(("^ +\\([-*]\\) "
+;;                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+;;
+;;(let* (
+;;       (base-font-color     (face-foreground 'default nil 'default))
+;;       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+;;
+;;(custom-theme-set-faces 'user
+;;			`(org-level-8 ((t (,@headline))))
+;;			`(org-level-7 ((t (,@headline))))
+;;			`(org-level-6 ((t (,@headline))))
+;;			`(org-level-5 ((t (,@headline))))
+;;			`(org-level-4 ((t (,@headline :height 1.1))))
+;;                        `(org-level-3 ((t (,@headline :height 1.25))))
+;;			`(org-level-2 ((t (,@headline :height 1.5))))
+;;			`(org-level-1 ((t (,@headline :height 1.75))))
+;;			`(org-document-title  ((t (, :height 1.5 :underline nil))))))
+</p>
+
+<p>
+;; agenda con C-c a
+(global-set-key (kbd "C-c a") 'org-agenda)
+(setq org-agenda-window-setup
+      'other-window)
+(setq org-agenda-span 3)
+(setq org-agenda-start-on-weekday nil)
+(setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+(setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+</p>
+
+<p>
+;; Agenda flotante
+(defun agenda-frame ()
+  (interactive)
+  (org-agenda nil "n")
+  (delete-other-windows))
+</p>
+
+<p>
+;; Org capture flotante
+(defadvice org-capture-finalize
+(after delete-capture-frame activate)
+"Advise capture-finalize to close the frame"
+(if (equal "capture" (frame-parameter nil 'name))
+(delete-frame)))
+</p>
+
+<p>
+(defadvice org-capture-destroy
+(after delete-capture-frame activate)
+"Advise capture-destroy to close the frame"
+(if (equal "capture" (frame-parameter nil 'name))
+(delete-frame)))
+</p>
+
+<p>
+;; Parte de un archivo como link de org mode
+(global-set-key (kbd "C-c l") 'org-store-link)
+</p>
+
+<p>
+;; Plantillas para org capture
+(global-set-key (kbd "C-c c") 'org-capture)
+(setq org-capture-templates
+      '(
+	("i" "Inbox" entry
+	 (file "~/Drive/GTD/inbox.org")
+	 "* %?\n%u" :prepend t)
+</p>
+
+<p>
+;	("t" "TODO" entry
+;	 (file "~/Drive/GTD/0gtd.org")
+;	 "* TODO %?\n%u" :prepend t)
+</p>
+
+<p>
+;	("a" "Agenda"  entry
+;	 (file+headline "~/Drive/sync/GTD/0gtd.org" "Agenda")
+;	 "* EVENTO %?\n SCHEDULED: %t")
+</p>
+
+<p>
+("n" "Notas" entry
+ (file+headline "~/Drive/GTD/referencias.org" "Notas")
+ "* %?" :prepend t)
+</p>
+
+<p>
+("d" "Diario" entry
+ (file+olp+datetree "~/Drive/SEC-ABREOJOS/DIARIO.org")
+ "* %?" :prepend t)))
+</p>
+
+<p>
+;; Soporte para seleccionar con shift 
+(setq org-support-shift-select t)
+</p>
+
+<p>
+;; Exportar en beamer
+(org-beamer-mode)
+</p>
+
+<p>
+;; Clases latex extra
+(add-to-list 'org-latex-classes
+      '("koma-article"
+	"\\documentclass{scrartcl}"
+	("\\section{%s}" . "\\section*{%s}")
+	("\\subsection{%s}" . "\\subsection*{%s}")
+	("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	("\\paragraph{%s}" . "\\paragraph*{%s}")
+	("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+</p>
+
+<p>
+(add-to-list 'org-latex-classes
+	     '("doc-recepcional"
+	       "\\documentclass{report}"
+	       ("\\chapter{%s}" . "\\chapter*{%s}")
+	       ("\\section{%s}" . "\\section*{%s}")
+	       ("\\subsection{%s}" . "\\subsection*{%s}")
+	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+	       )
+)
+</p>
+
+<p>
+;;==================
+;; UI
+;;==================
+</p>
+
+<p>
+;;;;; Responder y/n ;;;;;
+(defalias 'yes-or-no-p 'y-or-n-p)
+</p>
+
+<p>
+;;;; Desplazarse una línea ;;;;;
+(setq scroll-conservatively 100)
+</p>
+
+<p>
+;;;; Destacar línea del cursor ;;;;
+(global-hl-line-mode t)
+</p>
+
+<p>
+;;;; Mandar autosave a un directorio específico ;;;;
+(setq make-backup-files nil)
+(setq backup-directory-alist
+      `((".*" . ,"~/.emacs.d/backups/")))
+(setq auto-save-file-name-transforms
+      `((".*" ,"~/.emacs.d/backups/")))
+</p>
+
+<p>
+;;;; Ocultar elementos ;;;;
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+(global-set-key (kbd "M-m") 'menu-bar-mode) ; M-m hace aparecer el menú
+</p>
+
+<p>
+;;;; Abrir configuración con C-c e ;;;;
+(defun config-visit ()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+(global-set-key (kbd "C-c e") 'config-visit)
+</p>
+
+<p>
+;;;; Seguir al buffer nuevo ;;;;;
+(defun split-and-follow-horizontally ()
+  (interactive)
+  (split-window-below)
+  (balance-windows)
+  (other-window 1))
+(global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
+</p>
+
+<p>
+(defun split-and-follow-vertically ()
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+(global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+</p>
+
+<p>
+;;;; Mostrar línea actual en modeline ;;;;;
+(column-number-mode 1)
+</p>
+
+<p>
+;;;; Matar con C-x k ;;;;
+(global-set-key (kbd "C-x k") 'kill-current-buffer)
+</p>
+
+<p>
+;;;; Visual line mode con C-c v ;;;;
+(global-set-key (kbd "C-c v") 'visual-line-mode)
+(global-visual-line-mode 1)
+</p>
+
+<p>
+;;;; Flyspell con F5 ;;;;
+(global-set-key (kbd "&lt;f5&gt;")  'ispell-word) 
+</p>
+
+<p>
+;;;; Mostrar números de líneas ;;;;
+(global-display-line-numbers-mode)
+(setq display-line-numbers-type 'relative)
+</p>
+
+<p>
+;;;; Resaltar el otro parentesis
+(show-paren-mode t)
+</p>
+
+<p>
+;;; Cursor no parpadeante
+(blink-cursor-mode 0)
+</p>
+
+<p>
+;; Text scratch como buffer inicial
+(setq inhibit-splash-screen t)
+(setq initial-scratch-message nil)
+(setq initial-major-mode (quote text-mode))
+(setq vc-follow-symlinks t)
+</p>
+
+<p>
+;; set font for emoji
+(set-fontset-font "fontset-default" '(#xF0000 . #xF14FF) "Material Design Icons")
+</p>
+
+<p>
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(all-the-icons-ivy-rich-mode t)
+ '(ansi-color-names-vector
+   ["#0D0E16" "#D83441" "#79D836" "#D8B941" "#3679D8" "#8041D8" "#36D8BD" "#CEDBE5"])
+ '(custom-enabled-themes (quote (ewal-doom-one)))
+ '(custom-safe-themes
+   (quote
+    ("99ea831ca79a916f1bd789de366b639d09811501e8c092c85b2cb7d697777f93" "e30e72b10b9c7887ff8adcd1a25b5c6eaa32665e0f8f40994e5b6d51069d3b2a" "7a994c16aa550678846e82edc8c9d6a7d39cc6564baaaacc305a3fdc0bd8725f" "0cb1b0ea66b145ad9b9e34c850ea8e842c4c4c83abe04e37455a1ef4cc5b8791" "730a87ed3dc2bf318f3ea3626ce21fb054cd3a1471dcd59c81a4071df02cb601" "e074be1c799b509f52870ee596a5977b519f6d269455b84ed998666cf6fc802a" "3c2f28c6ba2ad7373ea4c43f28fcf2eed14818ec9f0659b1c97d4e89c99e091e" "9b01a258b57067426cc3c8155330b0381ae0d8dd41d5345b5eddac69f40d409b" "2035a16494e06636134de6d572ec47c30e26c3447eafeb6d3a9e8aee73732396" "8a379e7ac3a57e64de672dd744d4730b3bdb88ae328e8106f95cd81cbd44e0b6" "f2b56244ecc6f4b952b2bcb1d7e517f1f4272876a8c873b378f5cf68e904bd59" "9f15d03580b08dae41a1e5c1f00d1f1aa99fea121ca32c28e2abec9563c6e32c" "379a804655efccc13a3d446468992bfdfc30ff27d19cfda6f62c7f9c9e7a8a7d" "a92e9da0fab90cbec4af4a2035602208cebf3d071ea547157b2bfc5d9bd4d48d" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "7f791f743870983b9bb90c8285e1e0ba1bf1ea6e9c9a02c60335899ba20f3c94" "aa5dee47c85f12d166745ae56c778eb7833df3f6799c2b2d607d5b8da8f5f579" "3d3807f1070bb91a68d6638a708ee09e63c0825ad21809c87138e676a60bda5d" "9efb2d10bfb38fe7cd4586afb3e644d082cbcdb7435f3d1e8dd9413cbe5e61fc" "be9645aaa8c11f76a10bcf36aaf83f54f4587ced1b9b679b55639c87404e2499" "1526aeed166165811eefd9a6f9176061ec3d121ba39500af2048073bea80911e" "76bfa9318742342233d8b0b42e824130b3a50dcc732866ff8e47366aed69de11" "d71aabbbd692b54b6263bfe016607f93553ea214bc1435d17de98894a5c3a086" "3577ee091e1d318c49889574a31175970472f6f182a9789f1a3e9e4513641d86" "fe94e2e42ccaa9714dd0f83a5aa1efeef819e22c5774115a9984293af609fce7" "bc836bf29eab22d7e5b4c142d201bcce351806b7c1f94955ccafab8ce5b20208" default)))
+ '(doom-modeline-modal-icon nil)
+ '(evil-echo-state nil)
+ '(evil-want-minibuffer nil)
+ '(fci-rule-color "#767676")
+ '(global-display-line-numbers-mode t)
+ '(jdee-db-active-breakpoint-face-colors (cons "#0F1019" "#D85F00"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#0F1019" "#79D836"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#0F1019" "#767676"))
+ '(objed-cursor-color "#D83441")
+ '(package-selected-packages
+   (quote
+    (parse-csv edit-indirect image-dired+ ranger dired-ranger terminal-here projectile zone-nyan nyan-mode selectric-mode landmark fireplace parrot volume easy-hugo htmlize swiper-helm helm-swiper selectrum-prescient selectrum evil-magit evil-org evil-collection amx bug-hunter org-bullets focus smartparens ewal-doom-themes ewal olivetti writeroom-mode heaven-and-hell doom-themes all-the-icons-ivy-rich ivy-rich all-the-icons-ivy all-the-icons-dired neotree rainbow-mode markdown-mode magit yasnippet ivy-prescient counsel ivy helm which-key evil doom-modeline use-package)))
+ '(pdf-view-midnight-colors (cons "#CEDBE5" "#0D0E16"))
+ '(prescient-persist-mode t)
+ '(rustic-ansi-faces
+   ["#0D0E16" "#D83441" "#79D836" "#D8B941" "#3679D8" "#8041D8" "#36D8BD" "#CEDBE5"])
+ '(vc-annotate-background "#0D0E16")
+ '(vc-annotate-color-map
+   (list
+    (cons 20 "#79D836")
+    (cons 40 "#98cd39")
+    (cons 60 "#b8c33d")
+    (cons 80 "#D8B941")
+    (cons 100 "#d89b2b")
+    (cons 120 "#d87d15")
+    (cons 140 "#D85F00")
+    (cons 160 "#ba5548")
+    (cons 180 "#9d4b90")
+    (cons 200 "#8041D8")
+    (cons 220 "#9d3ca5")
+    (cons 240 "#ba3873")
+    (cons 260 "#D83441")
+    (cons 280 "#bf444e")
+    (cons 300 "#a7555b")
+    (cons 320 "#8e6568")
+    (cons 340 "#767676")
+    (cons 360 "#767676")))
+ '(vc-annotate-very-old-color nil)
+ '(writeroom-fullscreen-effect (quote maximized)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "ADBO" :family "JetBrains Mono"))))
+ '(org-done ((t (:inherit org-headline-done :background "#282a36" :foreground "#b8bb26" :strike-through nil :weight bold))))
+ '(org-headline-done ((t (:foreground "#b8bb26"))))
+ '(org-todo ((t (:foreground "#cc241d" :weight bold)))))
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Juan Adrian Castro Quintana</p>
+<p class="date">Created: 2020-07-17 vie 20:20</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -7,7 +7,8 @@ if [ "$sel" != "" ]; then
     #Se asegura que la selección exista en el archivo links
     if grep -Fxq "$sel" ~/.local/bin/links-list; then
 	page=$(echo $sel | cut -d: -f2-)
-	xdg-open $page
+	echo $page
+	firefox "$page"
     else
 	#Busca lo escrito según la palabra que lo anteceda
 	options=$(echo $sel | cut -d" " -f1)
