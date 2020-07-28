@@ -74,7 +74,7 @@ font-2 = MesloLGS NF:style=Regular:size=15;3
 font-3 = Weather Icons:size=12;2
 ;=========================================
 ;====== MODULOS =========
-modules-left 	=  sep dwm-layout sep xwindow spotify
+modules-left 	=  sep dwm-layout sep xwindow sep spotify
 modules-center 	= dwm
 modules-right 	=  date sep key-icon xkeyboard sep arch sep vol-icon pulseaudio sep bat-icon battery sep net
 tray-position 	= none
