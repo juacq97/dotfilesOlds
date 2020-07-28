@@ -37,6 +37,7 @@ DISABLE_AUTO_TITLE="false"
 #ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="mm/dd/yyyy"
+
 #bindkey -v #vim mode 
 source $ZSH/oh-my-zsh.sh
 

@@ -76,19 +76,19 @@ super + Print
 ##Audio
 XF86AudioMute
 #	~/.local/bin/mute-audio
-	pamixer -t ; pkill -RTMIN+10 blocks
+	pamixer -t 
 XF86AudioLowerVolume
-	pamixer -d 2 ; pkill -RTMIN+10 blocks
+	pamixer -d 2 
 XF86AudioRaiseVolume
-	pamixer -i 2 ; pkill -RTMIN+10 blocks
+	pamixer -i 2 
 XF86AudioPlay
-	playerctl play-pause ; pkill -RTMIN+12 blocks
+	playerctl play-pause 
 XF86AudioNext
-	playerctl next ; pkill -RTMIN+12 blocks
+	playerctl next 
 XF86AudioPrev
-	playerctl previous ; pkill -RTMIN+12 blocks
+	playerctl previous 
 XF86AudioStop
-	playerctl stop ; pkill -RTMIN+12 blocks
+	playerctl stop 
 XF86AudioMicMute
 	amixer set Capture toggle
 
@@ -104,8 +104,14 @@ XF86AudioMicMute
 # bloquear teclado
 XF86ScreenSaver
 	betterlockscreen --lock blur
+
+# Reiniciar sxhdk 
+super + shift + r
+      pkill -USR1 -x sxhkd
+
 super + ctrl + r
-      bspc wm -r
+      make -C ~/.repos/dwm-polybar > /tmp/dwm-compile.log
+
 
 ##########################
 # .Local/Bin

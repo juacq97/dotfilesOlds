@@ -1,11 +1,11 @@
 [colors]
     background	= "#282a36"
     foreground 	= "#f8f8f2"
-    frame_color = "#0e0a06"
+    frame_color = "#282a36"
 
 
 [global]
-   frame_width = 0
+   frame_width = 2
     font = JetBrains Mono 10
     follow = none
     

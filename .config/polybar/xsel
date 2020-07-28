@@ -1,0 +1,57 @@
+[
+    {
+        "master_factor": 0.5,
+        "num_master": 1,
+        "num": 0,
+        "is_selected": true,
+        "monitor_geometry": {
+            "x": 0,
+            "y": 0,
+            "width": 1600,
+            "height": 900
+        },
+        "window_geometry": {
+            "x": 0,
+            "y": 21,
+            "width": 1600,
+            "height": 879
+        },
+        "tagset": {
+            "current": 1,
+            "old": 1
+        },
+        "tag_state": {
+            "selected": 1,
+            "occupied": 1,
+            "urgent": 0
+        },
+        "clients": {
+            "selected": 44040198,
+            "stack": [
+                44040198,
+                29360131
+            ],
+            "all": [
+                44040198,
+                29360131
+            ]
+        },
+        "layout": {
+            "symbol": {
+                "current": "󰕲",
+                "old": "󰕲"
+            },
+            "address": {
+                "current": 94555719298048,
+                "old": 94555719298064
+            }
+        },
+        "bar": {
+            "y": 0,
+            "is_shown": true,
+            "is_top": true,
+            "window_id": 25165825
+        }
+    }
+]
+

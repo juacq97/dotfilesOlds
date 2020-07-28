@@ -1,0 +1,532 @@
+;========================================================
+;
+;                   ██          ██                      
+; ██████           ░██  ██   ██░██                      
+;░██░░░██  ██████  ░██ ░░██ ██ ░██       ██████   ██████
+;░██  ░██ ██░░░░██ ░██  ░░███  ░██████  ░░░░░░██ ░░██░░█
+;░██████ ░██   ░██ ░██   ░██   ░██░░░██  ███████  ░██ ░ 
+;░██░░░  ░██   ░██ ░██   ██    ░██  ░██ ██░░░░██  ░██   
+;░██     ░░██████  ███  ██     ░██████ ░░████████░███   
+;░░       ░░░░░░  ░░░  ░░      ░░░░░    ░░░░░░░░ ░░░  
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;=========================================================
+
+;============================
+; CONFIGURACIONES GLOBALES
+;============================
+[colors]
+background		= #00282a36
+foreground     		= ${xrdb:foreground}
+color1			= ${xrdb:color1}
+color2			= ${xrdb:color2}
+color3			= ${xrdb:color3}
+color4			= ${xrdb:color4}
+color5			= ${xrdb:color5}
+color6			= ${xrdb:color6}
+color7			= ${xrdb:color7}
+color8			= ${xrdb:color8}
+color9			= ${xrdb:color9}
+color10			= ${xrdb:color10}
+color11			= ${xrdb:color11}
+color12			= ${xrdb:color12}
+color13			= ${xrdb:color13}
+color14			= ${xrdb:color14}
+color15			= ${xrdb:color15}
+
+[bar/example]
+monitor			= ${env:MONITOR:}
+width 			= 100%
+height 			= 25
+radius 			= 0
+fixed-center 		= true
+enable-ipc 		= true
+background 		= ${colors.background}
+foreground 		= ${colors.foreground}
+offset-x 		= 0
+line-size		= 2
+line-color		= 
+border-bottom-size	= 0
+border-top-size 	= 0
+border-top-color 	= ${colors.background}
+border-bottom-color 	= ${colors.background}
+border-size 		= 
+border-color 		= 4padding-left 		= 0
+padding-right 		= 0
+module-margin-left 	= 
+module-margin-right 	= 
+locale 			= es_MX.UTF-8
+
+ramp-volume-0 = " 󰕿"
+ramp-volume-1 = " 󰖀"
+ramp-volume-2 = " 󰕾"
+
+
+;========================================
+; FUENTES
+;========================================
+font-0 = Source Code Pro:style:medium:size=8;1
+font-1 = Material Design Icons:style=Regular:pixelsize=13:antialias=true;3
+font-2 = MesloLGS NF:style=Regular:size=15;3
+font-3 = Weather Icons:size=12;2
+;=========================================
+;====== MODULOS =========
+modules-left 	=  sep dwm-layout sep xwindow spotify
+modules-center 	= dwm
+modules-right 	=  date sep key-icon xkeyboard sep arch sep vol-icon pulseaudio sep bat-icon battery sep net
+tray-position 	= none
+tray-padding 	= 0
+tray-background  = 
+;tray-underline   = #1C98C9
+;tray-detached 	  = true
+override-redirect   = false
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+;============
+; MÓDULOS
+;============
+
+[module/dwm-layout]
+type = internal/dwm
+format = <label-layout>
+
+enable-layout-click = true
+enable-layout-scroll = true
+layout-scroll-wrap = true
+layout-scroll-reverse = false
+; If enable-layout-click = true, clicking the layout symbol will switch to this layout
+secondary-layout-symbol = [M]
+
+;   %title%
+label-title = %title%
+label-title-padding = 1 
+label-title-foreground = ${colors.foreground}
+label-title-maxlen = 30
+
+[module/dwm]
+type = internal/dwm
+format = <label-tags> 
+
+enable-tags-click = true
+enable-layout-click = true
+enable-layout-scroll = true
+layout-scroll-wrap = true
+layout-scroll-reverse = false
+; If enable-layout-click = true, clicking the layout symbol will switch to this layout
+secondary-layout-symbol = [M]
+
+; Separator in between shown tags
+; label-separator = |
+
+; Title of currently focused window
+; Available tokens:
+;   %title%
+label-title = %title%
+label-title-padding = 1 
+label-title-foreground = ${colors.foreground}
+label-title-maxlen = 30
+
+; Symbol of current layout
+; Available tokens:
+;   %symbol%
+label-layout = %symbol%
+label-layout-padding = 0
+label-layout-foreground = ${colors.foreground}
+label-layout-background = ${colors.background}
+
+; Text to show when currently focused window is floating
+label-floating = F
+
+; States: focused, unfocused, visible, urgent, empty
+; Available tokens:
+;   %name%
+
+; focused = Active tag on focused monitor
+label-focused = 󰪥
+label-focused-background = ${colors.background}
+label-focused-foreground = ${colors.foreground}
+label-focused-underline= 
+label-focused-padding = 0
+
+; unfocused = Inactive tag on any monitor
+label-unfocused = %name%
+label-unfocused-padding = 1
+
+; visible = Active tag on unfocused monitor
+label-visible = 󰝦
+label-visible-background = ${colors.background}
+label-visible-foreground = ${colors.foreground}
+label-visible-underline = 
+label-visible-padding = 0
+
+; urgent = Tag with urgency hint set
+label-urgent = %name%
+label-urgent-background = #aeaeae
+label-urgent-padding = 1
+
+; empty = Tags with no windows assigned
+; This can be set to an empty string to hide empty tags
+label-empty = "󰧟"
+label-empty-background = ${colors.background}
+;label-empty-foreground = ${colors.color4}
+label-empty-padding = 0
+
+[module/xwindow]
+type = internal/xwindow
+format-padding = 
+label = %title:0:30:...%
+label-empty = "dwm"
+format-background = ${colors.background} 
+format-foreground = ${colors.foreground} 
+
+[module/xkeyboard-icon]
+type = internal/xkeyboard
+format = <label-indicator>
+blacklist-0 = num lock 
+format-background =
+format-foreground = ${colors.foreground}
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-on-capslock = " 󰘶"
+label-indicator-off-capslock = " 󰌌"
+
+[module/key-icon]
+type = internal/xkeyboard
+blacklist-0 = num lock 
+format = <label-indicator>
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+label-indicator-padding = 2
+label-indicator-margin = 1
+indicator-icon-0 = "caps lock; 󰌌; 󰘶"
+label-indicator-on-capslock = %icon%
+label-indicator-off-capslock = %icon%
+label-indicator-on-capslock-foreground =${colors.color1}
+label-indicator-off-capslock-foreground =${colors.color13}
+
+[module/xkeyboard]
+type = internal/xkeyboard
+format = <label-layout>
+blacklist-0 = num lock 
+format-background =
+format-foreground = ${colors.foreground}
+format-prefix-background =
+format-prefix-foreground = ${colors.foreground}
+label-layout = %icon%
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-on-capslock = "󰘶"
+;label-indicator-background = ${colors.secondary}
+;label-indicator-underline = ${colors.secondary}
+;format-underline = #e6c9c4
+
+layout-icon-0 = latam; MX
+layout-icon-1 = us; US
+
+[module/date]
+type = internal/date
+interval = 1
+
+date =" %b %e,"
+date-alt = " %A %e de %B de %Y,"
+time = "%H:%M "
+time-alt = "%H:%M:%S "
+
+format-prefix = "󰥔"
+format-prefix-foreground = ${colors.foreground}
+format-prefix-background = 
+;format-underline = #e6c9c4
+
+label =%date% %time%
+label-background = 
+label-foreground = ${colors.foreground}
+
+format-padding = 
+
+[module/pulseaudio]
+type = internal/pulseaudio
+format-volume = <label-volume>
+format-muted = <label-muted> 
+label-volume = " %percentage%%"
+label-muted = " %percentage%%"
+
+label-muted-foreground = ${colors.color7}
+label-muted-background = ${colors.background}
+label-volume-foreground = ${colors.foreground}
+label-volume-background = 
+click-right = exec pavucontrol & 
+
+[module/vol-icon]
+type = internal/pulseaudio
+format-volume = <ramp-volume>
+format-muted = <label-muted>
+
+label-muted = "󰖁"
+label-muted-foreground = ${colors.color9}
+label-muted-background = ${colors.background}
+ramp-volume-foreground = ${colors.color14}
+ramp-volume-background = 
+
+ramp-volume-0 = " 󰕿"
+ramp-volume-1 = " 󰖀"
+ramp-volume-2 = " 󰕾"
+
+click-right = exec pavucontrol & 
+
+[module/bat-icon]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+format-charging = <animation-charging>
+format-discharging = <ramp-capacity>
+format-full = <ramp-capacity>
+
+format-charging-background = ${colors.background}
+format-discharging-background = ${colors.background}
+format-full-background = ${colors.background}
+
+format-charging-foreground = ${colors.color10}
+format-discharging-foreground = ${colors.color12}
+format-full-foreground = ${colors.color10}
+
+
+ramp-capacity-0 = " 󰁻"
+ramp-capacity-1 = " 󰁼"
+ramp-capacity-2 = " 󰁽"
+ramp-capacity-3 = " 󰁾"
+ramp-capacity-4 = " 󰁿"
+ramp-capacity-5 = " 󰂀"
+ramp-capacity-6 = " 󰂁"
+ramp-capacity-7 = " 󰂂"
+ramp-capacity-8 = " 󰁹"
+
+animation-charging-0 = " 󰢜"
+animation-charging-1 = " 󰂆"
+animation-charging-2 = " 󰂇"
+animation-charging-3 = " 󰂈"
+animation-charging-4 = " 󰢝"
+animation-charging-5 = " 󰂉"
+animation-charging-6 = " 󰢞"
+animation-charging-7 = " 󰂊"
+animation-charging-8 = " 󰂋"
+animation-charging-9 = " 󰂅"
+animation-charging-framerate = 750
+
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+format-charging = <label-charging>
+format-discharging = <label-discharging>
+format-full = <label-full>
+
+label-charging = " %percentage%% "
+label-discharging = " %percentage%% "
+label-full = " %percentage%% "
+
+format-charging-background = ${colors.background}
+format-discharging-background = ${colors.background}
+format-full-background = ${colors.background}
+
+format-charging-foreground = ${colors.foreground}
+format-discharging-foreground = ${colors.foreground}
+format-full-foreground = ${colors.foreground}
+
+
+ramp-capacity-0 = " 󰁻"
+ramp-capacity-1 = " 󰁼"
+ramp-capacity-2 = " 󰁽"
+ramp-capacity-3 = " 󰁾"
+ramp-capacity-4 = " 󰁿"
+ramp-capacity-5 = " 󰂀"
+ramp-capacity-6 = " 󰂁"
+ramp-capacity-7 = " 󰂂"
+ramp-capacity-8 = " 󰁹"
+
+animation-charging-0 = " 󰢜"
+animation-charging-1 = " 󰂆"
+animation-charging-2 = " 󰂇"
+animation-charging-3 = " 󰂈"
+animation-charging-4 = " 󰢝"
+animation-charging-5 = " 󰂉"
+animation-charging-6 = " 󰢞"
+animation-charging-7 = " 󰂊"
+animation-charging-8 = " 󰂋"
+animation-charging-9 = " 󰂅"
+animation-charging-framerate = 750
+
+[module/net]
+type = internal/network
+interface = wlp3s0
+interval = 15
+format-connected = <ramp-signal>
+format-disconnected = <label-disconnected>
+
+label-disconnected = "󰤮 "
+
+format-connected-background = 
+format-connected-foreground = ${colors.foreground}
+
+format-disconnected-background =
+format-disconnected-foreground = ${colors.foreground}
+
+ramp-signal-0 = "󰤯 "
+ramp-signal-1 = "󰤟 "
+ramp-signal-2 = "󰤢 "
+ramp-signal-3 = "󰤥 "
+ramp-signal-4 = "󰤨 "
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = " 󰓇 " 
+format = "<label> "
+exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+
+format-prefix-background =
+format-prefix-foreground = #23CF5F 
+
+click-left = playerctl play-pause
+;format-underline = #e6c9c4
+
+[module/clima-icon]
+type = custom/script
+exec = ~/.config/polybar/scripts/clima-icon
+interval = 3600
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+; click-left = ~/scripts/clima-img
+click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
+label-font = 4
+label = " %output%"
+;format-underline = #e6c9c4
+
+[module/clima]
+type = custom/script
+;exec = curl -s "wttr.in/LAP?format=%t"
+exec = curl -s "wttr.in/?format=%t"
+interval = 3600
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+label = "%output% "
+;click-left = ~/scripts/clima-img
+click-left = bspc rule -a \* -o state=floating rectangle 1050x680+158+44 && st -e sh -c "curl es.wttr.in; read x"
+;format-underline = #e6c9c4
+
+[module/kde]
+type = custom/script
+format-prefix = "  "
+label = "%output%% "
+exec = ~/.config/polybar/scripts/kde-bat
+interval = 300
+;format-back
+;format-underline = #005688
+click-left = ~/scripts/kdeconnect-dmenu
+
+[module/arch]
+type = custom/script
+format-prefix = " 󰮯 "
+format-prefix-foreground = ${colors.color11}
+label = "%output%" 
+format-background =
+format-foreground = 
+click-left = st -e sudo pacman -Syuu
+click-right = ~/scripts/pacman-dmenu
+exec = ~/.config/polybar/scripts/updates-arch.sh
+interval = 600
+;format-underline = #e6c9c4
+
+[module/app]
+type= custom/text
+content = "󰇙"
+click-left = rofi -theme dracula -show drun -terminal st
+content-background = 
+content-foreground = ${colors.foreground}
+content-padding = 1
+
+[module/sep-der1]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = 
+content-background =
+
+[module/sep-der2]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground =
+content-background =
+
+[module/sep-der0]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground =
+content-background =
+
+[module/sep-der3]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = #20ffffff
+content-background = ${colors.background}
+
+[module/sep-iz1]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground =
+content-background =
+
+[module/sep-iz2]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground =
+content-background =
+
+[module/sep-iz0]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = 
+content-background = 
+
+[module/sep-iz3]
+type = custom/text
+content = "%{T3}%{T-}"
+content-font = 3
+content-foreground = #20ffffff
+content-background = ${colors.background}
+
+[module/sep]
+type = custom/text
+content = "  "
+content-foreground = 
+content-background =
+;content-underline = #e6c9c4
+
+
+[module/icon]
+type = custom/text
+content = "%{T3}%{T}"
+content-font = 3
+
+[settings]
+;screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+pseudo-transparency = true

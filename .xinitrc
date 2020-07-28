@@ -1,6 +1,7 @@
 #! /bin/sh
 
 nitrogen --restore &
+~/.config/polybar/polybar-monitors.sh &
 #wal -sR &
 xrdb  ~/.Xresources &
 picom &
@@ -14,7 +15,7 @@ flameshot &
 #mpDris2 &
 sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 dunst &
-~/.local/dwmblocks & 
+#~/.local/dwmblocks & 
 xinput disable 11 &
 
 export QT_QPA_PLATFORMTHEME="qt5ct"
