@@ -23,23 +23,23 @@ else
 fi
 
 if [[ $bat -lt 10 ]]; then
-    echo "$ifg $ramp10 ^d^$bat%"
+    echo "$ramp10 $bat%"
 elif [[ $bat -lt 20 ]]; then
-    echo "$ifg $ramp20 ^d^$bat%"
+    echo "$ramp20 $bat%"
 elif [[ $bat -lt "30" ]]; then
-    echo "$ifg $ramp30 ^d^$bat%"
+    echo "$ramp30 $bat%"
 elif [[ $bat -lt "40" ]]; then
-    echo "$ifg $ramp40 ^d^$bat%"
+    echo "$ramp40 $bat%"
 elif [[ $bat -lt "50" ]]; then
-    echo "$ifg $ramp50 ^d^$bat%"
+    echo "$ramp50 $bat%"
 elif [[ $bat -lt "60" ]]; then
-    echo "$ifg $ramp60 ^d^$bat%"
+    echo "$ramp60 $bat%"
 elif [[ $bat -lt "70" ]]; then
-    echo "$ifg $ramp70 ^d^$bat%"
+    echo "$ramp70 $bat%"
 elif [[ $bat -lt "80" ]]; then
-    echo "$ifg $ramp80 ^d^$bat%"
+    echo "$ramp80 $bat%"
 elif [[ $bat -lt "90" ]]; then
-    echo "$ifg $ramp90 ^d^$bat%"
+    echo "$ramp90 $bat%"
 elif [[ $bat -le "100" ]]; then
-    echo "$ifg $ramp100 ^d^$bat%"
+    echo "$ramp100 $bat%"
 fi

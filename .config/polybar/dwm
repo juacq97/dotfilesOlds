@@ -154,7 +154,7 @@ label-focused-underline=
 label-focused-padding = 0
 
 ; unfocused = Inactive tag on any monitor
-label-unfocused = %name%
+label-unfocused = 󰪥
 label-unfocused-padding = 1
 
 ; visible = Active tag on unfocused monitor
@@ -171,7 +171,8 @@ label-urgent-padding = 1
 
 ; empty = Tags with no windows assigned
 ; This can be set to an empty string to hide empty tags
-label-empty = "󰧟"
+label-empty = "
+󰧟"
 label-empty-background = ${colors.background}
 ;label-empty-foreground = ${colors.color4}
 label-empty-padding = 0
@@ -227,6 +228,7 @@ label-indicator-on-capslock = "󰘶"
 
 layout-icon-0 = latam; MX
 layout-icon-1 = us; US
+layout-icon-2 = ja; "󱌴"
 
 [module/date]
 type = internal/date
@@ -524,9 +526,9 @@ content = "%{T3}%{T}"
 content-font = 3
 
 [settings]
-;screenchange-reload = true
-;compositing-background = xor
+screenchange-reload = true
+compositing-background = xor
 ;compositing-background = screen
 ;compositing-foreground = source
 ;compositing-border = over
-pseudo-transparency = true
+;pseudo-transparency = true

@@ -1,11 +1,10 @@
 #! /bin/sh
 
-sel=$(echo -e "Horizontal\nEspejo\nEspejo-2" | dmenu -i -p "¿Dónde desea ubicar el monitor conectado?")
+sel=$(echo -e "Dock\nProyector\nEspejo\nEspejo-2" | dmenu -i -p "¿Dónde desea ubicar el monitor conectado?")
     
-echo $sel
 case $sel in
-    Horizontal) autorandr horizontal;;
-    Espejo) autorandr clone-largest;;
-    Espejo-2) autorandr common;;
-    
+   Dock) xrandr --auto --output DP-2 --primary --mode 1600x900 --right-of LVDS-1 ;; 
+   Proyector) autorandr horizontal;;
+   Espejo) autorandr clone-largest;;
+   Espejo-2) autorandr common;;
 esac

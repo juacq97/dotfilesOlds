@@ -22,7 +22,10 @@ super + Return
 # App menu
 super + space
 #     ~/.local/bin/dmenu_run_history -h 24 -i
-      rofi -show drun -theme gruvbox
+      rofi -show drun -theme dracula
+
+super + r
+     ~/.local/bin/dmenu_run_history -h 24 -i -l 15
 
 ## Firefox
 super + F2
@@ -76,19 +79,19 @@ super + Print
 ##Audio
 XF86AudioMute
 #	~/.local/bin/mute-audio
-	pamixer -t 
+	pamixer -t ; sigdwmblocks 4 
 XF86AudioLowerVolume
-	pamixer -d 2 
+	pamixer -d 2 ; sigdwmblocks 4
 XF86AudioRaiseVolume
-	pamixer -i 2 
+	pamixer -i 2 ; sigdwmblocks 4
 XF86AudioPlay
-	playerctl play-pause 
+	playerctl play-pause ; sigdwmblocks 6
 XF86AudioNext
-	playerctl next 
+	playerctl next ; sigdwmblocks 6
 XF86AudioPrev
-	playerctl previous 
+	playerctl previous ; sigdwmblocks 6
 XF86AudioStop
-	playerctl stop 
+	playerctl stop ; sigdwmblocks 6
 XF86AudioMicMute
 	amixer set Capture toggle
 
@@ -139,12 +142,19 @@ XF86Launch1
       ~/.local/bin/apagar
 #       clearine 
 
+#Apagar
+super + F12
+      ~/.local/bin/apagar
+#       clearine 
+
 # Clipboard
 super + ctrl + p
       clipmenu
 
 # Monitores
 XF86Display
+      ~/.local/bin/monitores
+XF86Explorer
       ~/.local/bin/monitores
 
 # Pacman-dmenu

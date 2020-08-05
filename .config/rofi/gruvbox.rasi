@@ -6,7 +6,7 @@ configuration {
 * {
 	background-color:            #282828;
 	text-color:                  #fbf2c7;
-	selbg:                       #98971a;
+	selbg:                       #689d6a;
 	actbg:                       #ca2026;
 	urgbg:                       #9c5059;
 	winbg:			     #090a0c;

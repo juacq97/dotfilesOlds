@@ -12,16 +12,31 @@ mfg=^c#cc241d^
 ifg=^c#b16286^
 tfg=^d^
 
+#if [[ $mute == "true" ]]; then
+    #echo "$mfg $iconmute $tfg$vol%"
+#elif [[ "$vol" == "100" ]]; then
+    #echo "$ifg $ramp3 $tfg$vol%"
+#elif [[ "$vol" < "33" ]]; then
+    #echo "$ifg $ramp1 $tfg$vol%"
+#elif [[ "$vol" < "66" ]]; then
+    #echo "$ifg $ramp2 $tfg$vol%"
+#elif [[ "$vol" = "66" ]]; then
+    #echo "$ifg $ramp2 $tfg$vol%"
+#elif [[ "$vol" > "66" ]]; then
+    #echo "$ifg $ramp3 $tfg$vol%"
+#fi
+
+
 if [[ $mute == "true" ]]; then
-    echo "$mfg $iconmute $tfg$vol%"
+    echo "$iconmute $vol%"
 elif [[ "$vol" == "100" ]]; then
-    echo "$ifg $ramp3 $tfg$vol%"
+    echo "$ramp3 $vol%"
 elif [[ "$vol" < "33" ]]; then
-    echo "$ifg $ramp1 $tfg$vol%"
+    echo "$ramp1 $vol%"
 elif [[ "$vol" < "66" ]]; then
-    echo "$ifg $ramp2 $tfg$vol%"
+    echo "$ramp2 $vol%"
 elif [[ "$vol" = "66" ]]; then
-    echo "$ifg $ramp2 $tfg$vol%"
+    echo "$ramp2 $vol%"
 elif [[ "$vol" > "66" ]]; then
-    echo "$ifg $ramp3 $tfg$vol%"
+    echo "$ramp3 $vol%"
 fi
