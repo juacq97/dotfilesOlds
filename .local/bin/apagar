@@ -1,7 +1,6 @@
 #!/bin/sh
 
-var=$(echo -e "Apagar\nReiniciar\nSalir\nBloquear\nSuspender\nCancelar" | dmenu -i -p "¿Desea salir?") 
-#var=$(echo " Apagar\n Reiniciar\n Salir\n Bloquear\n Suspender\n  Cancelar" | dmenu -i -p "¿Desea salir?") 
+var=$(echo -e "Apagar\nSuspender\nReiniciar\nSalir\nCancelar" | dmenu -i -p "¿Desea salir?") 
 
 case $var in
     'Apagar') 
@@ -9,9 +8,9 @@ case $var in
 #	systemctl poweroff;;
 	poweroff;;
 	
-
-    'Bloquear')
-	i3lock -f -i /home/juan/.cache/i3lock/1633x768/blur.png;;
+    'Suspender')
+	systemctl suspend;;
+#	sudo zzz;;
 
     'Reiniciar')
 #	rm /tmp/bspwm-startup.lock
@@ -22,10 +21,7 @@ case $var in
 #	rm /tmp/bspwm-startup.lock
 #	bspc quit;;
 	pkill xinit;;
-    'Suspender')
-#	systemctl suspend;;
-	sudo zzz;;
     
-	' Cancelar')
+	'Cancelar')
 	    exit 0;;
 esac

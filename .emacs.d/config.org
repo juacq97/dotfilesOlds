@@ -31,6 +31,8 @@
       `((".*" . ,"~/.emacs.d/backups/")))
 (setq auto-save-file-name-transforms
       `((".*" ,"~/.emacs.d/backups/")))
+(setq auto-save-list-file-prefix nil)
+(setq auto-save-default nil)
 #+END_SRC
 
 ** Ocultar elementos
@@ -127,6 +129,23 @@
 (set-fontset-font "fontset-default" '(#xF0000 . #xF14FF) "Material Design Icons")
 #+END_SRC
 * Paquetes
+** AUCTeX
+#+BEGIN_SRC emacs-lisp
+   (setq TeX-auto-save t)
+   (setq TeX-parse-self t)
+   (setq-default TeX-master nil)
+  (with-eval-after-load 'tex
+   (setq TeX-source-correlate-method 'synctex)
+   (TeX-source-correlate-mode)
+   (setq TeX-source-correlate-start-server t)
+
+   (add-to-list 'TeX-view-program-selection
+		'(output-pdf "Zathura")))
+  (eval-after-load "tex"
+    '(add-to-list 'TeX-command-list
+		  '("XeLaTeX" "xelatex -interaction=nonstopmode %s"
+		    TeX-run-command t t :help "Run xelatex") t))
+#+END_SRC 
 ** Doom modeline
 #+BEGIN_SRC emacs-lisp
 (use-package doom-modeline
@@ -331,7 +350,7 @@
   :config
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
 	doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-dracula t)
+;  (load-theme 'doom-dracula t)
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   (doom-themes-treemacs-config)
@@ -537,25 +556,35 @@
 
 ** Clases latex extra
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'org-latex-classes
-      '("koma-article"
-	"\\documentclass{scrartcl}"
-	("\\section{%s}" . "\\section*{%s}")
-	("\\subsection{%s}" . "\\subsection*{%s}")
-	("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	("\\paragraph{%s}" . "\\paragraph*{%s}")
-	("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-	    
-(add-to-list 'org-latex-classes
-	     '("doc-recepcional"
-	       "\\documentclass{report}"
-	       ("\\chapter{%s}" . "\\chapter*{%s}")
-	       ("\\section{%s}" . "\\section*{%s}")
-	       ("\\subsection{%s}" . "\\subsection*{%s}")
-	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
-	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+  (add-to-list 'org-latex-classes
+	'("koma-article"
+	  "\\documentclass{scrartcl}"
+	  ("\\section{%s}" . "\\section*{%s}")
+	  ("\\subsection{%s}" . "\\subsection*{%s}")
+	  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+	  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+  (add-to-list 'org-latex-classes
+	       '("doc-recepcional"
+		 "\\documentclass{report}"
+		 ("\\chapter{%s}" . "\\chapter*{%s}")
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+		 )
+  )
+
+  (add-to-list 'org-latex-classes
+	       '("moderncv"
+		 "\\documentclass{moderncv}"
+		 ("\\section{%s}" . "\\section*{%s}}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}}")
+		 )
 	       )
-)
+
+
 #+END_SRC
 

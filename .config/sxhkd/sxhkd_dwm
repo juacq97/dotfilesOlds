@@ -22,7 +22,7 @@ super + Return
 # App menu
 super + space
 #     ~/.local/bin/dmenu_run_history -h 24 -i
-      rofi -show drun -theme dracula
+      rofi -show drun -theme gruvbox
 
 super + r
      ~/.local/bin/dmenu_run_history -h 24 -i -l 15

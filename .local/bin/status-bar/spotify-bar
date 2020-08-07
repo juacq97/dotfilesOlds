@@ -2,13 +2,13 @@
 
 icon="󰓇" 
 
-status=$(~/.local/bin/status-bar/spotify_status.py)
+status=$(~/.local/bin/status-bar/spotify_status.py -f '{artist} - {song}')
 runstate=$(pgrep -c spotify)
 
 if [[ $runstate -le 1 ]]; then 
     echo ""
 else
    # echo "$ifg $icon $tfg $status"
-    echo "$icon $status"
+    echo "$icon $status"
 fi
       

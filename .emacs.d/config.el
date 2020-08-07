@@ -362,6 +362,7 @@
 ;	("a" "Agenda"  entry
 ;	 (file+headline "~/Drive/sync/GTD/0gtd.org" "Agenda")
 ;	 "* EVENTO %?\n SCHEDULED: %t")
+
 	
 	("n" "Notas" entry
 	 (file+headline "~/Drive/GTD/referencias.org" "Notas")
