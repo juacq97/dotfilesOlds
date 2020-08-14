@@ -1,0 +1,64 @@
+conky.config = {
+	use_xft                = true,
+	xftalpha               = 1,
+	update_interval        = 1,
+	total_run_times        = 0,
+
+	background             = true,
+    out_to_console         = false,
+    out_to_stderr          = false,
+
+	own_window             = true,
+	own_window_colour      = '#292d3e',
+    own_window_class       = 'Conky',
+	own_window_type        = 'override',
+	own_window_argb_visual = true,
+    own_window_transparent = false,
+
+	double_buffer          = true,
+
+	minimum_width          = 298,
+	maximum_width          = 298,
+
+	minimum_height         = 298,
+
+	draw_shades            = false,
+	draw_outline           = false,
+	draw_borders           = false,
+	draw_graph_borders     = true,
+
+    default_color          = 'd0b4d1',
+    color0                 = 'ffffff',
+    color1                 = 'C59FBB',
+    color2                 = 'B4AED2',
+    color3                 = 'BDC4E2',
+    color4                 = 'B48EAD',
+
+	alignment              = 'top_left',
+	gap_x                  = 55,
+	gap_y                  = 370,
+	no_buffers             = true,
+	text_buffer_size       = 2048,
+	uppercase              = false,
+	cpu_avg_samples        = 4,
+	net_avg_samples        = 2,
+
+	font                   = 'scientifica:size=9',
+
+};
+conky.text = [[
+${voffset 0}${font Font Awesome:style=Regular:size=18}   ${offset 70}${font}${font DejaVu Sans:style=bold:size=11}${uid_name 1000}@${nodename}${font} ${alignr}
+${voffset 98}${offset 30} ${font Roboto Regular:size=7} ${if_running mpd}${mpd_title}${else}Music${endif}\
+${voffset 7}
+${offset 70} ${font Roboto Regular:Bold:size=9} ${if_running mpd}${mpd_artist}${else}Is not playing${endif}\
+${voffset 0}
+${voffset -5}${offset 35} ${time %a}
+${offset 50}${color3}${time %-d}${color}
+${voffset -32}${offset 90} ${font DejaVu Sans:style=bold:size=20} ${time %H:%M}
+#${voffset -60}${offset 80} ${font DejaVu Sans:style=bold:size=11} ${execi 1800 ~/.config/conky/res/weather}
+#${offset 20}${font Roboto Regular:size=7}${execi 1800 ~/.config/conky/res/weather -t}
+${voffset -18}${offset 50} ${font DejaVu Sans:style=bold:size=11}Grocery Shopping
+${voffset 0}${offset 115} ${font Roboto Regular:size=7}${time %-a/%d/%b}
+${voffset 6}${offset 0} ${color3}• ${color}Have a nice day ${execi 600 whoami}${color}${color4}${color2}! Here is some wise words for You :)
+${voffset 6} ${color1}${font Roboto Regular:size=7}${execi 600 fortune}
+]];

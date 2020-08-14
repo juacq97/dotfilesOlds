@@ -56,12 +56,6 @@
   (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 
-** Plantilla para poder abrir un bloque de código elisp escribiendo "<el"
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'org-structure-template-alist
-	       '("<el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
-#+END_SRC
-
 ** Seguir al buffer nuevo 
 #+BEGIN_SRC emacs-lisp
 (defun split-and-follow-horizontally ()
@@ -128,6 +122,22 @@
 #+BEGIN_SRC emacs-lisp
 (set-fontset-font "fontset-default" '(#xF0000 . #xF14FF) "Material Design Icons")
 #+END_SRC
+** Definir variable-pitch-mode solo para modes de texto
+   #+BEGIN_SRC emacs-lisp
+   
+     (use-package face-remap
+       :diminish buffer-face-mode            ; the actual mode
+       :commands my/variable-pitch-mode
+       :config
+       (define-minor-mode my/variable-pitch-mode
+	 "Toggle `variable-pitch-mode', except for `prog-mode'."
+	 :init-value nil
+	 :global nil
+	 (if my/variable-pitch-mode
+	     (unless (derived-mode-p 'prog-mode)
+	       (variable-pitch-mode 1))
+	   (variable-pitch-mode -1))))
+   #+END_SRC
 * Paquetes
 ** AUCTeX
 #+BEGIN_SRC emacs-lisp
@@ -377,10 +387,19 @@
 
 ** Writeroom-mode
 #+BEGIN_SRC emacs-lisp
-(use-package writeroom-mode
-  :ensure t
-  :bind (
-	 ("<f6>" . writeroom-mode)))
+  (use-package writeroom-mode
+    :ensure t
+    :config
+    (define-minor-mode my/writeroom-mode
+      :init-value nil
+      :global nil
+      (if my/writeroom-mode
+	  (progn
+	    (writeroom-mode 1)
+	    (my/variable-pitch-mode 1)))
+	(writeroom-mode -1)
+	(my/variable-pitch-mode -1))
+    :bind ("<f6>" . my/writeroom-mode))
 #+END_SRC
 
 ** Focus-mode
@@ -450,6 +469,28 @@
 #+END_SRC
 
 * Org-mode
+** Org present
+#+BEGIN_SRC emacs-lisp
+  (use-package org-present
+    :ensure t)
+  (autoload 'org-present "org-present" nil t)
+  (eval-after-load "org-present"
+    '(progn
+       (add-hook 'org-present-mode-hook
+		 (lambda ()
+		   (my/variable-pitch-mode 1)
+		   (org-present-big)
+		   (org-display-inline-images)
+		   (org-present-hide-cursor)
+		   (org-present-read-only)))
+       (add-hook 'org-present-mode-quit-hook
+		 (lambda ()
+		   (my/variable-pitch-mode -1)
+		   (org-present-small)
+		   (org-remove-inline-images)
+		   (org-present-show-cursor)
+		   (org-present-read-write)))))
+#+END_SRC
 ** Org-bullets
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets
@@ -588,3 +629,9 @@
 
 #+END_SRC
 
+** Declarar diferentes tipos de letras
+   #+begin_src emacs-lisp
+     (set-face-attribute 'default nil :font "Source Code Pro-12")
+     (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-12")
+     (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
+   #+end_src

@@ -25,8 +25,6 @@
     (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
   (global-set-key (kbd "C-c r") 'config-reload)
 
-(add-to-list 'org-structure-template-alist
-	     '("<el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 
 (defun split-and-follow-horizontally ()
   (interactive)
