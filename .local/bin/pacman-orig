@@ -1,0 +1,63 @@
+#! /bin/sh
+
+var=$(echo -e " Instalar\n  Desinstalar\n  Actualizar\n  Cancelar" | dmenu -i -p "Pacman") 
+
+case "$var" in
+    " Instalar") 
+	sel=$(pacman -Ssq | dmenu -l 20 -p "") #seleccionar un paquete del repo
+	if [ "$sel" == "" ]; then
+	    exit 0 #si se presiona ESC, el script termina
+	else
+	    pass=$(dmenu -P -p "Contraseña") #Pedir conraseña usando dmenu
+	    a=$(echo $pass | sudo -Skv) #Revisar si la contraseña ingresada es correcta
+	    if [ $? == 0 ]; then
+		conf=$(echo -e "Si\n No" | dmenu -i -p "Se instalará $sel. ¿Desea continuar?")
+		if [ "$conf" == "Si" ]; then
+		#Si la contraseña es correcta, ejecuta pacman para instalar el programa deseado en una ventana de st flotante
+		bspc rule -a \* -o state=floating && st -e sh -c "echo "$pass" | sudo -S pacman -S "$sel" --noconfirm; read -p '$sel instalado. Presione enter para salir'"
+		else
+		    notify-send -a "Pacman" "Operación cancelada"
+		fi
+		
+	    else
+		notify-send -a "Pacman" "Contraseña incorrecta" #si la contraseña es incorrecta, manda una notificación
+	    fi
+	fi;;
+
+    "  Desinstalar")
+	sel=$(pacman -Qeq | dmenu -l 15 -p "")
+	if [ "$sel" == "" ]; then
+	    exit 0 #si se presiona ESC, el script termina
+	else
+	    pass=$(dmenu -P -p "Contraseña") #Pedir conraseña usando dmenu
+	    a=$(echo $pass | sudo -Skv) #Revisar si la contraseña ingresada es correcta
+	    if [ $? == 0 ]; then
+		conf=$(echo -e "Si\n No" | dmenu -i -p "Se desinstalará $sel. ¿Desea continuar?")
+		if [ "$conf" == "Si" ]; then
+		#Si la # commentntraseña es correcta, ejecuta pacman para instalar el programa deseado en una ventana de st flotante
+		bspc rule -a \* -o state=floating && st -e sh -c "echo "$pass" | sudo -S pacman -Rns "$sel" --noconfirm; read -p '$sel desinstalado. Presione enter para salir'"
+		else
+		    notify-send -a "Pacman" "Operación cancelada"
+		    fi
+	    else
+		notify-send -a "Pacman" "Contraseña incorrecta" #si la contraseña es incorrecta, manda una notificación
+
+	    fi
+	fi;;
+    "  Actualizar")
+	    pass=$(dmenu -P -p "Contraseña") #Pedir conraseña usando dmenu
+	    a=$(echo $pass | sudo -Skv) #Revisar si la contraseña ingresada es correcta
+	    if [ $? == 0 ]; then
+		#Si la contraseña es correcta, ejecuta pacman para instalar el programa deseado en una ventana de st flotante
+		conf=$(echo -e "Si\n No" | dmenu -i -p "Se actualizará el sistema. ¿Desea continuar?")
+		if [ "$conf" == "Si" ]; then
+		bspc rule -a \* -o state=floating && st -e sh -c "echo "$pass" | sudo -S pacman -Syu "$sel" --noconfirm; read -p 'Sistema actualizado. Presione enter para salir'"
+		else
+		    notify-send -a "Pacman" "Operación cancelada"
+		    fi
+	    else
+		notify-send -a "Pacman" "Contraseña incorrecta" #si la contraseña es incorrecta, manda una notificación
+	    fi;;
+    "  Cancelar") exit 0
+esac
+    

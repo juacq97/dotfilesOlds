@@ -1,63 +1,147 @@
 #! /bin/sh
 
-var=$(echo -e " Instalar\n  Desinstalar\n  Actualizar\n  Cancelar" | dmenu -i -p "Pacman") 
+##################
+# DEAFULT VALUES
+##################
 
-case "$var" in
-    " Instalar") 
-	sel=$(pacman -Ssq | dmenu -l 20 -p "") #seleccionar un paquete del repo
-	if [ "$sel" == "" ]; then
-	    exit 0 #si se presiona ESC, el script termina
-	else
-	    pass=$(dmenu -P -p "Contraseña") #Pedir conraseña usando dmenu
-	    a=$(echo $pass | sudo -Skv) #Revisar si la contraseña ingresada es correcta
-	    if [ $? == 0 ]; then
-		conf=$(echo -e "Si\n No" | dmenu -i -p "Se instalará $sel. ¿Desea continuar?")
-		if [ "$conf" == "Si" ]; then
-		#Si la contraseña es correcta, ejecuta pacman para instalar el programa deseado en una ventana de st flotante
-		bspc rule -a \* -o state=floating && st -e sh -c "echo "$pass" | sudo -S pacman -S "$sel" --noconfirm; read -p '$sel instalado. Presione enter para salir'"
-		else
-		    notify-send -a "Pacman" "Operación cancelada"
-		fi
-		
-	    else
-		notify-send -a "Pacman" "Contraseña incorrecta" #si la contraseña es incorrecta, manda una notificación
-	    fi
-	fi;;
+if [ -z $PACMAN_DMENU_TERM ]; then PACMAN_DMENU_TERM="xterm"; fi
+if [ -z $PACMAN_DMENU_LIST ]; then PACMAN_DMENU_LIST="dmenu -l 20"; fi
+if [ -z $PACMAN_DMENU_MENU ]; then PACMAN_DMENU_MENU="dmenu"; fi
+if [ -z $PACMAN_DMENU_PASS ]; then PACMAN_DMENU_PASS="zenity"; fi
 
-    "  Desinstalar")
-	sel=$(pacman -Qeq | dmenu -l 15 -p "")
-	if [ "$sel" == "" ]; then
-	    exit 0 #si se presiona ESC, el script termina
-	else
-	    pass=$(dmenu -P -p "Contraseña") #Pedir conraseña usando dmenu
-	    a=$(echo $pass | sudo -Skv) #Revisar si la contraseña ingresada es correcta
-	    if [ $? == 0 ]; then
-		conf=$(echo -e "Si\n No" | dmenu -i -p "Se desinstalará $sel. ¿Desea continuar?")
-		if [ "$conf" == "Si" ]; then
-		#Si la # commentntraseña es correcta, ejecuta pacman para instalar el programa deseado en una ventana de st flotante
-		bspc rule -a \* -o state=floating && st -e sh -c "echo "$pass" | sudo -S pacman -Rns "$sel" --noconfirm; read -p '$sel desinstalado. Presione enter para salir'"
-		else
-		    notify-send -a "Pacman" "Operación cancelada"
-		    fi
-	    else
-		notify-send -a "Pacman" "Contraseña incorrecta" #si la contraseña es incorrecta, manda una notificación
-
-	    fi
-	fi;;
-    "  Actualizar")
-	    pass=$(dmenu -P -p "Contraseña") #Pedir conraseña usando dmenu
-	    a=$(echo $pass | sudo -Skv) #Revisar si la contraseña ingresada es correcta
-	    if [ $? == 0 ]; then
-		#Si la contraseña es correcta, ejecuta pacman para instalar el programa deseado en una ventana de st flotante
-		conf=$(echo -e "Si\n No" | dmenu -i -p "Se actualizará el sistema. ¿Desea continuar?")
-		if [ "$conf" == "Si" ]; then
-		bspc rule -a \* -o state=floating && st -e sh -c "echo "$pass" | sudo -S pacman -Syu "$sel" --noconfirm; read -p 'Sistema actualizado. Presione enter para salir'"
-		else
-		    notify-send -a "Pacman" "Operación cancelada"
-		    fi
-	    else
-		notify-send -a "Pacman" "Contraseña incorrecta" #si la contraseña es incorrecta, manda una notificación
-	    fi;;
-    "  Cancelar") exit 0
+# Three options to set the password: dmenu (needs the password patch), rofi or zenity
+case $PACMAN_DMENU_PASS in
+    dmenu) dpass="dmenu -P -p 'Password'";;
+    rofi) dpass="rofi --dmenu -password -p'Password'";;
+    zenity) dpass="zenity --password";;
 esac
-    
+
+func_pacman() {
+case "$var" in
+    "Install") 
+	sel=$(pacman -Ssq | $PACMAN_DMENU_LIST)
+	if [ "$sel" == "" ]; then
+	    exit 0 
+	else
+	    pass=$($dpass)
+	    a=$(echo $pass | sudo -Skv)
+	    if [ $? == 0 ]; then
+		conf=$(echo -e "Yes\n No" | $PACMAN_DMENU_MENU -p "Installing $sel. Continue?")
+		if [ "$conf" == "Yes" ]; then
+		$PACMAN_DMENU_TERM -e sh -c "echo "$pass" | sudo -S pacman -S "$sel" --noconfirm; read -p '$sel installed. Presss Return to exit'"
+		else
+		    notify-send -a "Pacman" "Cancelled"
+		fi
+	    else
+		notify-send -a "Pacman" "Incorrect password" 
+	    fi
+	fi;;
+
+    "Uninstall")
+	sel=$(pacman -Qeq | $PACMAN_DMENU_LIST)
+	if [ "$sel" == "" ]; then
+	    exit 0 
+	else
+	    pass=$($dpass)
+	    a=$(echo $pass | sudo -Skv)
+	    if [ $? == 0 ]; then
+		conf=$(echo -e "Yes\n No" | $PACMAN_DMENU_MENU -p "Uninstalling $sel. Continue?")
+		if [ "$conf" == "Yes" ]; then
+		$PACMAN_DMENU_TERM -e sh -c "echo "$pass" | sudo -S pacman -Rns "$sel" --noconfirm; read -p '$sel unistalled. Presss Return to exit'"
+		else
+		    notify-send -a "Pacman" "Cancelled"
+		    fi
+	    else
+		notify-send -a "Pacman" "Incorrect password"
+	    fi
+	fi;;
+
+    "Update")
+	    pass=$(dpass)
+	    a=$(echo $pass | sudo -Skv) 
+	    if [ $? == 0 ]; then
+		conf=$(echo -e "Yes\n No" | $PACMAN_DMENU_MENU -p "Updating the system. Continue?")
+		if [ "$conf" == "Yes" ]; then
+		$PACMAN_DMENU_TERM -e sh -c "echo "$pass" | sudo -S pacman -Syu "$sel" --noconfirm; read -p 'System updated. Presss Return to exit'"
+		else
+		    notify-send -a "Pacman" "Cancelled"
+		    fi
+	    else
+		notify-send -a "Pacman" "Incorrect password"
+	    fi;;
+
+    "Cancell") exit 0
+esac
+}
+
+
+func_apt() {
+case "$var" in
+    "Install") 
+	sel=$(apt list | cut -d"/" -f1 | $PACMAN_DMENU_LIST)
+	if [ -z "$sel" ]; then
+	    exit 0 
+	else
+	    pass=$($dpass)
+	    echo $pass | sudo -Skv
+	    if [ "$?" = "0" ]; then
+		conf=$(echo "Yes\n No" | $PACMAN_DMENU_MENU -p "Installing $sel. Continue?")
+		if [ "$conf" = "Yes" ]; then
+		$PACMAN_DMENU_TERM -e sh -c "echo "$pass" | sudo -S apt install "$sel" --yes; read -p '$sel installed. Presss Return to exit'"
+		else
+		    notify-send -a "Pacman" "Cancelled"
+		fi
+	    else
+		notify-send -a "Pacman" "Incorrect password" 
+	    fi
+	fi;;
+
+    "Uninstall")
+	sel=$(apt list --installed | cut -d"/" -f1 | $PACMAN_DMENU_LIST)
+	if [ -z "$sel" ]; then
+	    exit 0 
+	else
+	    pass=$($dpass)
+	    a=$(echo $pass | sudo -Skv)
+	    if [ $? = 0 ]; then
+		conf=$(echo "Yes\n No" | $PACMAN_DMENU_MENU -p "Uninstalling $sel. Continue?")
+		if [ "$conf" = "Yes" ]; then
+		$PACMAN_DMENU_TERM -e sh -c "echo "$pass" | sudo -S apt remove "$sel" --yes; read -p '$sel unistalled. Presss Return to exit'"
+		else
+		    notify-send -a "Pacman" "Cancelled"
+		    fi
+	    else
+		notify-send -a "Pacman" "Incorrect password"
+	    fi
+	fi;;
+
+    "Update")
+	    pass=$($dpass)
+	    a=$(echo $pass | sudo -Skv) 
+	    if [ $? = 0 ]; then
+		conf=$(echo "Yes\n No" | $PACMAN_DMENU_MENU -p "Updating the system. Continue?")
+		if [ "$conf" = "Yes" ]; then
+		$PACMAN_DMENU_TERM -e sh -c "echo "$pass" | sudo -S apt update --yes && apt upgrade --yes; read -p 'System updated. Presss Return to exit'"
+		else
+		    notify-send -a "Pacman" "Cancelled"
+		    fi
+	    else
+		notify-send -a "Pacman" "Incorrect password"
+	    fi;;
+
+    "Cancell") exit 0
+esac
+}
+
+# Initial menu
+var=$(echo -e "Install\nUninstall\nUpdate\nCancell" | $PACMAN_DMENU_MENU -p "PacMan") 
+
+# If someday I extend this script to be compatible with apt and xbps, tjhis code will be usefull
+pm() {
+    [ -x "$(which $1)" ]
+}
+
+if pm pacman; then func_pacman
+elif pm apt; then func_apt
+elif pm xbps; then func_xbps
+fi

@@ -1,8 +1,8 @@
 #! /bin/sh
 
 export PACMAN_DMENU_TERM='st'
-export PACMAN_DMENU_LIST="dmenu -l 20"
-export PACMAN_DMENU_MENU="dmenu"
-export PACMAN_DMENU_PASS="dmenu"
+export PACMAN_DMENU_LIST="dmenu -l 20 -x 6 -y 4 -w 1588"
+export PACMAN_DMENU_MENU="dmenu -x 6 -y 4 -w 1588"
+export PACMAN_DMENU_PASS="dmenu -x 6 -y 4 -w 1588"
 
 ~/.local/bin/pacman-dmenu
