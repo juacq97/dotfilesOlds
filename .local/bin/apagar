@@ -1,6 +1,6 @@
 #!/bin/sh
 
-var=$(echo -e "Apagar\nSuspender\nReiniciar\nSalir\nCancelar" | dmenu -i -p "¿Desea salir?") 
+var=$(echo -e "Apagar\nSuspender\nReiniciar\nSalir\nCancelar" | dmenu -i -x 6 -y 4 -w 1588 -p "¿Desea salir?") 
 
 case $var in
     'Apagar') 

@@ -52,7 +52,7 @@
 
   (defun config-reload ()
     (interactive)
-    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+    (org-babel-load-file "~/.repos/dotfiles/.emacs.d/config.org"))
   (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 
@@ -124,11 +124,6 @@
 #+END_SRC
 ** Definir variable-pitch-mode solo para modes de texto
    #+BEGIN_SRC emacs-lisp
-   
-     (use-package face-remap
-       :diminish buffer-face-mode            ; the actual mode
-       :commands my/variable-pitch-mode
-       :config
        (define-minor-mode my/variable-pitch-mode
 	 "Toggle `variable-pitch-mode', except for `prog-mode'."
 	 :init-value nil
@@ -136,7 +131,7 @@
 	 (if my/variable-pitch-mode
 	     (unless (derived-mode-p 'prog-mode)
 	       (variable-pitch-mode 1))
-	   (variable-pitch-mode -1))))
+	   (variable-pitch-mode -1)))
    #+END_SRC
 * Paquetes
 ** AUCTeX
@@ -162,7 +157,7 @@
 :ensure t
 :hook (after-init . doom-modeline-mode)
 :config
-(setq doom-modeline-height 20)
+(setq doom-modeline-height 24)
 (setq doom-modeline-bar-width 4)
 (setq doom-modeline-buffer-file-name-style 'relative-from-project)
 (setq doom-modeline-icon t)
@@ -377,8 +372,8 @@
   :init
   (setq heaven-and-hell-theme-type 'dark)
   (setq heaven-and-hell-themes
-        '((light . doom-gruvbox-light)
-          (dark . doom-gruvbox)))
+        '((light . doom-nord-light)
+          (dark . doom-dracula)))
   (setq heaven-and-hell-load-theme-no-confirm t)
   :hook (after-init . heaven-and-hell-init-hook)
   :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
@@ -387,19 +382,17 @@
 
 ** Writeroom-mode
 #+BEGIN_SRC emacs-lisp
-  (use-package writeroom-mode
-    :ensure t
-    :config
-    (define-minor-mode my/writeroom-mode
-      :init-value nil
-      :global nil
-      (if my/writeroom-mode
-	  (progn
-	    (writeroom-mode 1)
-	    (my/variable-pitch-mode 1)))
-	(writeroom-mode -1)
-	(my/variable-pitch-mode -1))
-    :bind ("<f6>" . my/writeroom-mode))
+      (use-package writeroom-mode
+	:ensure t
+	:bind ("<f6>" . writeroom-mode))
+
+    (add-hook 'writeroom-mode-hook
+	      #'(lambda ()
+		(my/variable-pitch-mode 1)))
+
+    (add-hook 'writeroom-mode-disable-hook
+	     #'(lambda ()
+	       (my/variable-pitch-mode -1)))
 #+END_SRC
 
 ** Focus-mode
@@ -631,7 +624,24 @@
 
 ** Declarar diferentes tipos de letras
    #+begin_src emacs-lisp
-     (set-face-attribute 'default nil :font "Source Code Pro-12")
-     (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-12")
+     (set-face-attribute 'default nil :font "Source Code Pro-10")
+     (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-10")
      (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
+
+     (dolist (face '(default fixed-pitch))
+       (set-face-attribute `,face nil :font "Source Code Pro-10"))
+       
+(custom-theme-set-faces 'user
+ '(org-block ((t (:inherit fixed-pitch))))
+ '(org-block-begin-line ((t (:inherit fixed-pitch))))
+ '(org-block-end-line ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:inherit fixed-pitch))))
+ '(org-document-info-keyword ((t (:inherit fixed-pitch))))
+ '(org-meta-line ((t (:inherit fixed-pitch))))
+ '(org-table ((t (:inherit fixed-pitch))))
+ '(org-verbatim ((t (:inherit fixed-pitch))))
+)
+
+
+
    #+end_src

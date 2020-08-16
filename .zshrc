@@ -3,6 +3,7 @@ PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$
 export PATH
 
 ### Variables de entorno ###
+export QT_QPA_PLATFORMTHEME="qt5ct"
 export WM=dwm
 export LANG=es_MX.UTF-8
 export EDITOR="vim"

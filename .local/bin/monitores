@@ -1,6 +1,6 @@
 #! /bin/sh
 
-sel=$(echo -e "Dock\nProyector\nEspejo\nEspejo-2" | dmenu -i -p "¿Dónde desea ubicar el monitor conectado?")
+sel=$(echo -e "Dock\nProyector\nEspejo\nEspejo-2" | dmenu -i -x 6 -y 4 -w 1588 -p "¿Dónde desea ubicar el monitor conectado?")
     
 case $sel in
    Dock) xrandr --auto --output DP-2 --primary --mode 1600x900 --right-of LVDS-1 ;; 

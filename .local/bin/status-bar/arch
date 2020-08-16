@@ -1,8 +1,6 @@
 #!/bin/sh
 
 icon=󰮯 
-ifg=^c#fabd2f^
-tfg=^d^
 
 if ! updates=$(checkupdates 2> /dev/null | wc -l ); then
     updates=0
@@ -11,4 +9,4 @@ fi
 echo $updates > ~/.cache/pacman_updates
 
 #echo "$ifg $icon $tfg$(cat ~/.cache/pacman_updates)"
-echo "$icon  $(cat ~/.cache/pacman_updates)"
+echo " $icon $(cat ~/.cache/pacman_updates) "

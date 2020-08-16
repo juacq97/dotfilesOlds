@@ -9,6 +9,8 @@
       `((".*" . ,"~/.emacs.d/backups/")))
 (setq auto-save-file-name-transforms
       `((".*" ,"~/.emacs.d/backups/")))
+(setq auto-save-list-file-prefix nil)
+(setq auto-save-default nil)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -17,14 +19,13 @@
 
 (defun config-visit ()
   (interactive)
-  (find-file "~/.emacs.d/init.el"))
+  (find-file "~/.emacs.d/config.org"))
 (global-set-key (kbd "C-c e") 'config-visit)
 
   (defun config-reload ()
     (interactive)
-    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+    (org-babel-load-file "~/.repos/dotfiles/.emacs.d/config.org"))
   (global-set-key (kbd "C-c r") 'config-reload)
-
 
 (defun split-and-follow-horizontally ()
   (interactive)
@@ -63,11 +64,35 @@
 
 (set-fontset-font "fontset-default" '(#xF0000 . #xF14FF) "Material Design Icons")
 
+(define-minor-mode my/variable-pitch-mode
+  "Toggle `variable-pitch-mode', except for `prog-mode'."
+  :init-value nil
+  :global nil
+  (if my/variable-pitch-mode
+      (unless (derived-mode-p 'prog-mode)
+	(variable-pitch-mode 1))
+    (variable-pitch-mode -1)))
+
+(setq TeX-auto-save t)
+ (setq TeX-parse-self t)
+ (setq-default TeX-master nil)
+(with-eval-after-load 'tex
+ (setq TeX-source-correlate-method 'synctex)
+ (TeX-source-correlate-mode)
+ (setq TeX-source-correlate-start-server t)
+
+ (add-to-list 'TeX-view-program-selection
+	      '(output-pdf "Zathura")))
+(eval-after-load "tex"
+  '(add-to-list 'TeX-command-list
+		'("XeLaTeX" "xelatex -interaction=nonstopmode %s"
+		  TeX-run-command t t :help "Run xelatex") t))
+
 (use-package doom-modeline
 :ensure t
 :hook (after-init . doom-modeline-mode)
 :config
-(setq doom-modeline-height 20)
+(setq doom-modeline-height 24)
 (setq doom-modeline-bar-width 4)
 (setq doom-modeline-buffer-file-name-style 'relative-from-project)
 (setq doom-modeline-icon t)
@@ -222,7 +247,7 @@
   :config
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
 	doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-dracula t)
+;  (load-theme 'doom-dracula t)
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   (doom-themes-treemacs-config)
@@ -236,7 +261,7 @@
   :init
   (setq heaven-and-hell-theme-type 'dark)
   (setq heaven-and-hell-themes
-        '((light . doom-one-light)
+        '((light . doom-nord-light)
           (dark . doom-dracula)))
   (setq heaven-and-hell-load-theme-no-confirm t)
   :hook (after-init . heaven-and-hell-init-hook)
@@ -244,9 +269,16 @@
          ("<f7>" . heaven-and-hell-toggle-theme)))
 
 (use-package writeroom-mode
-  :ensure t
-  :bind (
-	 ("<f6>" . writeroom-mode)))
+    :ensure t
+    :bind ("<f6>" . writeroom-mode))
+
+(add-hook 'writeroom-mode-hook
+	  #'(lambda ()
+	    (my/variable-pitch-mode 1)))
+
+(add-hook 'writeroom-mode-disable-hook
+	 #'(lambda ()
+	   (my/variable-pitch-mode -1)))
 
 (use-package focus
   :ensure t)
@@ -292,6 +324,26 @@
   :ensure t
   :config
   (setq terminal-here-terminal-command "st"))
+
+(use-package org-present
+  :ensure t)
+(autoload 'org-present "org-present" nil t)
+(eval-after-load "org-present"
+  '(progn
+     (add-hook 'org-present-mode-hook
+	       (lambda ()
+		 (my/variable-pitch-mode 1)
+		 (org-present-big)
+		 (org-display-inline-images)
+		 (org-present-hide-cursor)
+		 (org-present-read-only)))
+     (add-hook 'org-present-mode-quit-hook
+	       (lambda ()
+		 (my/variable-pitch-mode -1)
+		 (org-present-small)
+		 (org-remove-inline-images)
+		 (org-present-show-cursor)
+		 (org-present-read-write)))))
 
 (use-package org-bullets
   :ensure t
@@ -360,7 +412,6 @@
 ;	("a" "Agenda"  entry
 ;	 (file+headline "~/Drive/sync/GTD/0gtd.org" "Agenda")
 ;	 "* EVENTO %?\n SCHEDULED: %t")
-
 	
 	("n" "Notas" entry
 	 (file+headline "~/Drive/GTD/referencias.org" "Notas")
@@ -382,7 +433,7 @@
 	("\\subsubsection{%s}" . "\\subsubsection*{%s}")
 	("\\paragraph{%s}" . "\\paragraph*{%s}")
 	("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-	    
+
 (add-to-list 'org-latex-classes
 	     '("doc-recepcional"
 	       "\\documentclass{report}"
@@ -393,4 +444,30 @@
 	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
 	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
 	       )
+)
+
+(add-to-list 'org-latex-classes
+	     '("moderncv"
+	       "\\documentclass{moderncv}"
+	       ("\\section{%s}" . "\\section*{%s}}")
+	       ("\\subsection{%s}" . "\\subsection*{%s}}")
+	       )
 	     )
+
+(set-face-attribute 'default nil :font "Source Code Pro-10")
+     (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-10")
+     (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
+
+     (dolist (face '(default fixed-pitch))
+       (set-face-attribute `,face nil :font "Source Code Pro-10"))
+       
+(custom-theme-set-faces 'user
+ '(org-block ((t (:inherit fixed-pitch))))
+ '(org-block-begin-line ((t (:inherit fixed-pitch))))
+ '(org-block-end-line ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:inherit fixed-pitch))))
+ '(org-document-info-keyword ((t (:inherit fixed-pitch))))
+ '(org-meta-line ((t (:inherit fixed-pitch))))
+ '(org-table ((t (:inherit fixed-pitch))))
+ '(org-verbatim ((t (:inherit fixed-pitch))))
+)

@@ -1,18 +1,19 @@
 [colors]
 # gruvbox
-    background	= "#282828"
-    foreground 	= "#fbf2c7"
-    frame_color = "#282828"
+#    background	= "#282828"
+#    foreground 	= "#fbf2c7"
+#    frame_color = "#282828"
 
 # dracula
-#   background	= "#282a36"
-#    foreground = "#f8f8f2"
-#    frame_color = "#282a36"
+   background	= "#282a36"
+    foreground = "#f8f8f2"
+    frame_color = "#282a36"
 
 
 [global]
    frame_width = 0
-    font = JetBrains Mono 10
+    #font = JetBrains Mono 10
+    font = Ubuntu 10
     follow = none
     
     # Allow a small subset of html markup:
@@ -79,7 +80,7 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "450x10-5+30"
+    geometry = "450x10-5+35"
     
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.

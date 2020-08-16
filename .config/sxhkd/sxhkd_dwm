@@ -22,10 +22,12 @@ super + Return
 # App menu
 super + space
 #     ~/.local/bin/dmenu_run_history -h 24 -i
-      rofi -show drun -theme gruvbox
+      rofi -show drun -theme dracula
 
 super + r
-     ~/.local/bin/dmenu_run_history -h 24 -i -l 15
+#    ~/.local/bin/dmenu_run_history -h 24 -i -l 15
+     ~/.local/bin/dmenu_run_history -h 24 -i -l 15 -x 6 -y 4 -w 1588
+
 
 ## Firefox
 super + F2
