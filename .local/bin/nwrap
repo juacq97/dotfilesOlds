@@ -7,6 +7,7 @@ export LC_COLLATE="C"
 export NNN_PLAIN_FILTER=1
 export NNN_OPENER=~/.local/bin/nnn-opener
 export NNN_PLUG='d:pdfview;p:-_less -iR $nnn*;k:kdeconnect;w:wall'
+export NNN_COLORS='1234'
 
 nnn -dE
 

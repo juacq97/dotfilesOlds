@@ -6,6 +6,7 @@ case $(file --mime-type "$1" -b) in
 	video/*) mpv "$1" > /dev/null 2 2>&1 & ;;
 	image/*) rifle_sxiv.sh "$1" > /dev/null 2 2>&1 &;;
 	*/pdf) zathura "$1" & disown;;
+	*/vnd.openxmlformats-officedocument.wordprocessingml.document) libreoffice "$1" & disown ;;
         *) for f in $f; do setsid $OPENER "$1" > /dev/null 2> /dev/null & done;;
 esac
 

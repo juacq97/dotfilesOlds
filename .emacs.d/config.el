@@ -325,49 +325,48 @@
   :config
   (setq terminal-here-terminal-command "st"))
 
-(use-package org-present
-  :ensure t)
-(autoload 'org-present "org-present" nil t)
-(eval-after-load "org-present"
+(use-package org-tree-slide
+  :ensure t
+  :config
+  (setq org-tree-slide-display-header-toggle nil)
+  (setq org-tree-slide-header nil)
+  (setq org-tree-slide-modeline-display nil)
+  )
+
+(eval-after-load "org-tree-slide"
   '(progn
-     (add-hook 'org-present-mode-hook
+     (add-hook 'org-tree-slide-play-hook
 	       (lambda ()
-		 (my/variable-pitch-mode 1)
-		 (org-present-big)
-		 (org-display-inline-images)
-		 (org-present-hide-cursor)
-		 (org-present-read-only)))
-     (add-hook 'org-present-mode-quit-hook
+		 (org-display-inline-images 1)
+		 (my/variable-pitch-mode 1)))
+     (add-hook 'org-tree-slide-stop-hook
 	       (lambda ()
-		 (my/variable-pitch-mode -1)
-		 (org-present-small)
-		 (org-remove-inline-images)
-		 (org-present-show-cursor)
-		 (org-present-read-write)))))
+		 (org-display-inline-images -1)
+		 (my/variable-pitch-mode -1)))))
 
 (use-package org-bullets
   :ensure t
   :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   )
 
-;;(font-lock-add-keywords 'org-mode
-;;                        '(("^ +\\([-*]\\) "
-;;                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-;;
-;;(let* (
-;;       (base-font-color     (face-foreground 'default nil 'default))
-;;       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
-;;
-;;(custom-theme-set-faces 'user
-;;			`(org-level-8 ((t (,@headline))))
-;;			`(org-level-7 ((t (,@headline))))
-;;			`(org-level-6 ((t (,@headline))))
-;;			`(org-level-5 ((t (,@headline))))
-;;			`(org-level-4 ((t (,@headline :height 1.1))))
-;;                        `(org-level-3 ((t (,@headline :height 1.25))))
-;;			`(org-level-2 ((t (,@headline :height 1.5))))
-;;			`(org-level-1 ((t (,@headline :height 1.75))))
-;;			`(org-document-title  ((t (, :height 1.5 :underline nil))))))
+(font-lock-add-keywords 'org-mode
+                        '(("^ +\\([-*]\\) "
+                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+(let* (
+       (base-font-color     (face-foreground 'default nil 'default))
+       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+
+(custom-theme-set-faces 'user
+			`(org-level-8 ((t (,@headline))))
+			`(org-level-7 ((t (,@headline))))
+			`(org-level-6 ((t (,@headline))))
+			`(org-level-5 ((t (,@headline))))
+			`(org-level-4 ((t (,@headline :height 1.1))))
+                        `(org-level-3 ((t (,@headline :height 1.25))))
+			`(org-level-2 ((t (,@headline :height 1.5))))
+			`(org-level-1 ((t (,@headline :height 1.75))))
+			`(org-document-title  ((t (, :height 1.5 :underline nil))))))
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-window-setup

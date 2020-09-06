@@ -8,8 +8,8 @@ picom &
 emacs --daemon &
 xfce4-power-manager &
 clipmenud &
-#/usr/lib/kdeconnectd &
-an2linuxserver.py &
+/usr/lib/kdeconnectd &
+#an2linuxserver.py &
 redshift &
 xsetroot -cursor_name left_ptr &
 flameshot &
@@ -18,6 +18,7 @@ sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 dunst &
 ~/.local/dwmblocks & 
 xinput disable 11 &
+ibus-daemon -drx &
 
 export QT_QPA_PLATFORMTHEME="qt5ct"
 

@@ -9,6 +9,10 @@ export LANG=es_MX.UTF-8
 export EDITOR="vim"
 export VISUAL="erwap"
 #export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
+### nihongo
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
 export PAGER=less
 export ZSH="$HOME/.oh-my-zsh"
 export OPENER="mimeopen"
