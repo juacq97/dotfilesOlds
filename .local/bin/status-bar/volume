@@ -9,16 +9,18 @@ ramp1=󰕿
 ramp2=󰖀
 ramp3=󰕾
 
+#if [[ $mute == "true" ]]; then
+#    echo " $iconmute $vol% "
 if [[ $mute == "true" ]]; then
-    echo " $iconmute $vol% "
+    echo " Vol: mute "
 elif [[ "$vol" == "100" ]]; then
-    echo " $ramp3 $vol% "
+    echo " $vol% "
 elif [[ "$vol" < "33" ]]; then
-    echo " $ramp1 $vol% "
+    echo " Vol: $vol% "
 elif [[ "$vol" < "66" ]]; then
-    echo " $ramp2 $vol% "
+    echo " Vol: $vol% "
 elif [[ "$vol" = "66" ]]; then
-    echo " $ramp2 $vol% "
+    echo " Vol: $vol% "
 elif [[ "$vol" > "66" ]]; then
-    echo " $ramp3 $vol% "
+    echo " Vol: $vol% "
 fi

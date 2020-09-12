@@ -7,7 +7,7 @@ status=$(playerctl metadata --format '{{artist}} - {{title}} ')
 runstate=$(playerctl status)
 
 if [[ $runstate == "Playing" ]]; then 
-    echo "$icon $status"
+    echo " $status"
 else
     echo ""
 fi

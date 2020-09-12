@@ -1,0 +1,14 @@
+#! /bin/sh
+
+if [[ $(cat /sys/class/net/wlp*/operstate) == "up" ]]; then
+    echo " WiFi "
+else
+    ping -c 1 google.com
+    if [[ $? == 0 ]]; then
+	echo "Eth"
+    else
+	" "
+    fi
+fi
+
+

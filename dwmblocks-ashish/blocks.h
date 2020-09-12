@@ -22,11 +22,13 @@ static Block blocks[] = {
 
 	{ PATH("volume"),		NULL,		                         0,		4},
 
+	{ PATH("cpu-temp"),		NULL,		                        30,		7},
+
 	{ PATH("battery"),		NULL,		                        120,		2},
 
-	{ PATH("red"),		        NULL,		                        30,		5},
+	{ PATH("red-texto"),		        NULL,		                        30,		5},
 
         { NULL } /* just to mark the end of the array */
 };
 
-static const char *delim =  "  ";
+static const char *delim =  "    ";
