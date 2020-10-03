@@ -1,5 +1,5 @@
 ### Definiendo path ###
-PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin:$HOME/.config/rofi"
+PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin:$HOME/.config/rofi:$HOME/.emacs.d/bin"
 export PATH
 
 ### Variables de entorno ###
@@ -91,3 +91,13 @@ nwrap "$@"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+#Update picom
+update-picom()
+if [[ $(pgrep picom) -ge "0" ]]; then
+    pkill picom & picom & disown
+else
+   picom & disown
+fi
+

@@ -61,9 +61,9 @@ super + ctrl + t
       ~/.local/bin/planeaciones
 
 # Newsboat
-super + n
-#      st -e ~/.local/bin/newsboat-run
-       st -e newsboat
+#super + n
+##      st -e ~/.local/bin/newsboat-run
+#       st -e newsboat
 
 #htop
 super + F4
@@ -80,12 +80,11 @@ super + Print
 
 ##Audio
 XF86AudioMute
-#	~/.local/bin/mute-audio
-	pamixer -t ; sigdwmblocks 4 
+	pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle ; sigdwmblocks 4
 XF86AudioLowerVolume
-	pamixer -d 2 ; sigdwmblocks 4
+	pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -2% ; sigdwmblocks 4
 XF86AudioRaiseVolume
-	pamixer -i 2 ; sigdwmblocks 4
+	pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +2% ; sigdwmblocks 4
 XF86AudioPlay
 	playerctl play-pause ; sigdwmblocks 6
 XF86AudioNext
@@ -114,8 +113,6 @@ XF86ScreenSaver
 super + shift + r
       pkill -USR1 -x sxhkd
 
-super + ctrl + r
-      make -C ~/.repos/dwm-polybar > /tmp/dwm-compile.log
 
 
 ##########################

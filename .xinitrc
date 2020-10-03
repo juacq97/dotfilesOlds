@@ -19,6 +19,7 @@ dunst &
 ~/.local/dwmblocks & 
 xinput disable 11 &
 ibus-daemon -drx &
+pcloud &
 
 export QT_QPA_PLATFORMTHEME="qt5ct"
 

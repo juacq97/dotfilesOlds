@@ -4,13 +4,23 @@
 # --
 
 \dotfill
-** Secuencia $1 ($2 sesiones: $3 --> $4)
-$5
-+ *Aprendizaje esperado:* $6
-+ *Eje temático / Ámbito:* $7
-+ *Tema:* $8
-+ *Páginas AMCO:* $9
-+ *Páginas SEP:* $10
-+ *Inteligencias múltiples:* $11
-+ *Consideraciones previas:* $0
-\dotfill
+** $1 
++ *Aprendizaje esperado:* $4
++ *Eje temático / Ámbito:* $5
++ *Páginas AMCO/SEP:* $6
++ *Inteligencias múltiples:* $7
+
+***** *Inicio* ( $8 min.) 
+- $0
+
+***** *Desarrollo* ( $9 min.)
+- 
+
+***** *Cierre* ( $10 min.)
+- 
+
+***** *Recursos*
++ 
+
+***** *Evaluación*
++ 

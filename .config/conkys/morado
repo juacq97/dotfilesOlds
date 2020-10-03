@@ -163,7 +163,8 @@ conky.text = [[
 # You can change bg-topleft-75.png to bg-topleft-50.png for 50% opacity
 # Or bg-topleft-25.png for 25% opacity
 # Or bg-topleft-0.png for fully transparent
-${image ~/conkys/syclo/images/bg/bg-topleft-0.png -p 0,0 -s 420x280}\
+#${image ~/.config/conkys/syclo/images/bg/bg-topleft-75.png -p 0,0 -s 420x280}\
+${image ~/.repos/dotfiles/widget.png -p 0,0 -s 420x280}\
 ${goto 24}${font Roboto:Light:size=72}${color0}\
 ${offset 30}${time %H}${color}\
 \
@@ -178,7 +179,7 @@ ${color0} ${execi 300 LANG=es_MX.utf8 LC_TIME=es_MX.utf8 date +"%d"}${color}\
 
 ${goto 24}\
 ${font Roboto:Light:pixelsize=12}\
-${image ~/conkys/syclo/images/purple/hdd.png -p 20,160 -s 16x16} ${offset 20}${fs_used /home} / ${fs_size /home}\
-${image ~/conkys/syclo/images/purple/ram.png -p 140,160 -s 16x16} ${offset 45}$mem / $memmax\
-${image ~/conkys/syclo/images/purple/cpu.png -p 260,160 -s 16x16} ${offset 45}${cpu cpu0}%
+${image ~/.config/conkys/syclo/images/purple/hdd.png -p 20,160 -s 16x16} ${offset 20}${fs_used /home} / ${fs_size /home}\
+${image ~/.config/conkys/syclo/images/purple/ram.png -p 140,160 -s 16x16} ${offset 45}$mem / $memmax\
+${image ~/.config/conkys/syclo/images/purple/cpu.png -p 260,160 -s 16x16} ${offset 45}${cpu cpu0}%
 ]];

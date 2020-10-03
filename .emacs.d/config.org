@@ -1,31 +1,16 @@
-* Ajustes principales
-** Responder y/n 
-#+BEGIN_SRC emacs-lisp
-(defalias 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
+#+TITLE: Emacs
+* Cambios en la interfaz
+*** Tema a utilizar
+Dado que uso [[*Heaven & hell][Heaven & hell]] para cambiar dinámicamente de tema, debo usarlo para definir el tema por defecto, por ello no hay ninguna instancia de ~(load-theme)~.
 
-** Desplazarse una línea
-#+BEGIN_SRC emacs-lisp
-(setq scroll-conservatively 100)
-#+END_SRC
+#+begin_src emacs-lisp
+  (setq heaven-and-hell-themes
+        '((light . doom-nord-light)
+          (dark . doom-dracula)))
+#+end_src
 
-** Destacar línea del cursor
-#+BEGIN_SRC emacs-lisp
-(global-hl-line-mode t)
-#+END_SRC
-
-** Mandar autosave a un directorio específico y desactivar los backups
-#+BEGIN_SRC emacs-lisp
-(setq make-backup-files nil) ;desactiva todos los backups
-(setq backup-directory-alist
-      `((".*" . ,"~/.emacs.d/backups/")))
-(setq auto-save-file-name-transforms
-      `((".*" ,"~/.emacs.d/backups/")))
-(setq auto-save-list-file-prefix nil)
-(setq auto-save-default nil)
-#+END_SRC
-
-** Ocultar elementos
+*** Básicos de Emacs
+Eliminar las barras de herramientas y de desplazamiento
 #+BEGIN_SRC emacs-lisp
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -33,21 +18,72 @@
 (global-set-key (kbd "M-m") 'menu-bar-mode) ; M-m hace aparecer el menú
 #+END_SRC
 
-** Abrir configuración con C-c e; recargar con C-c r
+Resaltar la línea actual
+#+begin_src emacs-lisp
+(global-hl-line-mode t)
+#+end_src
+
+Mostrar la columna y fila actual en el modeline
+#+begin_src emacs-lisp
+(column-number-mode 1)
+#+end_src
+
+Mostrar números de línea en modo relativo
+#+begin_src emacs-lisp
+(global-display-line-numbers-mode)
+(setq display-line-numbers-type 'relative)
+#+end_src
+
+Resaltar el paréntesis que corresponde
+#+begin_src emacs-lisp
+(show-paren-mode t)
+#+end_src
+
+Evitar que el cursor parpadee
+#+begin_src emacs-lisp
+(blink-cursor-mode 0)
+#+end_src
+
+* Configuraciones básicas 
+Responder con y/n
+#+begin_src emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+Al llegar al final del texto visible sigue avanzando linea por línea, en lugar de colocar la línea actual al centro.
+#+begin_src emacs-lisp
+(setq scroll-conservatively 100) 
+#+end_src
+
+(Debería) desactivar todos los backups, lo que incrementa el tiempo que tarda en abrir un archivo
+#+begin_src emacs-lisp
+(setq make-backup-files nil) ;desactiva todos los backups
+(setq backup-directory-alist
+      `((".*" . ,"~/.emacs.d/backups/")))
+(setq auto-save-file-name-transforms
+      `((".*" ,"~/.emacs.d/backups/")))
+(setq auto-save-list-file-prefix nil)
+(setq auto-save-default nil)
+#+end_src
+
+Visitar más facilmente el archivo de configuración presionando ~C-c e~
 #+BEGIN_SRC emacs-lisp
 (defun config-visit ()
   (interactive)
   (find-file "~/.emacs.d/config.org"))
 (global-set-key (kbd "C-c e") 'config-visit)
+#+END_SRC
 
+Actualizar el ~init.el~ con ~C-c r~.
+#+BEGIN_SRC emacs-lisp
   (defun config-reload ()
     (interactive)
-    (org-babel-load-file "~/.repos/dotfiles/.emacs.d/config.org"))
+    (org-babel-load-file "~/.emacs.d/config.org"))
   (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 
-** Seguir al buffer nuevo 
-#+BEGIN_SRC emacs-lisp
+Al hacer un split se enfoca dicho split.
+#+begin_src emacs-lisp
 (defun split-and-follow-horizontally ()
   (interactive)
   (split-window-below)
@@ -61,93 +97,122 @@
   (balance-windows)
   (other-window 1))
 (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
-#+END_SRC
+#+end_src
 
-** Mostrar línea actual en modeline
-#+BEGIN_SRC emacs-lisp
-(column-number-mode 1)
-#+END_SRC
-
-** Matar con C-x k
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x k") 'kill-current-buffer)
-#+END_SRC
-
-** Visual line mode con C-c v
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c v") 'visual-line-mode)
+~Visual-line-mode~ siempre activo
+#+begin_src emacs-lisp
 (global-visual-line-mode 1)
-#+END_SRC
+#+end_src
 
-** Flyspell con F5
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<f5>")  'ispell-word) 
-#+END_SRC
-
-** Mostrar números de líneas 
-#+BEGIN_SRC emacs-lisp
-(global-display-line-numbers-mode)
-(setq display-line-numbers-type 'relative)
-#+END_SRC
-
-** Resaltar el otro parentesis
-#+BEGIN_SRC emacs-lisp
-(show-paren-mode t)
-#+END_SRC
-
-** Cursor no parpadeante
-#+BEGIN_SRC emacs-lisp
-(blink-cursor-mode 0)
-#+END_SRC
-
-** Scratch como buffer inicial
-#+BEGIN_SRC emacs-lisp
+Desactivar la pantalla de bienvenida y usar ~srcatch~ como pantalla inicial en org-mode
+#+begin_src emacs-lisp
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
-(setq initial-major-mode (quote text-mode))
+(setq initial-major-mode (quote org-mode))
 (setq vc-follow-symlinks t)
+#+end_src
+
+* Evil-mode
+VIM-like keybindings.
+
+#+BEGIN_SRC emacs-lisp
+;; Evil mode
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1)
+  (setq-default evil-cross-lines t))
 #+END_SRC
 
-** set font for emoji
-#+BEGIN_SRC emacs-lisp
-(set-fontset-font "fontset-default" '(#xF0000 . #xF14FF) "Material Design Icons")
-#+END_SRC
-** Definir variable-pitch-mode solo para modes de texto
-   #+BEGIN_SRC emacs-lisp
-       (define-minor-mode my/variable-pitch-mode
-	 "Toggle `variable-pitch-mode', except for `prog-mode'."
-	 :init-value nil
-	 :global nil
-	 (if my/variable-pitch-mode
-	     (unless (derived-mode-p 'prog-mode)
-	       (variable-pitch-mode 1))
-	   (variable-pitch-mode -1)))
-   #+END_SRC
-* Paquetes
-** AUCTeX
-#+BEGIN_SRC emacs-lisp
-   (setq TeX-auto-save t)
-   (setq TeX-parse-self t)
-   (setq-default TeX-master nil)
-  (with-eval-after-load 'tex
-   (setq TeX-source-correlate-method 'synctex)
-   (TeX-source-correlate-mode)
-   (setq TeX-source-correlate-start-server t)
+Para usar VIM keys en otros modos, usamos ~Evil-collection~
 
-   (add-to-list 'TeX-view-program-selection
-		'(output-pdf "Zathura")))
-  (eval-after-load "tex"
-    '(add-to-list 'TeX-command-list
-		  '("XeLaTeX" "xelatex -interaction=nonstopmode %s"
-		    TeX-run-command t t :help "Run xelatex") t))
-#+END_SRC 
-** Doom modeline
 #+BEGIN_SRC emacs-lisp
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+#+END_SRC
+
+VIM keys en org-mode (casi no las uso)
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-org
+    :ensure t
+    :after org
+    :config
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (add-hook 'evil-org-mode-hook
+	      (lambda ()
+		(evil-org-set-key-theme)))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys))
+#+END_SRC
+
+Definiendo algunos keybindings especiales para org-agenda (entran en conflicto con org-collection)
+#+begin_src emacs-lisp
+  (evil-define-key 'motion org-agenda-mode-map
+    (kbd "C-p") 'org-agenda-earlier
+    (kbd "C-n") 'org-agenda-later)
+#+end_src
+
+VIM keys en magit
+
+#+BEGIN_SRC emacs-lisp
+(use-package evil-magit
+  :ensure t)
+#+END_SRC
+
+HJKL respetan las lineas visuales
+#+BEGIN_SRC emacs-lisp
+(define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+(define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+(define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
+#+END_SRC
+* Keybindings
+Matar el buffer actual
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x k") 'kill-current-buffer)
+#+end_src
+
+Activar visual-line-mode
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c v") 'visual-line-mode) ; visual line
+#+end_src
+
+Activar ispell
+#+begin_src emacs-lisp
+(global-set-key (kbd "<f5>")  'ispell-word) ;activar ispell
+#+end_src
+
+Evil-mode
+#+begin_src emacs-lisp
+(define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
+(define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
+(define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
+(define-key evil-normal-state-map (kbd "SPC s") 'swiper)
+(define-key evil-normal-state-map (kbd "SPC p") 'projectile-find-file)
+(define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
+(define-key evil-normal-state-map (kbd "SPC g") 'magit)
+(define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
+(define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "st > /dev/null 2>&1 & disown")))
+#+end_src
+
+* Doom modeline
+  :PROPERTIES:
+  :ORDERED:  t
+  :END:
+La misma barra de status que usa doom emacs
+#+begin_src emacs-lisp
 (use-package doom-modeline
 :ensure t
 :hook (after-init . doom-modeline-mode)
 :config
-(setq doom-modeline-height 24)
+(setq doom-modeline-height 25)
 (setq doom-modeline-bar-width 4)
 (setq doom-modeline-buffer-file-name-style 'relative-from-project)
 (setq doom-modeline-icon t)
@@ -176,77 +241,21 @@
 (setq doom-modeline-mu4e t)
 (setq doom-modeline-irc t)
 (setq doom-modeline-irc-stylize 'identity))
-#+END_SRC
+(doom-modeline-mode 1)
+#+end_src
 
-** Evil-mode
-*** Paquete principal
-#+BEGIN_SRC emacs-lisp
-(use-package evil
+* Which key
+Muestra los posibles comandos al comenzar a presionar keybindings.
+#+begin_src emacs-lisp
+(use-package which-key
   :ensure t
   :init
-  (setq evil-want-keybinding nil)
-  :config
-  (evil-mode 1)
-  (setq-default evil-cross-lines t)
-)
-#+END_SRC
+  (which-key-mode))
+#+end_src
 
-*** Configuraciones especiales para evil-mode
-    #+BEGIN_SRC emacs-lisp
-    ;; Movimiento respeta las lineas visuales
-    (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-    (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-    (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-    (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-    (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
-    #+END_SRC
-
-*** Algunos atajos basados en SPC como leader key
-    #+BEGIN_SRC emacs-lisp
-    (define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
-    (define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
-    (define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
-    (define-key evil-normal-state-map (kbd "SPC s") 'swiper)
-    (define-key evil-normal-state-map (kbd "SPC p") 'projectile-find-file)
-    (define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
-    (define-key evil-normal-state-map (kbd "SPC g") 'magit)
-    (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
-    (define-key evil-normal-state-map (kbd "SPC t") (lambda () (interactive) (shell-command "st > /dev/null 2>&1 & disown")))
-    #+END_SRC
-
-*** Evil collection
-    #+BEGIN_SRC emacs-lisp
-    (use-package evil-collection
-      :after evil
-      :ensure t
-      :config
-      (evil-collection-init))
-    
-    (use-package evil-org
-      :ensure t
-      :after org
-      :config
-      (add-hook 'org-mode-hook 'evil-org-mode)
-      (add-hook 'evil-org-mode-hook
-                (lambda ()
-                  (evil-org-set-key-theme)))
-      (require 'evil-org-agenda)
-      (evil-org-agenda-set-keys))
-    
-    (use-package evil-magit
-      :ensure t)
-    #+END_SRC
-
-** Which key
-  #+BEGIN_SRC emacs-lisp
-  (use-package which-key
-    :ensure t
-    :init
-    (which-key-mode))
-  #+END_SRC 
-
-** Ivy-mode y counsel
-#+BEGIN_SRC emacs-lisp
+* Ivy
+La interfaz de búsqueda, reemplaza el feo minibuffer que usa por defecto emacs
+#+begin_src emacs-lisp
 (use-package ivy
   :ensure t
   :config
@@ -256,18 +265,27 @@
   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
                                 (t . ivy--regex-fuzzy))))
 (setq ivy-extra-directories nil)
+#+end_src
 
+Ivy rich añade una descripción al usar ~M-x~
+#+begin_src emacs-lisp
 (use-package ivy-rich
   :ensure t
   :config
   (ivy-rich-mode 1))
+#+end_src
 
+Prescient mode agrega historial a ivy
+#+begin_src emacs-lisp
 (use-package ivy-prescient
   :ensure t
   :config
   (prescient-persist-mode 1)
   (ivy-prescient-mode 1))
+#+end_src
 
+Counsel añade esteroides a los mecanismos de búsqueda de archivos que emacs usa por defecto.
+#+begin_src emacs-lisp
 (use-package counsel
   :ensure t
   :config
@@ -277,33 +295,43 @@
 	  ("C-x C-f" . counsel-find-file)))
 (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
 (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
-#+END_SRC
+#+end_src
 
-** Swiper
-#+BEGIN_SRC emacs-lisp
+all-the-icons-ivy agrega iconos a ivy
+#+begin_src emacs-lisp
+(use-package all-the-icons-ivy-rich
+  :ensure t
+  :init (all-the-icons-ivy-rich-mode 1))
+#+end_src
+
+* Swiper
+Un buscador de palabras dentro del buffer. Usa un minibuffer para mostrar los resultados.
+#+begin_src emacs-lisp
 (use-package swiper
   :ensure t
   :bind (
 	 ("C-s" . swiper)))
-#+END_SRC
+#+end_src
 
-** Yasnippet
-#+BEGIN_SRC emacs-lisp
+* Yasnippet
+Snippets que agregan el texto por mi.
+#+begin_src emacs-lisp
 (use-package yasnippet
    :ensure t
    :config
    (yas-global-mode))
-#+END_SRC
+#+end_src
 
-** Magit
-#+BEGIN_SRC emacs-lisp
+* Magit
+Git en emacs
+#+begin_src emacs-lisp
 (use-package magit
   :ensure t)
 (global-set-key (kbd "C-x C-g") 'magit)
-#+END_SRC
+#+end_src
 
-** Markdown-mode
-#+BEGIN_SRC emacs-lisp
+* Utilidades para markdown
+#+begin_src emacs-lisp
 (use-package markdown-mode
   :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
@@ -311,126 +339,106 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 (setq markdown-command "/usr/bin/pandoc")
-#+END_SRC
+#+end_src
 
-** rainbow-mode
-#+BEGIN_SRC emacs-lisp
+* Rainbow mode
+Añade color a loc códigos hexagesimales en el texto
+#+begin_src emacs-lisp
 (use-package rainbow-mode
    :ensure t
-   :init (rainbow-mode 1))
-#+END_SRC
+   :config
+   (rainbow-mode 1))
+#+end_src
 
-** Neotree
-#+BEGIN_SRC emacs-lisp
-(use-package neotree
-  :ensure t
-  :config
-  (global-set-key [f8] 'neotree-toggle))
-#+END_SRC
-
-** All the icons
-#+BEGIN_SRC emacs-lisp
+* All the icons
+Añade íconos a varios paquetes usando la fuente awesome
+#+begin_src emacs-lisp
 (use-package all-the-icons
   :ensure t)
-
-(use-package all-the-icons-ivy-rich
-  :ensure t
-  :init (all-the-icons-ivy-rich-mode 1))
-#+END_SRC
-
-** Doom-themes
-#+BEGIN_SRC emacs-lisp
+#+end_src
+* Doom themes
+Los temas para Doom-emacs. Curiosamente, creo que se ven mejor sin el framework que agrega doom
+#+begin_src emacs-lisp
 (use-package doom-themes
   :ensure t
   :config
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
 	doom-themes-enable-italic t) ; if nil, italics is universally disabled
-;  (load-theme 'doom-dracula t)
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   (doom-themes-treemacs-config)
-  (doom-themes-org-config)
-  )
-;(add-hook 'after-make-frame-functions 'my-frame-config)
-;(add-hook 'after-init-hook 'my-frame-config)
-#+END_SRC
+  (doom-themes-org-config))
+#+end_src
 
-** heaven and hell
-#+BEGIN_SRC emacs-lisp
+* Heaven & hell
+Permite cambiar de un tema oscuro a uno blanco con un botón
+#+begin_src emacs-lisp
 (use-package heaven-and-hell
   :ensure t
   :init
   (setq heaven-and-hell-theme-type 'dark)
-  (setq heaven-and-hell-themes
-        '((light . doom-nord-light)
-          (dark . doom-dracula)))
   (setq heaven-and-hell-load-theme-no-confirm t)
   :hook (after-init . heaven-and-hell-init-hook)
   :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
          ("<f7>" . heaven-and-hell-toggle-theme)))
-#+END_SRC
+#+end_src
 
-** Writeroom-mode
-#+BEGIN_SRC emacs-lisp
-      (use-package writeroom-mode
-	:ensure t
-	:bind ("<f6>" . writeroom-mode))
+* Writeroom-mode
+Permite activar un modo sin distracciones con el texto centrado
+#+begin_src emacs-lisp
+(use-package writeroom-mode
+    :ensure t
+    :bind ("<f6>" . writeroom-mode))
+#+end_src
 
-    (add-hook 'writeroom-mode-hook
-	      #'(lambda ()
-		(my/variable-pitch-mode 1)))
+*** TODO Algunos hooks para writeroom-mode
+El hook para desactivar Writeroom no funciona como debería
+#+begin_src emacs-lisp
+(add-hook 'writeroom-mode-hook
+	  #'(lambda ()
+	    (my/variable-pitch-mode 1)))
 
-    (add-hook 'writeroom-mode-disable-hook
-	     #'(lambda ()
-	       (my/variable-pitch-mode -1)))
-#+END_SRC
+(add-hook 'writeroom-mode-disable-hook
+	 #'(lambda ()
+	   (my/variable-pitch-mode -1)))
+#+end_src
 
-** Focus-mode
-#+BEGIN_SRC emacs-lisp
-(use-package focus
-  :ensure t)
-#+END_SRC
-
-** Ewal
-#+BEGIN_SRC emacs-lisp
+* Ewal
+Toma colores de pywal y genera un tema con ellos
+#+begin_src emacs-lisp
 (use-package ewal
   :ensure t
   :init (setq ewal-use-built-in-always-p nil
               ewal-use-built-in-on-failure-p t
               ewal-built-in-palette "sexy-material"))
-
+#+end_src
+	      
+Permite a ewal generar un tema el estilo de doom-themes
+#+begin_src emacs-lisp
 (use-package ewal-doom-themes
   :ensure t)
-#+END_SRC
+#+end_src
 
-** Smart Parents
-#+BEGIN_SRC emacs-lisp
+* Paréntesis inteligentes
+Smartparents agrega dos paréntesis al escribir automáticamente
+#+begin_src emacs-lisp
 (use-package smartparens
   :ensure t
   :config
   (smartparens-mode t))
-#+END_SRC
+#+end_src
 
-** Rainbow delimiters
-#+BEGIN_SRC emacs-lisp
+Rainbow-delimiters colorea los paréntesis para identificarlos más facilmente
+#+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-#+END_SRC
+#+end_src
 
-** Projectile
-#+BEGIN_SRC emacs-lisp
-(use-package projectile
-  :ensure t
-;  :bind 
-;	 ("C-x C-p" . projectile)
-  :config
-  (projectile-mode 1)) 
-#+END_SRC
-
-** Easy hugo
-#+BEGIN_SRC emacs-lisp
+* Easy Hugo
+Administrar un blog de hugo con emacs
+#+begin_src emacs-lisp
 (use-package easy-hugo
   :ensure t
   :init 
@@ -441,87 +449,172 @@
   (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
   (setq easy-hugo-default-ext ".org")
   (setq easy-hugo-org-header t))
-#+END_SRC
+#+end_src
 
-** Terminal here
-#+BEGIN_SRC emacs-lisp
+* Terminal here
+Abre una terminal directamente en el directorio del buffer actual
+#+begin_src emacs-lisp
 (use-package terminal-here
   :ensure t
   :config
   (setq terminal-here-terminal-command "st"))
-#+END_SRC
+#+end_src
 
 * Org-mode
+** Ox-pandoc
+Soporte para pandoc
+#+begin_src emacs-lisp
+(use-package ox-pandoc
+  :ensure t)
+#+end_src
+
 ** Org-tree-slide
-   #+begin_src emacs-lisp
-     (use-package org-tree-slide
-       :ensure t
-       :config
-       (setq org-tree-slide-display-header-toggle nil)
-       (setq org-tree-slide-header nil)
-       (setq org-tree-slide-modeline-display nil)
-       )
-
-     (eval-after-load "org-tree-slide"
-       '(progn
-	  (add-hook 'org-tree-slide-play-hook
-		    (lambda ()
-		      (org-display-inline-images 1)
-		      (my/variable-pitch-mode 1)))
-	  (add-hook 'org-tree-slide-stop-hook
-		    (lambda ()
-		      (org-display-inline-images -1)
-		      (my/variable-pitch-mode -1)))))
-   #+end_src
-** Org-bullets
-#+BEGIN_SRC emacs-lisp
-(use-package org-bullets
+Presentaciones directamente con orgmode
+#+begin_src emacs-lisp
+(use-package org-tree-slide
   :ensure t
-  :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  :config
+  (setq org-tree-slide-header nil)
+  (setq org-tree-slide-slide-in-effect nil)
   )
-#+END_SRC
 
-** Hacer que org-mode se vea guapo con distintos tamaños de letras para los títulos
-#+BEGIN_SRC emacs-lisp
-(font-lock-add-keywords 'org-mode
-                        '(("^ +\\([-*]\\) "
-                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+(evil-define-key 'normal 'org-tree-slide-mode-map
+  "{"  'org-tree-slide-move-previous-tree
+  "}"  'org-tree-slide-move-next-tree)
+#+end_src
 
-(let* (
-       (base-font-color     (face-foreground 'default nil 'default))
-       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+Hooks para usar diferentes letras al usar tres-slide
+#+begin_src emacs-lisp
+(eval-after-load "org-tree-slide"
+  '(progn
+     (add-hook 'org-tree-slide-play-hook
+	       (lambda ()
+		 (org-display-inline-images 1)
+		 (hide-mode-line-mode 1)
+		 (display-line-numbers-mode -1)
+		 (my/variable-pitch-mode 1)))
+     (add-hook 'org-tree-slide-stop-hook
+	       (lambda ()
+		 (org-display-inline-images -1)
+		 (hide-mode-line-mode -1)
+		 (display-line-numbers-mode 1)
+		 (my/variable-pitch-mode -1)))))
+#+end_src
 
-(custom-theme-set-faces 'user
-			`(org-level-8 ((t (,@headline))))
-			`(org-level-7 ((t (,@headline))))
-			`(org-level-6 ((t (,@headline))))
-			`(org-level-5 ((t (,@headline))))
-			`(org-level-4 ((t (,@headline :height 1.1))))
-                        `(org-level-3 ((t (,@headline :height 1.25))))
-			`(org-level-2 ((t (,@headline :height 1.5))))
-			`(org-level-1 ((t (,@headline :height 1.75))))
-			`(org-document-title  ((t (, :height 1.5 :underline nil))))))
-#+END_SRC
+** Org-superstar
+Org-bullets, con esteroides
+#+begin_src emacs-lisp
+  (use-package org-superstar
+    :ensure t)
+#+end_src
 
-** agenda con C-c a
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-agenda-window-setup
-      'other-window)
-(setq org-agenda-span 3)
-(setq org-agenda-start-on-weekday nil)
-(setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
-(setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
-#+END_SRC
+Configuraciones especiales para usar un estilo más agradable
+#+begin_src emacs-lisp
+;;; Titles and Sections
+(setq org-hidden-keywords '(title))
+;; set basic title font
+(set-face-attribute 'org-level-8 nil :weight 'bold :inherit 'default)
+;; Low levels are unimportant => no scaling
+(set-face-attribute 'org-level-7 nil :inherit 'org-level-8)
+(set-face-attribute 'org-level-6 nil :inherit 'org-level-8)
+(set-face-attribute 'org-level-5 nil :inherit 'org-level-8)
+(set-face-attribute 'org-level-4 nil :inherit 'org-level-8)
+;; Top ones get scaled the same as in LaTeX (\large, \Large, \LARGE)
+(set-face-attribute 'org-level-3 nil :inherit 'org-level-8 :height 1.2) ;\large
+(set-face-attribute 'org-level-2 nil :inherit 'org-level-8 :height 1.44) ;\Large
+(set-face-attribute 'org-level-1 nil :inherit 'org-level-8 :height 1.728) ;\LARGE
+;; Only use the first 4 styles and do not cycle.
+(setq org-cycle-level-faces nil)
+(setq org-n-level-faces 4)
+;; Document Title, (\huge)
+(set-face-attribute 'org-document-title nil
+                    :height 2.074
+                    :foreground 'unspecified
+                    :inherit 'org-level-8)
+#+end_src
 
-** Org-capture flotante 
-#+BEGIN_SRC emacs-lisp
-;; Agenda flotante
-(defun agenda-frame ()
-  (interactive)
-  (org-agenda nil "n")
-  (delete-other-windows))
+Hook para que funcione
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook
+          (lambda ()
+            (org-superstar-mode 1)))
+#+end_src
 
+** Agenda
+#+begin_src emacs-lisp
+      (setq org-directory "/mnt/ORG/")
+      (global-set-key (kbd "C-c a") 'org-agenda)
+      (setq org-agenda-window-setup
+	    'other-window)
+      (setq org-agenda-span 3)
+      (setq org-agenda-start-on-weekday nil)
+      (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+      (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+      (setq org-agenda-block-separator (string-to-char " "))
+      (setq org-agenda-scheduled-leaders 
+	    '("" " "))
+      (setq org-agenda-deadline-leaders 
+	    '("Fecha límite:  " "En %d días: " "Hace %d días: "))
+	  
+
+  (custom-theme-set-faces 'user
+			  '(org-agenda-date-today ((t (:foreground "#d7befb" :weight ultra-bold :height 130 :family "Ubuntu"))))
+			  '(org-agenda-structure ((t (:foreground "#ffffff" :underline t :weight bold :height 200 :width normal :family "Ubuntu"))))
+			  '(org-agenda-calendar-event ((t (:family "Ubuntu" :inherit (default)))))
+			  )
+      
+      (setq org-agenda-custom-commands
+	    '(("o" "My Agenda"
+	       ((todo "TODO" (
+			    (org-agenda-overriding-header " Tareas por hacer:\n")
+			    (tags-todo "TODO")
+			    (org-agenda-remove-tags t)
+			    (org-agenda-prefix-format "%T %?-s")
+			    (org-agenda-todo-keyword-format "")))
+		(agenda "" (
+			    (org-agenda-overriding-header " Eventos para hoy:\n")
+			    (org-agenda-skip-scheduled-if-done t)
+			    (org-agenda-skip-timestamp-if-done t)
+			    (org-agenda-skip-deadline-if-done t)
+			    (org-agenda-skip-deadline-prewarning-if-scheduled t)
+			    (org-agenda-start-day "+0d")
+			    (org-agenda-span 3)
+			    (org-agenda-prefix-format "  %?-t %T %?-5s")
+			    (org-agenda-repeating-timestamp-show-all nil)
+			    (org-agenda-remove-tags t)
+			     ;; (concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator))
+			    (org-agenda-todo-keyword-format " -> ")
+			    (org-agenda-time)
+			    (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈ now")
+			    ;; (org-agenda-scheduled-leaders '("" ""))
+			    ;; (org-agenda-deadline-leaders '("" ""))
+			    (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
+    )))))
+
+      ;; Agenda flotante
+      (defun agenda-frame ()
+	(interactive)
+	(org-agenda nil "n")
+	(delete-other-windows))
+#+end_src
+
+** Convertir TODO en DONE cuando las subtareas haan sido marcadas como DONE
+   Código traido a ustedes gracias a la documentación de orgmode
+#+begin_src emacs-lisp
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "PROJ"))))
+
+(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+#+end_src
+** TODO Keybinding para cambiar de TODO state
+#+begin_src emacs-lisp
+  (evil-define-key 'normal org-mode-map
+    (kbd "SPC t") 'org-todo)
+#+end_src
+** Org-capture flotante
+#+begin_src emacs-lisp
 ;; Org capture flotante
 (defadvice org-capture-finalize
 (after delete-capture-frame activate)
@@ -534,15 +627,15 @@
 "Advise capture-destroy to close the frame"
 (if (equal "capture" (frame-parameter nil 'name))
 (delete-frame)))
-#+END_SRC
+#+end_src
 
-** Parte de un archivo como link de org mode
-#+BEGIN_SRC emacs-lisp
+** Almacenar texto como un link
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-c l") 'org-store-link)
-#+END_SRC
+#+end_src
 
-** Plantillas para org capture
-#+BEGIN_SRC emacs-lisp
+** Plantillas de org-capture
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-capture-templates
       '(
@@ -565,60 +658,60 @@
 	("d" "Diario" entry
 	 (file+olp+datetree "~/Drive/SEC-ABREOJOS/DIARIO.org")
 	 "* %?" :prepend t)))
-#+END_SRC
-
-** Soporte para seleccionar con shift 
-#+BEGIN_SRC emacs-lisp
-(setq org-support-shift-select t)
-#+END_SRC
+#+end_src
 
 ** Exportar en beamer
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (org-beamer-mode)
-#+END_SRC
+#+end_src
 
-** Clases latex extra
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'org-latex-classes
-	'("koma-article"
-	  "\\documentclass{scrartcl}"
-	  ("\\section{%s}" . "\\section*{%s}")
-	  ("\\subsection{%s}" . "\\subsection*{%s}")
-	  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-	  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+** Clases para LaTeX
+Koma-script
+#+begin_src emacs-lisp
+(add-to-list 'org-latex-classes
+      '("koma-article"
+	"\\documentclass{scrartcl}"
+	("\\section{%s}" . "\\section*{%s}")
+	("\\subsection{%s}" . "\\subsection*{%s}")
+	("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	("\\paragraph{%s}" . "\\paragraph*{%s}")
+	("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+end_src
 
-  (add-to-list 'org-latex-classes
-	       '("doc-recepcional"
-		 "\\documentclass{report}"
-		 ("\\chapter{%s}" . "\\chapter*{%s}")
-		 ("\\section{%s}" . "\\section*{%s}")
-		 ("\\subsection{%s}" . "\\subsection*{%s}")
-		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-		 )
-  )
-
-  (add-to-list 'org-latex-classes
-	       '("moderncv"
-		 "\\documentclass{moderncv}"
-		 ("\\section{%s}" . "\\section*{%s}}")
-		 ("\\subsection{%s}" . "\\subsection*{%s}}")
-		 )
+Documento recepcional (?)
+#+begin_src emacs-lisp
+(add-to-list 'org-latex-classes
+	     '("doc-recepcional"
+	       "\\documentclass{report}"
+	       ("\\chapter{%s}" . "\\chapter*{%s}")
+	       ("\\section{%s}" . "\\section*{%s}")
+	       ("\\subsection{%s}" . "\\subsection*{%s}")
+	       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+	       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
 	       )
+)
+#+end_src
 
+Modern-cv
+#+begin_src emacs-lisp
+(add-to-list 'org-latex-classes
+	     '("moderncv"
+	       "\\documentclass{moderncv}"
+	       ("\\section{%s}" . "\\section*{%s}}")
+	       ("\\subsection{%s}" . "\\subsection*{%s}}")
+	       )
+	     )
+#+end_src
 
-#+END_SRC
-
-** Declarar diferentes tipos de letras
-   #+begin_src emacs-lisp
-     (set-face-attribute 'default nil :font "Source Code Pro-10")
-     (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-10")
-     (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
-
-     (dolist (face '(default fixed-pitch))
-       (set-face-attribute `,face nil :font "Source Code Pro-10"))
+** Fuentes para org-mode
+#+begin_src emacs-lisp
+;;(set-face-attribute 'default nil :font "JetBrains Mono-9.7")
+;;     (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono-9.7")
+;;     (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
+;;
+;;     (dolist (face '(default fixed-pitch))
+;;       (set-face-attribute `,face nil :font "JetBrains Mono-9.7"))
        
 (custom-theme-set-faces 'user
  '(org-block ((t (:inherit fixed-pitch))))
@@ -630,4 +723,95 @@
  '(org-table ((t (:inherit fixed-pitch))))
  '(org-verbatim ((t (:inherit fixed-pitch))))
 )
-   #+end_src
+#+end_src
+
+** Atajos para bloques SRC
+Hay que definir los atajos de teclado para los bloques de código. Podemos escribirlos rápidamente presionando ~C-c C-,~ o ~<s~.
+#+BEGIN_SRC emacs-lisp
+(require 'org-tempo)
+(setq org-structure-template-alist
+   '(("el" . "src emacs-lisp")
+     ("a" . "export ascii")
+     ("c" . "center")
+     ("C" . "comment")
+     ("e" . "example")
+     ("E" . "export")
+     ("h" . "export html")
+     ("x" . "export latex")
+     ("q" . "quote")
+     ("s" . "src")
+     ("v" . "verse")))
+#+END_SRC
+
+** Org-superagenda
+Org-agenda para el ricing
+#+begin_src emacs-lisp
+  (use-package org-super-agenda
+  :ensure t)
+  (let ((org-super-agenda-groups
+	 '(;; Each group has an implicit boolean OR operator between its selectors.
+	   (:name "Para hoy"  ; Optionally specify section name
+		  :scheduled today)  ; Items that appear on the time grid
+	   (:name "Tareas pendientes"
+		  ;; Single arguments given alone
+		  :todo "TODO")
+	   (:name "Eventos para los próximos 3 días"
+		  :scheduled t
+		  :deadline t)
+	   ;; Set order of multiple groups at once
+	   (:order-multi (2 (:name "Shopping in town"
+				   ;; Boolean AND group matches items that match all subgroups
+				   :and (:tag "shopping" :tag "@town"))
+			    (:name "Food-related"
+				   ;; Multiple args given in list with implicit OR
+				   :tag ("food" "dinner"))
+			    (:name "Personal"
+				   :habit t
+				   :tag "personal")
+			    (:name "Space-related (non-moon-or-planet-related)"
+				   ;; Regexps match case-insensitively on the entire entry
+				   :and (:regexp ("space" "NASA")
+						 ;; Boolean NOT also has implicit OR between selectors
+						 :not (:regexp "moon" :tag "planet")))))
+	   ;; Groups supply their own section names when none are given
+	   (:todo "WAITING" :order 8)  ; Set order of this section
+	   (:todo ("SOMEDAY" "TO-READ" "CHECK" "TO-WATCH" "WATCHING")
+		  ;; Show this group at the end of the agenda (since it has the
+		  ;; highest number). If you specified this group last, items
+		  ;; with these todo keywords that e.g. have priority A would be
+		  ;; displayed in that group instead, because items are grouped
+		  ;; out in the order the groups are listed.
+		  :order 9)
+	   (:priority<= "B"
+			;; Show this section after "Today" and "Important", because
+			;; their order is unspecified, defaulting to 0. Sections
+			;; are displayed lowest-number-first.
+			:order 1)
+	   ;; After the last group, the agenda will display items that didn't
+	   ;; match any of these groups, with the default order position of 99
+	   )))
+    (org-agenda nil "a"))
+#+end_src
+
+* Lua-mode
+Añade soporte para lua, que no existe por defecto
+#+begin_src emacs-lisp
+  (use-package lua-mode
+    :ensure t)
+
+  (use-package luarocks
+    :ensure t)
+#+end_src
+* Company
+#+begin_src emacs-lisp
+  (use-package company
+    :ensure t
+    :config
+    (company-mode 1))
+#+end_src
+* set font for emoji
+#+BEGIN_SRC emacs-lisp
+  ;;(setq use-default-font-for-symbols nil)
+  (set-fontset-font t '(#xF01C9 . #xF0A88) "Material Design Icons")
+  ;; Add Apple Color Emoji to the default symbol fontset used by Emacs
+#+END_SRC
