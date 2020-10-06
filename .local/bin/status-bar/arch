@@ -9,4 +9,4 @@ fi
 echo $updates > ~/.cache/pacman_updates
 
 #echo "$ifg $icon $tfg$(cat ~/.cache/pacman_updates)"
-echo " $(cat ~/.cache/pacman_updates) updates "
+echo "$icon $(cat ~/.cache/pacman_updates)"

@@ -3,11 +3,11 @@
 icon=" 󰓇" 
 
 #status=$(~/.local/bin/status-bar/spotify_status.py -f '{artist} - {song}')
-status=$(playerctl metadata --format '{{artist}} - {{title}} ')
+status=$(playerctl metadata --format '{{artist}} - {{title}}' | cut -c 1-50)
 runstate=$(playerctl status)
 
 if [[ $runstate == "Playing" ]]; then 
-    echo " $status"
+    echo " $icon $status"
 else
     echo ""
 fi

@@ -78,7 +78,7 @@ Actualizar el ~init.el~ con ~C-c r~.
 #+BEGIN_SRC emacs-lisp
   (defun config-reload ()
     (interactive)
-    (org-babel-load-file "~/.emacs.d/config.org"))
+    (org-babel-load-file "~/.repos/dotfiles/.emacs.d/config.org"))
   (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 
@@ -109,7 +109,7 @@ Desactivar la pantalla de bienvenida y usar ~srcatch~ como pantalla inicial en o
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
 (setq initial-major-mode (quote org-mode))
-(setq vc-follow-symlinks t)
+(setq vc-follow-symlinks nil)
 #+end_src
 
 * Evil-mode
@@ -199,6 +199,7 @@ Evil-mode
 (define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
 (define-key evil-normal-state-map (kbd "SPC g") 'magit)
 (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
+(define-key evil-normal-state-map (kbd "SPC c") 'org-capture)
 (define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "st > /dev/null 2>&1 & disown")))
 #+end_src
 
@@ -541,28 +542,63 @@ Hook para que funcione
 #+end_src
 
 ** Agenda
+Definir un directorio para org-mode
 #+begin_src emacs-lisp
       (setq org-directory "/mnt/ORG/")
+#+end_src
+
+Definir un atajo para abrir la agenda
+#+begin_src emacs-lisp
       (global-set-key (kbd "C-c a") 'org-agenda)
+#+end_src
+
+Configurar la agenda para aparecer en otro buffer
+#+begin_src emacs-lisp
       (setq org-agenda-window-setup
 	    'other-window)
+#+end_src
+
+Configurar la agenda para que solamente muestre los próximos 3 días
+#+begin_src emacs-lisp
       (setq org-agenda-span 3)
+#+end_src
+
+La agenda comienza en lunes
+#+begin_src emacs-lisp
       (setq org-agenda-start-on-weekday nil)
+#+end_src
+
+Colocar los nombres de los dias y meses en español
+
+#+begin_src emacs-lisp
       (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
       (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+#+end_src
+
+Elimina ese ~======~ entre bloques de la agenda
+#+begin_src emacs-lisp
       (setq org-agenda-block-separator (string-to-char " "))
+#+end_src
+
+Elimina las frases ~SCHEDULED:~ y traduce las ~DEADLINE:~ en las entradas agendadas
+#+begin_src emacs-lisp
       (setq org-agenda-scheduled-leaders 
 	    '("" " "))
       (setq org-agenda-deadline-leaders 
 	    '("Fecha límite:  " "En %d días: " "Hace %d días: "))
-	  
+#+end_src
 
+Fuentes personalizadas para la agenda UwU
+#+begin_src emacs-lisp
   (custom-theme-set-faces 'user
-			  '(org-agenda-date-today ((t (:foreground "#d7befb" :weight ultra-bold :height 130 :family "Ubuntu"))))
-			  '(org-agenda-structure ((t (:foreground "#ffffff" :underline t :weight bold :height 200 :width normal :family "Ubuntu"))))
-			  '(org-agenda-calendar-event ((t (:family "Ubuntu" :inherit (default)))))
+			  '(org-agenda-date-today ((t (:foreground "#d7befb" :weight ultra-bold :height 130 :family "Ubuntu")))) ;El día actual
+			  '(org-agenda-structure ((t (:foreground "#ffffff" :underline t :weight bold :height 200 :width normal :family "Ubuntu")))) ;Los títulos
+			  '(org-agenda-calendar-event ((t (:family "Ubuntu" :inherit (default))))) ;El texto
 			  )
+#+end_src
       
+Mi agenda personalizada, se ejecuta con "o"
+#+begin_src emacs-lisp
       (setq org-agenda-custom-commands
 	    '(("o" "My Agenda"
 	       ((todo "TODO" (
@@ -590,7 +626,10 @@ Hook para que funcione
 			    ;; (org-agenda-deadline-leaders '("" ""))
 			    (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
     )))))
+#+end_src
 
+Para spawnear una agenda flotante
+#+begin_src emacs-lisp
       ;; Agenda flotante
       (defun agenda-frame ()
 	(interactive)
@@ -608,7 +647,7 @@ Hook para que funcione
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 #+end_src
-** TODO Keybinding para cambiar de TODO state
+** Keybinding para cambiar de TODO state
 #+begin_src emacs-lisp
   (evil-define-key 'normal org-mode-map
     (kbd "SPC t") 'org-todo)
@@ -636,28 +675,38 @@ Hook para que funcione
 
 ** Plantillas de org-capture
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-c c") 'org-capture)
-(setq org-capture-templates
-      '(
-	("i" "Inbox" entry
-	 (file "~/Drive/GTD/inbox.org")
-	 "* %?\n%u" :prepend t)
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (setq org-capture-templates
+	'(
+  ;	("i" "Inbox" entry
+  ;	 (file "~/Drive/GTD/inbox.org")
+  ;	 "* %?\n%u" :prepend t)
+  
+	  ("t" "Entradas del trabajo")
+	  ("tt" "TODO" entry
+	   (file "~/mnt/DATA/ORG/Trabajo.org")
+	   "* TODO %?\n%u" :prepend t)
 
-;	("t" "TODO" entry
-;	 (file "~/Drive/GTD/0gtd.org")
-;	 "* TODO %?\n%u" :prepend t)
-
-;	("a" "Agenda"  entry
-;	 (file+headline "~/Drive/sync/GTD/0gtd.org" "Agenda")
-;	 "* EVENTO %?\n SCHEDULED: %t")
+	  ("ta" "Agenda"  entry
+	   (file "~/mnt/DATA/ORG/Trabajo.org")
+	   "* %?\n SCHEDULED: %t")
 	
-	("n" "Notas" entry
-	 (file+headline "~/Drive/GTD/referencias.org" "Notas")
-	 "* %?" :prepend t)
+	  ("p" "Entradas personales")
+	  ("pt" "TODO" entry
+	   (file "~/mnt/DATA/ORG/Trabajo.org")
+	   "* TODO %?\n%u" :prepend t)
 
-	("d" "Diario" entry
-	 (file+olp+datetree "~/Drive/SEC-ABREOJOS/DIARIO.org")
-	 "* %?" :prepend t)))
+	  ("pa" "Agenda"  entry
+	   (file "~/mnt/DATA/ORG/Trabajo.org")
+	   "* %?\n SCHEDULED: %t")
+  ;;	("n" "Notas" entry
+  ;;	 (file+headline "~/Drive/GTD/referencias.org" "Notas")
+  ;;	 "* %?" :prepend t)
+  ;;
+  ;;	("d" "Diario" entry
+  ;;	 (file+olp+datetree "~/Drive/SEC-ABREOJOS/DIARIO.org")
+  ;;	 "* %?" :prepend t)
+  ))
 #+end_src
 
 ** Exportar en beamer

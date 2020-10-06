@@ -37,7 +37,7 @@
 
 (defun config-reload ()
   (interactive)
-  (org-babel-load-file "~/.emacs.d/config.org"))
+  (org-babel-load-file "~/.repos/dotfiles/.emacs.d/config.org"))
 (global-set-key (kbd "C-c r") 'config-reload)
 
 (defun split-and-follow-horizontally ()
@@ -59,7 +59,7 @@
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
 (setq initial-major-mode (quote org-mode))
-(setq vc-follow-symlinks t)
+(setq vc-follow-symlinks nil)
 
 ;; Evil mode
 (use-package evil
@@ -114,6 +114,7 @@
 (define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
 (define-key evil-normal-state-map (kbd "SPC g") 'magit)
 (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
+(define-key evil-normal-state-map (kbd "SPC c") 'org-capture)
 (define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "st > /dev/null 2>&1 & disown")))
 
 (use-package doom-modeline
@@ -346,59 +347,65 @@
             (org-superstar-mode 1)))
 
 (setq org-directory "/mnt/ORG/")
-    (global-set-key (kbd "C-c a") 'org-agenda)
-    (setq org-agenda-window-setup
-	  'other-window)
-    (setq org-agenda-span 3)
-    (setq org-agenda-start-on-weekday nil)
-    (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
-    (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
-    (setq org-agenda-block-separator (string-to-char " "))
-    (setq org-agenda-scheduled-leaders 
-	  '("" " "))
-    (setq org-agenda-deadline-leaders 
-	  '("Fecha límite:  " "En %d días: " "Hace %d días: "))
 
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+(setq org-agenda-window-setup
+      'other-window)
+
+(setq org-agenda-span 3)
+
+(setq org-agenda-start-on-weekday nil)
+
+(setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+(setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+
+(setq org-agenda-block-separator (string-to-char " "))
+
+(setq org-agenda-scheduled-leaders 
+      '("" " "))
+(setq org-agenda-deadline-leaders 
+      '("Fecha límite:  " "En %d días: " "Hace %d días: "))
 
 (custom-theme-set-faces 'user
-			'(org-agenda-date-today ((t (:foreground "#d7befb" :weight ultra-bold :height 130 :family "Ubuntu"))))
-			'(org-agenda-structure ((t (:foreground "#ffffff" :underline t :weight bold :height 200 :width normal :family "Ubuntu"))))
-			'(org-agenda-calendar-event ((t (:family "Ubuntu" :inherit (default)))))
+			'(org-agenda-date-today ((t (:foreground "#d7befb" :weight ultra-bold :height 130 :family "Ubuntu")))) ;El día actual
+			'(org-agenda-structure ((t (:foreground "#ffffff" :underline t :weight bold :height 200 :width normal :family "Ubuntu")))) ;Los títulos
+			'(org-agenda-calendar-event ((t (:family "Ubuntu" :inherit (default))))) ;El texto
 			)
 
-    (setq org-agenda-custom-commands
-	  '(("o" "My Agenda"
-	     ((todo "TODO" (
-			  (org-agenda-overriding-header " Tareas por hacer:\n")
-			  (tags-todo "TODO")
-			  (org-agenda-remove-tags t)
-			  (org-agenda-prefix-format "%T %?-s")
-			  (org-agenda-todo-keyword-format "")))
-	      (agenda "" (
-			  (org-agenda-overriding-header " Eventos para hoy:\n")
-			  (org-agenda-skip-scheduled-if-done t)
-			  (org-agenda-skip-timestamp-if-done t)
-			  (org-agenda-skip-deadline-if-done t)
-			  (org-agenda-skip-deadline-prewarning-if-scheduled t)
-			  (org-agenda-start-day "+0d")
-			  (org-agenda-span 3)
-			  (org-agenda-prefix-format "  %?-t %T %?-5s")
-			  (org-agenda-repeating-timestamp-show-all nil)
-			  (org-agenda-remove-tags t)
-			   ;; (concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator))
-			  (org-agenda-todo-keyword-format " -> ")
-			  (org-agenda-time)
-			  (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈ now")
-			  ;; (org-agenda-scheduled-leaders '("" ""))
-			  ;; (org-agenda-deadline-leaders '("" ""))
-			  (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-  )))))
+(setq org-agenda-custom-commands
+	'(("o" "My Agenda"
+	   ((todo "TODO" (
+			(org-agenda-overriding-header " Tareas por hacer:\n")
+			(tags-todo "TODO")
+			(org-agenda-remove-tags t)
+			(org-agenda-prefix-format "%T %?-s")
+			(org-agenda-todo-keyword-format "")))
+	    (agenda "" (
+			(org-agenda-overriding-header " Eventos para hoy:\n")
+			(org-agenda-skip-scheduled-if-done t)
+			(org-agenda-skip-timestamp-if-done t)
+			(org-agenda-skip-deadline-if-done t)
+			(org-agenda-skip-deadline-prewarning-if-scheduled t)
+			(org-agenda-start-day "+0d")
+			(org-agenda-span 3)
+			(org-agenda-prefix-format "  %?-t %T %?-5s")
+			(org-agenda-repeating-timestamp-show-all nil)
+			(org-agenda-remove-tags t)
+			 ;; (concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator))
+			(org-agenda-todo-keyword-format " -> ")
+			(org-agenda-time)
+			(org-agenda-current-time-string "⮜┈┈┈┈┈┈┈ now")
+			;; (org-agenda-scheduled-leaders '("" ""))
+			;; (org-agenda-deadline-leaders '("" ""))
+			(org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
+)))))
 
-    ;; Agenda flotante
-    (defun agenda-frame ()
-      (interactive)
-      (org-agenda nil "n")
-      (delete-other-windows))
+;; Agenda flotante
+(defun agenda-frame ()
+  (interactive)
+  (org-agenda nil "n")
+  (delete-other-windows))
 
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -428,25 +435,35 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-capture-templates
       '(
-	("i" "Inbox" entry
-	 (file "~/Drive/GTD/inbox.org")
-	 "* %?\n%u" :prepend t)
+;	("i" "Inbox" entry
+;	 (file "~/Drive/GTD/inbox.org")
+;	 "* %?\n%u" :prepend t)
 
-;	("t" "TODO" entry
-;	 (file "~/Drive/GTD/0gtd.org")
-;	 "* TODO %?\n%u" :prepend t)
+	("t" "Entradas del trabajo")
+	("tt" "TODO" entry
+	 (file "~/mnt/DATA/ORG/Trabajo.org")
+	 "* TODO %?\n%u" :prepend t)
 
-;	("a" "Agenda"  entry
-;	 (file+headline "~/Drive/sync/GTD/0gtd.org" "Agenda")
-;	 "* EVENTO %?\n SCHEDULED: %t")
-	
-	("n" "Notas" entry
-	 (file+headline "~/Drive/GTD/referencias.org" "Notas")
-	 "* %?" :prepend t)
+	("ta" "Agenda"  entry
+	 (file "~/mnt/DATA/ORG/Trabajo.org")
+	 "* %?\n SCHEDULED: %t")
 
-	("d" "Diario" entry
-	 (file+olp+datetree "~/Drive/SEC-ABREOJOS/DIARIO.org")
-	 "* %?" :prepend t)))
+	("p" "Entradas personales")
+	("pt" "TODO" entry
+	 (file "~/mnt/DATA/ORG/Trabajo.org")
+	 "* TODO %?\n%u" :prepend t)
+
+	("pa" "Agenda"  entry
+	 (file "~/mnt/DATA/ORG/Trabajo.org")
+	 "* %?\n SCHEDULED: %t")
+;;	("n" "Notas" entry
+;;	 (file+headline "~/Drive/GTD/referencias.org" "Notas")
+;;	 "* %?" :prepend t)
+;;
+;;	("d" "Diario" entry
+;;	 (file+olp+datetree "~/Drive/SEC-ABREOJOS/DIARIO.org")
+;;	 "* %?" :prepend t)
+))
 
 (org-beamer-mode)
 

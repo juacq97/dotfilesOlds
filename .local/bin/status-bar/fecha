@@ -6,4 +6,4 @@ cmd=$(date +"%b %e, %R")
 
 
 #echo "$ifg $icon $tfg$cmd"
-echo " $cmd " 
+echo "$icon $cmd" 
