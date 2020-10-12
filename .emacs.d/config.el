@@ -2,6 +2,23 @@
       '((light . doom-nord-light)
         (dark . doom-dracula)))
 
+(set-face-attribute 'default nil :font "Source Code Pro-9.7")
+     (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-9.7")
+     (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
+
+     (dolist (face '(default fixed-pitch))
+       (set-face-attribute `,face nil :font "Source Code Pro-9.7"))
+
+
+     (define-minor-mode my/variable-pitch-mode
+	 "Toggle `variable-pitch-mode', except for `prog-mode'."
+	 :init-value nil
+	 :global nil
+	 (if my/variable-pitch-mode
+	     (unless (derived-mode-p 'prog-mode)
+	       (variable-pitch-mode 1))
+	   (variable-pitch-mode -1)))
+
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
@@ -72,9 +89,8 @@
 
 (use-package evil-collection
   :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
+  :ensure t)
+  (evil-collection-init)
 
 (use-package evil-org
   :ensure t
@@ -245,13 +261,12 @@
     :ensure t
     :bind ("<f6>" . writeroom-mode))
 
-(add-hook 'writeroom-mode-hook
-	  #'(lambda ()
-	    (my/variable-pitch-mode 1)))
-
-(add-hook 'writeroom-mode-disable-hook
-	 #'(lambda ()
-	   (my/variable-pitch-mode -1)))
+;  (add-hook 'writeroom-enable-mode-hook
+;  	    (variable-pitch-mode 1))
+;  
+;  (add-hook 'writeroom-mode-disable-hook
+;  	   (variable-pitch-mode -1))
+  ;(add-hook 'writeroom-local-effects 'my/variable-pitch-mode)
 
 (use-package ewal
   :ensure t
@@ -404,7 +419,7 @@
 ;; Agenda flotante
 (defun agenda-frame ()
   (interactive)
-  (org-agenda nil "n")
+  (org-agenda nil "o")
   (delete-other-windows))
 
 (defun org-summary-todo (n-done n-not-done)
@@ -496,13 +511,6 @@
 	       )
 	     )
 
-;;(set-face-attribute 'default nil :font "JetBrains Mono-9.7")
-;;     (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono-9.7")
-;;     (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
-;;
-;;     (dolist (face '(default fixed-pitch))
-;;       (set-face-attribute `,face nil :font "JetBrains Mono-9.7"))
-       
 (custom-theme-set-faces 'user
  '(org-block ((t (:inherit fixed-pitch))))
  '(org-block-begin-line ((t (:inherit fixed-pitch))))
@@ -588,3 +596,83 @@
 ;;(setq use-default-font-for-symbols nil)
 (set-fontset-font t '(#xF01C9 . #xF0A88) "Material Design Icons")
 ;; Add Apple Color Emoji to the default symbol fontset used by Emacs
+
+(use-package ranger
+  :ensure t)
+(setq ranger-cleanup-on-disable t)
+(setq ranger-cleanup-eagerly t)
+(setq ranger-parent-depth 0)
+(setq ranger-width-preview 0.30)
+(setq ranger-show-literal nil)
+(setq ranger-modify-header nil)
+(setq ranger-excluded-extensions '("mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "ogg" "mkv" "doc" "xls" "ppt" "odt" "ods" "odg" "odp" "docx" "xlsx" "odtx" "pdf" "ps" "ps.gz" "dvi"))
+
+(use-package openwith
+  :ensure t)
+  (when (require 'openwith nil 'noerror)
+    (setq openwith-associations
+	  (list
+	   (list (openwith-make-extension-regexp
+		  '("mpg" "mpeg" "mp3" "mp4"
+		    "avi" "wmv" "wav" "mov" "flv"
+		    "ogm" "ogg" "mkv"))
+		 "mpv"
+		 '(file))
+	   (list (openwith-make-extension-regexp
+		  '("doc" "xls" "ppt" "odt" "ods" "odg" "odp" "docx" "xlsx" "odtx"))
+		 "libreoffice"
+		 '(file))
+	   (list (openwith-make-extension-regexp
+		  '("pdf" "ps" "ps.gz" "dvi"))
+		 "zathura"
+		 '(file))
+	   ))
+    (openwith-mode 1))
+
+(use-package all-the-icons-dired
+  :ensure t)
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+
+(setq dired-hide-details-mode t)
+(setq dired-hide-details-hide-symlink-targets nil)
+(setq dired-listing-switches "-lFaGh1 --group-directories-first")
+
+;;  (use-package dired-open
+;;    :ensure t)
+;;
+;;  (setq dired-open-extensions
+;;	'(("pdf" . "zathura")
+;;	  ("mkv" . "mpv")
+;;	  ("mp4" . "mpv")
+;;	  ("avi" . "mpv")
+;;	  ("html" . "firefox")
+;;	  ("mp3" . "mpv")
+;;	  ("ogg" . "mpv")
+;;	  ("flac" . "mpv")
+;;	  ("aac" . "mpv")
+;;	  ("jpg" . "rifle_sxiv.sh")
+;;	  ("png" . "rifle_sxiv.sh")
+;;	  ("gif" . "sxiv -a")
+;;	  ("doc" . "libreoffice")
+;;	  ("docx" . "libreoffice")
+;;	  ("odt" . "libreoffice")
+;;	  ("ppt" . "libreoffice")
+;;	  ("pptx" . "libreoffice")
+;;	  ("odp" . "libreoffice")
+;;	  ("xls" . "libreoffice")
+;;	  ("xlsx" . "libreoffice")
+;;	  ("ods" . "libreoffice")
+;;  ))
+
+(use-package dired-hide-dotfiles
+  :ensure t)
+  
+(defun my-dired-mode-hook ()
+  "My `dired' mode hook."
+  ;; To hide dot-files by default
+  (dired-hide-dotfiles-mode)
+
+  ;; To toggle hiding
+  (define-key dired-mode-map "." #'dired-hide-dotfiles-mode))
+
+(add-hook 'dired-mode-hook #'my-dired-mode-hook)

@@ -10,6 +10,27 @@ Dado que uso [[*Heaven & hell][Heaven & hell]] para cambiar dinámicamente de te
 #+end_src
 
 *** Básicos de Emacs
+    
+Fuentes a usar
+    #+begin_src emacs-lisp
+(set-face-attribute 'default nil :font "Source Code Pro-9.7")
+     (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-9.7")
+     (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
+
+     (dolist (face '(default fixed-pitch))
+       (set-face-attribute `,face nil :font "Source Code Pro-9.7"))
+
+
+     (define-minor-mode my/variable-pitch-mode
+	 "Toggle `variable-pitch-mode', except for `prog-mode'."
+	 :init-value nil
+	 :global nil
+	 (if my/variable-pitch-mode
+	     (unless (derived-mode-p 'prog-mode)
+	       (variable-pitch-mode 1))
+	   (variable-pitch-mode -1))) 
+#+end_src
+
 Eliminar las barras de herramientas y de desplazamiento
 #+BEGIN_SRC emacs-lisp
 (tool-bar-mode -1)
@@ -131,9 +152,8 @@ Para usar VIM keys en otros modos, usamos ~Evil-collection~
 #+BEGIN_SRC emacs-lisp
 (use-package evil-collection
   :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
+  :ensure t)
+  (evil-collection-init)
 #+END_SRC
 
 VIM keys en org-mode (casi no las uso)
@@ -395,13 +415,12 @@ Permite activar un modo sin distracciones con el texto centrado
 *** TODO Algunos hooks para writeroom-mode
 El hook para desactivar Writeroom no funciona como debería
 #+begin_src emacs-lisp
-(add-hook 'writeroom-mode-hook
-	  #'(lambda ()
-	    (my/variable-pitch-mode 1)))
-
-(add-hook 'writeroom-mode-disable-hook
-	 #'(lambda ()
-	   (my/variable-pitch-mode -1)))
+;  (add-hook 'writeroom-enable-mode-hook
+;  	    (variable-pitch-mode 1))
+;  
+;  (add-hook 'writeroom-mode-disable-hook
+;  	   (variable-pitch-mode -1))
+  ;(add-hook 'writeroom-local-effects 'my/variable-pitch-mode)
 #+end_src
 
 * Ewal
@@ -633,7 +652,7 @@ Para spawnear una agenda flotante
       ;; Agenda flotante
       (defun agenda-frame ()
 	(interactive)
-	(org-agenda nil "n")
+	(org-agenda nil "o")
 	(delete-other-windows))
 #+end_src
 
@@ -755,12 +774,6 @@ Modern-cv
 
 ** Fuentes para org-mode
 #+begin_src emacs-lisp
-;;(set-face-attribute 'default nil :font "JetBrains Mono-9.7")
-;;     (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono-9.7")
-;;     (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
-;;
-;;     (dolist (face '(default fixed-pitch))
-;;       (set-face-attribute `,face nil :font "JetBrains Mono-9.7"))
        
 (custom-theme-set-faces 'user
  '(org-block ((t (:inherit fixed-pitch))))
@@ -864,3 +877,104 @@ Añade soporte para lua, que no existe por defecto
   (set-fontset-font t '(#xF01C9 . #xF0A88) "Material Design Icons")
   ;; Add Apple Color Emoji to the default symbol fontset used by Emacs
 #+END_SRC
+* Dired-mode como administrador de archivos
+Dired puede ser usado como administrador de archivos. Por defecto es algo inusable, pero con un par de paquetes se puede convertir en el reemplazo perfecto de lf, nnn, vifm y ranger.
+
+** TODO Ranger-dired
+Añade una interfaz y atajos de teclado similares a los de ranger
+#+begin_src emacs-lisp
+  (use-package ranger
+    :ensure t)
+  (setq ranger-cleanup-on-disable t)
+  (setq ranger-cleanup-eagerly t)
+  (setq ranger-parent-depth 0)
+  (setq ranger-width-preview 0.30)
+  (setq ranger-show-literal nil)
+  (setq ranger-modify-header nil)
+  (setq ranger-excluded-extensions '("mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "ogg" "mkv" "doc" "xls" "ppt" "odt" "ods" "odg" "odp" "docx" "xlsx" "odtx" "pdf" "ps" "ps.gz" "dvi"))
+#+end_src
+** Openwith
+No todo lo quiero abrir con emacs, muchos archivos deben ser ejecutados en programas externos.
+#+begin_src emacs-lisp
+  (use-package openwith
+    :ensure t)
+    (when (require 'openwith nil 'noerror)
+      (setq openwith-associations
+	    (list
+	     (list (openwith-make-extension-regexp
+		    '("mpg" "mpeg" "mp3" "mp4"
+		      "avi" "wmv" "wav" "mov" "flv"
+		      "ogm" "ogg" "mkv"))
+		   "mpv"
+		   '(file))
+	     (list (openwith-make-extension-regexp
+		    '("doc" "xls" "ppt" "odt" "ods" "odg" "odp" "docx" "xlsx" "odtx"))
+		   "libreoffice"
+		   '(file))
+	     (list (openwith-make-extension-regexp
+		    '("pdf" "ps" "ps.gz" "dvi"))
+		   "zathura"
+		   '(file))
+	     ))
+      (openwith-mode 1))
+#+end_src
+** All-the-icons
+#+begin_src emacs-lisp
+  (use-package all-the-icons-dired
+    :ensure t)
+    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+#+end_src
+** Personalizando dired
+#+begin_src emacs-lisp
+  (setq dired-hide-details-mode t)
+  (setq dired-hide-details-hide-symlink-targets nil)
+  (setq dired-listing-switches "-lFaGh1 --group-directories-first")
+
+#+end_src
+** TODO dired-open
+Alternativa a openwith
+#+begin_src emacs-lisp
+;;  (use-package dired-open
+;;    :ensure t)
+;;
+;;  (setq dired-open-extensions
+;;	'(("pdf" . "zathura")
+;;	  ("mkv" . "mpv")
+;;	  ("mp4" . "mpv")
+;;	  ("avi" . "mpv")
+;;	  ("html" . "firefox")
+;;	  ("mp3" . "mpv")
+;;	  ("ogg" . "mpv")
+;;	  ("flac" . "mpv")
+;;	  ("aac" . "mpv")
+;;	  ("jpg" . "rifle_sxiv.sh")
+;;	  ("png" . "rifle_sxiv.sh")
+;;	  ("gif" . "sxiv -a")
+;;	  ("doc" . "libreoffice")
+;;	  ("docx" . "libreoffice")
+;;	  ("odt" . "libreoffice")
+;;	  ("ppt" . "libreoffice")
+;;	  ("pptx" . "libreoffice")
+;;	  ("odp" . "libreoffice")
+;;	  ("xls" . "libreoffice")
+;;	  ("xlsx" . "libreoffice")
+;;	  ("ods" . "libreoffice")
+;;  ))
+#+end_src
+** TODO Hide-dotfiles Arrlegar keybinding
+#+begin_src emacs-lisp
+(use-package dired-hide-dotfiles
+  :ensure t)
+  
+(defun my-dired-mode-hook ()
+  "My `dired' mode hook."
+  ;; To hide dot-files by default
+  (dired-hide-dotfiles-mode)
+
+  ;; To toggle hiding
+  (define-key dired-mode-map "." #'dired-hide-dotfiles-mode))
+
+(add-hook 'dired-mode-hook #'my-dired-mode-hook)
+#+end_src
+
+** keybindings

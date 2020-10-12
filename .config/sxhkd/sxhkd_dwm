@@ -15,6 +15,11 @@
 # Aplicaciones
 ########################
 
+
+super + a
+      emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 35) (left . 250) (top . 60))' -n -e "(agenda-frame)"
+
+
 #Terminal
 super + Return
       st 
@@ -37,8 +42,9 @@ super + w
 
 #File Manager
 super + f
-      st -e ~/.local/bin/nwrap
+#      st -e ~/.local/bin/nwrap
 #       st -e ~/.local/bin/lfwrap
+	st -e lf
 
 super + shift + f
       thunar

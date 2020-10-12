@@ -19,6 +19,10 @@ export OPENER="mimeopen"
 [ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
 export LESS='-Ri ' #Esto es para poder ver el contenido de archivos comprimidos
 
+# LF_ICONS
+. ~/.config/lf/LF_ICONS
+
+
 ### Ejecuta xinit si es la TTY 1 ###
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     exec startx
@@ -67,7 +71,7 @@ alias d="cd ~/.repos/dotfiles"
 alias clima="curl -s es.wttr.in/"
 alias h="cd /mnt/Data"
 alias r="cd ~/.repos"
-alias lf="lfwrap"
+#alias lf="lfwrap"
 alias vim="nvim"
 alias nnn="nwrap"
 alias v="nvim"
@@ -100,4 +104,5 @@ if [[ $(pgrep picom) -ge "0" ]]; then
 else
    picom & disown
 fi
+
 

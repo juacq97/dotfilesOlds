@@ -1,0 +1,9 @@
+conky.config = {
+own_window = true,
+own_window_type = 'override',
+own_window_transparent = false,
+}
+
+conky.text = [[
+${image ~/.repos/dotfiles/widget.png -p 0,0 -s 420x280}
+]]
