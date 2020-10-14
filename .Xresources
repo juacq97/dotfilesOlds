@@ -1,8 +1,8 @@
 !#include "/home/juan/.cache/wal/colors.Xresources"
 
-Xcursor.theme: Bibata_Oil
-Xcursor.size: 16
-Xcursor.theme_core: 1
+!Xcursor.theme: Bibata_Oil
+!Xcursor.size: 16
+!Xcursor.theme_core: 1
 
 !dwm.normbordercolor: #1d2021
 !dwm.normbgcolor:     #1d2021
@@ -55,7 +55,8 @@ Xcursor.theme_core: 1
 
 ! Dracula Xresources palette
 *.foreground: #f8f8f2
-*.background: #282a36
+!*.background: #282a36
+*.background: #31313A
 *.color0:     #000000
 *.color1:     #FF5555
 *.color2:     #50FA7B
