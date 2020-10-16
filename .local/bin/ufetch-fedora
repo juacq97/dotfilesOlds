@@ -9,7 +9,7 @@ host="$(hostname)"
 os="$(cat /etc/fedora-release)"
 kernel="$(uname -sr)"
 uptime="$(uptime -p | sed 's/up //')"
-packages="$(dnf list installed | sed '1d' | wc -l)"
+#packages="$(dnf list installed | sed '1d' | wc -l)"
 shell="$(basename "$SHELL")"
 
 ## UI DETECTION
@@ -69,8 +69,8 @@ ${c0}       /   __)${c1}\\   ${nc}${USER}${ic}@${nc}${host}${reset}
 ${c0}       |  /  ${c1}\\ \\  ${lc}OS:        ${ic}${os}${reset}
 ${c1}    __${c0}_|  |_${c1}_/ /  ${lc}KERNEL:    ${ic}${kernel}${reset}
 ${c1}   / ${c0}(_    _)${c1}_/   ${lc}UPTIME:    ${ic}${uptime}${reset}
-${c1}  / /  ${c0}|  |       ${lc}PACKAGES:  ${ic}${packages}${reset}
-${c1}  \\ \\${c0}__/  |       ${lc}SHELL:     ${ic}${shell}${reset}
-${c1}   \\${c0}(_____/       ${lc}${uitype}:        ${ic}${ui}${reset}
+${c1}  / /  ${c0}|  |       ${lc}SHELL:     ${ic}${shell}${reset}
+${c1}  \\ \\${c0}__/  |       ${lc}${uitype}:        ${ic}${ui}${reset} 
+${c1}   \\${c0}(_____/       
 
 EOF

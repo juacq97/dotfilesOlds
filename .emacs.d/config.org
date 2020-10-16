@@ -13,22 +13,25 @@ Dado que uso [[*Heaven & hell][Heaven & hell]] para cambiar dinámicamente de te
     
 Fuentes a usar
     #+begin_src emacs-lisp
-(set-face-attribute 'default nil :font "Source Code Pro-9.7")
-     (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-9.7")
-     (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
+      (set-face-attribute 'default nil :font "Source Code Pro-9.7")
+      (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-9.7")
+      (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
 
-     (dolist (face '(default fixed-pitch))
-       (set-face-attribute `,face nil :font "Source Code Pro-9.7"))
+      (set-face-attribute 'default nil :background "#31313A")
+      (set-face-attribute 'hl-line nil :background "#282A36")
+
+      (dolist (face '(default fixed-pitch))
+	(set-face-attribute `,face nil :font "Source Code Pro-9.7"))
 
 
-     (define-minor-mode my/variable-pitch-mode
-	 "Toggle `variable-pitch-mode', except for `prog-mode'."
-	 :init-value nil
-	 :global nil
-	 (if my/variable-pitch-mode
-	     (unless (derived-mode-p 'prog-mode)
-	       (variable-pitch-mode 1))
-	   (variable-pitch-mode -1))) 
+      (define-minor-mode my/variable-pitch-mode
+	"Toggle `variable-pitch-mode', except for `prog-mode'."
+	:init-value nil
+	:global nil
+	(if my/variable-pitch-mode
+	    (unless (derived-mode-p 'prog-mode)
+	      (variable-pitch-mode 1))
+	  (variable-pitch-mode -1))) 
 #+end_src
 
 Eliminar las barras de herramientas y de desplazamiento

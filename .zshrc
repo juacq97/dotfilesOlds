@@ -1,65 +1,65 @@
+
 ### Definiendo path ###
 PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin:$HOME/.config/rofi:$HOME/.emacs.d/bin"
 export PATH
 
 ### Variables de entorno ###
-export QT_QPA_PLATFORMTHEME="qt5ct"
-export WM=dwm
+#export QT_QPA_PLATFORMTHEME="qt5ct"
+#export WM=dwm
 export LANG=es_MX.UTF-8
 export EDITOR="vim"
 export VISUAL="erwap"
 #export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
 ### nihongo
-export GTK_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=ibus
+#export GTK_IM_MODULE=ibus
+#export XMODIFIERS=@im=ibus
+#export QT_IM_MODULE=ibus
 export PAGER=less
-export ZSH="$HOME/.oh-my-zsh"
-export OPENER="mimeopen"
+#export ZSH="$HOME/.oh-my-zsh"
+#export OPENER="mimeopen"
 [ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
 export LESS='-Ri ' #Esto es para poder ver el contenido de archivos comprimidos
-
 # LF_ICONS
-. ~/.config/lf/LF_ICONS
+#. ~/.config/lf/LF_ICONS
 
 
 ### Ejecuta xinit si es la TTY 1 ###
-if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-    exec startx
-fi
+#if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+#    exec startx
+#fi
 
 ### Ejecuta al abrir terminales (casi siempre ufetch) ###
-ufetch-arch
+ufetch-fedora
 
-### Instant prompt para p10k ###
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-### Oh My Zsh config ###
-ZSH_THEME="powerlevel10k/powerlevel10k"
+#Themes
+source ~/.repos/powerlevel10k/powerlevel10k.zsh-theme
 plugins=(
     git
 )
 
-DISABLE_AUTO_TITLE="false"
-#ENABLE_CORRECTION="true"
-COMPLETION_WAITING_DOTS="true"
-HIST_STAMPS="mm/dd/yyyy"
-
-#bindkey -v #vim mode 
-source $ZSH/oh-my-zsh.sh
+bindkey -v #vim mode 
 
 # Syntax highlight!
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Vim mode
-source /usr/share/zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+#source /usr/share/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
 # Autocompletado
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '^ ' autosuggest-accept #Completa con C-space
-ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
+#source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#bindkey '^ ' autosuggest-accept #Completa con C-space
+#ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
+
+# Autocomplete
+source ~/.repos/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+zstyle ':autocomplete:tab:*' widget-style menu-select
 
 
 ### Aliases ###
@@ -104,5 +104,3 @@ if [[ $(pgrep picom) -ge "0" ]]; then
 else
    picom & disown
 fi
-
-
