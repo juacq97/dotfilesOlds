@@ -1,43 +1,3 @@
-(setq heaven-and-hell-themes
-      '((light . doom-nord-light)
-        (dark . doom-dracula)))
-
-(set-face-attribute 'default nil :font "Source Code Pro-9.7")
-(set-face-attribute 'fixed-pitch nil :font "Source Code Pro-9.7")
-(set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
-
-(set-face-attribute 'default nil :background "#31313A")
-(set-face-attribute 'hl-line nil :background "#282A36")
-
-(dolist (face '(default fixed-pitch))
-  (set-face-attribute `,face nil :font "Source Code Pro-9.7"))
-
-
-(define-minor-mode my/variable-pitch-mode
-  "Toggle `variable-pitch-mode', except for `prog-mode'."
-  :init-value nil
-  :global nil
-  (if my/variable-pitch-mode
-      (unless (derived-mode-p 'prog-mode)
-	(variable-pitch-mode 1))
-    (variable-pitch-mode -1)))
-
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(global-set-key (kbd "M-m") 'menu-bar-mode) ; M-m hace aparecer el menú
-
-(global-hl-line-mode t)
-
-(column-number-mode 1)
-
-(global-display-line-numbers-mode)
-(setq display-line-numbers-type 'relative)
-
-(show-paren-mode t)
-
-(blink-cursor-mode 0)
-
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (setq scroll-conservatively 100)
@@ -80,6 +40,45 @@
 (setq initial-scratch-message nil)
 (setq initial-major-mode (quote org-mode))
 (setq vc-follow-symlinks nil)
+
+(setq heaven-and-hell-themes
+      '((light . doom-nord-light)
+        (dark . doom-dracula)))
+
+(set-face-attribute 'default nil :font "Source Code Pro-9.7")
+(set-face-attribute 'fixed-pitch nil :font "Source Code Pro-9.7")
+(set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
+
+(set-face-attribute 'default nil :background "#272A34")
+
+(dolist (face '(default fixed-pitch))
+  (set-face-attribute `,face nil :font "Source Code Pro-9.7"))
+
+
+(define-minor-mode my/variable-pitch-mode
+  "Toggle `variable-pitch-mode', except for `prog-mode'."
+  :init-value nil
+  :global nil
+  (if my/variable-pitch-mode
+      (unless (derived-mode-p 'prog-mode)
+	(variable-pitch-mode 1))
+    (variable-pitch-mode -1)))
+
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+(global-set-key (kbd "M-m") 'menu-bar-mode) ; M-m hace aparecer el menú
+
+(global-hl-line-mode t)
+
+(column-number-mode 1)
+
+(global-display-line-numbers-mode)
+(setq display-line-numbers-type 'relative)
+
+(show-paren-mode t)
+
+(blink-cursor-mode 0)
 
 ;; Evil mode
 (use-package evil
@@ -304,7 +303,7 @@
 (use-package terminal-here
   :ensure t
   :config
-  (setq terminal-here-terminal-command "st"))
+  (setq terminal-here-terminal-command "alacritty"))
 
 (use-package ox-pandoc
   :ensure t)

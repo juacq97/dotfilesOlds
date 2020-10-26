@@ -44,6 +44,7 @@ plugins=(
     git
 )
 
+
 bindkey -v #vim mode 
 
 # Syntax highlight!
@@ -53,14 +54,13 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source /usr/share/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
 # Autocompletado
-#source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-#bindkey '^ ' autosuggest-accept #Completa con C-space
-#ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^ ' autosuggest-accept #Completa con C-space
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
 
 # Autocomplete
-source ~/.repos/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-zstyle ':autocomplete:tab:*' widget-style menu-select
-
+#source ~/.repos/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+#zstyle ':autocomplete:tab:*' widget-style menu-select
 
 ### Aliases ###
 alias e="emacsclient -c"
@@ -104,3 +104,8 @@ if [[ $(pgrep picom) -ge "0" ]]; then
 else
    picom & disown
 fi
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=1000
+setopt SHARE_HISTORY

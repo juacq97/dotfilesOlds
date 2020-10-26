@@ -15,4 +15,3 @@ chrome
 \.stow-local-ignore
 .gitignore
 .gitmodules
-.config/spicetify

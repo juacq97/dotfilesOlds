@@ -1,5 +1,5 @@
 .LeftSidebar__scroll-section::-webkit-scrollbar, .scrollbar-style-visible-mac.body-container--mac::-webkit-scrollbar, #view-content > .embedded-app::-webkit-scrollbar, .context-menu::-webkit-scrollbar {
-  width: 5px;
+  width: 2px;
 }
 .LeftSidebar__scroll-section::-webkit-scrollbar-thumb, .scrollbar-style-visible-mac.body-container--mac::-webkit-scrollbar-thumb, #view-content > .embedded-app::-webkit-scrollbar-thumb, .context-menu::-webkit-scrollbar-thumb {
   background: #1fc167;
@@ -152,14 +152,14 @@
 }
 
 .context-menu {
-  background: #2b2b2b;
+  background: #373C46;
 }
 .context-menu .item.hover:not(.disabled) {
-  background-color: #222222;
+  background-color: #373C46;
 }
 
 .Header__content-wrapper {
-  background-color: #1b1b1b;
+  background-color: #272A34;
 }
 
 .glue-page-header__content .glue-page-header__title, .glue-page-header__sticky, .glue-page-header__title, .Header__content .Header__title-text {

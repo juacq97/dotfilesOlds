@@ -36,7 +36,7 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Default colors
   primary:
-    background: '#31313A'
+    background: '#272A34'
     foreground: '#f8f8f2'
   cursor:
     text: '#44475a'
@@ -47,7 +47,7 @@ colors:
 
   # Normal colors
   normal:
-    black:   '#000000'
+    black:   '#24262C'
     red:     '#ff5555'
     green:   '#50fa7b'
     yellow:  '#f1fa8c'

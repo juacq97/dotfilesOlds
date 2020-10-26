@@ -1,73 +1,4 @@
 #+TITLE: Emacs
-* Cambios en la interfaz
-*** Tema a utilizar
-Dado que uso [[*Heaven & hell][Heaven & hell]] para cambiar dinámicamente de tema, debo usarlo para definir el tema por defecto, por ello no hay ninguna instancia de ~(load-theme)~.
-
-#+begin_src emacs-lisp
-  (setq heaven-and-hell-themes
-        '((light . doom-nord-light)
-          (dark . doom-dracula)))
-#+end_src
-
-*** Básicos de Emacs
-    
-Fuentes a usar
-    #+begin_src emacs-lisp
-      (set-face-attribute 'default nil :font "Source Code Pro-9.7")
-      (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-9.7")
-      (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
-
-      (set-face-attribute 'default nil :background "#31313A")
-      (set-face-attribute 'hl-line nil :background "#282A36")
-
-      (dolist (face '(default fixed-pitch))
-	(set-face-attribute `,face nil :font "Source Code Pro-9.7"))
-
-
-      (define-minor-mode my/variable-pitch-mode
-	"Toggle `variable-pitch-mode', except for `prog-mode'."
-	:init-value nil
-	:global nil
-	(if my/variable-pitch-mode
-	    (unless (derived-mode-p 'prog-mode)
-	      (variable-pitch-mode 1))
-	  (variable-pitch-mode -1))) 
-#+end_src
-
-Eliminar las barras de herramientas y de desplazamiento
-#+BEGIN_SRC emacs-lisp
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(global-set-key (kbd "M-m") 'menu-bar-mode) ; M-m hace aparecer el menú
-#+END_SRC
-
-Resaltar la línea actual
-#+begin_src emacs-lisp
-(global-hl-line-mode t)
-#+end_src
-
-Mostrar la columna y fila actual en el modeline
-#+begin_src emacs-lisp
-(column-number-mode 1)
-#+end_src
-
-Mostrar números de línea en modo relativo
-#+begin_src emacs-lisp
-(global-display-line-numbers-mode)
-(setq display-line-numbers-type 'relative)
-#+end_src
-
-Resaltar el paréntesis que corresponde
-#+begin_src emacs-lisp
-(show-paren-mode t)
-#+end_src
-
-Evitar que el cursor parpadee
-#+begin_src emacs-lisp
-(blink-cursor-mode 0)
-#+end_src
-
 * Configuraciones básicas 
 Responder con y/n
 #+begin_src emacs-lisp
@@ -134,6 +65,74 @@ Desactivar la pantalla de bienvenida y usar ~srcatch~ como pantalla inicial en o
 (setq initial-scratch-message nil)
 (setq initial-major-mode (quote org-mode))
 (setq vc-follow-symlinks nil)
+#+end_src
+
+* Cambios en la interfaz
+*** Tema a utilizar
+Dado que uso [[*Heaven & hell][Heaven & hell]] para cambiar dinámicamente de tema, debo usarlo para definir el tema por defecto, por ello no hay ninguna instancia de ~(load-theme)~.
+
+#+begin_src emacs-lisp
+  (setq heaven-and-hell-themes
+        '((light . doom-nord-light)
+          (dark . doom-dracula)))
+#+end_src
+
+*** Básicos de Emacs
+    
+Fuentes a usar
+    #+begin_src emacs-lisp
+      (set-face-attribute 'default nil :font "Source Code Pro-9.7")
+      (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-9.7")
+      (set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
+
+      (set-face-attribute 'default nil :background "#272A34")
+
+      (dolist (face '(default fixed-pitch))
+	(set-face-attribute `,face nil :font "Source Code Pro-9.7"))
+
+
+      (define-minor-mode my/variable-pitch-mode
+	"Toggle `variable-pitch-mode', except for `prog-mode'."
+	:init-value nil
+	:global nil
+	(if my/variable-pitch-mode
+	    (unless (derived-mode-p 'prog-mode)
+	      (variable-pitch-mode 1))
+	  (variable-pitch-mode -1))) 
+#+end_src
+
+Eliminar las barras de herramientas y de desplazamiento
+#+BEGIN_SRC emacs-lisp
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+(global-set-key (kbd "M-m") 'menu-bar-mode) ; M-m hace aparecer el menú
+#+END_SRC
+
+Resaltar la línea actual
+#+begin_src emacs-lisp
+(global-hl-line-mode t)
+#+end_src
+
+Mostrar la columna y fila actual en el modeline
+#+begin_src emacs-lisp
+(column-number-mode 1)
+#+end_src
+
+Mostrar números de línea en modo relativo
+#+begin_src emacs-lisp
+(global-display-line-numbers-mode)
+(setq display-line-numbers-type 'relative)
+#+end_src
+
+Resaltar el paréntesis que corresponde
+#+begin_src emacs-lisp
+(show-paren-mode t)
+#+end_src
+
+Evitar que el cursor parpadee
+#+begin_src emacs-lisp
+(blink-cursor-mode 0)
 #+end_src
 
 * Evil-mode
@@ -480,7 +479,7 @@ Abre una terminal directamente en el directorio del buffer actual
 (use-package terminal-here
   :ensure t
   :config
-  (setq terminal-here-terminal-command "st"))
+  (setq terminal-here-terminal-command "alacritty"))
 #+end_src
 
 * Org-mode
