@@ -1,0 +1,13 @@
+#! /bin/sh
+
+if [[ -z $1 ]]; then
+    echo "No file specified. Aborting"
+else
+
+    #echo $ics
+    if [[ ${1: -4} == ".rem" ]]; then
+	remind -s $1 | rem2ics-core > $(echo $1 | cut -d '.' -f1).ics
+    else
+	echo $ics > echo $(echo $1).ics
+    fi
+fi

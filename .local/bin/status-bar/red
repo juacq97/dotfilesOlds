@@ -3,7 +3,7 @@
 if [[ $(cat /sys/class/net/wlp*/operstate) == "up" ]]; then
     echo " 󰤨 "
 else
-    echo " 󰤮 "
+    echo " 󰤭 "
 fi
 
 

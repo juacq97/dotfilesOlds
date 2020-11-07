@@ -1,0 +1,34 @@
+#!/usr/bin/awk -f
+# rem2ics by Anthony J. Chivetta <achivetta@gmail.com>
+# version 0.1 - 2006-06-09
+# version 0.2 - 2010-10-27 (one-line patch by Shane Kerr <shane@time-travellers.org>)
+# Converts output of remind -s to iCalendar
+# usage: remind -s | rem2ics
+#
+# THE FOLLOWING CODE IS RELEASED INTO THE PUBLIC DOMAIN
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
+BEGIN {
+print "BEGIN:VCALENDAR"
+print "VERSION:2.0"
+}
+{
+gsub("/","",$1)
+print "BEGIN:VEVENT"
+if ($5 != "*"){
+printf("DTSTART:%dT%02d%02d00\n",$1,$5/60,$5%60)
+printf("DTEND:%dT%02d%02d00\n",$1,($5+$4)/60,($5+$4)%60)
+print "SUMMARY:" substr($0,match($0,$7))
+print "BEGIN:VALARM"
+print "TRIGGER:-PT15M"
+print "ACTION:DISPLAY"
+print "END:VALARM"
+} else {
+printf("DTSTART:%d\n",$1)
+print "SUMMARY:" substr($0,match($0,$6))
+}
+print "END:VEVENT"
+}
+END {print "END:VCALENDAR"}

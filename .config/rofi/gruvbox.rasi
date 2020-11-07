@@ -32,7 +32,8 @@ configuration {
 	hide-scrollbar:              "true";
 	margin:                      0px;
 	padding:                     0px;
-	font:            "Roboto medium 10";
+	font:            "Futura Bk Bt 11";
+
 }
 
 window {
@@ -91,9 +92,9 @@ entry {
 	expand:         true;
 	text-color:     @normal-foreground;
 	background-color: @normal-background;
-	vertical-align: 1;
+	vertical-align: 0;
 	padding:        24px;
-	font:            "Roboto medium 15";
+	font:            "Futura Bk Bt 20";
 	border: 	  0 0 0 0px solid;
 	border-color:	    #030304;
 }

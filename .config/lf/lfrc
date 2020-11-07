@@ -1,4 +1,4 @@
-set shell zsh
+set shell sh
 set drawbox
 set ratios '3:2'
 set ifs "\n"
@@ -10,7 +10,8 @@ set previewer pistol
 
 cmd open $ {{
 	case $(file --mime-type "$f" -bL) in
-		text/*) setsid $VISUAL $f & disown;;
+		text/*) $EDITOR $f ;;
+		inode/*) $EDITOR $f ;;
 		audio/mpeg) mpv --really-quiet $f & disown ;;
 		video/*) setsid mpv --no-terminal $f & disown ;;
 		image/*) setsid rifle_sxiv.sh $f & disown ;;
@@ -135,7 +136,7 @@ map gm cd /media
 map gr cd /run/media/juan
 map g/ cd /
 
-map xx %trash-put $fx
+map xx $trash-put $fx 
 map Xe $"$f" 
 map XE !"$f"
 

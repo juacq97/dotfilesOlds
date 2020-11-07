@@ -1,0 +1,10 @@
+#! /bin/sh
+
+year=$(date +"%Y")
+remains=$((($(date +%s --date "$year-12-31")-$(date +%s))/(3600*24)))
+
+case "$1" in
+    1) notify-send -i "Calendar" -a "Hoy es..." "$(date +"...%A %d de %B de %Y.%n Han pasado %j días y quedan $remains dias para acabar el año ")"  ;;
+    3) emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 35) (left . 250) (top . 60))' -n -e "(agenda-frame)" ;;
+esac
+

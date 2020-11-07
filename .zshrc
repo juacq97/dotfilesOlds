@@ -5,31 +5,41 @@ export PATH
 
 ### Variables de entorno ###
 #export QT_QPA_PLATFORMTHEME="qt5ct"
-#export WM=dwm
+export WM=dwm
 export LANG=es_MX.UTF-8
-export EDITOR="vim"
+export EDITOR="nvim"
 export VISUAL="erwap"
+export TERMINAL="alacritty"
 #export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
 ### nihongo
 #export GTK_IM_MODULE=ibus
 #export XMODIFIERS=@im=ibus
 #export QT_IM_MODULE=ibus
 export PAGER=less
-#export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 #export OPENER="mimeopen"
 [ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
 export LESS='-Ri ' #Esto es para poder ver el contenido de archivos comprimidos
+export $(dbus-launch)
 # LF_ICONS
-#. ~/.config/lf/LF_ICONS
+. ~/.config/lf/LF_ICONS
+
+# FZF variables
+export FZF_DEFAULT_COMMAND="find . "
+
+
 
 
 ### Ejecuta xinit si es la TTY 1 ###
 #if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 #    exec startx
 #fi
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+  exec startx
+fi
 
 ### Ejecuta al abrir terminales (casi siempre ufetch) ###
-ufetch-fedora
+ufetch-noascii
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -44,17 +54,18 @@ plugins=(
     git
 )
 
+source $ZSH/oh-my-zsh.sh
 
 bindkey -v #vim mode 
 
 # Syntax highlight!
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Vim mode
 #source /usr/share/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
 # Autocompletado
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept #Completa con C-space
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
 
@@ -71,8 +82,7 @@ alias d="cd ~/.repos/dotfiles"
 alias clima="curl -s es.wttr.in/"
 alias h="cd /mnt/Data"
 alias r="cd ~/.repos"
-#alias lf="lfwrap"
-alias vim="nvim"
+#alias vim="nvim"
 alias nnn="nwrap"
 alias v="nvim"
 #alias cp="/bin/advcp -g"
@@ -109,3 +119,15 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=1000
 setopt SHARE_HISTORY
+
+
+LFCD="$HOME/.config/lf/lfcd.sh"                                #  pre-built binary, make sure to use absolute path
+if [ -f "$LFCD" ]; then
+    source "$LFCD"
+fi
+
+alias lf="lfcd"
+
+
+#export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export BAT_THEME="gruvbox"

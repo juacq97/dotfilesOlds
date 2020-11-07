@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Abrir un terminal aquí</name>
+	<unique-id>1603688374152819-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Ejemplo de una acción personalizada</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+</actions>

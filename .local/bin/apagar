@@ -1,21 +1,21 @@
 #!/bin/sh
 
-var=$(echo -e "Apagar\nSuspender\nReiniciar\nSalir\nCancelar" | dmenu -i -x 6 -y 4 -w 1588 -p "¿Desea salir?") 
+var=$(echo -e "Apagar\nSuspender\nReiniciar\nSalir\nCancelar" | dmenu -i -h 27 -p "¿Desea salir?") 
 
 case $var in
     'Apagar') 
 #       rm /tmp/bspwm-startup.lock
 #	systemctl poweroff;;
-	poweroff;;
+	sudo poweroff;;
 	
     'Suspender')
-	systemctl suspend;;
-#	sudo zzz;;
+	#systemctl suspend;;
+	sudo zzz;;
 
     'Reiniciar')
 #	rm /tmp/bspwm-startup.lock
 #	systemctl reboot;;
-	reboot;;
+	sudo reboot;;
 
     'Salir')
 #	rm /tmp/bspwm-startup.lock

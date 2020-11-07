@@ -43,13 +43,13 @@
 
 (setq heaven-and-hell-themes
       '((light . doom-nord-light)
-        (dark . doom-dracula)))
+        (dark . doom-gruvbox)))
 
 (set-face-attribute 'default nil :font "Source Code Pro-9.7")
 (set-face-attribute 'fixed-pitch nil :font "Source Code Pro-9.7")
-(set-face-attribute 'variable-pitch nil :font "Nimbus Sans-12")
+(set-face-attribute 'variable-pitch nil :font "Noto Sans-12")
 
-(set-face-attribute 'default nil :background "#272A34")
+;(set-face-attribute 'default nil :background "#272A34")
 
 (dolist (face '(default fixed-pitch))
   (set-face-attribute `,face nil :font "Source Code Pro-9.7"))
@@ -91,8 +91,9 @@
 
 (use-package evil-collection
   :after evil
-  :ensure t)
-  (evil-collection-init)
+  :ensure t
+  :config
+  (evil-collection-init))
 
 (use-package evil-org
   :ensure t
@@ -144,6 +145,7 @@
 (setq doom-modeline-buffer-file-name-style 'relative-from-project)
 (setq doom-modeline-icon t)
 (setq doom-modeline-major-mode-icon t)
+(setq doom-modeline-modal-icon nil)
 (setq doom-modeline-major-mode-color-icon t)
 (setq doom-modeline-minor-modes nil)
 (setq doom-modeline-enable-word-count t)
@@ -286,8 +288,8 @@
 
 (use-package rainbow-delimiters
   :ensure t
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
 
 (use-package easy-hugo
   :ensure t
@@ -513,16 +515,16 @@
 	       )
 	     )
 
-(custom-theme-set-faces 'user
- '(org-block ((t (:inherit fixed-pitch))))
- '(org-block-begin-line ((t (:inherit fixed-pitch))))
- '(org-block-end-line ((t (:inherit fixed-pitch))))
- '(org-code ((t (:inherit fixed-pitch))))
- '(org-document-info-keyword ((t (:inherit fixed-pitch))))
- '(org-meta-line ((t (:inherit fixed-pitch))))
- '(org-table ((t (:inherit fixed-pitch))))
- '(org-verbatim ((t (:inherit fixed-pitch))))
-)
+;(custom-theme-set-faces 'user
+; '(org-block ((t (:inherit fixed-pitch))))
+; '(org-block-begin-line ((t (:inherit fixed-pitch))))
+; '(org-block-end-line ((t (:inherit fixed-pitch))))
+; '(org-code ((t (:inherit fixed-pitch))))
+; '(org-document-info-keyword ((t (:inherit fixed-pitch))))
+; '(org-meta-line ((t (:inherit fixed-pitch))))
+; '(org-table ((t (:inherit fixed-pitch))))
+; '(org-verbatim ((t (:inherit fixed-pitch))))
+;)
 
 (require 'org-tempo)
 (setq org-structure-template-alist
@@ -599,82 +601,13 @@
 (set-fontset-font t '(#xF01C9 . #xF0A88) "Material Design Icons")
 ;; Add Apple Color Emoji to the default symbol fontset used by Emacs
 
-(use-package ranger
-  :ensure t)
-(setq ranger-cleanup-on-disable t)
-(setq ranger-cleanup-eagerly t)
-(setq ranger-parent-depth 0)
-(setq ranger-width-preview 0.30)
-(setq ranger-show-literal nil)
-(setq ranger-modify-header nil)
-(setq ranger-excluded-extensions '("mpg" "mpeg" "mp3" "mp4" "avi" "wmv" "wav" "mov" "flv" "ogm" "ogg" "mkv" "doc" "xls" "ppt" "odt" "ods" "odg" "odp" "docx" "xlsx" "odtx" "pdf" "ps" "ps.gz" "dvi"))
+(require 'calfw)
+(require 'calfw-org)
 
-(use-package openwith
-  :ensure t)
-  (when (require 'openwith nil 'noerror)
-    (setq openwith-associations
-	  (list
-	   (list (openwith-make-extension-regexp
-		  '("mpg" "mpeg" "mp3" "mp4"
-		    "avi" "wmv" "wav" "mov" "flv"
-		    "ogm" "ogg" "mkv"))
-		 "mpv"
-		 '(file))
-	   (list (openwith-make-extension-regexp
-		  '("doc" "xls" "ppt" "odt" "ods" "odg" "odp" "docx" "xlsx" "odtx"))
-		 "libreoffice"
-		 '(file))
-	   (list (openwith-make-extension-regexp
-		  '("pdf" "ps" "ps.gz" "dvi"))
-		 "zathura"
-		 '(file))
-	   ))
-    (openwith-mode 1))
-
-(use-package all-the-icons-dired
-  :ensure t)
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-
-(setq dired-hide-details-mode t)
-(setq dired-hide-details-hide-symlink-targets nil)
-(setq dired-listing-switches "-lFaGh1 --group-directories-first")
-
-;;  (use-package dired-open
-;;    :ensure t)
-;;
-;;  (setq dired-open-extensions
-;;	'(("pdf" . "zathura")
-;;	  ("mkv" . "mpv")
-;;	  ("mp4" . "mpv")
-;;	  ("avi" . "mpv")
-;;	  ("html" . "firefox")
-;;	  ("mp3" . "mpv")
-;;	  ("ogg" . "mpv")
-;;	  ("flac" . "mpv")
-;;	  ("aac" . "mpv")
-;;	  ("jpg" . "rifle_sxiv.sh")
-;;	  ("png" . "rifle_sxiv.sh")
-;;	  ("gif" . "sxiv -a")
-;;	  ("doc" . "libreoffice")
-;;	  ("docx" . "libreoffice")
-;;	  ("odt" . "libreoffice")
-;;	  ("ppt" . "libreoffice")
-;;	  ("pptx" . "libreoffice")
-;;	  ("odp" . "libreoffice")
-;;	  ("xls" . "libreoffice")
-;;	  ("xlsx" . "libreoffice")
-;;	  ("ods" . "libreoffice")
-;;  ))
-
-(use-package dired-hide-dotfiles
-  :ensure t)
-  
-(defun my-dired-mode-hook ()
-  "My `dired' mode hook."
-  ;; To hide dot-files by default
-  (dired-hide-dotfiles-mode)
-
-  ;; To toggle hiding
-  (define-key dired-mode-map "." #'dired-hide-dotfiles-mode))
-
-(add-hook 'dired-mode-hook #'my-dired-mode-hook)
+(use-package rg
+      :ensure t
+;      :bind (:map rg-mode-map
+;      ("n" . next-error-no-select)
+;      ("p" . previous-error-no-select)
+;  )
+)

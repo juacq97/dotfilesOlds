@@ -4,10 +4,11 @@
 #vol=$(amixer get Master | awk -F'[][]' 'END{ print $2 }' )
 mute=$(pamixer --get-mute)
 vol=$(pamixer --get-volume)
-iconmute=󰖁
+iconmute=󰝟
 ramp1=󰕿
 ramp2=󰖀
 ramp3=󰕾
+ramp4=󱄠
 
 #if [[ $mute == "true" ]]; then
 #    echo " $iconmute $vol% "
@@ -19,6 +20,8 @@ elif [[ "$vol" -le "33" ]]; then
     echo "$ramp1 $vol% "
 elif [[ "$vol" -le "66" ]]; then
     echo "$ramp2 $vol% "
-elif [[ "$vol" -ge "66" ]]; then
+elif [[ "$vol" -le "100" ]]; then
     echo "$ramp3 $vol% "
+elif [[ "$vol" -ge "101" ]]; then
+    echo "$ramp4 $vol% "
 fi

@@ -1,9 +1,13 @@
 #! /bin/sh
 
-icon=󰸘
+icon=󰥔
 
 cmd=$(date +"%b %e, %R")
 
 
-#echo "$ifg $icon $tfg$cmd"
-echo "$icon $cmd" 
+echo "$ifg $icon $tfg$cmd"
+#echo "$cmd" 
+
+case $BUTTON in
+    1) gsimplecal;;
+esac

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-icon=󰮯 
+icon=updates: 
 
 if ! updates=$(checkupdates 2> /dev/null | wc -l ); then
     updates=0
