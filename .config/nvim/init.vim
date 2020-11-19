@@ -28,6 +28,8 @@ Plug 'Junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'ptzz/lf.vim'
 Plug 'rbgrouleff/bclose.vim'
+Plug 'ntk148v/vim-horizon'
+Plug 'dracula/vim', { 'as': 'dracula' }
 "Plug 'masukomi/vim-markdown-folding'
 "Plug 'ryanoasis/vim-devicons'
 "Plug 'bagrat/vim-buffet'
@@ -68,14 +70,14 @@ let g:pandoc#syntax#conceal#urls = 1
 """ Temas """""
 let g:grubvox_italic = 1
 let g:grubvox_contrast_dark = 'hard'
-colorscheme gruvbox
+colorscheme horizon
 
 set cursorline			" activa el resaltado de la linea
 highlight Comment cterm=italic gui=italic
 "
 """"" Statusline y ruler """""""
 "set rulerformat=%14(%l,%c%)\ %P
-set statusline=%#Title#%=%#Title#%F%m%r\ %#Directory#%y\ %#VisualNC#\ %l,%c\ \ %P 
+set statusline=%#Title#%=%#Title#%F%m%r\ %y\ %#VisualNC#\ %l,%c\ \ %P 
 
 """""""""""""""""
 " Funcionamiento

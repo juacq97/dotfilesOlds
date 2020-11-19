@@ -55,7 +55,7 @@
 
 ! Dracula Xresources palette
 !*.foreground: #f8f8f2
-!!*.background: #282a36
+!*.background: #282a36
 !*.background: #31313A
 !*.color0:     #000000
 !*.color1:     #FF5555
@@ -74,26 +74,47 @@
 !*.color14:    #9AEDFE
 !*.color15:    #E6E6E6
 
+!Horizon
+*.background:  #1C1E27
+*.foreground:  #CACACC
+*.cursorColor: #CACACC
+*.color0:      #6C6F93
+*.color1:      #E4436F
+*.color2:      #24E39D
+*.color3:      #EDA685
+*.color4:      #00A5AF
+*.color5:      #B367CF
+*.color6:      #00A5AF
+*.color7:      #CACACC
+*.color8:      #6C6F93
+*.color9:      #E4436F
+*.color10:     #24E39D
+*.color11:     #EDA685
+*.color12:     #00A5AF
+*.color13:     #B367CF
+*.color14:     #00A5AF
+*.color15:     #CACACC
+
 ! Gruvbox
-*.background:   #282828
-*.foreground:   #fbf2c7
-*.cursorColor:  #fbf2c7
-*.color0:       #1d2021
-*.color1:       #cc241d
-*.color2:       #98971a
-*.color3:       #d79921
-*.color4:       #458588
-*.color5:       #b16286
-*.color6:       #689d6a
-*.color7:       #a89984
-*.color8:       #928374
-*.color9:       #fb4934
-*.color10:      #b8bb26
-*.color11:      #fabd2f
-*.color12:      #83a598
-*.color13:      #d3869b
-*.color14:      #8ec07c
-*.color15:      #ebdbb2
+!*.background:   #282828
+!*.foreground:   #fbf2c7
+!*.cursorColor:  #fbf2c7
+!*.color0:       #1d2021
+!*.color1:       #cc241d
+!*.color2:       #98971a
+!*.color3:       #d79921
+!*.color4:       #458588
+!*.color5:       #b16286
+!*.color6:       #689d6a
+!*.color7:       #a89984
+!*.color8:       #928374
+!*.color9:       #fb4934
+!*.color10:      #b8bb26
+!*.color11:      #fabd2f
+!*.color12:      #83a598
+!*.color13:      #d3869b
+!*.color14:      #8ec07c
+!*.color15:      #ebdbb2
 
 ! Nord
 !*.foreground:   #D8DEE9

@@ -1,5 +1,5 @@
 window:
-  dimesions:
+  dimensions:
     columns: 80
     lines: 0
 
@@ -7,30 +7,29 @@ window:
     x: 10
     y: 20
 
-
 scrolling:
   history: 100000
 
 # Font configuration
 font:
   normal:
-    family: SauceCodePro Nerd Font
-    style: Regular
+   family: FantasqueSansMono Nerd Font
+   style: Regular
   bold:
-   family: SauceCodePro Nerd Font
+   family: FantasqueSansMono Nerd Font
    style: bold
   italic:
-   family: SauceCodePro Nerd Font
+   family: FantasqueSansMono Nerd Font
    style: italic
   bold_italic:
-   family: SauceCodePro Nerd Font
+   family: FantasqueSansMono Nerd Font
    style: bold_italic
 
-  size: 7.0
+  size: 11
 
-  #offset:
-  #  x: 0
-  #  y: 0
+  offset:
+    x: 0
+    y: 2
 
   glyph_offset:
     x: 0
@@ -38,85 +37,109 @@ font:
 
 draw_bold_text_with_bright_colors: true
 
-# Colors (Gruvbox dark)
-colors:
+schemes:
+  Horizon: &horizon
+    primary:
+      background: '#1C1E27'
+      foreground: '#CACACC'
+
+    normal:
+      black:   '#1c1e27'
+      red:     '#E4436F'
+      green:   '#24E39D'
+      yellow:  '#EDA685'
+      blue:    '#00A5AF'
+      magenta: '#B367CF'
+      cyan:    '#00A5AF'
+      white:   '#CACACC'
+
+    bright:
+      black:   '#6C6F93'
+      red:     '#E4436F'
+      green:   '#24E39D'
+      yellow:  '#EDA685'
+      blue:    '#00A5AF'
+      magenta: '#B367CF'
+      cyan:    '#00A5AF'
+      white:   '#CACACC'
+
+  grubvox: &gruvbox
   # Default colors
-  primary:
-    # hard contrast: background = '0x1d2021'
-    background: '0x282828'
-    # soft contrast: background = '0x32302f'
-    foreground: '0xebdbb2'
+    primary:
+      # hard contrast: background = '0x1d2021'
+      background: '0x282828'
+      # soft contrast: background = '0x32302f'
+      foreground: '0xebdbb2'
 
-  # Normal colors
-  normal:
-    black:   '0x282828'
-    red:     '0xcc241d'
-    green:   '0x98971a'
-    yellow:  '0xd79921'
-    blue:    '0x458588'
-    magenta: '0xb16286'
-    cyan:    '0x689d6a'
-    white:   '0xa89984'
+    # Normal colors
+    normal:
+      black:   '0x282828'
+      red:     '0xcc241d'
+      green:   '0x98971a'
+      yellow:  '0xd79921'
+      blue:    '0x458588'
+      magenta: '0xb16286'
+      cyan:    '0x689d6a'
+      white:   '0xa89984'
 
-  # Bright colors
-  bright:
-    black:   '0x928374'
-    red:     '0xfb4934'
-    green:   '0xb8bb26'
-    yellow:  '0xfabd2f'
-    blue:    '0x83a598'
-    magenta: '0xd3869b'
-    cyan:    '0x8ec07c'
-    white:   '0xebdbb2'
+    # Bright colors
+    bright:
+      black:   '0x928374'
+      red:     '0xfb4934'
+      green:   '0xb8bb26'
+      yellow:  '0xfabd2f'
+      blue:    '0x83a598'
+      magenta: '0xd3869b'
+      cyan:    '0x8ec07c'
+      white:   '0xebdbb2'
 
-## Colors (Dracula)
-#colors:
-#  # Default colors
-#  primary:
-#    background: '#272A34'
-#    foreground: '#f8f8f2'
-#  cursor:
-#    text: '#44475a'
-#    cursor: '#f8f8f2'
-#  selection:
-#    text: '#f8f8f2'
-#    background: '#44475a'
-#
-#  # Normal colors
-#  normal:
-#    black:   '#24262C'
-#    red:     '#ff5555'
-#    green:   '#50fa7b'
-#    yellow:  '#f1fa8c'
-#    blue:    '#bd93f9'
-#    magenta: '#ff79c6'
-#    cyan:    '#8be9fd'
-#    white:   '#bfbfbf'
-#
-#  # Bright colors
-#  bright:
-#    black:   '#4d4d4d'
-#    red:     '#ff6e67'
-#    green:   '#5af78e'
-#    yellow:  '#f4f99d'
-#    blue:    '#caa9fa'
-#    magenta: '#ff92d0'
-#    cyan:    '#9aedfe'
-#    white:   '#e6e6e6'
-#
-#  # Dim colors 
-#  dim:
-#    black:   '#14151b'
-#    red:     '#ff2222'
-#    green:   '#1ef956'
-#    yellow:  '#ebf85b'
-#    blue:    '#4d5b86'
-#    magenta: '#ff46b0'
-#    cyan:    '#59dffc'
-#    white:   '#e6e6d1'
+  dracula: &dracula
+    primary:
+      background: '#272A34'
+      foreground: '#f8f8f2'
+    cursor:
+      text: '#44475a'
+      cursor: '#f8f8f2'
+    selection:
+      text: '#f8f8f2'
+      background: '#44475a'
+
+    # Normal colors
+    normal:
+      black:   '#24262C'
+      red:     '#ff5555'
+      green:   '#50fa7b'
+      yellow:  '#f1fa8c'
+      blue:    '#bd93f9'
+      magenta: '#ff79c6'
+      cyan:    '#8be9fd'
+      white:   '#bfbfbf'
+
+    # Bright colors
+    bright:
+      black:   '#4d4d4d'
+      red:     '#ff6e67'
+      green:   '#5af78e'
+      yellow:  '#f4f99d'
+      blue:    '#caa9fa'
+      magenta: '#ff92d0'
+      cyan:    '#9aedfe'
+      white:   '#e6e6e6'
+
+    # Dim colors 
+    dim:
+      black:   '#14151b'
+      red:     '#ff2222'
+      green:   '#1ef956'
+      yellow:  '#ebf85b'
+      blue:    '#4d5b86'
+      magenta: '#ff46b0'
+      cyan:    '#59dffc'
+      white:   '#e6e6d1'
 
   indexed_colors: []
 
+colors: *horizon
   
 # Background opacity
 background_opacity: 1

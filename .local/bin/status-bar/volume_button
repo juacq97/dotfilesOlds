@@ -1,6 +1,14 @@
 #! /bin/sh
 
+launch() {
+    if [ $(pgrep pavucontrol) ]; then
+	pkill pavucontrol
+    else
+	pavucontrol
+    fi
+}
+
 case "$1" in
     1) pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle ; sigdwmblocks 4;;
-    3) pavucontrol ;;
+    3) launch ;;
 esac

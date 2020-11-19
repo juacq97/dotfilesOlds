@@ -21,8 +21,6 @@
 set $mod Mod4
 
 # Bordes de ventana
-new_window pixel 4
-new_float pixel 4
 
 # no sepo
 hide_edge_borders none
@@ -55,7 +53,7 @@ client.background       #232a38
 ##########
 
 # Terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec alacritty
 
 # Refrescar el archivo de configuración
 bindsym $mod+Shift+c reload
@@ -113,10 +111,10 @@ bindsym $mod+Shift+s floating toggle
 bindsym $mod+Shift+space focus mode_toggle
 
 # Mostrar en todos los escritorios
-#bindsym $mod+Shift+s sticky toggle
+bindsym $mod+z sticky toggle
 
 # Enfocar el contenedor padre
-#bindsym $mod+p focus parent
+bindsym $mod+p focus parent
 
 # Mover la ventana enfocada al scratchpad (similar a minimizar) 
 bindsym $mod+Shift+minus move scratchpad

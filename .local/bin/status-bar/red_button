@@ -1,0 +1,14 @@
+#! /bin/sh
+
+launch() {
+    if [ $(pgrep connman-gtk) ]; then
+	pkill connman-gtk
+    else
+	connman-gtk
+    fi
+}
+
+
+case $1 in
+    1) launch;;
+esac

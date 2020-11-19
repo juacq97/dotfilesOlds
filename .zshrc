@@ -1,14 +1,13 @@
-
 ### Definiendo path ###
 PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin:$HOME/.config/rofi:$HOME/.emacs.d/bin"
 export PATH
 
 ### Variables de entorno ###
-#export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_QPA_PLATFORMTHEME="qt5ct"
 export WM=dwm
 export LANG=es_MX.UTF-8
 export EDITOR="nvim"
-export VISUAL="erwap"
+#export VISUAL="erwap"
 export TERMINAL="alacritty"
 #export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
 ### nihongo
@@ -17,23 +16,18 @@ export TERMINAL="alacritty"
 #export QT_IM_MODULE=ibus
 export PAGER=less
 export ZSH="$HOME/.oh-my-zsh"
-#export OPENER="mimeopen"
+export OPENER="mimeopen"
 [ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
 export LESS='-Ri ' #Esto es para poder ver el contenido de archivos comprimidos
-export $(dbus-launch)
+export $(dbus-launch) #Variable para dbus
+export WINIT_X11_SCALE_FACTOR=1 #No estoy sguro, pero ayuda a alacritty en multiples monitores
 # LF_ICONS
 . ~/.config/lf/LF_ICONS
 
 # FZF variables
 export FZF_DEFAULT_COMMAND="find . "
 
-
-
-
 ### Ejecuta xinit si es la TTY 1 ###
-#if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-#    exec startx
-#fi
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   exec startx
 fi
@@ -55,23 +49,11 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-
 bindkey -v #vim mode 
-
-# Syntax highlight!
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Vim mode
-#source /usr/share/zsh-vim-mode/zsh-vim-mode.plugin.zsh
-
-# Autocompletado
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept #Completa con C-space
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
-
-# Autocomplete
-#source ~/.repos/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-#zstyle ':autocomplete:tab:*' widget-style menu-select
 
 ### Aliases ###
 alias e="emacsclient -c"
@@ -82,11 +64,7 @@ alias d="cd ~/.repos/dotfiles"
 alias clima="curl -s es.wttr.in/"
 alias h="cd /mnt/Data"
 alias r="cd ~/.repos"
-#alias vim="nvim"
 alias nnn="nwrap"
-alias v="nvim"
-#alias cp="/bin/advcp -g"
-#alias mv="/bin/advmv -g"
 
 ### cd on quit para nnn ###
 NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
@@ -99,35 +77,20 @@ nwrap "$@"
     fi
 }
 
-# Usa p10k como tema para Oh my Zsh
-#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-#source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-
-#Update picom
-update-picom()
-if [[ $(pgrep picom) -ge "0" ]]; then
-    pkill picom & picom & disown
-else
-   picom & disown
-fi
-
+# Historial de zsh
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=1000
 setopt SHARE_HISTORY
 
-
-LFCD="$HOME/.config/lf/lfcd.sh"                                #  pre-built binary, make sure to use absolute path
+#lf cd on quit
+LFCD="$HOME/.config/lf/lfcd.sh" 
 if [ -f "$LFCD" ]; then
     source "$LFCD"
 fi
-
 alias lf="lfcd"
 
-
-#export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export BAT_THEME="gruvbox"

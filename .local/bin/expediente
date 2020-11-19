@@ -1,0 +1,38 @@
+#! /bin/sh
+
+dir=/mnt/Data/Drive/CIMB/EXPEDIENTES/
+
+cd $dir
+
+nuevo() {
+alumno=$(find * -type d | dmenu -l 15 -i -p "Elige un alumno")
+archivo="$alumno"/$(date +'%d-%b-%Y').md
+
+if [ "$alumno" == "" ];then
+    exit 0
+fi
+
+if [ ! -f "$archivo" ]; then
+echo -e "### $(date +'%d de %B de %Y')\n " > $archivo
+fi
+echo -e "- ">> $archivo
+$TERMINAL -e nvim + "$archivo"
+
+
+
+}
+
+lectura() {
+alumno=$(find * -type d| dmenu -l 15 -i -p "Elige un alumno")
+
+if [ "$alumno" == "" ];then
+    exit 0
+fi
+#cat "$alumno"/* | bat
+$TERMINAL -e bat "$alumno"/*
+}
+
+case $1 in
+    'nuevo') nuevo;;
+    'leer') lectura;;
+esac

@@ -1,0 +1,17 @@
+#! /bin/sh
+
+
+
+alias convert="remind -c1 -p "$1" | iconv -f utf-8 -t iso-8859-1 | rem2ps -i | ps2pdf -"
+
+if [ "$2" == '-n' ]; then
+    echo $2
+    convert | zathura -
+    exit 0
+elif [ "$2" == "" ]; then
+    name=$(echo -e $1 | cut -d '.' -f 1).pdf
+    convert > $name
+else
+    convert > $2
+fi
+
