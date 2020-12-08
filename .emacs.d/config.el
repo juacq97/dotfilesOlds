@@ -42,17 +42,17 @@
 (setq vc-follow-symlinks nil)
 
 (setq heaven-and-hell-themes
-      '((light . doom-nord-light)
-        (dark . doom-gruvbox)))
+      '((light . doom-tomorrow-day)
+        (dark . doom-tomorrow-night)))
 
-(set-face-attribute 'default nil :font "Source Code Pro-9.7")
-(set-face-attribute 'fixed-pitch nil :font "Source Code Pro-9.7")
+(set-face-attribute 'default nil :font "FantasqueSansMono Nerd Font-11")
+(set-face-attribute 'fixed-pitch nil :font "FantasqueSansMono Nerd Font-11")
 (set-face-attribute 'variable-pitch nil :font "Noto Sans-12")
 
 ;(set-face-attribute 'default nil :background "#272A34")
 
 (dolist (face '(default fixed-pitch))
-  (set-face-attribute `,face nil :font "Source Code Pro-9.7"))
+  (set-face-attribute `,face nil :font "FantasqueSansMono Nerd Font-11"))
 
 
 (define-minor-mode my/variable-pitch-mode
@@ -134,7 +134,7 @@
 (define-key evil-normal-state-map (kbd "SPC g") 'magit)
 (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
 (define-key evil-normal-state-map (kbd "SPC c") 'org-capture)
-(define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "st > /dev/null 2>&1 & disown")))
+(define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
 
 (use-package doom-modeline
 :ensure t
@@ -148,6 +148,7 @@
 (setq doom-modeline-modal-icon nil)
 (setq doom-modeline-major-mode-color-icon t)
 (setq doom-modeline-minor-modes nil)
+(setq doom-modeline-buffer-encoding nil)
 (setq doom-modeline-enable-word-count t)
 (setq doom-modeline-checker-simple-format t)
 (setq doom-modeline-persp-name t)
@@ -302,11 +303,6 @@
   (setq easy-hugo-default-ext ".org")
   (setq easy-hugo-org-header t))
 
-(use-package terminal-here
-  :ensure t
-  :config
-  (setq terminal-here-terminal-command "alacritty"))
-
 (use-package ox-pandoc
   :ensure t)
 
@@ -316,6 +312,9 @@
   (setq org-tree-slide-header nil)
   (setq org-tree-slide-slide-in-effect nil)
   )
+
+(use-package hide-mode-line
+  :ensure t)
 
 (evil-define-key 'normal 'org-tree-slide-mode-map
   "{"  'org-tree-slide-move-previous-tree
@@ -337,7 +336,23 @@
 		 (my/variable-pitch-mode -1)))))
 
 (use-package org-superstar
-  :ensure t)
+	:ensure t
+	)
+
+  (defun my/org-enable-prettify ()
+  (setq prettify-symbols-alist
+	'(("TODO" . ?❢)
+	  ("DONE" . ?✔)
+	  ("PROJ" . ?➠)
+	  ("WAIT" . ?⌛)
+	  ("DROP" . ?✖)
+	  ("EMISION" . ?✒)
+	  ("FINALIZADO" . ?✓)
+	  ("LIKE" . ?❤)
+	  ("CANCELADO" . ?✘)))
+  (prettify-symbols-mode))
+
+(add-hook 'org-mode-hook 'my/org-enable-prettify)
 
 ;;; Titles and Sections
 (setq org-hidden-keywords '(title))
@@ -349,9 +364,9 @@
 (set-face-attribute 'org-level-5 nil :inherit 'org-level-8)
 (set-face-attribute 'org-level-4 nil :inherit 'org-level-8)
 ;; Top ones get scaled the same as in LaTeX (\large, \Large, \LARGE)
-(set-face-attribute 'org-level-3 nil :inherit 'org-level-8 :height 1.2) ;\large
-(set-face-attribute 'org-level-2 nil :inherit 'org-level-8 :height 1.44) ;\Large
-(set-face-attribute 'org-level-1 nil :inherit 'org-level-8 :height 1.728) ;\LARGE
+(set-face-attribute 'org-level-3 nil :inherit 'org-level-8 :height 1.1) ;\large
+(set-face-attribute 'org-level-2 nil :inherit 'org-level-8 :height 1.3) ;\Large
+(set-face-attribute 'org-level-1 nil :inherit 'org-level-8 :height 1.5) ;\LARGE
 ;; Only use the first 4 styles and do not cycle.
 (setq org-cycle-level-faces nil)
 (setq org-n-level-faces 4)
@@ -365,66 +380,66 @@
           (lambda ()
             (org-superstar-mode 1)))
 
-(setq org-directory "/mnt/ORG/")
+;;      (setq org-directory "/mnt/ORG/")
 
-(global-set-key (kbd "C-c a") 'org-agenda)
+;;      (global-set-key (kbd "C-c a") 'org-agenda)
 
-(setq org-agenda-window-setup
-      'other-window)
+;;      (setq org-agenda-window-setup
+;;	    'other-window)
 
-(setq org-agenda-span 3)
+;;      (setq org-agenda-span 3)
 
-(setq org-agenda-start-on-weekday nil)
+;;      (setq org-agenda-start-on-weekday nil)
 
-(setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
-(setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+;;(setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+;;(setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
 
-(setq org-agenda-block-separator (string-to-char " "))
+;;(setq org-agenda-block-separator (string-to-char " "))
 
-(setq org-agenda-scheduled-leaders 
-      '("" " "))
-(setq org-agenda-deadline-leaders 
-      '("Fecha límite:  " "En %d días: " "Hace %d días: "))
+;;(setq org-agenda-scheduled-leaders 
+      ;;'("" " "))
+;;(setq org-agenda-deadline-leaders 
+      ;;'("Fecha límite:  " "En %d días: " "Hace %d días: "))
 
-(custom-theme-set-faces 'user
-			'(org-agenda-date-today ((t (:foreground "#d7befb" :weight ultra-bold :height 130 :family "Ubuntu")))) ;El día actual
-			'(org-agenda-structure ((t (:foreground "#ffffff" :underline t :weight bold :height 200 :width normal :family "Ubuntu")))) ;Los títulos
-			'(org-agenda-calendar-event ((t (:family "Ubuntu" :inherit (default))))) ;El texto
-			)
+;;  (custom-theme-set-faces 'user
+;;			  '(org-agenda-date-today ((t (:foreground "#d7befb" :weight ultra-bold :height 130 :family "Ubuntu")))) ;El día actual
+;;			  '(org-agenda-structure ((t (:foreground "#ffffff" :underline t :weight bold :height 200 :width normal :family "Ubuntu")))) ;Los títulos
+;;			  '(org-agenda-calendar-event ((t (:family "Ubuntu" :inherit (default))))) ;El texto
+;;			  )
 
-(setq org-agenda-custom-commands
-	'(("o" "My Agenda"
-	   ((todo "TODO" (
-			(org-agenda-overriding-header " Tareas por hacer:\n")
-			(tags-todo "TODO")
-			(org-agenda-remove-tags t)
-			(org-agenda-prefix-format "%T %?-s")
-			(org-agenda-todo-keyword-format "")))
-	    (agenda "" (
-			(org-agenda-overriding-header " Eventos para hoy:\n")
-			(org-agenda-skip-scheduled-if-done t)
-			(org-agenda-skip-timestamp-if-done t)
-			(org-agenda-skip-deadline-if-done t)
-			(org-agenda-skip-deadline-prewarning-if-scheduled t)
-			(org-agenda-start-day "+0d")
-			(org-agenda-span 3)
-			(org-agenda-prefix-format "  %?-t %T %?-5s")
-			(org-agenda-repeating-timestamp-show-all nil)
-			(org-agenda-remove-tags t)
-			 ;; (concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator))
-			(org-agenda-todo-keyword-format " -> ")
-			(org-agenda-time)
-			(org-agenda-current-time-string "⮜┈┈┈┈┈┈┈ now")
-			;; (org-agenda-scheduled-leaders '("" ""))
-			;; (org-agenda-deadline-leaders '("" ""))
-			(org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-)))))
+;;(setq org-agenda-custom-commands
+	;;'(("o" "My Agenda"
+	   ;;((todo "TODO" (
+			;;(org-agenda-overriding-header " Tareas por hacer:\n")
+			;;(tags-todo "TODO")
+			;;(org-agenda-remove-tags t)
+			;;(org-agenda-prefix-format "%T %?-s")
+			;;(org-agenda-todo-keyword-format "")))
+	    ;;(agenda "" (
+			;;(org-agenda-overriding-header " Eventos para hoy:\n")
+			;;(org-agenda-skip-scheduled-if-done t)
+			;;(org-agenda-skip-timestamp-if-done t)
+			;;(org-agenda-skip-deadline-if-done t)
+			;;(org-agenda-skip-deadline-prewarning-if-scheduled t)
+			;;(org-agenda-start-day "+0d")
+			;;(org-agenda-span 3)
+			;;(org-agenda-prefix-format "  %?-t %T %?-5s")
+			;;(org-agenda-repeating-timestamp-show-all nil)
+			;;(org-agenda-remove-tags t)
+			 ;;;; (concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator))
+			;;(org-agenda-todo-keyword-format " -> ")
+			;;(org-agenda-time)
+			;;(org-agenda-current-time-string "⮜┈┈┈┈┈┈┈ now")
+			;;;; (org-agenda-scheduled-leaders '("" ""))
+			;;;; (org-agenda-deadline-leaders '("" ""))
+			;;(org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
+;;)))))
 
-;; Agenda flotante
-(defun agenda-frame ()
-  (interactive)
-  (org-agenda nil "o")
-  (delete-other-windows))
+;;;; Agenda flotante
+;;(defun agenda-frame ()
+  ;;(interactive)
+  ;;(org-agenda nil "o")
+  ;;(delete-other-windows))
 
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -540,52 +555,6 @@
      ("s" . "src")
      ("v" . "verse")))
 
-(use-package org-super-agenda
-:ensure t)
-(let ((org-super-agenda-groups
-       '(;; Each group has an implicit boolean OR operator between its selectors.
-	 (:name "Para hoy"  ; Optionally specify section name
-		:scheduled today)  ; Items that appear on the time grid
-	 (:name "Tareas pendientes"
-		;; Single arguments given alone
-		:todo "TODO")
-	 (:name "Eventos para los próximos 3 días"
-		:scheduled t
-		:deadline t)
-	 ;; Set order of multiple groups at once
-	 (:order-multi (2 (:name "Shopping in town"
-				 ;; Boolean AND group matches items that match all subgroups
-				 :and (:tag "shopping" :tag "@town"))
-			  (:name "Food-related"
-				 ;; Multiple args given in list with implicit OR
-				 :tag ("food" "dinner"))
-			  (:name "Personal"
-				 :habit t
-				 :tag "personal")
-			  (:name "Space-related (non-moon-or-planet-related)"
-				 ;; Regexps match case-insensitively on the entire entry
-				 :and (:regexp ("space" "NASA")
-					       ;; Boolean NOT also has implicit OR between selectors
-					       :not (:regexp "moon" :tag "planet")))))
-	 ;; Groups supply their own section names when none are given
-	 (:todo "WAITING" :order 8)  ; Set order of this section
-	 (:todo ("SOMEDAY" "TO-READ" "CHECK" "TO-WATCH" "WATCHING")
-		;; Show this group at the end of the agenda (since it has the
-		;; highest number). If you specified this group last, items
-		;; with these todo keywords that e.g. have priority A would be
-		;; displayed in that group instead, because items are grouped
-		;; out in the order the groups are listed.
-		:order 9)
-	 (:priority<= "B"
-		      ;; Show this section after "Today" and "Important", because
-		      ;; their order is unspecified, defaulting to 0. Sections
-		      ;; are displayed lowest-number-first.
-		      :order 1)
-	 ;; After the last group, the agenda will display items that didn't
-	 ;; match any of these groups, with the default order position of 99
-	 )))
-  (org-agenda nil "a"))
-
 (use-package lua-mode
   :ensure t)
 
@@ -606,8 +575,76 @@
 
 (use-package rg
       :ensure t
-;      :bind (:map rg-mode-map
-;      ("n" . next-error-no-select)
-;      ("p" . previous-error-no-select)
-;  )
 )
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-AghoX --group-directories-first"))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-open-file))
+
+(use-package dired-single
+  :ensure t)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package dired-open
+  :ensure t
+  :config
+  ;; Doesn't work as expected!
+  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
+  (setq dired-open-extensions '(
+				;; Images
+				("png" . "rifle_sxiv.sh")
+				("jpg" . "rifle_sxiv.sh")
+				;; Multimedia
+				("mp4" . "mpv")
+				("mkv" . "mpv")
+				("mp3" . "mpv")
+				("aac" . "mpv")
+				("ogg" . "mpv")
+				("avi" . "mpv")
+				("mov" . "mpv")
+				("flac" . "mpv")
+				;; libreoffice
+				("odt" . "libreoffice")
+				("odf" . "libreoffice")
+				("ods" . "libreoffice")
+				("odp" . "libreoffice")
+				;; Otros
+				("pdf" . "zathura")
+				)))
+
+(use-package dired-hide-dotfiles
+:ensure t
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "zh" 'dired-hide-dotfiles-mode))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (shell . t)
+   ))
+
+(use-package burly
+  :ensure t)
+
+(use-package modus-vivendi-theme
+  :ensure t)
+(use-package modus-operandi-theme
+  :ensure t
+  :config
+  (setq modus-operandi-theme-slanted-constructs t)
+  (setq modus-operandi-theme-syntax 'alt-syntax)
+
+  )
+
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t)

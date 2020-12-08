@@ -1,0 +1,20 @@
+! onehalflight
+#define bg       #fafafa 
+#define fg       #383a42 
+#define cursor	 #383a42 
+#define black    #383a42 
+#define red      #e45649 
+#define green    #50a14f 
+#define yellow   #c18401 
+#define blue     #0184bc 
+#define magenta  #a626a4 
+#define cyan     #0997b3 
+#define white    #fafafa 
+#define bblack   #7d7d7d 
+#define bred     #e45649 
+#define bgreen   #50a14f 
+#define byellow  #c18401 
+#define bblue    #0184bc 
+#define bmagenta #a626a4 
+#define bcyan    #0997b3 
+#define bwhite   #fafafa 

@@ -1,0 +1,20 @@
+! Nord light
+*.background:   #e5e9f0
+*.foreground:   #3B4252
+*.cursorColor:  #5D86B6
+*.color0:       #0D0E16
+*.color1:       #D83441
+*.color2:       #79D836
+*.color3:       #D8B941
+*.color4:       #3679D8
+*.color5:       #8041D8
+*.color6:       #36D8BD
+*.color7:       #CEDBE5
+*.color8:       #0D0E16
+*.color9:       #D83441
+*.color10:      #79D836
+*.color11:      #D8B941
+*.color12:      #3679D8
+*.color13:      #8041D8
+*.color14:      #36D8BD
+*.color15:      #ABB2BF

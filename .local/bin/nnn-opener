@@ -1,12 +1,15 @@
 #! /bin/sh
 
-case $(file --mime-type "$1" -b) in
-	text/*) $VISUAL "$1";;
-	audio/mpeg) mpv "$1";;
-	video/*) mpv "$1" > /dev/null 2 2>&1 & ;;
-	image/*) rifle_sxiv.sh "$1" > /dev/null 2 2>&1 &;;
-	*/pdf) zathura "$1" & disown;;
-	*/vnd.openxmlformats-officedocument.wordprocessingml.document) libreoffice "$1" & disown ;;
+case $(file --mime-type "$1" -bL) in
+	text/*) $EDITOR "$1";;
+	inode/*) $EDITOR "$1";;
+	audio/mpeg) alacritty -e mpv "$1" ;;
+	video/*) setsid mpv "$1" --no-terminal & disown ;;
+	image/*) setsid rifle_sxiv.sh "$1" & disown ;;
+	*/pdf) setsid zathura "$1" & disown;;
+	*/vnd.openxmlformats-officedocument.wordprocessingml.document) setsid libreoffice "$1" & disown ;;
+	*/vnd.oasis.opendocument.text) setsid libreoffice "$1" & disown ;;
+
         *) for f in $f; do setsid $OPENER "$1" > /dev/null 2> /dev/null & done;;
 esac
 

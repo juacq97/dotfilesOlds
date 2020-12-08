@@ -8,7 +8,7 @@ picom &
 emacs --daemon &
 xfce4-power-manager &
 clipmenud &
-#/usr/lib/kdeconnectd &
+/usr/lib/kdeconnectd &
 ##an2linuxserver.py &
 redshift &
 #xsetroot -cursor_name left_ptr &

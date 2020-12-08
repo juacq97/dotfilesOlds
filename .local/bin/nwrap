@@ -1,13 +1,14 @@
 #!/usr/bin/env zsh
 
+export NNN_OPTS="dcE"
 export NNN_TRASH=1
 export NNN_OPENER_DETACH=1
-export NNN_BMS='h:/mnt/Data;r:/run/media/;d:/mnt/Data/Drive;D:~/Downloads;c:~/.config'
+export NNN_BMS='h:/mnt/Data;m:/run/media/;d:/mnt/Data/Drive;p:/mnt/Data/Drive/CIMB/PLANEACIONES;D:~/Downloads;c:~/.config;r:~/.repos'
 export LC_COLLATE="C"
 export NNN_PLAIN_FILTER=1
 export NNN_OPENER=~/.local/bin/nnn-opener
-export NNN_PLUG='d:pdfview;p:-_less -iR $nnn*;k:kdeconnect;w:wall'
+export NNN_PLUG='f:fzopen;m:mediainf;i:imgur'
+export NNN_FIFO='/tmp/nnn.fifo'
 export NNN_COLORS='1234'
-
-nnn -dE
+export NNN_ARCHIVE="\\.(7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|rar|rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip)$"
 

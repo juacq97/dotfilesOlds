@@ -1,0 +1,20 @@
+! OneDark
+#define fg   #ABB2BF
+#define bg   #282C34
+#define cursor #ABB2BF
+#define black   #5C6370
+#define bblack   #4B5263
+#define red   #E06C75
+#define bred   #BE5046
+#define green  #98C379
+#define bgreen  #98C379
+#define yellow  #E5C07B
+#define byellow  #D19A66
+#define blue  #61AFEF
+#define bblue  #61AFEF
+#define magenta  #C678DD
+#define bmagenta  #C678DD
+#define cyan  #56B6C2
+#define bcyan  #56B6C2
+#define white  #ABB2BF
+#define bwhite  #ABB2BF

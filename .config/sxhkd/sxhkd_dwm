@@ -21,6 +21,8 @@ super + v
 super + a
       emacsclient -c -F '(quote (name . "agenda") (width  . 80) (height . 45) (left . 250) (top . 60))' -n -e "(agenda-frame)"
 
+super + F7
+    toggle-colorscheme
 
 #Terminal
 super + Return
@@ -46,9 +48,9 @@ super + w
 
 #File Manager
 super + f
-#      st -e ~/.local/bin/nwrap
-#       st -e ~/.local/bin/lfwrap
-	alacritty -e lf
+#	alacritty -e lf
+	alacritty -e nnn
+#	emacsclient -ca "" .
 
 super + shift + f
       thunar

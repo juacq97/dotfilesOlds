@@ -1,0 +1,20 @@
+! onehalfdark
+#define bg       #282c34 
+#define fg       #dcdfe4 
+#define cursor   #dcdfe4 
+#define black    #282c34 
+#define red      #e06c75 
+#define green    #98c379 
+#define yellow   #e5c07b 
+#define blue     #61afef 
+#define magenta  #c678dd 
+#define cyan     #56b6c2 
+#define white    #dcdfe4 
+#define bblack   #a5a5a5 
+#define bred     #e06c75 
+#define bgreen   #98c379 
+#define byellow  #e5c07b 
+#define bblue    #61afef 
+#define bmagenta #c678dd 
+#define bcyan    #56b6c2 
+#define bwhite   #dcdfe4 

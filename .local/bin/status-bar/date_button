@@ -8,7 +8,7 @@ calendar() {
     echo "Eventos para la semana $(date +'%W') del 2020." > /tmp/calendar.txt
     remind -c+ ~/docs/TODO/Trabajo.rem >> /tmp/calendar.txt
     todotxt ls >> /tmp/calendar.txt
-    alacritty --class 'calendar.txt' -t 'Agenda' -e less /tmp/calendar.txt
+    alacritty --class 'calendar.txt' -t 'Agenda' -e bat --paging always /tmp/calendar.txt
     rm -r /tmp/calendar.txt 
 }
 

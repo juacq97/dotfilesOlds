@@ -1,0 +1,55 @@
+#! /bin/sh
+# Change color of terminal first
+name=$(grep 'colors: \*' ~/.config/alacritty/alacritty.yml | cut -d "*" -f2)
+tline=$(grep -n "colors: \*" ~/.config/alacritty/alacritty.yml | cut -d: -f1)
+
+if [ "$name" = "$LIGHT_THEME" ]; then
+    sed -i "${tline}s/$name/$DARK_THEME/" ~/.config/alacritty/alacritty.yml
+else
+    sed -i "${tline}s/$name/$LIGHT_THEME/" ~/.config/alacritty/alacritty.yml
+fi
+
+
+# change color of neovim if running
+#cs=$(grep -n background ~/.config/nvim/init.vim | cut -d " " -f2)
+#vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
+##
+cs=$(grep -n background ~/.config/nvim/init.vim | cut -d "=" -f2)
+vline=$(grep -n background ~/.config/nvim/init.vim | cut -d: -f1)
+if [ "$cs" = "light" ]; then
+    sed -i "${vline}s/$cs/dark/" ~/.config/nvim/init.vim
+else
+    sed -i "${vline}s/$cs/light/" ~/.config/nvim/init.vim
+fi
+##if [ "$cs" = "$LIGHT_THEME" ]; then
+##    sed -i "${vline}s/$cs/$DARK_THEME/" ~/.config/nvim/init.vim
+##else
+##    sed -i "${vline}s/$cs/$LIGHT_THEME/" ~/.config/nvim/init.vim
+##fi
+
+if [ $pgrep nvim ]; then
+    for SERVER in $(nvr --serverlist); do
+        nvr -cc "source ~/.config/nvim/init.vim" --servername $SERVER &
+    done
+fi
+
+# Change emacs colorscheme if emacsclient is running. You need to manually set the theme in your init.el since is too much easier instead of send commands to the emacs server from terminal. It needs the heaven and hell package.
+if [ "$pgrep emacs" ]; then
+    emacsclient -n -e "(heaven-and-hell-toggle-theme)"
+fi
+    
+
+# Change xresources. This includes dmenu and dwm. dwm needs the xresources and ipc patch; dmenu needs the xrdb patch
+xpath=$(grep -n include ~/.Xresources | cut -d ' ' -f2 | tr -d '"')
+xtheme=$(basename -- $xpath)
+if [ "$xtheme" = "$LIGHT_THEME" ]; then
+    sed -i "s/$xtheme/$DARK_THEME/" ~/.Xresources
+    xrdb ~/.Xresources
+    dwm-msg run_command xrdb
+else
+    sed -i "s/$xtheme/$LIGHT_THEME/" ~/.Xresources
+    xrdb ~/.Xresources
+    dwm-msg run_command xrdb
+fi
+
+

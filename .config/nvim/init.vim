@@ -40,6 +40,13 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 "Plug 'tpope/vim-eunuch'
 "Plug 'junegunn/limelight.vim'
 Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
+Plug 'tjdevries/colorbuddy.nvim'
+Plug 'ishan9299/modus-theme-vim', {'branch': 'stable'}
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'jsit/toast.vim'
+Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
 call plug#end()
 
  set nocompatible
@@ -70,8 +77,7 @@ let g:pandoc#syntax#conceal#urls = 1
 """ Temas """""
 let g:grubvox_italic = 1
 let g:grubvox_contrast_dark = 'hard'
-colorscheme horizon
-
+colorscheme onehalfdark
 set cursorline			" activa el resaltado de la linea
 highlight Comment cterm=italic gui=italic
 "

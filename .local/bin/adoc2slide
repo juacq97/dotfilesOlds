@@ -1,0 +1,11 @@
+#! /bin/sh
+
+if [[ -z $2 ]]; then
+    style="~/.config/Asciidoctor/slides.yml"
+    file="$1"
+else
+    style="~/.config/Asciidoctor/$1.yml"
+    file="$2"
+fi
+
+asciidoctor-pdf -d book -a pdf-theme=$style $file

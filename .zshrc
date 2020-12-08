@@ -2,42 +2,18 @@
 PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin:$HOME/.config/rofi:$HOME/.emacs.d/bin"
 export PATH
 
-### Variables de entorno ###
-export QT_QPA_PLATFORMTHEME="qt5ct"
-export WM=dwm
-export LANG=es_MX.UTF-8
-export EDITOR="nvim"
-#export VISUAL="erwap"
-export TERMINAL="alacritty"
-#export PLANS="/mnt/DATA/juan/Drive/SEC-ABREOJOS/PLANS"
-### nihongo
-#export GTK_IM_MODULE=ibus
-#export XMODIFIERS=@im=ibus
-#export QT_IM_MODULE=ibus
-export PAGER=less
-export ZSH="$HOME/.oh-my-zsh"
-export OPENER="mimeopen"
-[ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
-export LESS='-Ri ' #Esto es para poder ver el contenido de archivos comprimidos
-export $(dbus-launch) #Variable para dbus
-export WINIT_X11_SCALE_FACTOR=1 #No estoy sguro, pero ayuda a alacritty en multiples monitores
-# LF_ICONS
-. ~/.config/lf/LF_ICONS
-
-# FZF variables
-export FZF_DEFAULT_COMMAND="find . "
+alias hack-zoe="hollywood"
+. $HOME/.zvars
 
 ### Ejecuta xinit si es la TTY 1 ###
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   exec startx
 fi
 
-### Ejecuta al abrir terminales (casi siempre ufetch) ###
+### Ejecuta al abrir terminales 
 ufetch-noascii
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# Enable Powerlevel10k instant prompt.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -64,18 +40,23 @@ alias d="cd ~/.repos/dotfiles"
 alias clima="curl -s es.wttr.in/"
 alias h="cd /mnt/Data"
 alias r="cd ~/.repos"
-alias nnn="nwrap"
+alias ncmd="nnn -dcE"
+alias todo="todotxt"
 
 ### cd on quit para nnn ###
-NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-n(){
-nwrap "$@"
-
-    if [ -f "$NNN_TMPFILE" ]; then
-            . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
-    fi
-}
+#NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+#nnn(){
+#nnn "$@"
+#    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+#        echo "nnn is already running"
+#        return
+#    fi
+#
+#    if [ -f "$NNN_TMPFILE" ]; then
+#            . "$NNN_TMPFILE"
+#            rm -f "$NNN_TMPFILE" > /dev/null
+#    fi
+#}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -94,3 +75,10 @@ fi
 alias lf="lfcd"
 
 export BAT_THEME="gruvbox"
+
+f(){
+    nnn-opener "$(fzf)"
+}
+
+
+alias hackear-a-isabella="hollywood"
