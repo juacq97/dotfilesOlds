@@ -1,5 +1,8 @@
 map t scroll
 set selection-clipboard clipboard
 
-set default-bg "#272A34"
-set statusbar-bg "#272A34"
+set default-bg "#1C1E27"
+set statusbar-bg "#1C1E27"
+
+set recolor-darkcolor "#CACACC"
+set recolor-lightcolor "#1C1E27"

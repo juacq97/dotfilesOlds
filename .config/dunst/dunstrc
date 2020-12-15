@@ -1,8 +1,13 @@
 [colors]
+#Theme: light
+    background	= "#1C1E27"
+    foreground 	= "#CACACC"
+    frame_color = "#CACACC"
 # horizon
-    background	= "#1c1e27"
-    foreground 	= "#cacacc"
-    frame_color = "#282828"
+#    background	= "#1c1e27"
+#    foreground 	= "#cacacc"
+#    frame_color = "#282828"
+
 
 ## gruvbox
    # background	= "#282828"
@@ -16,7 +21,7 @@
 
 
 [global]
-   frame_width = 0
+   frame_width = 1
     #font = JetBrains Mono 10
     font = Futura BK Bt 11
     follow = none

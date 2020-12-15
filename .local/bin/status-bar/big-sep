@@ -1,0 +1,6 @@
+#! /bin/sh
+
+# Un separador muy grande, para que se vea bien con determinado fondo de pantalla lmao
+
+echo "                 "
+

@@ -1,20 +1,20 @@
 !Horizon
-*.background:  #1C1E27
-*.foreground:  #CACACC
-*.cursorColor: #CACACC
-*.color0:      #6C6F93
-*.color1:      #E4436F
-*.color2:      #24E39D
-*.color3:      #EDA685
-*.color4:      #00A5AF
-*.color5:      #B367CF
-*.color6:      #00A5AF
-*.color7:      #CACACC
-*.color8:      #6C6F93
-*.color9:      #E4436F
-*.color10:     #24E39D
-*.color11:     #EDA685
-*.color12:     #00A5AF
-*.color13:     #B367CF
-*.color14:     #00A5AF
-*.color15:     #CACACC
+#define bg     #1C1E27
+#define fg     #CACACC
+#define cursor #CACACC
+#define black   #6C6F93    
+#define red   #E4436F    
+#define green   #24E39D    
+#define yellow   #EDA685    
+#define blue   #00A5AF    
+#define magenta   #B367CF    
+#define cyan   #00A5AF    
+#define white   #CACACC    
+#define bblack   #6C6F93    
+#define bred   #E4436F    
+#define bgreen   #24E39D    
+#define byellow   #EDA685    
+#define bblue   #00A5AF    
+#define bmagenta   #B367CF    
+#define bcyan   #00A5AF    
+#define bwhite   #CACACC    

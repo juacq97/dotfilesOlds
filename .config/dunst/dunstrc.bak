@@ -1,8 +1,13 @@
 [colors]
-# horizon
+#Theme: light
     background	= "#1c1e27"
     foreground 	= "#cacacc"
     frame_color = "#282828"
+# horizon
+#    background	= "#1c1e27"
+#    foreground 	= "#cacacc"
+#    frame_color = "#282828"
+
 
 ## gruvbox
    # background	= "#282828"

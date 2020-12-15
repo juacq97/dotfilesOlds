@@ -1,9 +1,7 @@
 ### Definiendo path ###
 PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin:$HOME/.config/rofi:$HOME/.emacs.d/bin"
 export PATH
-
-alias hack-zoe="hollywood"
-. $HOME/.zvars
+source $HOME/.zvars
 
 ### Ejecuta xinit si es la TTY 1 ###
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
@@ -42,6 +40,7 @@ alias h="cd /mnt/Data"
 alias r="cd ~/.repos"
 alias ncmd="nnn -dcE"
 alias todo="todotxt"
+alias n="ncmd"
 
 ### cd on quit para nnn ###
 #NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"

@@ -14,18 +14,18 @@ fi
 #cs=$(grep -n background ~/.config/nvim/init.vim | cut -d " " -f2)
 #vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
 ##
-cs=$(grep -n background ~/.config/nvim/init.vim | cut -d "=" -f2)
-vline=$(grep -n background ~/.config/nvim/init.vim | cut -d: -f1)
-if [ "$cs" = "light" ]; then
-    sed -i "${vline}s/$cs/dark/" ~/.config/nvim/init.vim
+cs=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d " " -f2)
+vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
+#if [ "$cs" = "light" ]; then
+#    sed -i "${vline}s/$cs/dark/" ~/.config/nvim/init.vim
+#else
+#    sed -i "${vline}s/$cs/light/" ~/.config/nvim/init.vim
+#fi
+if [ "$cs" = "$LIGHT_THEME" ]; then
+    sed -i "${vline}s/$cs/$DARK_THEME/" ~/.config/nvim/init.vim
 else
-    sed -i "${vline}s/$cs/light/" ~/.config/nvim/init.vim
+    sed -i "${vline}s/$cs/$LIGHT_THEME/" ~/.config/nvim/init.vim
 fi
-##if [ "$cs" = "$LIGHT_THEME" ]; then
-##    sed -i "${vline}s/$cs/$DARK_THEME/" ~/.config/nvim/init.vim
-##else
-##    sed -i "${vline}s/$cs/$LIGHT_THEME/" ~/.config/nvim/init.vim
-##fi
 
 if [ $pgrep nvim ]; then
     for SERVER in $(nvr --serverlist); do
@@ -34,9 +34,9 @@ if [ $pgrep nvim ]; then
 fi
 
 # Change emacs colorscheme if emacsclient is running. You need to manually set the theme in your init.el since is too much easier instead of send commands to the emacs server from terminal. It needs the heaven and hell package.
-if [ "$pgrep emacs" ]; then
-    emacsclient -n -e "(heaven-and-hell-toggle-theme)"
-fi
+#if [ "$pgrep emacs" ]; then
+#    emacsclient -n -e "(heaven-and-hell-toggle-theme)"
+#fi
     
 
 # Change xresources. This includes dmenu and dwm. dwm needs the xresources and ipc patch; dmenu needs the xrdb patch
@@ -52,4 +52,50 @@ else
     dwm-msg run_command xrdb
 fi
 
+# getting colors from Xresources
+xbg=$(echo "#$(xrdb -query ~/.Xresources | grep background | cut -d"#" -f2)")
+xfg=$(echo "#$(xrdb -query ~/.Xresources | grep foreground | cut -d"#" -f2)")
+xb=$(echo "#$(xrdb -query ~/.Xresources | grep border | cut -d"#" -f2)")
+# Change colors from zathura. Zathura allows to change only background, and bg and fg for recolor. izzi to change right?
+
+zdbg=$(grep default-bg ~/.config/zathura/zathurarc | cut -d '"' -f2)
+zldbg=$(grep -n default-bg ~/.config/zathura/zathurarc | cut -d: -f1)
+zsbg=$(grep statusbar-bg ~/.config/zathura/zathurarc | cut -d '"' -f2)
+zlsbg=$(grep -n statusbar-bg ~/.config/zathura/zathurarc | cut -d: -f1)
+zrbg=$(grep darkcolor ~/.config/zathura/zathurarc | cut -d '"' -f2)
+zlrbg=$(grep -n darkcolor ~/.config/zathura/zathurarc | cut -d: -f1)
+zrfg=$(grep lightcolor ~/.config/zathura/zathurarc | cut -d '"' -f2)
+zlrfg=$(grep -n lightcolor ~/.config/zathura/zathurarc | cut -d: -f1)
+
+sed -i "${zldbg}s/$zdbg/$xbg/" ~/.config/zathura/zathurarc
+sed -i "${zlsbg}s/$zsbg/$xbg/" ~/.config/zathura/zathurarc
+sed -i "${zlrbg}s/$zrbg/$xfg/" ~/.config/zathura/zathurarc
+sed -i "${zlrfg}s/$zrfg/$xbg/" ~/.config/zathura/zathurarc
+
+# Change dunstrc colors. Needs to reload xrdb first and the global colors needs to be the fist ocurrence of "background" "color" and "frame_color" on the file
+
+dbg=$(grep -m 1 background ~/.config/dunst/dunstrc | cut -d '"' -f2)
+dlbg=$(grep -n -m 1 background ~/.config/dunst/dunstrc | cut -d: -f1)
+
+dfg=$(grep -m 1 foreground ~/.config/dunst/dunstrc | cut -d '"' -f2)
+dlfg=$(grep -n -m 1 foreground ~/.config/dunst/dunstrc | cut -d: -f1)
+
+db=$(grep -m 1 frame_color ~/.config/dunst/dunstrc | cut -d '"' -f2) 
+dlb=$(grep -n -m 1 frame_color ~/.config/dunst/dunstrc | cut -d: -f1)
+
+
+#reemplazar cada iteración de "dbg" por "xbg"
+
+killall dunst
+
+sed -i "${dlbg}s/$dbg/$xbg/" ~/.config/dunst/dunstrc
+sed -i "${dlfg}s/$dfg/$xfg/" ~/.config/dunst/dunstrc
+sed -i "${dlb}s/$db/$xb/" ~/.config/dunst/dunstrc
+
+
+if [ "$xtheme" = "$LIGHT_THEME" ]; then
+    notify-send -a "dwm" "Modo oscuro activado"
+else
+    notify-send -a "dwm" "Modo claro activado"
+fi
 

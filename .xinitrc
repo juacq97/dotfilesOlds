@@ -2,25 +2,22 @@
 
 xrandr --output DP2 --auto --same-as LVDS1 &
 nitrogen --restore &
-#wal -sR &
 xrdb  ~/.Xresources &
 picom &
-emacs --daemon &
+#emacs --daemon &
 xfce4-power-manager &
 clipmenud &
 /usr/lib/kdeconnectd &
-##an2linuxserver.py &
 redshift &
-#xsetroot -cursor_name left_ptr &
+xsetroot -cursor_name left_ptr &
 flameshot &
-##mpDris2 &
 sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 dunst &
 ~/.local/dwmblocks & 
 xinput disable 11 &
 #ibus-daemon -drx &
 pcloud &
-#
+dwm-msg run_command xrdb &
 export QT_QPA_PLATFORMTHEME="qt5ct"
 
 #exec dwm
