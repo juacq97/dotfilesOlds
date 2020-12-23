@@ -1,5 +1,54 @@
 #! /bin/sh
-# Change color of terminal first
+
+# Change xresources. This includes dmenu and dwm. dwm needs the xresources and ipc patch; dmenu needs the xrdb patch. All the Wayland programs takes their colors from here too (allow me to xD)
+
+# This are the original colors before the change, it'll be useful later
+oxbg=$(xrdb -query ~/.Xresources | grep background | cut -d"#" -f2 | tr -d ' ')
+oxfg=$(xrdb -query ~/.Xresources | grep foreground | cut -d"#" -f2 | tr -d ' ')
+oxb=$(xrdb -query ~/.Xresources | grep border | cut -d"#" -f2 | tr -d ' ')
+oc6=$(xrdb -query ~/.Xresources | grep color6 | cut -d"#" -f2 | tr -d ' ')
+oc9=$(xrdb -query ~/.Xresources | grep color9 | cut -d"#" -f2 | tr -d ' ')
+
+# Change the theme
+xpath=$(grep -n include ~/.Xresources | cut -d ' ' -f2 | tr -d '"')
+xtheme=$(basename -- $xpath)
+if [ "$xtheme" = "$LIGHT_THEME" ]; then
+    sed -i "s/$xtheme/$DARK_THEME/" ~/.Xresources
+    xrdb ~/.Xresources
+    dwm-msg run_command xrdb
+else
+    sed -i "s/$xtheme/$LIGHT_THEME/" ~/.Xresources
+    xrdb ~/.Xresources
+    dwm-msg run_command xrdb
+fi
+
+# WAYLAND ON THE WAY
+# First, update the Wcolors file for sway. I take the color from xdrb and with some changes becomes variables for sway.
+# The awk part removes all the extra spaces
+xrdb -query ~/.Xresources | grep \* | awk '{$2=$2};1' > ~/.config/sway/Wcolors
+#some sed magic
+sed -i 's/\*\./set\ \$/g; s/\://g' ~/.config/sway/Wcolors
+
+
+# Now waybar
+cat ~/.config/sway/Wcolors | sed -e 's/set\ \$/\@define-color /g; s/$/\;/g' > /tmp/colors
+sed -i -e 1,19d ~/.config/waybar/style.css
+cat /tmp/colors ~/.config/waybar/style.css > /tmp/Wcolors.css
+mv /tmp/Wcolors.css ~/.config/waybar/style.css
+
+#one last change. This is a special color, not present on any colorscheme. This will not make sense when I change styles.
+if [ "$xtheme" = "$DARK_THEME" ]; then
+    sed -i 's/2E303E/D0D0D0/g' ~/.config/waybar/style.css
+else
+    sed -i 's/D0D0D0/2E303E/g' ~/.config/waybar/style.css
+fi
+# Update sway
+
+if [ $pgrep sway ]; then
+swaymsg reload
+fi
+
+# Change color of terminal
 name=$(grep 'colors: \*' ~/.config/alacritty/alacritty.yml | cut -d "*" -f2)
 tline=$(grep -n "colors: \*" ~/.config/alacritty/alacritty.yml | cut -d: -f1)
 
@@ -9,11 +58,9 @@ else
     sed -i "${tline}s/$name/$LIGHT_THEME/" ~/.config/alacritty/alacritty.yml
 fi
 
-
 # change color of neovim if running
 #cs=$(grep -n background ~/.config/nvim/init.vim | cut -d " " -f2)
 #vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
-##
 cs=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d " " -f2)
 vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
 #if [ "$cs" = "light" ]; then
@@ -37,65 +84,76 @@ fi
 #if [ "$pgrep emacs" ]; then
 #    emacsclient -n -e "(heaven-and-hell-toggle-theme)"
 #fi
-    
 
-# Change xresources. This includes dmenu and dwm. dwm needs the xresources and ipc patch; dmenu needs the xrdb patch
-xpath=$(grep -n include ~/.Xresources | cut -d ' ' -f2 | tr -d '"')
-xtheme=$(basename -- $xpath)
-if [ "$xtheme" = "$LIGHT_THEME" ]; then
-    sed -i "s/$xtheme/$DARK_THEME/" ~/.Xresources
-    xrdb ~/.Xresources
-    dwm-msg run_command xrdb
-else
-    sed -i "s/$xtheme/$LIGHT_THEME/" ~/.Xresources
-    xrdb ~/.Xresources
-    dwm-msg run_command xrdb
-fi
+# getting the new colors from Xresources
+xbg=$(xrdb -query ~/.Xresources | grep background | cut -d"#" -f2 | tr -d ' ')
+xfg=$(xrdb -query ~/.Xresources | grep foreground | cut -d"#" -f2 | tr -d ' ')
+xb=$(xrdb -query ~/.Xresources | grep border | cut -d"#" -f2 | tr -d ' ')
+c6=$(xrdb -query ~/.Xresources | grep color6 | cut -d"#" -f2 | tr -d ' ')
+c9=$(xrdb -query ~/.Xresources | grep color9 | cut -d"#" -f2 | tr -d ' ')
 
-# getting colors from Xresources
-xbg=$(echo "#$(xrdb -query ~/.Xresources | grep background | cut -d"#" -f2)")
-xfg=$(echo "#$(xrdb -query ~/.Xresources | grep foreground | cut -d"#" -f2)")
-xb=$(echo "#$(xrdb -query ~/.Xresources | grep border | cut -d"#" -f2)")
 # Change colors from zathura. Zathura allows to change only background, and bg and fg for recolor. izzi to change right?
 
-zdbg=$(grep default-bg ~/.config/zathura/zathurarc | cut -d '"' -f2)
-zldbg=$(grep -n default-bg ~/.config/zathura/zathurarc | cut -d: -f1)
-zsbg=$(grep statusbar-bg ~/.config/zathura/zathurarc | cut -d '"' -f2)
-zlsbg=$(grep -n statusbar-bg ~/.config/zathura/zathurarc | cut -d: -f1)
-zrbg=$(grep darkcolor ~/.config/zathura/zathurarc | cut -d '"' -f2)
-zlrbg=$(grep -n darkcolor ~/.config/zathura/zathurarc | cut -d: -f1)
-zrfg=$(grep lightcolor ~/.config/zathura/zathurarc | cut -d '"' -f2)
-zlrfg=$(grep -n lightcolor ~/.config/zathura/zathurarc | cut -d: -f1)
+sed -i "s/$oxbg/$xbg/g" ~/.config/zathura/zathurarc
+sed -i "s/$oxfg/$xfg/g" ~/.config/zathura/zathurarc
 
-sed -i "${zldbg}s/$zdbg/$xbg/" ~/.config/zathura/zathurarc
-sed -i "${zlsbg}s/$zsbg/$xbg/" ~/.config/zathura/zathurarc
-sed -i "${zlrbg}s/$zrbg/$xfg/" ~/.config/zathura/zathurarc
-sed -i "${zlrfg}s/$zrfg/$xbg/" ~/.config/zathura/zathurarc
+# Rofi, because why not? This need a new special theme just for this script called Xrow and another (for lists) called Xlist. This will substitute all the instances of the matching colors for another one. I expeect it looks fine.
 
-# Change dunstrc colors. Needs to reload xrdb first and the global colors needs to be the fist ocurrence of "background" "color" and "frame_color" on the file
+sed -i "s/${oxbg}/${xbg}/" ~/.config/rofi/Xrow.rasi
+sed -i "s/${oxfg}/${xfg}/" ~/.config/rofi/Xrow.rasi
+sed -i "s/${oc6}/${c6}/" ~/.config/rofi/Xrow.rasi
+sed -i "s/${oc9}/${c9}/" ~/.config/rofi/Xrow.rasi
+sed -i "s/${oxbg}/${xbg}/" ~/.config/rofi/Xlist.rasi
+sed -i "s/${oxfg}/${xfg}/" ~/.config/rofi/Xlist.rasi
+sed -i "s/${oc6}/${c6}/" ~/.config/rofi/Xlist.rasi
+sed -i "s/${oc9}/${c9}/" ~/.config/rofi/Xlist.rasi
 
-dbg=$(grep -m 1 background ~/.config/dunst/dunstrc | cut -d '"' -f2)
-dlbg=$(grep -n -m 1 background ~/.config/dunst/dunstrc | cut -d: -f1)
+# Now wofi!!! 
+# This is easy, just replace the color file. Here isn't necesary to do changes
+xrdb -query ~/.Xresources | grep \* | awk 'NF>1{print $NF}' > ~/.config/wofi/Wcolors
 
-dfg=$(grep -m 1 foreground ~/.config/dunst/dunstrc | cut -d '"' -f2)
-dlfg=$(grep -n -m 1 foreground ~/.config/dunst/dunstrc | cut -d: -f1)
-
-db=$(grep -m 1 frame_color ~/.config/dunst/dunstrc | cut -d '"' -f2) 
-dlb=$(grep -n -m 1 frame_color ~/.config/dunst/dunstrc | cut -d: -f1)
-
-
-#reemplazar cada iteración de "dbg" por "xbg"
-
-killall dunst
-
-sed -i "${dlbg}s/$dbg/$xbg/" ~/.config/dunst/dunstrc
-sed -i "${dlfg}s/$dfg/$xfg/" ~/.config/dunst/dunstrc
-sed -i "${dlb}s/$db/$xb/" ~/.config/dunst/dunstrc
-
-
-if [ "$xtheme" = "$LIGHT_THEME" ]; then
-    notify-send -a "dwm" "Modo oscuro activado"
+# Finally mako, this works (no like dunst). Just change the few colors and run a nice notification c:
+sed -i "s/${oxbg}/${xbg}/" ~/.config/mako/config
+sed -i "s/${oxfg}/${xfg}/" ~/.config/mako/config
+# This is the border. Again, a special color, the same of waybar
+if [ "$xtheme" = "$DARK_THEME"]; then
+    sed -i 's/2E303E/D0D0D0/g' ~/.config/mako/config
 else
-    notify-send -a "dwm" "Modo claro activado"
+    sed -i 's/D0D0D0/2E303E/g' ~/.config/mako/config
 fi
 
+pkill mako
+if [ "$xtheme" = "$LIGHT_THEME" ]; then
+    notify-send "Modo oscuro activado"
+else
+    notify-send "Modo claro activado"
+fi
+
+# Change dunstrc colors. Needs to reload xrdb first and the global colors needs to be the fist ocurrence of "background" "color" and "frame_color" on the file
+# THIS WAS A COMPLETE FAILURE, for some weird reason, dbus dies with this code.
+
+#dbg=$(grep -m 1 background ~/.config/dunst/dunstrc | cut -d '"' -f2)
+#dlbg=$(grep -n -m 1 background ~/.config/dunst/dunstrc | cut -d: -f1)
+#
+#dfg=$(grep -m 1 foreground ~/.config/dunst/dunstrc | cut -d '"' -f2)
+#dlfg=$(grep -n -m 1 foreground ~/.config/dunst/dunstrc | cut -d: -f1)
+#
+#db=$(grep -m 1 frame_color ~/.config/dunst/dunstrc | cut -d '"' -f2) 
+#dlb=$(grep -n -m 1 frame_color ~/.config/dunst/dunstrc | cut -d: -f1)
+#
+#
+##reemplazar cada iteración de "dbg" por "xbg"
+#
+#killall dunst
+#
+#sed -i "${dlbg}s/$dbg/$xbg/" ~/.config/dunst/dunstrc
+#sed -i "${dlfg}s/$dfg/$xfg/" ~/.config/dunst/dunstrc
+#sed -i "${dlb}s/$db/$xb/" ~/.config/dunst/dunstrc
+#
+#
+#if [ "$xtheme" = "$LIGHT_THEME" ]; then
+#    notify-send -a "dwm" "Modo oscuro activado"
+#else
+#    notify-send -a "dwm" "Modo claro activado"
+#fi
+#
