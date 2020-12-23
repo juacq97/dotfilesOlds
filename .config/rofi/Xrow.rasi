@@ -22,14 +22,14 @@ configuration {
 }
 
 * {
-    background:                     #1c1e27;
-    background-alt:                 #1c1e27;
-    background-ib:                  #1c1e27;
-    foreground:                     #cacacc;
-    border:               	    #00a5af;
-    border-sel:               	    #00a5af;
-    selected:                       #1c1e27;
-    urgent:                         #e4436f;
+    background:                     #1C1E27;
+    background-alt:                 #1C1E27;
+    background-ib:                  #1C1E27;
+    foreground:                     #CACACC;
+    border:               	    #00A5AF;
+    border-sel:               	    #00A5AF;
+    selected:                       #1C1E27;
+    urgent:                         #E4436F;
 }
 
 

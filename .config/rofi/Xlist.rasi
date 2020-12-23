@@ -1,18 +1,5 @@
-/*
- *
- * Author : Aditya Shakya (adi1090x)
- * Mail : adi1090x@gmail.com
- * Github : @adi1090x
- * Reddit : @adi1090x
- *
- */
-
 configuration {
     font:                           "Noto Sans 10";
-    show-icons:                     true;
-    icon-theme:		    	    "Tela cirlce red dark";
-    display-drun: 		    " ";
-    drun-display-format:            "{name}";
     threads:                        0;
     scroll-method:                  0;
     disable-history:                false;
@@ -22,14 +9,14 @@ configuration {
 }
 
 * {
-    background:                     #1c1e27;
-    background-alt:                 #1c1e27;
-    background-ib:                  #1c1e27;
-    foreground:                     #cacacc;
-    border:               	    #00a5af;
-    border-sel:               	    #00a5af;
-    selected:                       #1c1e27;
-    urgent:                         #e4436f;
+    background:                     #1C1E27;
+    background-alt:                 #1C1E27;
+    background-ib:                  #1C1E27;
+    foreground:                     #CACACC;
+    border:               	    #00A5AF;
+    border-sel:               	    #00A5AF;
+    selected:                       #1C1E27;
+    urgent:                         #E4436F;
 }
 
 
@@ -40,7 +27,7 @@ window {
     border:                  		0px;
     border-radius:                  0px;
     border-color:                  	@border;
-    height:                         25%;
+    height:                         50%;
     width:                          100%;
     location:                       south;
     anchor:                         south;
@@ -50,7 +37,7 @@ window {
 }
 
 prompt {
-    enabled: 						true;
+    enabled: 						false;
 	padding: 						0px 8px 0px 8px;
 	background-color: 				@background-ib;
 	text-color: 					@foreground;
@@ -65,7 +52,7 @@ inputbar {
     border:                  		0px 0px 2px 0px;
     border-radius:                  30px;
     border-color:                  	@border;
-    margin:                         10px 73% 0px 5px;
+    margin:                         2px 73% 0px 5px;
     padding:                        6px 6px 6px 6px;
     position:                       center;
 }
@@ -76,7 +63,7 @@ entry {
     placeholder-color:              @foreground;
     expand:                         true;
     horizontal-align:               0;
-    padding:                        3px 0px 3px 0px;
+    padding:                        3px 3px 3px 13px;
     blink:                          true;
 }
 
@@ -89,8 +76,8 @@ case-indicator {
 
 listview {
     background-color:               @background;
-    columns:                        10;
-    spacing:                        4px;
+    columns:                        6;
+    spacing:                        0px;
     cycle:                          false;
     dynamic:                        true;
     layout:                         vertical;
@@ -99,7 +86,7 @@ listview {
 mainbox {
     background-color:               @background;
     children:                       [ inputbar, listview ];
-    spacing:                       	10px;
+    spacing:                       	1px;
     padding:                        5px 5px 5px 5px;
 }
 
@@ -112,16 +99,11 @@ element {
     padding:                        10px 0px 10px 0px;
 }
 
-element-icon {
-    size:                           64px;
-    border:                         0px;
-}
-
 element-text {
     expand:                         true;
-    horizontal-align:               0.5;
-    vertical-align:                 0.5;
-    margin:                         5px 10px 0px 10px;
+    horizontal-align:               0;
+    vertical-align:                 0;
+    margin:                         1px 1px 0px 1px;
 }
 
 element normal.urgent,

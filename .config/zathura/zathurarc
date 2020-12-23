@@ -3,6 +3,7 @@ set selection-clipboard clipboard
 
 set default-bg "#1C1E27"
 set statusbar-bg "#1C1E27"
+set statusbar-fg "#CACACC"
 
 set recolor-darkcolor "#CACACC"
 set recolor-lightcolor "#1C1E27"

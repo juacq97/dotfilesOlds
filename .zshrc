@@ -4,8 +4,9 @@ export PATH
 source $HOME/.zvars
 
 ### Ejecuta xinit si es la TTY 1 ###
+# Probando con sway OwO
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec startx
+  exec sway
 fi
 
 ### Ejecuta al abrir terminales 
@@ -23,6 +24,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+DISABLE_AUTO_UPDATE=true
 bindkey -v #vim mode 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

@@ -18,6 +18,7 @@ xinput disable 11 &
 #ibus-daemon -drx &
 pcloud &
 dwm-msg run_command xrdb &
+xset r rate 250 60 &
 export QT_QPA_PLATFORMTHEME="qt5ct"
 
 #exec dwm

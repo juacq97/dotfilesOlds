@@ -18,6 +18,9 @@
 super + v
     expediente nuevo
 
+super + minus
+    dmenuunicode
+
 super + a
       emacsclient -c -F '(quote (name . "agenda") (width  . 80) (height . 45) (left . 250) (top . 60))' -n -e "(agenda-frame)"
 
@@ -33,7 +36,7 @@ super + Return
 # App menu
 super + space
 #     ~/.local/bin/dmenu_run_history -h 24 -i
-      rofi -show drun -theme row
+      rofi -show drun -theme Xrow
 
 super + r
 #    ~/.local/bin/dmenu_run_history -h 24 -i -l 15
