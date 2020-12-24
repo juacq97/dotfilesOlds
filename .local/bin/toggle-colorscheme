@@ -29,12 +29,14 @@ xrdb -query ~/.Xresources | grep \* | awk '{$2=$2};1' > ~/.config/sway/Wcolors
 #some sed magic
 sed -i 's/\*\./set\ \$/g; s/\://g' ~/.config/sway/Wcolors
 
-
-# Now waybar
-cat ~/.config/sway/Wcolors | sed -e 's/set\ \$/\@define-color /g; s/$/\;/g' > /tmp/colors
+# Now waybar. 
+xrdb -query .Xresources | grep \* | sed -e 's/\*\./\@define-color /g; s/\://g; s/$/\;/g' | awk '{$2=$2};1' > /tmp/colors
 sed -i -e 1,19d ~/.config/waybar/style.css
 cat /tmp/colors ~/.config/waybar/style.css > /tmp/Wcolors.css
 mv /tmp/Wcolors.css ~/.config/waybar/style.css
+
+#restart waybar. I decided to do this outside sway because sway reloads all the screens, and takes his time.
+waybar-restart &
 
 #one last change. This is a special color, not present on any colorscheme. This will not make sense when I change styles.
 if [ "$xtheme" = "$DARK_THEME" ]; then
@@ -42,11 +44,10 @@ if [ "$xtheme" = "$DARK_THEME" ]; then
 else
     sed -i 's/D0D0D0/2E303E/g' ~/.config/waybar/style.css
 fi
-# Update sway
-
-if [ $pgrep sway ]; then
-swaymsg reload
-fi
+# Update sway.
+#if [ $pgrep sway ]; then
+#swaymsg reload
+#fi
 
 # Change color of terminal
 name=$(grep 'colors: \*' ~/.config/alacritty/alacritty.yml | cut -d "*" -f2)
@@ -99,14 +100,20 @@ sed -i "s/$oxfg/$xfg/g" ~/.config/zathura/zathurarc
 
 # Rofi, because why not? This need a new special theme just for this script called Xrow and another (for lists) called Xlist. This will substitute all the instances of the matching colors for another one. I expeect it looks fine.
 
-sed -i "s/${oxbg}/${xbg}/" ~/.config/rofi/Xrow.rasi
-sed -i "s/${oxfg}/${xfg}/" ~/.config/rofi/Xrow.rasi
-sed -i "s/${oc6}/${c6}/" ~/.config/rofi/Xrow.rasi
-sed -i "s/${oc9}/${c9}/" ~/.config/rofi/Xrow.rasi
-sed -i "s/${oxbg}/${xbg}/" ~/.config/rofi/Xlist.rasi
-sed -i "s/${oxfg}/${xfg}/" ~/.config/rofi/Xlist.rasi
-sed -i "s/${oc6}/${c6}/" ~/.config/rofi/Xlist.rasi
-sed -i "s/${oc9}/${c9}/" ~/.config/rofi/Xlist.rasi
+echo "* {" > ~/.config/rofi/colors.rasi
+xrdb -query .Xresources | grep \* | sed -e 's/\*\.//g; s/$/\;/g' | awk '{$2=$2};1' >> ~/.config/rofi/colors.rasi
+echo "}" >> ~/.config/rofi/colors.rasi
+
+
+
+# sed -i "s/${oxbg}/${xbg}/" ~/.config/rofi/Xrow.rasi
+# sed -i "s/${oxfg}/${xfg}/" ~/.config/rofi/Xrow.rasi
+# sed -i "s/${oc6}/${c6}/" ~/.config/rofi/Xrow.rasi
+# sed -i "s/${oc9}/${c9}/" ~/.config/rofi/Xrow.rasi
+# sed -i "s/${oxbg}/${xbg}/" ~/.config/rofi/Xlist.rasi
+# sed -i "s/${oxfg}/${xfg}/" ~/.config/rofi/Xlist.rasi
+# sed -i "s/${oc6}/${c6}/" ~/.config/rofi/Xlist.rasi
+# sed -i "s/${oc9}/${c9}/" ~/.config/rofi/Xlist.rasi
 
 # Now wofi!!! 
 # This is easy, just replace the color file. Here isn't necesary to do changes
@@ -116,7 +123,7 @@ xrdb -query ~/.Xresources | grep \* | awk 'NF>1{print $NF}' > ~/.config/wofi/Wco
 sed -i "s/${oxbg}/${xbg}/" ~/.config/mako/config
 sed -i "s/${oxfg}/${xfg}/" ~/.config/mako/config
 # This is the border. Again, a special color, the same of waybar
-if [ "$xtheme" = "$DARK_THEME"]; then
+if [ "$xtheme" = "$DARK_THEME" ]; then
     sed -i 's/2E303E/D0D0D0/g' ~/.config/mako/config
 else
     sed -i 's/D0D0D0/2E303E/g' ~/.config/mako/config

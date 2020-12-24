@@ -69,7 +69,7 @@ super + e
 
 # referencias
 super + alt + r
-      emacsclient -c /mnt/Data/Drive/GTD/referencias.org
+      alacritty -e nvim /mnt/Data/Drive/GTD/referencias.org
 
 
 super + ctrl + t

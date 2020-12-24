@@ -1,0 +1,218 @@
+#!/bin/bash
+# Author : Mark Wu, http://blog.markplace.net
+# License: GPL3, http://www.gnu.org/copyleft/gpl.html
+# Credit : Inspired by and based on Paul Mansfield's projectview, http://github.com/the1ts/todo.txt-plugins/blob/master/README.projects
+
+# Stop Verbose lines, thanks to Mark Harrison
+TODOTXT_VERBOSE=0
+
+# Get action
+action=$1
+shift
+
+# Get option
+option=$1;
+shift
+
+# Get rest of them
+term="$@"
+
+function usage() {
+    echo "  $(basename $0) [OPTION] [TERM]"
+    echo "    Show todo items containing TERM, grouped by OPTION, and displayed in"
+    echo "    priority order. If no TERM provided, displays entire todo.txt."
+    echo "    OPTION:"
+    echo "      project   : Show todo items group by project"
+    echo "      context   : Show todo items group by context"
+    echo "      date      : Show todo items group by date"
+    echo "      nodate    : Show todo items group by date without date"
+    echo "      past      : Show todo items group by date from today to past"
+    echo "      future    : Show todo items group by date from today to future"
+    echo "      today     : Show todo items group by date only today"
+    echo "      yesterday : Show todo items group by date from today to yesterday"
+    echo "      tomorrow  : Show todo items group by date from today to tomorrow"
+    echo "      ?length   : Show todo items group by date from today to ?length"
+    echo "                  ? could be signed(+-) or unsigned numbers."
+    echo "                  Length could be (days|weeks|months|years)"
+    echo "    Example:"
+    echo "      \$ todo.sh $(basename $0) project          # Show todo items grouped by project"
+    echo "      \$ todo.sh $(basename $0) project @context # Show todo items grouped by project and filtered by @context"
+    echo "      \$ todo.sh $(basename $0) context          # Show todo items grouped by context"
+    echo "      \$ todo.sh $(basename $0) date +project    # Show todo items grouped by date and filtered by +project"
+    echo "      \$ todo.sh $(basename $0) -3days           # Show todo items grouped by date from today to 3days before today"
+    echo "      \$ todo.sh $(basename $0) 4weeks           # Show todo items grouped by date from today to 4weeks after today"
+    echo ""
+    exit
+}
+
+function project_view() {
+    # Show projects in alphabetical order and todo items in priority order
+    echo -e "=========== \nProyectos \n==========="
+    echo ""
+
+    # Find all projects and sort
+    PROJECTS=$(grep -o '[^  ]*+[^  ]\+' "$TODO_FILE" | grep '^+' | sort -u | sed 's/^+//g')
+
+    # For each project show header and the list of todo items
+    for project in $PROJECTS; do
+        # Use core _list function, does numbering and colouring for us
+        PROJECT_LIST=$(_list "$TODO_FILE" "+$project\b" "$term")
+        if [[ -n "${PROJECT_LIST}" ]]; then
+            echo "---  $project  ---"
+            echo "${PROJECT_LIST}"
+            echo ""
+        fi
+    done
+
+    # Show todo items not associated to a project
+    PROJECT_LIST=$(_list "$TODO_FILE" "$term" | grep -v "+\w")
+    if  [[ -n "${PROJECT_LIST}" ]]; then
+        echo "---  Sin ningún proyecto  ---"
+        echo "${PROJECT_LIST}"
+    fi
+}
+
+function context_view() {
+    # Show contexts in alphabetical order and todo items in priority order
+    echo -e "===========  \nContextos \n==========="
+    echo ""
+
+    # Find all contexts and sort
+    CONTEXTS=$(grep -o '[^  ]*@[^  ]\+' "$TODO_FILE" | grep '^@' | sort -u | sed 's/@//g')
+
+    # For each context show header and the list of todo items
+    for context in $CONTEXTS ; do
+        # Use core _list function, does numbering and colouring for us
+        CONTEXT_LIST=$(_list "$TODO_FILE" "@$context\b" "$term")
+        if [[ -n "${CONTEXT_LIST}" ]]; then
+            echo "---  $context  ---"
+            echo "${CONTEXT_LIST}"
+            echo ""
+        fi
+    done
+
+    # Show todo items not associated to a context
+    CONTEXT_LIST=$(_list "$TODO_FILE" "$term" | grep -v "@[^ ]*\ *")
+    if [[ -n "${CONTEXT_LIST}" ]]; then
+        echo "---  Sin ningún contexto  ---"
+        echo "${CONTEXT_LIST}"
+    fi
+}
+
+function date_view() {
+    #  Show dates in alphabetical order and todo items in priority order
+    echo "=====  Fechas  ====="
+    echo ""
+
+    #  Find all dates and sort
+    DATES=$(grep -o '[^  ]*t:[^  ]\+' "$TODO_FILE" | grep '^t:' | sort -u | sed 's/^t://g')
+
+    #  Get option
+    option=$1
+
+    #  Get today
+    today=$(date -d $(date +%Y-%m-%d) +%s)
+
+    #  For each date show header and the list of todo items
+    for date in $DATES ; do
+        # Check it is a valid date or not
+        date_check $option $today $date
+        show="$?"
+        if [[ $show -eq 0 ]]; then
+            # If it is not a valid date, just do nothing
+            continue
+        fi
+
+        #  Use core _list function, does numbering and colouring for us
+        DATE_LIST=$(_list "$TODO_FILE" "t:$date" "$term" | sed 's/\(^t:\|\ *t:\)[0-9-]*\ */ /g')
+        if [ -n "${DATE_LIST}" ]; then
+            echo  "---  $date  ---"
+            echo  "${DATE_LIST}"
+            echo  ""
+        fi
+    done
+
+    #  Show todo items not associated to a date
+    re="^(date|nodate)$"
+    if [[ "$option" =~ $re ]]; then
+        DATE_LIST=$(_list "$TODO_FILE" "$term" | grep -v "t:[0-9-]*")
+        if [ -n "${DATE_LIST}" ]; then
+            echo "--- Sin fecha asignada  ---"
+            echo "${DATE_LIST}"
+        fi
+    fi
+}
+
+function date_check() {
+    # Assign variables
+    threshold=$1
+    today=$2
+    _date=$(date -d "$3" +%s)
+
+    # Check if the date is valid or not
+    # return:
+    #   1: If the date is valid
+    #   0: If the date is invalid
+    case $threshold in
+    'future')
+        if [[ "$_date" -ge "$today" ]]; then
+            return 1
+        fi
+        ;;
+    'past')
+        if [[ "$_date" -le "$today" ]]; then
+            return 1
+        fi
+        ;;
+    'nodate')
+        return 0
+        ;;
+    'date')
+        return 1
+        ;;
+    *)
+        if [[ "$threshold" -eq "$today" ]]; then
+            if [[ "$_date" -eq "$today" ]]; then
+                return 1
+            fi
+        elif [[ "$threshold" -gt "$today" ]]; then
+            if [[ ( "$_date" -ge "$today" ) && ( "$_date" -le "$threshold" ) ]]; then
+                return 1
+            fi
+        elif [[ "$threshold" -lt "$today" ]]; then
+            if [[ ( "$_date" -le "$today" ) && ( "$_date" -ge "$threshold" ) ]]; then
+                return 1
+            fi
+        fi
+        ;;
+    esac
+
+    return 0
+}
+
+# Validate the input options
+re="^(help|project|context|date|nodate|future|past|today|tomorrow|yesterday|([+-][0-9]+|[0-9]+)(days|weeks|months|years))$"
+if [[ "$option" =~ $re ]]; then
+    case $option in
+    'help')
+        usage
+        ;;
+    'project')
+        project_view
+        ;;
+    'context')
+        context_view
+        ;;
+    *)
+        re="^(date|nodate|future|past)$"
+        if [[ ! ( "$option" =~ $re ) ]]; then
+            option=$(date -d $(date -d $option +%Y-%m-%d) +%s)
+        fi
+
+        date_view $option
+        ;;
+    esac
+else
+    echo "Error: Unrecognized option \"$option\"."
+    echo "Try \"todo.sh view help\" to get more information."
+fi

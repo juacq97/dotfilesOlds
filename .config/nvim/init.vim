@@ -26,22 +26,16 @@ Plug 'junegunn/goyo.vim'
 Plug 'chrisbra/Colorizer'
 Plug 'Junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
+Plug 'SirVer/ultisnips'
 Plug 'ptzz/lf.vim'
-Plug 'rbgrouleff/bclose.vim'
+Plug 'dhruvasagar/vim-table-mode'
 Plug 'ntk148v/vim-horizon'
+Plug 'mcchrish/nnn.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
-"Plug 'masukomi/vim-markdown-folding'
-"Plug 'ryanoasis/vim-devicons'
-"Plug 'bagrat/vim-buffet'
-"Plug 'SidOfc/mkdx'
-"Plug 'dhruvasagar/vim-table-mode'
-"Plug 'godlygeek/tabular'
-"Plug 'vim-pandoc/vim-pandoc-syntax'
-"Plug 'tpope/vim-eunuch'
-"Plug 'junegunn/limelight.vim'
+Plug 'rakr/vim-one'
+Plug 'habamax/vim-asciidoctor'
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
-Plug 'tjdevries/colorbuddy.nvim'
 Plug 'ishan9299/modus-theme-vim', {'branch': 'stable'}
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
@@ -69,21 +63,22 @@ set laststatus=2	       " Desactiva el modeline
 set textwidth=0		       " Desactiva el hard linebreak
 set formatoptions+=t
 set termguicolors	       "Para tener los colores bien en ciertos temas
-syntax enable
-set conceallevel=0
-let g:pandoc#syntax#conceal#cchar_overrides = {"atx" : "#"}
-let g:pandoc#syntax#conceal#urls = 1
+syntax enable			
+set conceallevel=3
 
 """ Temas """""
 let g:grubvox_italic = 1
 let g:grubvox_contrast_dark = 'hard'
-colorscheme onehalfdark
+colorscheme horizon
+"Conceal no se ve bien con este tema, con este comando se arregla OwO
+highlight Conceal guifg=White guibg=color0
+let g:one_allow_italics = 1 
 set cursorline			" activa el resaltado de la linea
 highlight Comment cterm=italic gui=italic
 "
 """"" Statusline y ruler """""""
 "set rulerformat=%14(%l,%c%)\ %P
-set statusline=%#Title#%=%#Title#%F%m%r\ %y\ %#VisualNC#\ %l,%c\ \ %P 
+set statusline=%#title#%=%#title#%F%m%r\ %y\ %#VisualNC#\ %l,%c\ \ %P 
 
 """""""""""""""""
 " Funcionamiento
@@ -115,6 +110,8 @@ set mouse=a			" Soporte para mouse
 " Moverse con jk en lugar de gj y gk 
 nnoremap <expr> j (v:count > 4 ? "m'" . v:count . 'j' : 'gj')
 nnoremap <expr> k (v:count > 4 ? "m'" . v:count . 'k' : 'gk')
+vnoremap <expr> j (v:count > 4 ? "m'" . v:count . 'j' : 'gj')
+vnoremap <expr> k (v:count > 4 ? "m'" . v:count . 'k' : 'gk')
 
 "nnoremap <leader><tab> /<++><CR>cw
 
@@ -128,7 +125,7 @@ noremap <F6> :Goyo <CR>
 noremap <F5> :setlocal spell! spelllang=es<CR>
 
 " Abrir con space space
-noremap <leader><leader> :silent LfCurrentDirectory<CR>
+noremap <leader><leader> :silent :NnnPicker<CR>
 noremap <leader>f :silent Files <CR>
 
 " Teclas desactivadas
@@ -140,3 +137,16 @@ nnoremap Q <Nop>
 "autocmd FileType markdown inoremap ses<tab> <esc>:read ~/.config/nvim/snips/sesion<CR>kddA 
 "autocmd FileType markdown inoremap sec<tab> <esc>:read ~/.config/nvim/snips/secuencia<CR>kdd2wcw 
 "autocmd FileType markdown inoremap sec<tab> <esc>:read ~/.config/nvim/snips/secuencia<CR>kdd2wcw 
+"
+"
+let g:asciidoctor_syntax_conceal = 1
+
+let g:nnn#command = 'nnn -dcEnHA'
+let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
+
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"

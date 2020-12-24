@@ -11,6 +11,7 @@ dwmblocks-ashish
 xorg.conf.d
 trackpoint-config
 dwmblocks
+pass-completion.zsh
 chrome
 \.stow-local-ignore
 .gitignore

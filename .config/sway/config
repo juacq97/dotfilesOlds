@@ -1,0 +1,155 @@
+#  ____                     
+# / ___|_      ____ _ _   _ 
+# \___ \ \ /\ / / _` | | | |
+#  ___) \ V  V / (_| | |_| |
+# |____/ \_/\_/ \__,_|\__, |
+#                     |___/ 
+# Read `man 5 sway` for a complete reference.
+
+#################
+# Sway configs
+#################
+# This is what I change the most: appearance and functionality stuff
+
+# Default border to 3px and without title bars
+default_border pixel 3
+
+# Focus never goes outside the workspace
+focus_wrapping workspace
+
+# Focus only on click
+focus_follows_mouse no
+
+# Gaps!!
+gaps inner 5
+gaps outer 5
+
+# If I want to use the colors from my colorscheme (check toggle-colorscheme)
+#include Wcolors
+
+# Colors definitions. 
+# Class		          t_b       bg        fg     split    border
+client.focused		 #E4436F  #E4436F  #1C1E27  #EDA685  #E4436F
+client.focused_inactive	 #D79CAD  #D79CAD  #CACACC  #E0BEAE  #D79CAD
+client.unfocused	 #6C6F93  #6C6F93  #CACACC  #2E303E  #6C6F93
+client.urgent		 #EDA685  #EDA685  #1C1E27  #EDA685  #EDA685
+
+###############
+# Autostart
+###############
+#No more xinitrc 
+
+exec_always xrdb  ~/.Xresources
+exec /usr/lib/kdeconnectd
+exec_always mako 
+#exec ibus-daemon -drx &
+exec pcloud &
+exec_always waybar-restart &
+exec gammastep &
+
+################
+# Variables
+################
+# Things like terminal and modkey
+
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+# Terminal
+set $term alacritty
+# App launcher
+set $menu rofi -show drun -theme style7
+
+
+#############################
+# Input/Output configuration
+#############################
+# This used to be managed by X11, xrandr, xorg.d, etc.
+
+# Wallpaper
+output * bg /mnt/Data/Drive/WALLPAPERS/762eg86sut161.jpg fill
+
+# Screen configuration. This will need tweak to support HDMI and VGA, but I don't need it rn
+# External monitor to right
+output LVDS-1 resolution 1600x900 position 1600,0
+# Laptop monitor to left
+output DP-2 resolution 1600x900
+# Focus the external monitor
+focus output DP-2
+
+#Clamshell: what to do when laptop lid is closed
+set $laptop LVDS-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
+# Set variables for my monitors. Used with the workspaces
+set $m1 DP-2
+set $m2 LVDS-1 
+
+# Idle configuration
+
+#exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+# Input configuration
+# man 5 sway-input
+# swaymsg -t get_inputs to get the names of the inputs (all of them)
+# Keyboard first, I need latam(default) and us layouts.
+input "type:keyboard" {
+    xkb_layout latam,us
+    xkb_options grp:rctrl_rshift_toggle
+    repeat_delay 200
+    repeat_rate 70
+}
+
+#############
+# Workspaces
+#############
+
+# Set ws 1 to 6 to monitor 1, and ws 7-9 to ws 2. 
+# This behaviour is similar to the one I used to use with bspwm. 
+workspace 1 output $m1
+workspace 2 output $m1
+workspace 3 output $m1
+workspace 4 output $m1
+workspace 5 output $m1
+workspace 6 output $m1
+workspace 7 output $m2
+workspace 8 output $m2
+workspace 9 output $m2
+
+# Menu to turn off the pc. Replaces the old but cool dmenu script. Not compositor agnostic tho
+set $poweroff ¿Desea salir? [A]pagar [S]uspender [R]einiciar [C]errar sesión
+mode "$poweroff" {
+    bindsym a exec sudo poweroff
+    bindsym s exec sudo zzz
+    bindsym r exec sudo reboot
+    bindsym c exec swaymsg exit
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Include keybindings. This is a separated file
+include keys.conf
+
+#########
+# Rules
+#########
+# Wayland native apps uses app_id instead of class
+
+for_window [app_id="(?i)mpv"] floating enable
+for_window [class="(?i)sxiv"] floating enable
+for_window [class="qt5ct"] floating enable
+for_window [class="kruler"] floating enable
+for_window [class="zoom"] floating enable
+for_window [app_id="(?i)connman-gtk"] floating enable
+for_window [app_id="(?i)pavucontrol"] floating enable
+for_window [app_id="calendar.txt"] floating enable

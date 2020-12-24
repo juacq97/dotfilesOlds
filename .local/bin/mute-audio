@@ -1,8 +1,0 @@
-#! /bin/sh
-check=$(pamixer --get-mute)
-echo $check
-if [[ "$check" == "true" ]]; then
-    pamixer -u
-else
-    pamixer -m
-fi

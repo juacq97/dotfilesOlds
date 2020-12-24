@@ -1,0 +1,84 @@
+{
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 25, // Waybar height (to be removed for auto height)
+
+    // Choose the order of the modules
+    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "battery", "network"],
+    // Modules configuration
+     "sway/workspaces": {
+         "disable-scroll": true,
+         "format": "{name}:{icon}",
+         "format-icons": {
+             "1": "󰣇",
+             "2": "󰞷",
+             "3": "󰌽",
+             "4": "󰷈",
+             "5": "󰅶",
+             "6": "󰽰",
+             "7": "󰍹",
+             "8": "󰍹",
+             "9": "󰍹",
+             "urgent": "",
+             "focused": "f",
+             "default": "d",
+	     "persistent": "p"
+         },
+
+     },
+    "sway/mode": {
+        "format": "<span font_weight=\"bold\">{}</span>"
+    },
+    "sway/window": {
+	"max-length": 25
+	},
+
+
+    "clock": {
+	"format": "󰥔 {:%b %e, %R}",
+        "tooltip" : false,
+        "format-alt": "{:%e de %B de %Y. %H:%M}",
+	"on-click-right": "launch_calendar"
+    },
+
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "󰂄 {capacity}%",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        "format-full": "󰁹 {capacity}%",
+        "format-icons": [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{icon}",
+        "format-ethernet": "",
+        "format-linked": "",
+        "format-disconnected": "󰤭",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+	"format-icons": [ "󰤟", "󰤢", "󰤥", "󰤨" ],
+        "on-click-right": "if [ $(pgrep connman-gtk) ]; then pkill connman-gtk; else connman-gtk; fi"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰖁 {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-bluetooth-muted": "󰖁  {volume}%",
+        "format-icons": {
+            "headphone": ["󰕿", "󰖀", "󰕾"],
+	    "headset": "󰋎",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle",
+        "on-click-right": "if [ $(pgrep pavucontrol) ]; then pkill pavucontrol; else pavucontrol; fi"
+    }
+}

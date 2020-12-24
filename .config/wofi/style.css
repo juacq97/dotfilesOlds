@@ -1,0 +1,55 @@
+window {
+    margin: 5px;
+    background-color: #1C1E27;
+    border-style: solid;
+    border-color: white;
+    border-width: 0px 0px 0px 0px;
+    border-radius: 20px;
+}
+
+#input {
+    padding: 5px;
+    margin: 0px;
+    background-color: #1C1E27;
+    color: #CACACC;
+    border: 0px 0px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
+    border-color: #1C1E27;
+}
+
+#inner-box {
+    margin: 5px;
+    border-width: 0px;
+    background-color: #1C1E27;
+}
+
+#outer-box {
+    padding: 5px;
+    border-style: solid;
+    border-color: blue;
+    border-width: 0px 0px 0px 0px;
+    border-radius: 10px;
+    background-color: #1C1E27;
+}
+
+#scroll {
+    margin: 5px;
+    border: 0px solid orange;
+    background-color: #1C1E27;
+}
+
+#text {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 13px;
+    color: #CACACC;
+} 
+
+
+#entry:selected {
+    background-color: #E4436F;
+    border-radius: 13px;
+    margin: 5px;
+    padding: 5px;
+}
+

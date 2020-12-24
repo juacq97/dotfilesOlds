@@ -1,0 +1,140 @@
+@define-color background #1C1E27;
+@define-color foreground #CACACC;
+@define-color cursorColor #CACACC;
+@define-color color0 #6C6F93;
+@define-color color1 #E4436F;
+@define-color color2 #24E39D;
+@define-color color3 #EDA685;
+@define-color color4 #00A5AF;
+@define-color color5 #B367CF;
+@define-color color6 #00A5AF;
+@define-color color7 #CACACC;
+@define-color color8 #6C6F93;
+@define-color color9 #E4436F;
+@define-color color10 #24E39D;
+@define-color color11 #EDA685;
+@define-color color12 #00A5AF;
+@define-color color13 #B367CF;
+@define-color color14 #00A5AF;
+@define-color color15 #CACACC;
+
+
+
+
+
+
+
+
+* {
+    border: none;
+    border-radius: 0;
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: Futura Bk BT, Material Design Icons;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: @background;
+    border-bottom: 0px solid rgba(100, 114, 125, 0.5);
+    color: @foreground;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces button {
+    padding: 0 0 0 0;
+    background-color: transparent;
+    color: @foreground;
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#workspaces button.focused {
+    color: @color1;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+#mode {
+    background-color: @color1;
+    color: @background;
+    border-radius: 10px;
+    margin: 3px 0 3px 0;
+    padding: 0 5px;
+}
+
+#window {
+    margin: 0 4px;
+}
+
+#workspaces {
+    margin: 3px;
+    background-color: #2E303E;
+    border-radius: 10px;
+}
+
+#pulseaudio, #battery, #network {
+    padding: 0 10px;
+    margin: 3px 0px 3px 0px;
+    background-color: #2E303E;
+}
+
+#pulseaudio {
+    border-radius: 10px 0px 0px 10px;
+}
+
+#network {
+    border-radius: 0px 10px 10px 0px;
+    margin: 3px 3px 3px 0;
+}
+
+#clock {
+    padding: 0 10px;
+    margin: 2px;
+    border-radius: 5px;
+}
+
+#battery.charging {
+    color: @color2;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging) {
+    color: @color1;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#network.disconnected {
+    color: @color1;
+}
+
+#pulseaudio.muted {
+    color: @color0;
+}
+

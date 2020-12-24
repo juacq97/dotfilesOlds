@@ -1,12 +1,12 @@
 #!/bin/bash
 if [ -e /tmp/TOUCHPAD-LOCK ]; then
    echo "existe" 
-  xinput enable 13
+  xinput enable 11
   rm /tmp/TOUCHPAD-LOCK
   notify-send -u low -i mouse "Touchpad Activado"
 else
     echo "No existe"
-  xinput disable 13
+  xinput disable 11
   touch /tmp/TOUCHPAD-LOCK
   notify-send -u low -i mouse "Touchpad Desactivado"
 fi

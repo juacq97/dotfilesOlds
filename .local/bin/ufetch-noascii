@@ -65,8 +65,8 @@ c0="${reset}${blue}"                # first color
 cat <<EOF
 ${lc}      os${ic} ~ ${os}${reset}
 ${lc}      sh ${ic}~ ${shell}${reset}
-${lc}      ${uitype}${ic} ~ ${ui}${reset}
 ${lc}      up ${ic}~ ${uptime}${reset}
+${lc}    comp ${ic}~ ${ui}${reset}
 ${lc}    pkgs ${ic}~ ${packages}${reset}
 ${lc}  kernel ${ic}~ ${kernel}${reset}
 

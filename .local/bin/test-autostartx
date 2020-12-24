@@ -1,7 +1,0 @@
-#! /bin/sh
-
-if [[ "$TTY" == "/dev/tty1" ]]; then
-    echo "Si es la terminal 1, arranca"
-else
-    echo "no arranques"
-fi
