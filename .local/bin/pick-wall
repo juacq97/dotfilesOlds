@@ -1,0 +1,3 @@
+#! /bin/sh
+
+ls -t /mnt/Data/Drive/WALLPAPERS/* | sxiv -t -

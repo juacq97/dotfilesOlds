@@ -24,8 +24,8 @@ configuration {
 window {
     background-color:   @background;
     text-color:         @foreground;
-	border:		0px;
-	border-color:	@color1;
+	border:		1px;
+	border-color:	@cursorColor;
     border-radius:      12px;
 	width:		40%;
     location:           center;
@@ -56,7 +56,7 @@ inputbar {
     expand:             false;
 	border:		0% 0% 0% 0%;
     border-radius:      0px;
-	border-color:	@color1;
+	border-color:	@color4;
     margin:             5px;
     padding:            1.5%;
 }
@@ -103,8 +103,8 @@ element-text {
 }
 
 element selected {
-    background-color:  @color1;
-    text-color:        @background;
+    background-color:  @cursorColor;
+    text-color:        #fafafa;
 	border:	       0% 0% 0% 0%;
     border-radius:     12px;
     border-color:      @background;

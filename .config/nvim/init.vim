@@ -48,6 +48,7 @@ call plug#end()
       filetype plugin indent on
     endif
 
+
 """""""""""""""""""
 " UI
 """""""""""""""""""
@@ -69,7 +70,8 @@ set conceallevel=3
 """ Temas """""
 let g:grubvox_italic = 1
 let g:grubvox_contrast_dark = 'hard'
-colorscheme horizon
+colorscheme one
+set background=dark
 "Conceal no se ve bien con este tema, con este comando se arregla OwO
 highlight Conceal guifg=White guibg=color0
 let g:one_allow_italics = 1 
@@ -78,7 +80,7 @@ highlight Comment cterm=italic gui=italic
 "
 """"" Statusline y ruler """""""
 "set rulerformat=%14(%l,%c%)\ %P
-set statusline=%#title#%=%#title#%F%m%r\ %y\ %#VisualNC#\ %l,%c\ \ %P 
+set statusline=%#Question#%=%#Question#%F%m%r\ %y\ %#VisualNC#\ %l,%c\ \ %P 
 
 """""""""""""""""
 " Funcionamiento

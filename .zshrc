@@ -23,15 +23,34 @@ plugins=(
     git
 )
 
-source $ZSH/oh-my-zsh.sh
-DISABLE_AUTO_UPDATE=true
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)		# Include hidden files.
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
 bindkey -v #vim mode 
+export KEYTIMEOUT=1
+
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept #Completa con C-space
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
 
 ### Aliases ###
+alias ls="ls --color=always"
 alias e="emacsclient -c"
 alias emc="emacsclient -c"
 alias et="emacsclient -t"
@@ -63,7 +82,7 @@ alias n="ncmd"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Historial de zsh
-HISTFILE=~/.zsh_history
+HISTFILE=~/.cache/zsh/history
 HISTSIZE=10000
 SAVEHIST=1000
 setopt SHARE_HISTORY

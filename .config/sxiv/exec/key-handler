@@ -3,12 +3,10 @@
 while read file
 do
     case "$1" in
-	"C-s")
-#	    nitrogen --set-zoom-fill "$file" ;;
-	    #	    sxiv -t /mnt/DATA/juan/Drive/WALLPAPERS/*
-	    echo "$file" > ~/.config/bg
-	    xwallpaper --zoom $(cat ~/.config/bg)
-	    wal -i "$(cat ~/.config/bg)";;
+	"C-w")
+	    echo "set \$bg $file" > ~/.config/sway/background
+	    swaymsg output \* bg $(cat ~/.config/sway/background | cut -d ' ' -f3) fill
+	    notify-send "Fondo de pantalla modificado" ;;
     esac
 done
 

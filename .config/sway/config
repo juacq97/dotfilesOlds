@@ -29,10 +29,10 @@ gaps outer 5
 
 # Colors definitions. 
 # Class		          t_b       bg        fg     split    border
-client.focused		 #E4436F  #E4436F  #1C1E27  #EDA685  #E4436F
-client.focused_inactive	 #D79CAD  #D79CAD  #CACACC  #E0BEAE  #D79CAD
-client.unfocused	 #6C6F93  #6C6F93  #CACACC  #2E303E  #6C6F93
-client.urgent		 #EDA685  #EDA685  #1C1E27  #EDA685  #EDA685
+client.focused		 #526eff  #526eff  #282C34  #E5C07B  #526eff
+client.focused_inactive	 #A3B2FF  #A3B2FF  #ABB2BF  #E0BEAE  #A3B2FF
+client.unfocused	 #6C6F93  #6C6F93  #ABB2BF  #2E303E  #6C6F93
+client.urgent		 #E5C07B  #E5C07B  #282C34  #E5C07B  #E5C07B
 
 ###############
 # Autostart
@@ -46,6 +46,7 @@ exec_always mako
 exec pcloud &
 exec_always waybar-restart &
 exec gammastep &
+exec wl-paste -t text --watch clipman store & 
 
 ################
 # Variables
@@ -69,7 +70,8 @@ set $menu rofi -show drun -theme style7
 # This used to be managed by X11, xrandr, xorg.d, etc.
 
 # Wallpaper
-output * bg /mnt/Data/Drive/WALLPAPERS/762eg86sut161.jpg fill
+include background
+output * bg $bg fill
 
 # Screen configuration. This will need tweak to support HDMI and VGA, but I don't need it rn
 # External monitor to right
@@ -90,11 +92,8 @@ set $m2 LVDS-1
 
 # Idle configuration
 
-#exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
+exec swayidle -w timeout 1200 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' 
+#timeout 7 'swaylock -i /mnt/Data/Drive/WALLPAPERS/762eg86sut161.jpg'
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.

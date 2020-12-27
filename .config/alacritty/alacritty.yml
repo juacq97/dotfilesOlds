@@ -62,7 +62,9 @@ schemes:
     primary:
       background: '0x282c34'
       foreground: '0xabb2bf'
-    
+    cursor:
+      text:       CellBackground
+      cursor:     '#526eff' # syntax-cursor-color
       # Normal colors
     normal:
       black:   '0x5c6370'
@@ -80,7 +82,7 @@ schemes:
       red:     '0xbe5046'
       green:   '0x98c379'
       yellow:  '0xd19a66'
-      blue:    '0x61afef'
+      blue:    '#526eff'
       magenta: '0xc678dd'
       cyan:    '0x56b6c2'
       white:   '0xabb2bf'
@@ -514,7 +516,7 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *horizon
+colors: *one-dark
 
 # Background opacity
 background_opacity: 1

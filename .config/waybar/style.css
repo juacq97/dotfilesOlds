@@ -1,29 +1,22 @@
-@define-color background #1C1E27;
-@define-color foreground #CACACC;
-@define-color cursorColor #CACACC;
-@define-color color0 #6C6F93;
-@define-color color1 #E4436F;
-@define-color color2 #24E39D;
-@define-color color3 #EDA685;
-@define-color color4 #00A5AF;
-@define-color color5 #B367CF;
-@define-color color6 #00A5AF;
-@define-color color7 #CACACC;
-@define-color color8 #6C6F93;
-@define-color color9 #E4436F;
-@define-color color10 #24E39D;
-@define-color color11 #EDA685;
-@define-color color12 #00A5AF;
-@define-color color13 #B367CF;
-@define-color color14 #00A5AF;
-@define-color color15 #CACACC;
-
-
-
-
-
-
-
+@define-color background #fafafa;
+@define-color foreground #383a42;
+@define-color cursorColor #526eff;
+@define-color color0 #5C6370;
+@define-color color1 #E06C75;
+@define-color color2 #98C379;
+@define-color color3 #E5C07B;
+@define-color color4 #61AFEF;
+@define-color color5 #C678DD;
+@define-color color6 #56B6C2;
+@define-color color7 #ABB2BF;
+@define-color color8 #4B5263;
+@define-color color9 #BE5046;
+@define-color color10 #98C379;
+@define-color color11 #D19A66;
+@define-color color12 #61AFEF;
+@define-color color13 #C678DD;
+@define-color color14 #56B6C2;
+@define-color color15 #ABB2BF;
 
 * {
     border: none;
@@ -35,7 +28,7 @@
 }
 
 window#waybar {
-    background-color: @background;
+    background-color: transparent;
     border-bottom: 0px solid rgba(100, 114, 125, 0.5);
     color: @foreground;
     transition-property: background-color;
@@ -46,21 +39,37 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
+#workspaces {
+    margin: 3px;
+    background-color: transparent;
+}
+
 #workspaces button {
     padding: 0 0 0 0;
+    margin: 0px 2px 0px 2px;
+    min-width: 0;
     background-color: transparent;
     color: @foreground;
-    /* Use box-shadow instead of border so the text isn't offset */
     box-shadow: inset 0 -3px transparent;
 }
 
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces.focus button.focused {
+    color: @background;
+    padding: 2.8 3px;
+    margin: 0px;
+    border-radius: 10px;
+    background-color: @cursorColor;
+}
+
 #workspaces button:hover {
     background: rgba(0, 0, 0, 0.2);
 }
 
 #workspaces button.focused {
-    color: @color1;
+    color: @color5;
+    padding: 0 0px;
+    margin: 0px;
+    border-radius: 10px;
 }
 
 #workspaces button.urgent {
@@ -68,7 +77,7 @@ window#waybar.hidden {
 }
 
 #mode {
-    background-color: @color1;
+    background-color: @cursorColor;
     color: @background;
     border-radius: 10px;
     margin: 3px 0 3px 0;
@@ -79,16 +88,12 @@ window#waybar.hidden {
     margin: 0 4px;
 }
 
-#workspaces {
-    margin: 3px;
-    background-color: #2E303E;
-    border-radius: 10px;
-}
 
 #pulseaudio, #battery, #network {
     padding: 0 10px;
     margin: 3px 0px 3px 0px;
-    background-color: #2E303E;
+    background-color: @cursorColor;
+    color: @background;
 }
 
 #pulseaudio {
@@ -118,7 +123,7 @@ window#waybar.hidden {
 }
 
 #battery.critical:not(.charging) {
-    color: @color1;
+    color: @color4;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;

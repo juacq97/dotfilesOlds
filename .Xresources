@@ -1,4 +1,4 @@
-#include "/home/juan/.config/XColors/horizon"
+#include "/home/juan/.config/XColors/one-dark"
 
 dwm.back:    bg
 dwm.fore:    fg

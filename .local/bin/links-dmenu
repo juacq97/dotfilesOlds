@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Hace la búsqueda en el archivo links
-sel=$(cat ~/.local/bin/links-list | dmenu -l 10 -i -p "URL/Buscar")
+sel=$(cat ~/.local/bin/links-list | rofi -dmenu -theme style7 -p "URL/Buscar")
 #Se asegura que no sea un campo vacío
 if [ "$sel" != "" ]; then
     #Se asegura que la selección exista en el archivo links

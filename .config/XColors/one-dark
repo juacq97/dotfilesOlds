@@ -1,7 +1,7 @@
 ! OneDark
 #define fg   #ABB2BF
 #define bg   #282C34
-#define cursor #ABB2BF
+#define cursor #526eff
 #define black   #5C6370
 #define bblack   #4B5263
 #define red   #E06C75

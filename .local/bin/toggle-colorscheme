@@ -13,37 +13,57 @@ oc9=$(xrdb -query ~/.Xresources | grep color9 | cut -d"#" -f2 | tr -d ' ')
 xpath=$(grep -n include ~/.Xresources | cut -d ' ' -f2 | tr -d '"')
 xtheme=$(basename -- $xpath)
 if [ "$xtheme" = "$LIGHT_THEME" ]; then
-    sed -i "s/$xtheme/$DARK_THEME/" ~/.Xresources
+    sed -i --follow-symlinks "s/$xtheme/$DARK_THEME/" ~/.Xresources
     xrdb ~/.Xresources
     dwm-msg run_command xrdb
 else
-    sed -i "s/$xtheme/$LIGHT_THEME/" ~/.Xresources
+    sed -i --follow-symlinks "s/$xtheme/$LIGHT_THEME/" ~/.Xresources
     xrdb ~/.Xresources
     dwm-msg run_command xrdb
 fi
+
+# Change the gtk theme
+# Edit the gtk-3.0/settings.ini file and run gsettings, easy right?
+
+echo $xtheme
+
+echo "ligth: $LIGHT_THEME"
+echo "dark: $DARK_THEME"
+if [ "$xtheme" = "$LIGHT_THEME" ]; then
+    sed -i --follow-symlinks "s/$xtheme/$DARK_THEME/" ~/.config/gtk-3.0/settings.ini
+    sed -i --follow-symlinks "5s/$xtheme/$DARK_THEME/" ~/.gtkrc-2.0
+    gtk3-import
+else
+    sed -i --follow-symlinks "s/$xtheme/$LIGHT_THEME/" ~/.config/gtk-3.0/settings.ini
+    sed -i --follow-symlinks "s/$xtheme/$LIGHT_THEME/" ~/.gtkrc-2.0
+    gtk3-import
+fi
+
+
 
 # WAYLAND ON THE WAY
 # First, update the Wcolors file for sway. I take the color from xdrb and with some changes becomes variables for sway.
 # The awk part removes all the extra spaces
 xrdb -query ~/.Xresources | grep \* | awk '{$2=$2};1' > ~/.config/sway/Wcolors
 #some sed magic
-sed -i 's/\*\./set\ \$/g; s/\://g' ~/.config/sway/Wcolors
+sed -i --follow-symlinks 's/\*\./set\ \$/g; s/\://g' ~/.config/sway/Wcolors
 
 # Now waybar. 
-xrdb -query .Xresources | grep \* | sed -e 's/\*\./\@define-color /g; s/\://g; s/$/\;/g' | awk '{$2=$2};1' > /tmp/colors
-sed -i -e 1,19d ~/.config/waybar/style.css
-cat /tmp/colors ~/.config/waybar/style.css > /tmp/Wcolors.css
-mv /tmp/Wcolors.css ~/.config/waybar/style.css
-
-#restart waybar. I decided to do this outside sway because sway reloads all the screens, and takes his time.
-waybar-restart &
+#xrdb -query .Xresources | grep \* | sed -e 's/\*\./\@define-color /g; s/\://g; s/$/\;/g' | awk '{$2=$2};1' > /tmp/colors
+#sed -i --follow-symlinks -e 1,19d ~/.config/waybar/style.css
+#cat /tmp/colors ~/.config/waybar/style.css > /tmp/Wcolors.css
+#mv /tmp/Wcolors.css ~/.config/waybar/style.css
+#
 
 #one last change. This is a special color, not present on any colorscheme. This will not make sense when I change styles.
-if [ "$xtheme" = "$DARK_THEME" ]; then
-    sed -i 's/2E303E/D0D0D0/g' ~/.config/waybar/style.css
-else
-    sed -i 's/D0D0D0/2E303E/g' ~/.config/waybar/style.css
-fi
+#if [ "$xtheme" = "$DARK_THEME" ]; then
+#    sed -i --follow-symlinks 's/3C414A/D0D0D0/g' ~/.config/waybar/style.css
+#else
+#    sed -i --follow-symlinks 's/D0D0D0/3C414A/g' ~/.config/waybar/style.css
+#fi
+
+##restart waybar. I decided to do this outside sway because sway reloads all the screens, and takes his time.
+#waybar-restart &
 # Update sway.
 #if [ $pgrep sway ]; then
 #swaymsg reload
@@ -54,26 +74,26 @@ name=$(grep 'colors: \*' ~/.config/alacritty/alacritty.yml | cut -d "*" -f2)
 tline=$(grep -n "colors: \*" ~/.config/alacritty/alacritty.yml | cut -d: -f1)
 
 if [ "$name" = "$LIGHT_THEME" ]; then
-    sed -i "${tline}s/$name/$DARK_THEME/" ~/.config/alacritty/alacritty.yml
+    sed -i --follow-symlinks "${tline}s/$name/$DARK_THEME/" ~/.config/alacritty/alacritty.yml
 else
-    sed -i "${tline}s/$name/$LIGHT_THEME/" ~/.config/alacritty/alacritty.yml
+    sed -i --follow-symlinks "${tline}s/$name/$LIGHT_THEME/" ~/.config/alacritty/alacritty.yml
 fi
 
 # change color of neovim if running
-#cs=$(grep -n background ~/.config/nvim/init.vim | cut -d " " -f2)
+cs=$(grep -n background ~/.config/nvim/init.vim | cut -d "=" -f2)
+vline=$(grep -n background ~/.config/nvim/init.vim | cut -d: -f1)
+#cs=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d " " -f2)
 #vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
-cs=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d " " -f2)
-vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
-#if [ "$cs" = "light" ]; then
-#    sed -i "${vline}s/$cs/dark/" ~/.config/nvim/init.vim
-#else
-#    sed -i "${vline}s/$cs/light/" ~/.config/nvim/init.vim
-#fi
-if [ "$cs" = "$LIGHT_THEME" ]; then
-    sed -i "${vline}s/$cs/$DARK_THEME/" ~/.config/nvim/init.vim
+if [ "$cs" = "light" ]; then
+    sed -i --follow-symlinks "${vline}s/$cs/dark/" ~/.config/nvim/init.vim
 else
-    sed -i "${vline}s/$cs/$LIGHT_THEME/" ~/.config/nvim/init.vim
+    sed -i --follow-symlinks "${vline}s/$cs/light/" ~/.config/nvim/init.vim
 fi
+#if [ "$cs" = "$LIGHT_THEME" ]; then
+#    sed -i --follow-symlinks "${vline}s/$cs/$DARK_THEME/" ~/.config/nvim/init.vim
+#else
+#    sed -i --follow-symlinks "${vline}s/$cs/$LIGHT_THEME/" ~/.config/nvim/init.vim
+#fi
 
 if [ $pgrep nvim ]; then
     for SERVER in $(nvr --serverlist); do
@@ -95,8 +115,8 @@ c9=$(xrdb -query ~/.Xresources | grep color9 | cut -d"#" -f2 | tr -d ' ')
 
 # Change colors from zathura. Zathura allows to change only background, and bg and fg for recolor. izzi to change right?
 
-sed -i "s/$oxbg/$xbg/g" ~/.config/zathura/zathurarc
-sed -i "s/$oxfg/$xfg/g" ~/.config/zathura/zathurarc
+sed -i --follow-symlinks "s/$oxbg/$xbg/g" ~/.config/zathura/zathurarc
+sed -i --follow-symlinks "s/$oxfg/$xfg/g" ~/.config/zathura/zathurarc
 
 # Rofi, because why not? This need a new special theme just for this script called Xrow and another (for lists) called Xlist. This will substitute all the instances of the matching colors for another one. I expeect it looks fine.
 
@@ -106,28 +126,28 @@ echo "}" >> ~/.config/rofi/colors.rasi
 
 
 
-# sed -i "s/${oxbg}/${xbg}/" ~/.config/rofi/Xrow.rasi
-# sed -i "s/${oxfg}/${xfg}/" ~/.config/rofi/Xrow.rasi
-# sed -i "s/${oc6}/${c6}/" ~/.config/rofi/Xrow.rasi
-# sed -i "s/${oc9}/${c9}/" ~/.config/rofi/Xrow.rasi
-# sed -i "s/${oxbg}/${xbg}/" ~/.config/rofi/Xlist.rasi
-# sed -i "s/${oxfg}/${xfg}/" ~/.config/rofi/Xlist.rasi
-# sed -i "s/${oc6}/${c6}/" ~/.config/rofi/Xlist.rasi
-# sed -i "s/${oc9}/${c9}/" ~/.config/rofi/Xlist.rasi
+# sed -i --follow-symlinks "s/${oxbg}/${xbg}/" ~/.config/rofi/Xrow.rasi
+# sed -i --follow-symlinks "s/${oxfg}/${xfg}/" ~/.config/rofi/Xrow.rasi
+# sed -i --follow-symlinks "s/${oc6}/${c6}/" ~/.config/rofi/Xrow.rasi
+# sed -i --follow-symlinks "s/${oc9}/${c9}/" ~/.config/rofi/Xrow.rasi
+# sed -i --follow-symlinks "s/${oxbg}/${xbg}/" ~/.config/rofi/Xlist.rasi
+# sed -i --follow-symlinks "s/${oxfg}/${xfg}/" ~/.config/rofi/Xlist.rasi
+# sed -i --follow-symlinks "s/${oc6}/${c6}/" ~/.config/rofi/Xlist.rasi
+# sed -i --follow-symlinks "s/${oc9}/${c9}/" ~/.config/rofi/Xlist.rasi
 
 # Now wofi!!! 
 # This is easy, just replace the color file. Here isn't necesary to do changes
 xrdb -query ~/.Xresources | grep \* | awk 'NF>1{print $NF}' > ~/.config/wofi/Wcolors
 
 # Finally mako, this works (no like dunst). Just change the few colors and run a nice notification c:
-sed -i "s/${oxbg}/${xbg}/" ~/.config/mako/config
-sed -i "s/${oxfg}/${xfg}/" ~/.config/mako/config
+sed -i --follow-symlinks "s/${oxbg}/${xbg}/" ~/.config/mako/config
+sed -i --follow-symlinks "s/${oxfg}/${xfg}/" ~/.config/mako/config
 # This is the border. Again, a special color, the same of waybar
-if [ "$xtheme" = "$DARK_THEME" ]; then
-    sed -i 's/2E303E/D0D0D0/g' ~/.config/mako/config
-else
-    sed -i 's/D0D0D0/2E303E/g' ~/.config/mako/config
-fi
+#if [ "$xtheme" = "$DARK_THEME" ]; then
+#    sed -i --follow-symlinks 's/2E303E/D0D0D0/g' ~/.config/mako/config
+#else
+#    sed -i --follow-symlinks 's/D0D0D0/2E303E/g' ~/.config/mako/config
+#fi
 
 pkill mako
 if [ "$xtheme" = "$LIGHT_THEME" ]; then
@@ -153,9 +173,9 @@ fi
 #
 #killall dunst
 #
-#sed -i "${dlbg}s/$dbg/$xbg/" ~/.config/dunst/dunstrc
-#sed -i "${dlfg}s/$dfg/$xfg/" ~/.config/dunst/dunstrc
-#sed -i "${dlb}s/$db/$xb/" ~/.config/dunst/dunstrc
+#sed -i --follow-symlinks "${dlbg}s/$dbg/$xbg/" ~/.config/dunst/dunstrc
+#sed -i --follow-symlinks "${dlfg}s/$dfg/$xfg/" ~/.config/dunst/dunstrc
+#sed -i --follow-symlinks "${dlb}s/$db/$xb/" ~/.config/dunst/dunstrc
 #
 #
 #if [ "$xtheme" = "$LIGHT_THEME" ]; then

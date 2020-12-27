@@ -3,13 +3,22 @@
     "height": 25, // Waybar height (to be removed for auto height)
 
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-left": ["sway/workspaces#focus", "sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": ["clock"],
     "modules-right": ["pulseaudio", "battery", "network"],
     // Modules configuration
      "sway/workspaces": {
+	 "format": "{icon}",
+         "format-icons": {
+	     "focused": "",
+	 },
+    },
+
+
+    "sway/workspaces#focus": {
          "disable-scroll": true,
-         "format": "{name}:{icon}",
+         "format": "{icon}",
+	 "current-only": true,
          "format-icons": {
              "1": "󰣇",
              "2": "󰞷",
@@ -24,9 +33,10 @@
              "focused": "f",
              "default": "d",
 	     "persistent": "p"
-         },
-
+	},
      },
+
+
     "sway/mode": {
         "format": "<span font_weight=\"bold\">{}</span>"
     },
