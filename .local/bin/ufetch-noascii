@@ -66,7 +66,7 @@ cat <<EOF
 ${lc}      os${ic} ~ ${os}${reset}
 ${lc}      sh ${ic}~ ${shell}${reset}
 ${lc}      up ${ic}~ ${uptime}${reset}
-${lc}    comp ${ic}~ ${ui}${reset}
+${lc}      wm ${ic}~ ${ui}${reset}
 ${lc}    pkgs ${ic}~ ${packages}${reset}
 ${lc}  kernel ${ic}~ ${kernel}${reset}
 

@@ -13,15 +13,15 @@ ramp4=󱄠
 #if [[ $mute == "true" ]]; then
 #    echo " $iconmute $vol% "
 if [[ $mute == "true" ]]; then
-    echo " $iconmute mute"
+    echo " $iconmute mute"
 elif [[ "$vol" -ge "100" ]]; then
-    echo "$ramp3 $vol% "
+    echo "$ramp3 $vol% "
 elif [[ "$vol" -le "33" ]]; then
-    echo "$ramp1 $vol% "
+    echo "$ramp1 $vol% "
 elif [[ "$vol" -le "66" ]]; then
-    echo "$ramp2 $vol% "
+    echo "$ramp2 $vol% "
 elif [[ "$vol" -le "100" ]]; then
-    echo "$ramp3 $vol% "
+    echo "$ramp3 $vol% "
 elif [[ "$vol" -ge "101" ]]; then
-    echo "$ramp4 $vol% "
+    echo "$ramp4 $vol% "
 fi

@@ -4,9 +4,9 @@ export PATH
 source $HOME/.zvars
 
 ### Ejecuta xinit si es la TTY 1 ###
-# Probando con sway OwO
+# Probando con sway
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec sway
+      exec startx
 fi
 
 ### Ejecuta al abrir terminales 
@@ -26,6 +26,7 @@ plugins=(
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
@@ -62,6 +63,7 @@ alias r="cd ~/.repos"
 alias ncmd="nnn -dcE"
 alias todo="todotxt"
 alias n="ncmd"
+alias ref.adoc="nvim /mnt/Data/TODO/REF.adoc"
 
 ### cd on quit para nnn ###
 #NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
@@ -99,6 +101,3 @@ export BAT_THEME="gruvbox"
 f(){
     nnn-opener "$(fzf)"
 }
-
-
-alias hackear-a-isabella="hollywood"

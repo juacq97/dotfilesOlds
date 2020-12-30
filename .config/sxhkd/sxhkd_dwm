@@ -15,10 +15,10 @@
 # Aplicaciones
 ########################
 
-super + v
-    expediente nuevo
+#super + v
+#    expediente nuevo
 
-super + minus
+super + shift + i
     dmenuunicode
 
 super + a
@@ -36,7 +36,7 @@ super + Return
 # App menu
 super + space
 #     ~/.local/bin/dmenu_run_history -h 24 -i
-      rofi -show drun -theme Xrow
+      rofi -show drun -theme style7
 
 super + r
 #    ~/.local/bin/dmenu_run_history -h 24 -i -l 15
@@ -56,7 +56,7 @@ super + f
 #	emacsclient -ca "" .
 
 super + shift + f
-      thunar
+      pcmanfm
 
 #Spotify
 super + F5
@@ -66,11 +66,6 @@ super + F5
 super + e
       emacsclient -c
 #	st -e nvim
-
-# referencias
-super + alt + r
-      alacritty -e nvim /mnt/Data/Drive/GTD/referencias.org
-
 
 super + ctrl + t
       ~/.local/bin/planeaciones
@@ -135,7 +130,7 @@ super + shift + r
 ##########################
 
 #Montar USB
-super + u
+super + shift + u
       ~/.local/bin/usb-montar
 
 #Extraer USB
@@ -173,10 +168,6 @@ XF86Explorer
 # Pacman-dmenu
 super + alt + p
       ~/.local/bin/pacwrap
-
-# Planeaciones
-super + p
-     ~/.local/bin/plans
 
 super + d
     ~/.local/bin/diario nuevo

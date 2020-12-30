@@ -1,256 +1,212 @@
-##################################################################
-#                                                                #
-#   ██  ████                                    ████ ██          #
-#  ░░  █░░░ █                                  ░██░ ░░   █████   #
-#   ██░    ░█        █████   ██████  ███████  ██████ ██ ██░░░██  #
-#  ░██   ███  █████ ██░░░██ ██░░░░██░░██░░░██░░░██░ ░██░██  ░██  #
-#  ░██  ░░░ █░░░░░ ░██  ░░ ░██   ░██ ░██  ░██  ░██  ░██░░██████  #
-#  ░██ █   ░█      ░██   ██░██   ░██ ░██  ░██  ░██  ░██ ░░░░░██  #
-#    █░ ████       ░░█████ ░░██████  ███  ░██  ░██  ░██  █████   #
-#  ░░  ░░░░         ░░░░░   ░░░░░░  ░░░   ░░   ░░   ░░  ░░░░░    #
-#                                                                #
-# i3 config file (v4)                                            #
-# Please see http://i3wm.org/docs/userguide.html                 #
-##################################################################
+# _ _____                             
+#(_)___ /        __ _  __ _ _ __  ___ 
+#| | |_ \ _____ / _` |/ _` | '_ \/ __|
+#| |___) |_____| (_| | (_| | |_) \__ \
+#|_|____/       \__, |\__,_| .__/|___/
+#               |___/      |_|        
 
-##############################
-# CONFIGURACIONES GENERALES
-##############################
+#################
+# i3 configs
+#################
+# This is what I change the most: appearance and functionality stuff
 
-# Modkey es super
-set $mod Mod4
+# Default border to 3px and without title bars
+default_border pixel 3
 
-# Bordes de ventana
+# Focus never goes outside the workspace
+focus_wrapping workspace
 
-# no sepo
-hide_edge_borders none
-
-# Fuente
-font xft:Roboto 11
-
-# Botón para mover ventanas flotantes
-floating_modifier $mod
-
-# enfocar mouse
+# Focus only on click
 focus_follows_mouse no
 
-#GAPS
-gaps inner 10
-gaps outer -1
+# Gaps!!
+gaps inner 5
+gaps outer 5
 
-# Theme colors
-# class                   border  backgr. text    indic.   child_border
-client.focused          #cfdadf #cfdadf #232a38 #CB4B16
-client.focused_inactive #232a38 #232a38 #cfdadf #cb4b16
+# If I want to use the colors from my colorscheme (check toggle-colorscheme)
+#include Wcolors
 
-client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
-client.placeholder      #000000 #0c0c0c #ffffff #000000 
+# Colors definitions. 
+# Class		          t_b       bg        fg     split    border
+client.focused		 #526eff  #526eff  #282C34  #E5C07B  #526eff
+client.focused_inactive	 #A3B2FF  #A3B2FF  #ABB2BF  #E0BEAE  #A3B2FF
+client.unfocused	 #6C6F93  #6C6F93  #ABB2BF  #2E303E  #6C6F93
+client.urgent		 #E5C07B  #E5C07B  #282C34  #E5C07B  #E5C07B
 
-client.background       #232a38
+###############
+# Autostart
+###############
+#No more xinitrc 
 
-##########
-# TECLADO
-##########
+#exec_always xrdb  ~/.Xresources
+#exec /usr/lib/kdeconnectd
+#exec_always mako 
+##exec ibus-daemon -drx &
+#exec pcloud &
+#exec_always waybar-restart &
+#exec gammastep &
+#exec wl-paste -t text --watch clipman store & 
 
+################
+# Variables
+################
+# Things like terminal and modkey
+
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+floating_modifier Mod4
 # Terminal
-bindsym $mod+Return exec alacritty
+# App launcher
+set $m1 DP-2
+set $m2 LVDS-1 
 
-# Refrescar el archivo de configuración
-bindsym $mod+Shift+c reload
+#############
+# Workspaces
+#############
 
-# Reiniciar i3
-bindsym $mod+Shift+r restart
+# Set ws 1 to 6 to monitor 1, and ws 7-9 to ws 2. 
+# This behaviour is similar to the one I used to use with bspwm. 
+workspace 1 output $m1
+workspace 2 output $m1
+workspace 3 output $m1
+workspace 4 output $m1
+workspace 5 output $m1
+workspace 6 output $m1
+workspace 7 output $m2
+workspace 8 output $m2
+workspace 9 output $m2
 
-# Cerrar la ventana enfocada
-bindsym $mod+Shift+q kill
-
-# Cambiar el foco
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# Mover ventana enfocada
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# Moverse al último escritorio abierto (back and forth)
-#workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth 
-bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
-
-# split
-bindsym $mod+Shift+v split h;exec notify-send - "i3" "Horizontal"
-bindsym $mod+v split v;exec notify-send -a "i3" "Vertical"
-bindsym $mod+space split toggle 
-
-# Activar pantalla completa para el contenedor enfocado
-bindsym $mod+F11 fullscreen toggle
-
-# Cambiar dispsición del contenedor
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed 
-bindsym $mod+t layout toggle split 
-
-# Activar/Descativar modo flotante
-bindsym $mod+Shift+s floating toggle
-
-# Cambiar el foco entre ventanas normales y flotantes
-bindsym $mod+Shift+space focus mode_toggle
-
-# Mostrar en todos los escritorios
-bindsym $mod+z sticky toggle
-
-# Enfocar el contenedor padre
-bindsym $mod+p focus parent
-
-# Mover la ventana enfocada al scratchpad (similar a minimizar) 
-bindsym $mod+Shift+minus move scratchpad
-
-# Mostrar la siguiente ventana en el scratchpad
-bindsym $mod+minus scratchpad show
-
-#Presionar $mod+F12 para mostrar el menú de apagado
-bindsym $mod+F12 mode "$mode_system" 
-set $mode_system b(l)oquear, c(e)rrar sesión, cambiar (u)suario, (s)uspender, (h)ibernar, (r)einiciar, (a)pagar
-
-mode "$mode_system" {
-    bindsym l exec --no-startup-id i3lock -i /home/juan/.cache/i3lock/1633x768/blur.png
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym a exec --no-startup-id i3exit shutdown, mode "default"
-
+# Menu to turn off the pc. Replaces the old but cool dmenu script. Not compositor agnostic tho
+set $poweroff ¿Desea salir? [A]pagar [S]uspender [R]einiciar [C]errar sesión
+mode "$poweroff" {
+    bindsym a exec sudo poweroff
+    bindsym s exec sudo zzz
+    bindsym r exec sudo reboot
+   # bindsym c exec swaymsg exit
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    }
+}
 
-#Redimensionar ventanas
+#########
+# Basics
+#########
+# Toggle borders
+bindsym $mod+y border toggle
 
-bindsym $mod+mod1+h resize shrink width 5 px or 5 ppt
-bindsym $mod+mod1+j resize shrink height 5 px or 5 ppt
-bindsym $mod+mod1+k resize grow height 5 px or 5 ppt
-bindsym $mod+mod1+l resize grow width 5 px or 5 ppt
+# Kill focused window
+bindsym $mod+Shift+q kill
 
-bindsym $mod+mod1+Left resize shrink width 10 px or 10 ppt
-bindsym $mod+mod1+Down resize shrink height 10 px or 10 ppt
-bindsym $mod+mod1+Up resize grow height 10 px or 10 ppt
-bindsym $mod+mod1+Right resize grow width 10 px or 10 ppt
+# Drag windows by holding down $mod and left mouse button.
+floating_modifier $mod 
 
-###############
-# ESCRITORIOS
-###############
+# Reload the configuration file
+bindsym $mod+Control+r reload
 
-# Moverse entre escritorios
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+l workspace next
-bindsym $mod+Ctrl+Left workspace prev
-bindsym $mod+Ctrl+h workspace prev
+###################
+# i3 keybindings
+###################
 
-# Nombre de los escritorios. No funciona bien con polybar.
-set $ws1 1:
-set $ws2 2:
-set $ws3 3:
-set $ws4 4:
-set $ws5 5:
-set $ws6 6:
-set $ws7 7:
-set $ws8 8:
-set $ws9 9:ﯢ
-set $ws0 10:
+# Move your focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 
-# Abrir escritorio
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws0
+bindsym $mod+p focus prev
 
-# Enviar el contenedor enfocado a otro escritorio
-bindsym $mod+Ctrl+1 move container to workspace $ws1
-bindsym $mod+Ctrl+2 move container to workspace $ws2
-bindsym $mod+Ctrl+3 move container to workspace $ws3
-bindsym $mod+Ctrl+4 move container to workspace $ws4
-bindsym $mod+Ctrl+5 move container to workspace $ws5
-bindsym $mod+Ctrl+6 move container to workspace $ws6
-bindsym $mod+Ctrl+7 move container to workspace $ws7
-bindsym $mod+Ctrl+8 move container to workspace $ws8
-bindsym $mod+Ctrl+9 move container to workspace $ws9
-bindsym $mod+Ctrl+0 move container to workspace $ws0
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
 
-# Moverse a otro escritorio junto con el contenedor
-bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws0; workspace $ws0
+# Switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
 
-# Abrir aplicaciones en escritorios específicos
-for_window [class="Spotify"] move to workspace $ws6
-for_window [class="Firefox"] move to workspace $ws2
-for_window [class="Firefox-esr"] move to workspace $ws2
+bindsym $mod+Control+$left workspace prev_on_output
+bindsym $mod+Control+$right workspace next_on_output
 
-# Aplicaciones que ganan el foco al ejecutarlas
-for_window [class="Firefox-esr"] focus
-for_window [class="Firefox"] focus
+bindsym $mod+Control+period focus output right
+bindsym $mod+Control+comma focus output left
 
-# Abrir aplicaciones en modo flotante
-for_window [class="Lxappearance"] floating enable
-for_window [class="Nitrogen"] floating enable
-for_window [class="Oblogout"] fullscreen enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="qt5ct"] floating enable sticky enable 
-for_window [class="Simple-scan"] floating enable
-for_window [class="(?i)virtualbox"] floating enable
-for_window [class="Gucharmap"] floating enable
-for_window [class="mpv"] floating enable
-for_window [class="Qalculate-gtk"] floating enable
-for_window [class="Steam"] floating enable
+# Layout stuff
+# Split horizontally
+bindsym $mod+b splith
+# Split vertically
+bindsym $mod+v splitv
 
-###########################################
-# AUTOSTART
-###########################################
+# Switch between layouts
+# Default
+bindsym $mod+t layout toggle split
+# "Monocle", here's tabbed and stacking (tabs one on top of another)
+bindsym $mod+m layout toggle tabbed stacking
+# Cycle trought all the layouts
+bindsym $mod+period layout toggle all
+# Toggle split
+bindsym $mod+comma layout toggle split
 
-#exec: se ejecuta al inciarse i3
-#exec_always: se ejecuta al inicarse y al reiniciarse i3
+# Make the current focus fullscreen
+bindsym $mod+F11 fullscreen
 
-exec --no-startup-id nitrogen --restore
-exec --no-startup-id compton -b --config ~/.config/compton.conf
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id emacs --fg-daemon
-exec_always --no-startup-id ~/.config/polybar/polybar_launch.sh
-exec --no-startup-id dunst
-exec --no-startip-id sxhkd -c ~/.config/sxhkd/sxhkd-i3
+# Toggle floating
+bindsym $mod+s floating toggle
 
+# Swap focus between the tiling area and the floating area
+bindsym $mod+Control+j focus mode_toggle
+bindsym $mod+Control+k focus mode_toggle
 
+# Move focus to the parent container
+bindsym $mod+a focus parent
 
+# Scratchpad
+# Move the currently focused window to the scratchpad
+bindsym $mod+Mod1+z move scratchpad
 
+# Show or cycle scratchpad
+bindsym $mod+z scratchpad show
 
+# Resizing containers:
+# left will shrink
+# right will grow
+# up will shrink 
+# down will grow
+bindsym $mod+Mod1+$left resize shrink width 20px
+bindsym $mod+Mod1+$down resize grow height 20px
+bindsym $mod+Mod1+$up resize shrink height 20px
+bindsym $mod+Mod1+$right resize grow width 20px
+# Include keybindings. This is a separated file
 
+#########
+# Rules
+#########
+# Wayland native apps uses app_id instead of class
 
-bindsym $mod+y border pixel 4
-bindsym $mod+shift+y border normal
+for_window [class="(?i)mpv"] floating enable
+for_window [class="(?i)sxiv"] floating enable
+for_window [class="qt5ct"] floating enable
+for_window [class="kruler"] floating enable
+for_window [class="zoom"] floating enable
+for_window [class="(?i)connman-gtk"] floating enable
+for_window [class="(?i)pavucontrol"] floating enable
+for_window [class="calendar.txt"] floating enable

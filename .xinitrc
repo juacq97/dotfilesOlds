@@ -15,7 +15,7 @@ sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 dunst &
 ~/.local/dwmblocks & 
 xinput disable 11 &
-#ibus-daemon -drx &
+fcitx5 -d &
 pcloud &
 dwm-msg run_command xrdb &
 xset r rate 250 60 &
@@ -25,4 +25,3 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 while true; do
      ~/.local/dwm 2> /tmp/dwm.log 
      done
-

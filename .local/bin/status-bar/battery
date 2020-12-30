@@ -19,19 +19,19 @@ if [[ $bat -lt 10 ]]; then
 elif [[ $bat -lt 20 ]]; then
     echo " $ramp20 $bat% "
 elif [[ $bat -lt "30" ]]; then
-    echo " $ramp30 $bat% "
+    echo " $ramp30 $bat% "
 elif [[ $bat -lt "40" ]]; then
-    echo " $ramp40 $bat% "
+    echo " $ramp40 $bat% "
 elif [[ $bat -lt "50" ]]; then
-    echo " $ramp50 $bat% "
+    echo " $ramp50 $bat% "
 elif [[ $bat -lt "60" ]]; then
-    echo " $ramp60 $bat% "
+    echo " $ramp60 $bat% "
 elif [[ $bat -lt "70" ]]; then
-    echo " $ramp70 $bat% "
+    echo " $ramp70 $bat% "
 elif [[ $bat -lt "80" ]]; then
-    echo " $ramp80 $bat% "
+    echo " $ramp80 $bat% "
 elif [[ $bat -lt "90" ]]; then
-    echo " $ramp90 $bat% "
+    echo " $ramp90 $bat% "
 elif [[ $bat -le "100" ]]; then
-    echo " $ramp100 $bat% "
+    echo " $ramp100 $bat% "
 fi

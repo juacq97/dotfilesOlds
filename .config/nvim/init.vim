@@ -65,7 +65,7 @@ set textwidth=0		       " Desactiva el hard linebreak
 set formatoptions+=t
 set termguicolors	       "Para tener los colores bien en ciertos temas
 syntax enable			
-set conceallevel=3
+set conceallevel=2
 
 """ Temas """""
 let g:grubvox_italic = 1
@@ -104,7 +104,7 @@ set undofile			" Conserva el undo después de cerrado el archivo gracias a una c
 set undodir=~/.config/nvim/undodir " La caché a usar
 "autocmd FileType markdown TableModeEnable
 set mouse=a			" Soporte para mouse
-
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 """""""""""""
 " Maping
 """""""""""""
@@ -142,6 +142,10 @@ nnoremap Q <Nop>
 "
 "
 let g:asciidoctor_syntax_conceal = 1
+let g:asciidoctor_folding = 1
+command A2p Asciidoctor2PDF
+autocmd FileType asciidoctor map <buffer> <leader>cp :Asciidoctor2PDF<CR>
+
 
 let g:nnn#command = 'nnn -dcEnHA'
 let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
@@ -152,3 +156,4 @@ let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debu
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
