@@ -1,0 +1,68 @@
+:pdf-theme: ~/.config/Asciidoctor/planeaciones.yml
+// This is the included file with all the text and the one I edit. 
+// I call the `org` and `tiempos` tags from here just to save time.
+include::{sesion}[tags=org;tiempos]
+
+== {materia}
+// The table is 8 colums width. This is a workaround for the "TIEMPO" cell, since it's 
+// not possible to change the cell width later. So instead of 1 cell, I span 2 cells.
+[cols="8*",options="noheader"]
+|===
+6+<.^a| *NOMBRE DEL MAESTRO:* Juan adrián Castro Quintana 2+<.^a| *GRADO Y GRUPO:* 6°A y 6°B
+
+// those are atributes, called from the sesion file, "org" tag. 
+2+|{set:cellbgcolor:#8CA6D7} *TRIMESTRE:* {trimestre}
+2+|*ÁMBITO/EJE CURRICULAR:* {ambito}
+2+|*CONTENIDO:* {contenido}
+2+|*CAMPO FORMATIVO:* {campo}
+2+a|*I.M.:* {im}
+2+a|*VINCULACIÓN:* {vinculacion}
+2+a|*TRANSVERSALIDAD:* {transversalidad}
+2+a|*PÁGINAS:* {pags}
+
+// This 3 columns are taken from the included file as is.
+8+^|*CONOCIMIENTOS PREVIOS* 8+a|
+include::{sesion}[tag=conprev]
+
+8+^|*APRENDIZAJES ESPERADOS* 8+a|
+include::{sesion}[tag=apjes]
+
+8+^|*COMPETENCIAS A DESARROLLAR* 8+a|
+include::{sesion}[tag=competencias]
+
+// Here the silly workaround from the start make sense.
+2+^.^|*TIEMPO* 6+^.^|*SECUENCIA DIDÁCTICA*
+
+// That `{inicio}` attribute is part of the `tiempos` tag, called at the beggining
+^.^|*INICIO* ^.^| *{inicio}* 6+a|
+include::{sesion}[tag=inicio]
+
+^.^|*DESARROLLO* ^.^| *{desarrollo}* 6+a|
+include::{sesion}[tag=desa]
+
+^.^|*CIERRE* ^.^| *{cierre}* 6+a|
+include::{sesion}[tag=cierre]
+
+4+^.^|*RECURSOS DIDÁCTICOS* 4+^.^| *EVALUACIÓN Y EVIDENCIAS*
+4+a|
+include::{sesion}[tag=materiales]
+
+4+a|
+include::{sesion}[tag=eval]
+
+8+^.^|*TAREA* 8+^.^a|
+include::{sesion}[tag=tarea]
+
+8+^.^|*RUTA DE MEJORA* 8+^.^a|
+include::{sesion}[tag=ruta]
+
+8+^.^|*ADECUACIONES PARA ALUMNOS CON REZAGO, BAP Y/O NEE* 8+^.^a|
+include::{sesion}[tag=nee]
+
+8+^.^|*SUGERENCIAS PARA PADRES* 8+^.^a|
+include::{sesion}[tag=padres]
+
+|===
+// A page break, just to keep things nice.
+<<<
+
