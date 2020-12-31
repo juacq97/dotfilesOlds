@@ -1,0 +1,41 @@
+#!/bin/sh
+# THis script will need a tree like this:
+# .
+# ├── 1LANGUAGE
+# │   ├── sesion1.adoc
+# │   ├── sesion2.adoc
+# ├── 2MATH
+# │   ├── sesion1.adoc
+# │   ├── sesion2.adoc
+# ├── 3SCIENCE
+# │   ├── sesion1.adoc
+# │   ├── sesion2.adoc
+# ├── 4HISTORY
+# │   ├── sesion1.adoc
+# │   ├── sesion2.adoc
+# └── 5GEOGRAPHY
+#     ├── sesion1.pdf
+#     └── sesion2.pdf
+# The numbers at the beggining of every folder is to 
+# keep an order at the moment of compile the pdf.
+
+if [ -e PLANEACION.pdf ]; then
+    rm PLANEACION.pdf
+fi
+
+for D in *; do
+    if [ -d "${D}" ]; then
+	cd $D
+	for file in *.adoc; do
+	    file_path="$(pwd)/$file"
+	    output=$(echo $file_path | cut -d '.' -f1)
+	    asciidoctor-pdf --attribute="sesion=$file_path" --attribute="materia=${D:1}" ~/.config/Asciidoctor/planeaciones.adoc -o "$output.pdf" #check the `${D:1}` I remove the first number on the directory, so the title of the table will be "MATH" and no "2MATH"
+	done
+	cd ..
+    fi
+done
+
+pdfs=$(find -name '*.pdf')
+pdfunite $pdfs PLANEACION.pdf
+echo "Planeación compilada con éxito"
+
