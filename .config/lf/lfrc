@@ -88,9 +88,7 @@ cmd paste &{{
     lf -remote 'send clear'
 }}
 
-cmd mkfile &{{
-    $VISUAL "$@"
-}}
+cmd mkfile %touch "$@" 
 
 cmd mkdir %mkdir "$(echo $* | tr ' ' '\ ')"
 
@@ -119,7 +117,6 @@ map m
 map md push :mkdir<space>
 map mf push :mkfile<space>
 
-
 map / :fzf_jump
 
 map ~ cd ~
@@ -128,12 +125,13 @@ map gd cd /mnt/Data/Drive
 map bd cd /mnt/Data/Drive
 map gw cd /mnt/Data/Drive/WALLPAPERS/
 map gi cd /mnt/Data/Drive/CIMB
+map gp cd /mnt/Data/Drive/CIMB/PLANEACIONES/
 map gc cd ~/.config
 map gD cd /mnt/Data/
 map gl cd -r .
 map gL cd -r %f
 map gm cd /media
-map gr cd /run/media/juan
+map gr cd ~/.repos/
 map g/ cd /
 
 map xx $trash-put $fx 
@@ -141,3 +139,4 @@ map Xe $"$f"
 map XE !"$f"
 
 map r push :rename<space>
+map <c-t> &alacritty -e lf 

@@ -1,0 +1,3 @@
+#! /bin/sh
+
+remind -nb1 ~/docs/DOSIFICACIONES/HORARIO.rem | sort --version-sort | grep --color=always $(date +'%Y/%m/%d') | awk '{$1=""; print $0}'

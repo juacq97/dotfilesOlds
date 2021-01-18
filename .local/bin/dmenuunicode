@@ -15,6 +15,6 @@ if [ -n "$1" ]; then
 	xdotool type "$chosen"
 else
 	echo "$chosen" | tr -d '\n' | xclip -selection clipboard
-#	echo "$chosen" | tr -d '\n' | wl-copy
+	echo "$chosen" | tr -d '\n' | wl-copy
 	notify-send -a "Emoji" "'$chosen' copiado al portapapeles." &
 fi

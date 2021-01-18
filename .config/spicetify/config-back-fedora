@@ -1,0 +1,39 @@
+[AdditionalOptions]
+home                         = 0
+custom_apps                  = 
+lyric_always_show            = 0
+lyric_force_no_sync          = 0
+made_for_you_hub             = 1
+new_feedback_ui              = 1
+radio                        = 1
+search_in_sidebar            = 0
+experimental_features        = 1
+fastUser_switching           = 0
+extensions                   = keyboardShortcut.js
+song_page                    = 1
+visualization_high_framerate = 1
+tastebuds                    = 0
+minimal_ui                   = 1
+
+[Setting]
+replace_colors          = 1
+overwrite_assets        = 1
+spotify_path            = /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify
+prefs_path              = /home/juan/.var/app/com.spotify.Client/config/spotify/prefs
+current_theme           = Dracula
+inject_css              = 1
+color_scheme            = 
+spotify_launch_flags    = 
+check_spicetify_upgrade = 0
+
+[Preprocesses]
+disable_sentry        = 1
+disable_ui_logging    = 1
+remove_rtl_rule       = 1
+expose_apis           = 1
+disable_upgrade_check = 1
+
+; DO NOT CHANGE!
+[Backup]
+version = 1.1.42.622.gbd112320
+

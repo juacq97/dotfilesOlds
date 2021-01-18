@@ -1,0 +1,205 @@
+#!/usr/bin/env bash
+# _               _         _   _        __ _                      
+#| |__   ___ _ __| |__  ___| |_| |_   _ / _| |___      ___ __ ___  
+#| '_ \ / _ \ '__| '_ \/ __| __| | | | | |_| __\ \ /\ / / '_ ` _ \ 
+#| | | |  __/ |  | |_) \__ \ |_| | |_| |  _| |_ \ V  V /| | | | | |
+#|_| |_|\___|_|  |_.__/|___/\__|_|\__,_|_|  \__| \_/\_/ |_| |_| |_|
+                                                                  
+
+hc() {
+    herbstclient "$@"
+}
+
+hc emit_hook reload
+
+xsetroot -solid '#5A8E3A'
+# remove all existing keybindings
+hc keyunbind --all
+# if you have a super key you will be much happier with Mod set to Mod4
+Mod=Mod4   # Use the super key as the main modifier
+
+hc keybind $Mod-Control-r reload
+hc keybind $Mod-Shift-q close_or_remove
+#hc keybind $Mod-Return spawn "${TERMINAL:-xterm}" # use your $TERMINAL with xterm as fallback
+
+# basic movement in tiling and floating mode
+hc keybind $Mod-Control-m spawn ~/.config/herbstluftwm/maximize.sh
+hc keybind $Mod-z spawn ~/.config/herbstluftwm/scratchpad.sh
+
+# focusing clients inside the container
+hc keybind $Mod-h  focus left
+hc keybind $Mod-j  focus down
+hc keybind $Mod-k  focus up
+hc keybind $Mod-l  focus right
+
+# Focusing containers on the direction
+hc keybind $Mod-Mod1-h  focus -e left
+hc keybind $Mod-Mod1-j  focus -e down
+hc keybind $Mod-Mod1-k  focus -e up
+hc keybind $Mod-Mod1-l  focus -e right
+
+# moving clients in tiling and floating mode
+hc keybind $Mod-Shift-h shift left
+hc keybind $Mod-Shift-j shift down
+hc keybind $Mod-Shift-k shift up
+hc keybind $Mod-Shift-l shift right
+
+# move client TO OTHER FRAME
+hc keybind $Mod-Mod1-Shift-h shift -e left
+hc keybind $Mod-Mod1-Shift-j shift -e down
+hc keybind $Mod-Mod1-Shift-k shift -e up
+hc keybind $Mod-Mod1-Shift-l shift -e right
+
+# splitting frames
+# create an empty frame at the specified direction
+# Split and focus, ready to work
+hc keybind $Mod-i  chain , split bottom  0.5 , focus -e down 
+hc keybind $Mod-o  chain , split right   0.5 , focus -e right
+hc keybind $Mod-Control-i  chain , split top  0.5 , focus -e up
+hc keybind $Mod-Control-o  chain , split left   0.5 , focus -e left
+
+# Split but no focus, ready to not work yet
+hc keybind $Mod-Control-v       split   bottom  0.5
+hc keybind $Mod-Control-b       split   right   0.5
+
+# Split by half from the longest side
+hc keybind $Mod-Control-space split explode 
+
+# resizing frames and floating clients
+resizestep=0.02
+hc keybind $Mod-Mod1-Control-h resize left +$resizestep
+hc keybind $Mod-Mod1-Control-l resize right +$resizestep
+hc keybind $Mod-Mod1-Control-j resize down +$resizestep
+hc keybind $Mod-Mod1-Control-k resize up +$resizestep
+
+hc keybind $Mod-Shift-Control-h resize left -$resizestep
+hc keybind $Mod-Shift-Control-l resize right -$resizestep
+hc keybind $Mod-Shift-Control-j resize down -$resizestep
+hc keybind $Mod-Shift-Control-k resize up -$resizestep
+
+
+# tags
+tag_names=( {1..6} )
+tag_keys=( {1..6} 0 )
+
+hc rename default "${tag_names[0]}" || true
+for i in "${!tag_names[@]}" ; do
+    hc add "${tag_names[$i]}"
+    key="${tag_keys[$i]}"
+    if ! [ -z "$key" ] ; then
+        hc keybind "$Mod-$key" use_index "$i"
+        hc keybind "$Mod-Shift-$key" move_index "$i"
+    fi
+done
+
+# cycle through tags
+hc keybind $Mod-Control-l use_index +1 --skip-visible #next tag
+hc keybind $Mod-Control-h use_index -1 --skip-visible #prev tag
+
+hc keybind $Mod-Control-j cycle +1
+hc keybind $Mod-Control-k cycle -1
+
+# layouting
+hc keybind $Mod-Control-q remove #remove frame, merge client with the next frame
+hc keybind $Mod-F11 fullscreen toggle
+hc keybind $Mod-s set_attr clients.focus.floating toggle #float focused client
+#hc keybind $Mod-p pseudotile toggle 
+hc keybind $Mod-m cycle_layout +1 max vertical #monocle, but inside the frame
+hc keybind $Mod-r rotate
+
+hc keybind $Mod-t cycle_layout +1 horizontal vertical #change direction of clients
+
+# mouse
+hc mouseunbind --all
+hc mousebind $Mod-Button1 move
+hc mousebind $Mod-Button2 zoom
+hc mousebind $Mod-Button3 resize
+
+# focus
+hc keybind $Mod-comma   cycle_monitor +1
+hc keybind $Mod-period  cycle_monitor -1
+
+hc keybind $Mod-Tab         cycle_all +1
+hc keybind $Mod-Shift-Tab   cycle_all -1
+
+# theme
+hc attr theme.tiling.reset 1
+hc attr theme.floating.reset 1
+
+# Frames
+hc set frame_border_active_color '#61AFEF' #Focused frame color
+hc set frame_border_normal_color '#14161A' #Unfocused frame color
+hc set frame_border_width 3  #border size
+
+hc set frame_bg_active_color '#282C34'
+hc set frame_bg_normal_color '#282C34'
+hc set frame_bg_transparent on
+hc set frame_transparent_width 0
+
+hc set frame_active_transparency 0
+hc set frame_inactive_transparency 0
+
+hc set frame_border_inner_width 3
+hc set frame_border_inner_color '#526eff'
+hc set always_show_frame on
+hc set frame_gap 4
+
+# Windows
+hc attr theme.active.color '#4B5263'
+hc attr theme.normal.color '#4B5263'
+hc attr theme.urgent.color orange
+hc attr theme.inner_width 3
+hc attr theme.normal.inner_width 0
+hc attr theme.normal.outer_width 0
+hc attr theme.active.inner_color blue
+hc attr theme.border_width 3
+hc attr theme.floating.active.color '#61AFEF'
+hc attr theme.floating.normal.color '#61AFEF'
+hc attr theme.floating.border_width 4
+hc attr theme.floating.normal.border_width 0
+hc attr theme.active.inner_color '#61AFEF'
+hc attr theme.active.outer_color '#61AFEF'
+hc attr theme.background_color '#ffffff'
+
+hc set window_gap 0
+hc set frame_padding 0
+hc set smart_window_surroundings on
+hc set smart_frame_surroundings on
+hc set mouse_recenter_gap 0
+
+# rules
+hc unrule -F
+#hc rule class=XTerm tag=3 # move all xterms to tag 3
+hc rule focus=on # normally focus new clients
+hc rule floatplacement=center
+hc rule class=mpv floating=on
+hc rule class=Lxappareance floating=on
+hc rule class=Pavucontrol floating=on
+hc rule class=qt5ct floating=on
+hc rule class=Sxiv floating=on
+hc rule class=kruler floating=on
+hc rule class=zoom floating=on
+hc rule class=Connman-gtk floating=on
+hc rule instance=calendar.txt floating=on
+
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
+hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+
+hc set tree_style '╾│ ├└╼─┐'
+
+# unlock, just to be sure
+hc unlock
+
+# do multi monitor setup here, e.g.:
+# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
+# or simply:
+hc detect_monitors
+
+# find the panel
+panel=~/.config/polybar/polybar-monitors.sh
+[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+for monitor in $(hc list_monitors | cut -d: -f1) ; do
+    # start it on each monitor
+    "$panel" "$monitor" &
+done

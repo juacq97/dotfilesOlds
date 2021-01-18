@@ -562,4 +562,5 @@ key_bindings:
   - {key: J, mods: Control|Shift, action: ScrollLineDown, mode: ~Alt}
   - {key: U, mods: Control|Alt, action: ScrollPageUp, mode: ~Alt}
   - {key: D, mods: Control|Shift, action: ScrollPageDown, mode: ~Alt}
+  - {key: Return, mods: Control, action: SpawnNewInstance}
 

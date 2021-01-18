@@ -38,6 +38,7 @@ else
 fi
 ui="$(basename ${ui})"
 
+f="$(fortune-es)"
 ## DEFINE COLORS
 
 # probably don't change these
@@ -70,4 +71,5 @@ ${lc}      wm ${ic}~ ${ui}${reset}
 ${lc}    pkgs ${ic}~ ${packages}${reset}
 ${lc}  kernel ${ic}~ ${kernel}${reset}
 
+${lc}$f
 EOF

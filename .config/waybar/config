@@ -1,24 +1,16 @@
 {
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 25, // Waybar height (to be removed for auto height)
+    "position": "top", 
+    "height": 25, 
 
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces#focus", "sway/workspaces", "sway/mode", "sway/window"],
+    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": ["clock"],
     "modules-right": ["pulseaudio", "battery", "network"],
+
     // Modules configuration
-     "sway/workspaces": {
-	 "format": "{icon}",
-         "format-icons": {
-	     "focused": "",
-	 },
-    },
-
-
-    "sway/workspaces#focus": {
+     "sway/workspaces#icons": {
          "disable-scroll": true,
-         "format": "{icon}",
-	 "current-only": true,
+         "format": "{name}:{icon}",
          "format-icons": {
              "1": "󰣇",
              "2": "󰞷",
@@ -33,9 +25,20 @@
              "focused": "f",
              "default": "d",
 	     "persistent": "p"
-	},
+         }
      },
 
+    "sway/workspaces": {
+         "disable-scroll": true,
+         "format": "{icon}",
+	 "current-only": false,
+         "format-icons": {
+             "urgent": "",
+             "focused": "󰑊",
+	     "persistent": "󰻃",
+             "default": "󰧞"
+	}
+     },
 
     "sway/mode": {
         "format": "<span font_weight=\"bold\">{}</span>"
@@ -48,7 +51,7 @@
     "clock": {
 	"format": "󰥔 {:%b %e, %R}",
         "tooltip" : false,
-        "format-alt": "{:%e de %B de %Y. %H:%M}",
+        "format-alt": "󰥔{:%e de %B de %Y, %H:%M}",
 	"on-click-right": "launch_calendar"
     },
 
@@ -64,7 +67,7 @@
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         "format-full": "󰁹 {capacity}%",
-        "format-icons": [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "format-icons": [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
 
     "network": {

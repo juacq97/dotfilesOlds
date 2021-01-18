@@ -1,5 +1,5 @@
-@define-color background #fafafa;
-@define-color foreground #383a42;
+@define-color background #282C34;
+@define-color foreground #ABB2BF;
 @define-color cursorColor #526eff;
 @define-color color0 #5C6370;
 @define-color color1 #E06C75;
@@ -41,16 +41,41 @@ window#waybar.hidden {
 
 #workspaces {
     margin: 3px;
-    background-color: transparent;
+    background-color: @background;
+    border-radius: 10px 10px 10px 10px;
+    padding: 0 4px;
 }
 
 #workspaces button {
     padding: 0 0 0 0;
-    margin: 0px 2px 0px 2px;
+    margin: 0px 0px 0px 0px;
     min-width: 0;
     background-color: transparent;
     color: @foreground;
-    box-shadow: inset 0 -3px transparent;
+}
+
+
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+#workspaces button.focused {
+    color: @cursorColor;
+    padding: 0 0px;
+    margin: 0px;
+    border-radius: 10px;
+}
+
+#workspaces button.persistent {
+    color: @foreground;
+    padding: 0 0px;
+    margin: 0px;
+    border-radius: 10px;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
 }
 
 #workspaces.focus button.focused {
@@ -61,23 +86,8 @@ window#waybar.hidden {
     background-color: @cursorColor;
 }
 
-#workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
-}
-
-#workspaces button.focused {
-    color: @color5;
-    padding: 0 0px;
-    margin: 0px;
-    border-radius: 10px;
-}
-
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-}
-
 #mode {
-    background-color: @cursorColor;
+    background-color: @color1;
     color: @background;
     border-radius: 10px;
     margin: 3px 0 3px 0;
@@ -85,15 +95,26 @@ window#waybar.hidden {
 }
 
 #window {
-    margin: 0 4px;
+    margin: 3px;
+    padding: 0 10px;
+    background-color: @background;
+    color: @foreground;
+    border-radius: 10px 10px 10px 10px;
 }
 
+#clock {
+    margin: 3px;
+    padding: 0 10px;
+    background-color: @background;
+    color: @foreground;
+    border-radius: 10px 10px 10px 10px;
+}
 
 #pulseaudio, #battery, #network {
     padding: 0 10px;
     margin: 3px 0px 3px 0px;
-    background-color: @cursorColor;
-    color: @background;
+    background-color: @background;
+    color: @foreground;
 }
 
 #pulseaudio {
@@ -105,11 +126,6 @@ window#waybar.hidden {
     margin: 3px 3px 3px 0;
 }
 
-#clock {
-    padding: 0 10px;
-    margin: 2px;
-    border-radius: 5px;
-}
 
 #battery.charging {
     color: @color2;

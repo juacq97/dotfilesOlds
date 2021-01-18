@@ -38,9 +38,9 @@ super + space
 #     ~/.local/bin/dmenu_run_history -h 24 -i
       rofi -show drun -theme style7
 
-super + r
-#    ~/.local/bin/dmenu_run_history -h 24 -i -l 15
-     ~/.local/bin/dmenu_run_history -h 24 -i -l 15 -x 6 -y 4 -w 1588
+#super + r
+##    ~/.local/bin/dmenu_run_history -h 24 -i -l 15
+#     ~/.local/bin/dmenu_run_history -h 24 -i -l 15 -x 6 -y 4 -w 1588
 
 
 ## Firefox
@@ -51,8 +51,8 @@ super + w
 
 #File Manager
 super + f
-#	alacritty -e lf
-	alacritty -e nnn
+	alacritty -e lf
+#	alacritty -e nnn
 #	emacsclient -ca "" .
 
 super + shift + f
@@ -130,11 +130,11 @@ super + shift + r
 ##########################
 
 #Montar USB
-super + shift + u
+super + u
       ~/.local/bin/usb-montar
 
 #Extraer USB
-super + ctrl + u
+super + shift + u
       ~/.local/bin/usb-extraer
 
 #Via

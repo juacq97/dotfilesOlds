@@ -7,6 +7,8 @@ source $HOME/.zvars
 # Probando con sway
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
       exec startx
+#    sway
+#    exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) sway
 fi
 
 ### Ejecuta al abrir terminales 
@@ -52,6 +54,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se
 
 ### Aliases ###
 alias ls="ls --color=always"
+alias grep="grep --color=always"
 alias e="emacsclient -c"
 alias emc="emacsclient -c"
 alias et="emacsclient -t"
@@ -64,6 +67,7 @@ alias ncmd="nnn -dcE"
 alias todo="todotxt"
 alias n="ncmd"
 alias ref.adoc="nvim /mnt/Data/TODO/REF.adoc"
+alias semana="remind -@c+1 ~/docs/DOSIFICACIONES/HORARIO.rem"
 
 ### cd on quit para nnn ###
 #NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
@@ -96,7 +100,7 @@ if [ -f "$LFCD" ]; then
 fi
 alias lf="lfcd"
 
-export BAT_THEME="gruvbox"
+export BAT_THEME="base16"
 
 f(){
     nnn-opener "$(fzf)"

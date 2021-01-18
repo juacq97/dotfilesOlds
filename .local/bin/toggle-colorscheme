@@ -49,10 +49,10 @@ xrdb -query ~/.Xresources | grep \* | awk '{$2=$2};1' > ~/.config/sway/Wcolors
 sed -i --follow-symlinks 's/\*\./set\ \$/g; s/\://g' ~/.config/sway/Wcolors
 
 # Now waybar. 
-#xrdb -query .Xresources | grep \* | sed -e 's/\*\./\@define-color /g; s/\://g; s/$/\;/g' | awk '{$2=$2};1' > /tmp/colors
-#sed -i --follow-symlinks -e 1,19d ~/.config/waybar/style.css
-#cat /tmp/colors ~/.config/waybar/style.css > /tmp/Wcolors.css
-#mv /tmp/Wcolors.css ~/.config/waybar/style.css
+xrdb -query .Xresources | grep \* | sed -e 's/\*\./\@define-color /g; s/\://g; s/$/\;/g' | awk '{$2=$2};1' > /tmp/colors
+sed -i --follow-symlinks -e 1,19d ~/.config/waybar/style.css
+cat /tmp/colors ~/.config/waybar/style.css > /tmp/Wcolors.css
+mv /tmp/Wcolors.css ~/.config/waybar/style.css
 #
 
 #one last change. This is a special color, not present on any colorscheme. This will not make sense when I change styles.
@@ -63,7 +63,7 @@ sed -i --follow-symlinks 's/\*\./set\ \$/g; s/\://g' ~/.config/sway/Wcolors
 #fi
 
 ##restart waybar. I decided to do this outside sway because sway reloads all the screens, and takes his time.
-#waybar-restart &
+waybar-restart &
 # Update sway.
 #if [ $pgrep sway ]; then
 #swaymsg reload
@@ -148,6 +148,9 @@ sed -i --follow-symlinks "s/${oxfg}/${xfg}/" ~/.config/mako/config
 #else
 #    sed -i --follow-symlinks 's/D0D0D0/2E303E/g' ~/.config/mako/config
 #fi
+
+#restart polybar
+~/.config/polybar/polybar-monitors.sh
 
 pkill mako
 if [ "$xtheme" = "$LIGHT_THEME" ]; then
