@@ -8,16 +8,20 @@ calendar() {
     todotxt due 7 >> /tmp/calendar.txt
     echo " " >> /tmp/calendar.txt
     todotxt view project >> /tmp/calendar.txt
-    alacritty --class 'calendar.txt' -t 'Agenda' -d 90 40 -e less /tmp/calendar.txt
-    rm -r /tmp/calendar.txt 
 }
 
 launch() {
-    if [ -e /tmp/calendar.txt ]; then
+    if [ $(pgrep -a alacritty | grep Agenda | awk -F' ' '{print $1}') ]; then
         kill $(pgrep -a alacritty | grep Agenda | awk -F' ' '{print $1}')
+	rm -r /tmp/calendar.txt 
     else
         calendar
+	alacritty --class 'calendar.txt' -t 'Agenda' -d 90 40 -e less /tmp/calendar.txt
+	rm -r /tmp/calendar.txt 
     fi
 }
 
-launch
+case $1 in
+    'launch') launch;;
+    *) calendar ; less /tmp/calendar.txt ;;
+esac

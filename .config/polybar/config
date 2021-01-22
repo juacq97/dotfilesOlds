@@ -112,7 +112,7 @@ format = <label>
 format-background = 
 format-foreground = ${colors.foreground}
 
-label = "%{A3:launch_calendar:} %date%, %time% %{A}"
+label = "%{A3:calendar launch:} %date%, %time% %{A}"
 label-font = 3
 label-foreground = 
 
