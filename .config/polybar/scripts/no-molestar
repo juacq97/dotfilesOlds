@@ -1,9 +1,0 @@
-#! /bin/sh
-
-if [ -e /tmp/LOCK-NOTIFICATION ]; then
-    echo "  "
-else
-    echo "  "
-fi
-
-    

@@ -19,6 +19,7 @@
 # The numbers at the beggining of every folder is to 
 # keep an order at the moment of compile the pdf.
 
+build () {
 if [ -e PLANEACION.pdf ]; then
     rm PLANEACION.pdf
 fi
@@ -40,4 +41,18 @@ pdfs=$(find -name '*.pdf')
 
 pdfunite $pdfs PLANEACION.pdf
 echo "Planeación compilada con éxito"
+}
 
+init () {
+    mkdir "1ESPAÑOL" "2MATEMATICAS" "3CIENCIAS" "4HISTORIA-GEOGRAFIA" "5CIVISMO" 
+    touch 1ESPAÑOL/s1.adoc 1ESPAÑOL/s2.adoc 1ESPAÑOL/s3.adoc
+    touch 2MATEMATICAS/s1.adoc 2MATEMATICAS/s2.adoc 2MATEMATICAS/s3.adoc
+    touch 3CIENCIAS/s1.adoc 
+    touch 4HISTORIA-GEOGRAFIA/s1.adoc 
+    touch 5CIVISMO/s1.adoc 
+}
+
+case $1 in 
+    "init") init;;
+    *) build;;
+esac

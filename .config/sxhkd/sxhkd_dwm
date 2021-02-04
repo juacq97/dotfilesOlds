@@ -30,7 +30,10 @@ super + F7
 #Terminal
 super + Return
 #      st 
-	alacritty
+	emacsclient -c -F '(quote (name . "eshell"))' -e "(eshell)"
+
+super +shift + Return
+    alacritty
 
 
 # App menu
@@ -45,15 +48,15 @@ super + space
 
 ## Firefox
 super + F2
-      firefox
+      librewolf
 super + w
       ~/.local/bin/links-dmenu
 
 #File Manager
 super + f
-	alacritty -e lf
+#	alacritty -e lf
 #	alacritty -e nnn
-#	emacsclient -ca "" .
+	emacsclient -c -F '(quote (name . "dired"))' -n -e "(dired nil)"
 
 super + shift + f
       pcmanfm
@@ -158,6 +161,9 @@ super + F12
 # Clipboard
 super + ctrl + p
       clipmenu
+
+super + ctrl + alt + p
+      passmenu2
 
 # Monitores
 XF86Display

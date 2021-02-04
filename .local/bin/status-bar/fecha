@@ -5,7 +5,7 @@ icon=󰥔
 cmd=$(date +"%b %e, %R")
 
 
-echo "$ifg $icon $tfg$cmd"
+echo "$ifg $icon $tfg$cmd"
 #echo "$cmd" 
 
 case $BUTTON in

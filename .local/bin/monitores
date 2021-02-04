@@ -3,7 +3,7 @@
 sel=$(echo -e "Dock\nProyector\nEspejo\nEspejo-2" | dmenu -i -x 6 -y 4 -w 1588 -p "¿Dónde desea ubicar el monitor conectado?")
     
 case $sel in
-   Dock) xrandr --auto --output DP2 --primary --mode 1600x900 --right-of LVDS1 ;; 
+   Dock) xrandr --auto --output DP-2 --primary --mode 1600x900 --right-of LVDS-1 ;; 
    Proyector) autorandr horizontal;;
    Espejo) autorandr clone-largest;;
    Espejo-2) autorandr common;;

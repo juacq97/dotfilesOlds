@@ -107,7 +107,9 @@ hc keybind $Mod-s set_attr clients.focus.floating toggle #float focused client
 hc keybind $Mod-m cycle_layout +1 max vertical #monocle, but inside the frame
 hc keybind $Mod-r rotate
 
-hc keybind $Mod-t cycle_layout +1 horizontal vertical #change direction of clients
+hc keybind $Mod-t cycle_layout +1 vertical horizontal #change direction of clients
+hc keybind $Mod-g set_layout grid #change direction of clients
+
 
 # mouse
 hc mouseunbind --all

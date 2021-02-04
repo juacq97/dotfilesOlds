@@ -1,14 +1,14 @@
 #! /bin/sh
 
-xrandr --output DP2 --auto --same-as LVDS1 &
+xrandr --output DP-2 --auto --same-as LVDS-1 &
 nitrogen --restore &
 xrdb  ~/.Xresources &
 picom &
-#emacs --daemon &
+emacs --daemon &
 xfce4-power-manager &
 clipmenud &
 /usr/lib/kdeconnectd &
-redshift &
+redshift -l 24.14:110.27 -m xrandr &
 xsetroot -cursor_name left_ptr &
 flameshot &
 sxhkd -c ~/.config/sxhkd/sxhkd_dwm &

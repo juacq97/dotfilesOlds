@@ -29,7 +29,7 @@ color6 = ${xrdb:color6}
 color7 = ${xrdb:color7} 
 
 [bar/example]
-#monitor	= ${env:MONITOR:}
+monitor	= ${env:MONITOR:}
 width = 100%
 height = 25
 offset-x = 0%
@@ -54,17 +54,20 @@ module-margin-left = 0
 module-margin-right = 0
 
 font-0 = Futura Bk BT:size=10:antialias=true;2
-font-1 = MaterialDesignIcons:pixelsize=12:antialias=true;3
+font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;3
+font-2 = Weather Icons:size=12;3
 
 modules-left = active-ws ewmh title
 modules-center = date
-modules-right = pulseaudio battery network
+modules-right = spotify clima pulseaudio battery network
 tray-position = none
 cursor-click = pointer
 cursor-scroll = ns-resize
 
 [module/title]
 type = internal/xwindow
+label-maxlen = 30 
+label-padding = 3
 
 [module/ewmh]
 
@@ -74,12 +77,12 @@ enable-click = true
 enable-scroll = false
 
 format = <label-state>
-label-active = "󰨐"
+label-active = "󰑊"
 label-active-foreground = ${colors.color4}
-label-active-padding = 1
+label-active-padding = 0
 
-label-occupied = "󰨐"
-label-occupied-padding = 1
+label-occupied = "󰧞"
+label-occupied-padding = 0
 
 label-urgent = "!"
 label-urgent-foreground = #000000
@@ -91,15 +94,16 @@ label-urgent-padding = 0
 ;   %icon%
 ;   %index%
 ; Default: %icon% %name%
-label-empty = "󱓜"
+label-empty = "󰧟"
 label-empty-foreground = ${colors.foreground}
-label-empty-padding = 1
+label-empty-padding = 0
 
 [module/date]
 type = internal/date
 interval = 1.0
 date = "%b %e"
 
+format-prefix = "󱑆"
 ; Optional time format
 time = %R
 
@@ -110,7 +114,7 @@ time-alt = %H:%M:%S
 
 format = <label>
 format-background = 
-format-foreground = ${colors.foreground}
+format-foreground = ${colors.color6}
 
 label = "%{A3:calendar launch:} %date%, %time% %{A}"
 label-font = 3
@@ -127,11 +131,11 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-full = <ramp-capacity> <label-full>
 
 format-full-background = 
-format-full-foreground = ${colors.foreground}
+format-full-foreground = ${colors.color2}
 format-charging-background = 
-format-charging-foreground = ${colors.foreground}
+format-charging-foreground = ${colors.color2}
 format-discharging-background =
-format-discharging-foreground = ${colors.foreground}
+format-discharging-foreground = ${colors.color2}
 format-full-padding = 3
 format-charging-padding = 3
 format-discharging-padding = 3
@@ -177,8 +181,8 @@ format-volume = <ramp-volume> <label-volume>
 
 format-volume-background = 
 format-muted-background = 
-format-volume-foreground = ${colors.foreground}
-format-muted-foreground = ${colors.foreground}
+format-volume-foreground = ${colors.color5}
+format-muted-foreground = ${colors.color0}
 
 format-volume-padding = 3
 format-muted-padding = 3
@@ -197,7 +201,7 @@ click-right = "if [ $(pgrep pavucontrol) ]; then pkill pavucontrol; else pavucon
 
 [module/network]
 type = internal/network
-interface = wlp3s0
+interface = wlan0
 interval = 15.0
 format-connected = <ramp-signal> 
 format-disconnected = <label-disconnected>
@@ -221,6 +225,23 @@ ramp-signal-2 = "%{A1:connman-gtk:}󰤥%{A}"
 ramp-signal-3 = "%{A1:connman-gtk:}󰤨%{A}"
 
 click-right = "if [ $(pgrep pavucontrol) ]; then pkill pavucontrol; else pavucontrol; fi"
+
+[module/clima]
+type = custom/script
+exec = ~/.config/polybar/scripts/openweathermap-detailed.sh
+interval = 600
+label-font = 3
+label-padding = 3
+label-foreground = ${colors.color3}
+
+[module/spotify]
+type = custom/script
+tail = true
+exec = playerctl --player spotify metadata --format "{{ title }} - {{ artist }}"
+format-padding = 3
+format-prefix = "󰓇 "
+format-foreground = #1DB954
+
 
 [settings]
 screenchange-reload = true

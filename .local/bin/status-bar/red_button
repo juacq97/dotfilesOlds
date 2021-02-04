@@ -1,10 +1,10 @@
 #! /bin/sh
 
 launch() {
-    if [ $(pgrep connman-gtk) ]; then
-	pkill connman-gtk
+    if [ $(pgrep cmst) ]; then
+	pkill cmst
     else
-	connman-gtk
+	cmst
     fi
 }
 
