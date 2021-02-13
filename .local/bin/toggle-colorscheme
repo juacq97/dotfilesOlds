@@ -55,7 +55,7 @@ if [ $pgrep sway ]; then
     
 fi
 
-[[ $(pgrep polybar) ]] && ~/.config/polybar/polybar-monitors.sh
+#[[ $(pgrep polybar) ]] && ~/.config/polybar/polybar-monitors.sh
 
 # Change the gtk theme
 # Edit the gtk-3.0/settings.ini file and run gsettings, easy right?

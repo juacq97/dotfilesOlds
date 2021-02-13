@@ -17,25 +17,25 @@
 @define-color color13 #C678DD;
 @define-color color14 #56B6C2;
 @define-color color15 #ABB2BF;
-
-* {
-    border: none;
-    border-radius: 0;
-    /* `otf-font-awesome` is required to be installed for icons */
-    font-family: Futura Bk BT, Material Design Icons;
-    font-size: 13px;
-    min-height: 0;
-}
-
-window#waybar {
-    background-color: transparent;
-    border-bottom: 0px solid rgba(100, 114, 125, 0.5);
-    color: @foreground;
-    transition-property: background-color;
-    transition-duration: .5s;
-}
-
-window#waybar.hidden {
+@define-color background #fafafa;
+@define-color foreground #383a42;
+@define-color cursorColor #526eff;
+@define-color color0 #5C6370;
+@define-color color1 #E06C75;
+@define-color color2 #98C379;
+@define-color color3 #E5C07B;
+@define-color color4 #61AFEF;
+@define-color color5 #C678DD;
+@define-color color6 #56B6C2;
+@define-color color7 #ABB2BF;
+@define-color color8 #4B5263;
+@define-color color9 #BE5046;
+@define-color color10 #98C379;
+@define-color color11 #D19A66;
+@define-color color12 #61AFEF;
+@define-color color13 #C678DD;
+@define-color color14 #56B6C2;
+@define-color color15 #ABB2BF;
     opacity: 0.2;
 }
 

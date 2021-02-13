@@ -9,7 +9,7 @@
 ;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 ;
 ;
-;   To learn more about how to configure Polybar
+;   To learn more about how to configurePolybar
 ;   go to https://github.com/polybar/polybar
 ;
 ;   The README contains a lot of information
@@ -17,8 +17,8 @@
 ;==========================================================
 
 [colors]
-background = ${xrdb:background}
-foreground = ${xrdb:foreground}
+background = #00000000
+foreground = #282C34
 color0 = ${xrdb:color0} 
 color1 = ${xrdb:color1} 
 color2 = ${xrdb:color2} 
@@ -78,7 +78,7 @@ enable-scroll = false
 
 format = <label-state>
 label-active = "󰑊"
-label-active-foreground = ${colors.color4}
+label-active-foreground = ${colors.color0}
 label-active-padding = 0
 
 label-occupied = "󰧞"
@@ -114,9 +114,9 @@ time-alt = %H:%M:%S
 
 format = <label>
 format-background = 
-format-foreground = ${colors.color6}
+format-foreground = 
 
-label = "%{A3:calendar launch:} %date%, %time% %{A}"
+label = "%{A3:emacsclient -c -F '(quote (name . "agenda") (width  . 80) (height . 45) (left . 250) (top . 60))' -n -e "(agenda-frame)":} %date%, %time% %{A}"
 label-font = 3
 label-foreground = 
 
@@ -131,11 +131,11 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-full = <ramp-capacity> <label-full>
 
 format-full-background = 
-format-full-foreground = ${colors.color2}
+format-full-foreground = ${colors.foreground}
 format-charging-background = 
-format-charging-foreground = ${colors.color2}
+format-charging-foreground = ${colors.foreground}
 format-discharging-background =
-format-discharging-foreground = ${colors.color2}
+format-discharging-foreground = ${colors.foreground}
 format-full-padding = 3
 format-charging-padding = 3
 format-discharging-padding = 3
@@ -181,7 +181,7 @@ format-volume = <ramp-volume> <label-volume>
 
 format-volume-background = 
 format-muted-background = 
-format-volume-foreground = ${colors.color5}
+format-volume-foreground = ${colors.foreground}
 format-muted-foreground = ${colors.color0}
 
 format-volume-padding = 3
@@ -232,15 +232,15 @@ exec = ~/.config/polybar/scripts/openweathermap-detailed.sh
 interval = 600
 label-font = 3
 label-padding = 3
-label-foreground = ${colors.color3}
+label-foreground = ${colors.foreground}
 
 [module/spotify]
 type = custom/script
 tail = true
-exec = playerctl --player spotify metadata --format "{{ title }} - {{ artist }}"
+exec = playerctl metadata --format "{{ title }} - {{ artist }}"
 format-padding = 3
 format-prefix = "󰓇 "
-format-foreground = #1DB954
+format-foreground = ${colors.foreground}
 
 
 [settings]

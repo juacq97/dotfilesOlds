@@ -199,7 +199,7 @@ hc unlock
 hc detect_monitors
 
 # find the panel
-panel=~/.config/polybar/polybar-monitors.sh
+panel=~/.config/polybar/polybar_launch.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 for monitor in $(hc list_monitors | cut -d: -f1) ; do
     # start it on each monitor

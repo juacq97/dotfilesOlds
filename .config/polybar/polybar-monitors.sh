@@ -3,7 +3,9 @@
 #MATA POLYBAR Y LO VUELVE A CORRER. SE USA EN i3 CONFIG.
 
 # Terminate already running bar instances
-killall -q polybar
+if [ $(pgrep polybar) ]; then
+    killall polybar
+fi
 
 
 if type "xrandr"; then

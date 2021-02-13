@@ -516,7 +516,7 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *one-dark
+colors: *one-light
 
 # Background opacity
 background_opacity: 1
