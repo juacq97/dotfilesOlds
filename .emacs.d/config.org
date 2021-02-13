@@ -1,11 +1,45 @@
 #+TITLE: Emacs configuration
- I think it's done. The entire configuration, migraated. Time to try it.
+ #+PROPERTY: header-args:emacs-lisp :tangle ~/.repos/dotfiles/.emacs.d/init.el
+ 
+ I think it's done. The entire configuration, migrated. Time to try it. 
 
 * About this file
 This is my own Emacs configuration. I started to use emacs on september of 2018, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even doesn't understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. I'll change this notice in the future, once this file is completed. I don't expect someone interested in it though.
 
 This is an ~org-mode~ file, so you can read it directly from emacs.
 
+* Startup 
+#+begin_src emacs-lisp
+  ;; Profile emacs startup
+  (add-hook 'emacs-startup-hook
+	    (lambda ()
+	      (message "*** Emacs loaded in %s with %d garbage collections."
+		       (format "%.2f seconds"
+			       (float-time
+				(time-subtract after-init-time before-init-time)))
+		       gcs-done)))
+#+end_src
+* Use-package
+~use-package~ is a macros set to install and configure packages.
+#+begin_src emacs-lisp
+  (require 'package)
+  ;; Allows to install packages from melpa
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  ;; this is a test
+
+  (package-initialize)
+
+  (add-to-list 'load-path "~/.emacs.d/modes")
+
+  ;; If not here, install use-package
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  ;; Automatically download all packages. To prevent this, add ~:ensure nil~
+  (setq use-package-always-ensure t)
+;;  (setq use-package-verbose t)
+#+end_src
 * Basic configurations
 This include a lot of configurations so Emacs doesn't look like a very ugly notepad. 
 #+begin_src emacs-lisp
@@ -13,59 +47,72 @@ This include a lot of configurations so Emacs doesn't look like a very ugly note
   (scroll-bar-mode -1)
   (menu-bar-mode -1)
   (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
-  ;; The modeline shows the column number
-  (column-number-mode 1)
-  ;; Enable line numbers at the left. Relative shows the numbers relative to the focused one
+  (column-number-mode 1) ; The modeline shows the column number at the end
+  #+end_src
+  
+  This enables the line numbers at the left. It adds some customization to look fine even with variable-pitch fonts.
+  
+  #+begin_src emacs-lisp
   (global-display-line-numbers-mode)
   (setq display-line-numbers-type 'relative)
-  ;; Match parenthesis
-  (show-paren-mode t)
-  ;; Disable the blinking
-  (blink-cursor-mode 0)
+  
+  (set-face-attribute 'line-number nil :inherit nil)
+  (set-face-attribute 'line-number-current-line nil :inherit nil)
+  
+  ;; Disable line numbers for some modes
+  (dolist (mode '(org-mode-hook
+                  term-mode-hook
+                  shell-mode-hook
+                  treemacs-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
 
 Here's some QOL configurations
 #+begin_src emacs-lisp
-  ;; Press y/n instead of the whole word
-  (defalias 'yes-or-no-p 'y-or-n-p)
-  ;; Scroll line by line. Cursor doesn't stays at the center of the screen
-  (setq scroll-conservatively 100)
-  ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
-  (setq make-backup-files nil) 
-  (setq backup-directory-alist
-	`((".*" . ,"~/.emacs.d/backups/")))
-  (setq auto-save-file-name-transforms
-	`((".*" ,"~/.emacs.d/backups/")))
-  (setq auto-save-list-file-prefix nil)
-  (setq auto-save-default nil)
+   (show-paren-mode t)
+   (blink-cursor-mode 0) ; Disable the blinking
+   ;; Press y/n instead of the whole word
+   (defalias 'yes-or-no-p 'y-or-n-p)
+   ;; Scroll line by line. Cursor doesn't stays at the center of the screen
+   (setq scroll-conservatively 100)
+   ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
+   (setq make-backup-files nil) 
+   (setq backup-directory-alist
+	 `((".*" . ,"~/.emacs.d/backups/")))
+   (setq auto-save-file-name-transforms
+	 `((".*" ,"~/.emacs.d/backups/")))
+   (setq auto-save-list-file-prefix nil)
+   (setq auto-save-default nil)
 
-  ;; This function allows to quicky open this file
-  ;; TODO: MOVE THIS TO ANOTHER PLACE
-  (defun config-visit ()
-    (interactive)
-    (find-file "~/.emacs.d/config.org"))
-  (global-set-key (kbd "C-c e") 'config-visit)
-  
- ;; Updates the config fiel with C-c r
-  (defun config-reload ()
-    (interactive)
-    (org-babel-load-file "~/.repos/dotfiles/.emacs.d/config.org"))
-  (global-set-key (kbd "C-c r") 'config-reload)
+   ;; This function allows to quicky open this file
+   ;; TODO: MOVE THIS TO ANOTHER PLACE
+   (defun config-visit ()
+     (interactive)
+     (find-file "~/.emacs.d/config.org"))
+   (global-set-key (kbd "C-c e") 'config-visit)
 
-  ;; The text nevers goes outside from the buffer
-  (global-visual-line-mode 1)
+  ;; Updates the config fiel with C-c r
+   (defun config-reload ()
+     (interactive)
+     ;(org-babel-load-file "~/.repos/dotfiles/.emacs.d/config.org"))
+     (load-file user-init-file))
+   (global-set-key (kbd "C-c r") 'config-reload)
 
-  ;; Disables the ugly splash screen and the scratch message.
-  (setq inhibit-splash-screen t)
-  (setq initial-scratch-message nil)
-  ;(setq initial-major-mode (quote org-mode))
+   ;; The text nevers goes outside from the buffer
+   (global-visual-line-mode 1)
 
-  ;; With this, emacs will not ask if I want to edit the symlink every time
-  (setq vc-follow-symlinks nil)
+   ;; Disables the ugly splash screen and the scratch message.
+   (setq inhibit-splash-screen t)
+   (setq initial-scratch-message nil)
+   ;(setq initial-major-mode (quote org-mode))
 
-  ;; This is necessary on +27 to write accents. They say it's a feature... but for who?
-  (require 'iso-transl)
-  
+   ;; With this, emacs will not ask if I want to edit the symlink every time
+   (setq vc-follow-symlinks nil)
+
+   ;; This is necessary on +27 to write accents. They say it's a feature... but for who?
+   (require 'iso-transl)
+
 #+end_src
 
 * Fonts
@@ -76,9 +123,9 @@ Fonts are a ~face~. You can set different faces. I define three kind of fonts he
   
 Since I change fonts very often I put it here, easy to find.
 #+begin_src emacs-lisp
-  (set-face-attribute 'default nil :font "Inconsolata Nerd Font" :height 110)
-  (set-face-attribute 'fixed-pitch nil :font "Inconsolata Nerd Font" :height 110)
-  (set-face-attribute 'variable-pitch nil :font "Noto Sans" :height 110 :weight 'regular)
+    (set-face-attribute 'default nil :family "Source Code Pro" :height 95)
+    (set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
+    (set-face-attribute 'variable-pitch nil :family "Ubuntu")
 #+end_src
 
 * Evil
@@ -206,6 +253,7 @@ There a lot of usefull packages, and they work excellent out of the box.
 A helper to remember keybindings. If I wait a moment, a mini-buffer appears with some keybindings after I press a keychord.ni
 #+begin_src emacs-lisp
   (use-package which-key
+    :defer 0
     :ensure t
     :init
     (which-key-mode))
@@ -215,6 +263,7 @@ A helper to remember keybindings. If I wait a moment, a mini-buffer appears with
 The best client for git, only on Emacs.
 #+begin_src emacs-lisp
   (use-package magit
+    :commands magit-status
     :ensure t
     :config
     (global-set-key (kbd "C-x C-g") 'magit))
@@ -224,6 +273,7 @@ The best client for git, only on Emacs.
 If an hexagesimal color is on screen, you can see the actual color as the background of the string.
 #+begin_src emacs-lisp
   (use-package rainbow-mode
+    :defer 0
     :ensure t
     :config
     (rainbow-mode 1))
@@ -233,16 +283,17 @@ If an hexagesimal color is on screen, you can see the actual color as the backgr
 Autocomplete parenthesis. If you type the left parenthesis, the right one appears automatically. On elisp it's a need.
 #+begin_src emacs-lisp
   (use-package smartparens
+    :hook (prog-mode . smart-parents-mode)
     :ensure t
     :config
     (smartparens-mode t))
 #+end_src
-
 ** Rainbow delimiters
 Parenthesis are colored, so it's easy to identify matching parenthesis.
 #+begin_src emacs-lisp
   (use-package smartparens
     :ensure t
+    :hook (prog-mode . rainbow-delimiters-mode)
     :config
     (smartparens-mode t))
 #+end_src
@@ -251,9 +302,11 @@ Parenthesis are colored, so it's easy to identify matching parenthesis.
 I don't code too much LUA, but it's good to have, at least, color syntax.
 #+begin_src emacs-lisp
   (use-package lua-mode
+    :defer 0
     :ensure t)
 
   (use-package luarocks
+    :after (lua)
     :ensure t)
 #+end_src
 ** TODO Company
@@ -261,6 +314,7 @@ It's supossed to add completion, but does nothing.
 #+begin_src emacs-lisp
   (use-package company
     :ensure t
+    :defer t
     :config
     (company-mode 1))
 #+end_src
@@ -268,6 +322,7 @@ It's supossed to add completion, but does nothing.
 Like ~grep~, but cooler. It needs ~ripgrep~ installed.
 #+begin_src emacs-lisp
   (use-package rg
+    :defer 0
     :ensure t)
 #+end_src
 ** Writeroom-mode
@@ -340,11 +395,21 @@ Snippets are templates that are called interactively. I can write my own snippet
 
 * Projectile
 #+begin_src emacs-lisp
-  (use-package projectile
-    :ensure t)
+    (use-package projectile
+      :bind (
+	     ("C-c p" . projectile-find-file)
+	     ("C-c P" . projectile-switch-projects))
+      :ensure t
+      :config
+      (setq projectile-project-search-path '("~/.repos" "/mnt/Data/Drive/CIMB/PLANEACIONES")))
 #+end_src
 * Dashboard
 #+begin_src emacs-lisp
+  (use-package fortune-cookie
+    :ensure t
+    :custom
+    (fortune-dir "/usr/share/fortunes"))
+
   (use-package dashboard
     :ensure t
     :config
@@ -361,8 +426,7 @@ Snippets are templates that are called interactively. I can write my own snippet
     (setq dashboard-center-content t)
     (setq dashboard-page-separator "\n\n")
     (setq dashboard-set-heading-icons t)
-    (setq dashboard-set-file-icons t)
-    )
+    (setq dashboard-set-file-icons t))
 #+end_src
 * Themes
   Emacs has a lot of themes available on internet. It's possible to set one with ~(load-theme)~. Check the ~heaven&hell~ package below.
@@ -457,6 +521,7 @@ But lets configure this thing!
 By default dired creates a new buffer for every directory open. This will create a mess of buffers with a lot of dired buffers open. This packages try to avoid this, but dired still creates some buffers. 
 #+begin_src emacs-lisp
   (use-package dired-single
+    :after dired
     :ensure t)
 #+end_src
 
@@ -464,6 +529,7 @@ As I said before, the integration with external tools can be improved. This pack
 
 #+begin_src emacs-lisp
   (use-package dired-open
+    :after dired
     :ensure t
     :config
     (setq dired-open-extensions '(
@@ -503,6 +569,7 @@ Dired shows your dotfiles or it doesn't. This packages allows to toggle the dire
 This is an interesting package. It adds a tree layout to dired, so I can navigate directories in a similar fashion to ~org-mode~.
 #+begin_src emacs-lisp
   (use-package dired-subtree
+    :after dired
     :ensure t
     :config
     (setq dired-subtree-use-backgrounds nil)
@@ -537,13 +604,16 @@ Cool icons! It adds icons to ~doom-modeline~, ~dired~ and ~ivy~. Remember to run
   ;; Icons for ivy
   (use-package all-the-icons-ivy-rich
     :ensure t
-    :init (all-the-icons-ivy-rich-mode 1))
+    :after ivy-rich
+    :config
+    (all-the-icons-ivy-rich-mode 1))
 #+end_src
 * Easy Hugo
 Run ~hugo~ commands from Emacs and administrate your blogs. It needs ~hugo~ installed and configured. Note that evil mode is disabled for ~easy-hugo~.
 #+begin_src emacs-lisp
   (use-package easy-hugo
     :ensure t
+    :commands easy-hugo
     :init 
     ;;; Main blog. you can have more if you want
     (setq easy-hugo-basedir "/mnt/Data/Blog/")
@@ -560,6 +630,7 @@ Ledger it's a program to keep track of your expenses. It's very unix-y, it reads
 #+begin_src emacs-lisp
   (use-package ledger-mode
     :ensure t
+    :mode "\\.lgr\\'"
     :config
     (evil-define-key 'normal ledger-mode-map (kbd "SPC r") 'ledger-report)
     (evil-define-key 'normal ledger-mode-map (kbd "SPC i") 'ledger-add-transaction))
@@ -571,72 +642,29 @@ Ledger it's a program to keep track of your expenses. It's very unix-y, it reads
     (ledger-mode . evil-ledger-mode))
 #+end_src
 
-#+RESULTS:
-| evil-ledger-mode |
-
-
 * Org-mode
 The killer feature of Emacs and the reason why I started to use Emacs. Org-mode it's a note taking and schedulling format with some markup capabilities. This "markup" it's more powerful than any other. You can create tables, spreadsheets, run code (just see this config file), export to a lot of formats, the integration with LaTeX it's awesome, and there's a lot of plugins and packages to extend it. If you want an idea of the potential of org-mode, my thesis was written almost entirely on org-mode with cites, bibliography, images, tables and everything else; just the final design (fonts, colors and things like that) was made with LibreOffice, and that's beacause I didn't knew a lot of LaTeX back then.
 
 I pass most of the time on org-mode. Since I'm not a developer it takes the place of word processors, simple spreadsheets and any calendar and /todo/ application. SO this section it'll be long, but the most important to me.
 
-** org-mode configuration
-Here's some configuration I made to org-mode, the actual package.
-#+begin_src emacs-lisp
-  (use-package org
-    :ensure nil
-    :hook
-    (org-mode . variable-pitch-mode)
-    :config
-    ;; Removes the ellipsis at the end and replaces it with a string
-    (setq org-ellipsis " ●")
-
-    ;; If you have many subtask, when you mark it as DONE, the main task remain unchaged. With this function, if all the subtask are marked as DONE, the main task is marked as well.
-    (defun org-summary-todo (n-done n-not-done)
-      "Switch entry to DONE when all subentries are done, to TODO otherwise."
-      (let (org-log-done org-log-states)   ; turn off logging
-	(org-todo (if (= n-not-done 0) "DONE" "PROJ"))))
-    (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-    ;; This keybinding uses org-store-link to store a postition on a document, so you can link it on other document.
-    (global-set-key (kbd "C-c l") 'org-store-link)
-
-    ;; Change TODO states with SPC t. It uses evil-collection key-map.
-    (evil-define-key 'normal org-mode-map
-      (kbd "SPC t") 'org-todo)
-
-    ;; You can add blocks pressing C-, and then the corresponding key.
-  (require 'org-tempo)
-  (setq org-structure-template-alist
-     '(("el" . "src emacs-lisp")
-       ("a" . "export ascii")
-       ("c" . "center")
-       ("C" . "comment")
-       ("e" . "example")
-       ("E" . "export")
-       ("h" . "export html")
-       ("x" . "export latex")
-       ("q" . "quote")
-       ("s" . "src")
-       ("v" . "verse"))))
-#+end_src
 ** Fonts
 It's possible to mix monospace fonts with variable-spaced fonts. To activate this behaviour, enable ~variable-pitch-mode~. This uses the fonts declared at the beggining of the document.
 #+begin_src emacs-lisp
-  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-table nil :inherit '(shadow fixed-pitch))
-  ;(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-
-
+  (defun my/org-font-setup ()
+    (require 'org-faces) 
+    (set-face-attribute 'org-block nil :foreground nil :inherit '(fixed-pitch))
+    (set-face-attribute 'org-code nil :inherit '(fixed-pitch))
+    (set-face-attribute 'org-table nil :inherit '(fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil :inherit '(fixed-pitch))
+    ;; THIS defun CONTINUES BELOW
 #+end_src
 
 Now, let's make a more elegant style, without colors for title and with different sizes.
 #+begin_src emacs-lisp
-  ;;; Titles and Sections
+  ;;; Remove the word #+TITLE:
   (setq org-hidden-keywords '(title))
   ;; set basic title font
   (set-face-attribute 'org-level-8 nil :weight 'bold :inherit 'default)
@@ -657,16 +685,113 @@ Now, let's make a more elegant style, without colors for title and with differen
 		      :height 2.074
 		      :foreground 'unspecified
 		      :inherit 'org-level-8)
+) ;; <=== org-font-setup ends here
 #+end_src
+** org-mode configuration
+Here's some configuration I made to org-mode, the actual package.
+#+begin_src emacs-lisp
+    (defun my/org-mode-setup ()
+      (org-indent-mode)
+      (variable-pitch-mode 1)
+      (visual-line-mode 1))
+
+      (use-package org
+        :ensure nil
+        :hook (
+               (org-mode . my/org-mode-setup)
+               (org-mode . my/org-font-setup))
+      
+        :config
+        ;;(add-hook 'org-mode-hook 'my/org-font-setup)
+        ;; Removes the ellipsis at the end and replaces it with a string
+        (setq org-ellipsis " ●")
+
+        ;; If you have many subtask, when you mark it as DONE, the main task remain unchaged. With this function, if all the subtask are marked as DONE, the main task is marked as well.
+        (defun org-summary-todo (n-done n-not-done)
+          "Switch entry to DONE when all subentries are done, to TODO otherwise."
+          (let (org-log-done org-log-states)   ; turn off logging
+            (org-todo (if (= n-not-done 0) "DONE" "PROJ"))))
+        (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+        ;; This keybinding uses org-store-link to store a postition on a document, so you can link it on other document.
+        (global-set-key (kbd "C-c l") 'org-store-link)
+
+        ;; Change TODO states with SPC t. It uses evil-collection key-map.
+        (evil-define-key 'normal org-mode-map
+          (kbd "SPC t") 'org-todo)
+      
+    ;; Activate org-beamer
+      (org-beamer-mode)
+
+        ;; You can add blocks pressing C-, and then the corresponding key.
+      (require 'org-tempo)
+      (setq org-structure-template-alist
+         '(("el" . "src emacs-lisp")
+           ("a" . "export ascii")
+           ("c" . "center")
+           ("C" . "comment")
+           ("e" . "example")
+           ("E" . "export")
+           ("h" . "export html")
+           ("x" . "export latex")
+           ("q" . "quote")
+           ("s" . "src")
+           ("v" . "verse")))
+       
+    ;; NOTE: THE USE PACKAGE MACRO CONTINUES
+#+end_src
+** LaTeX
+   LaTeX uses some templates to define classes. You can write your own classes. I have this, one used on my thesis, the other copied from the org-wiki because it looks nice.
+#+begin_src emacs-lisp
+  (add-to-list 'org-latex-classes
+	'("koma-article"
+	  "\\documentclass{scrartcl}"
+	  ("\\section{%s}" . "\\section*{%s}")
+	  ("\\subsection{%s}" . "\\subsection*{%s}")
+	  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+	  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+	
+	'("doc-recepcional"
+	  "\\documentclass{report}"
+	  ("\\chapter{%s}" . "\\chapter*{%s}")
+	  ("\\section{%s}" . "\\section*{%s}")
+	  ("\\subsection{%s}" . "\\subsection*{%s}")
+	  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+	  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+	  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+          
+#+end_src
+** Load fonts
+Remember that part when the fonts function was declared. Well, now it's the time to load that function, and to end the =use-package= macro. This is ugly, though, I need to think a way to reduce all this writing.
+#+begin_src emacs-lisp
+  (my/org-font-setup)
+  ) ;; <=== The use-package org ends here
+#+end_src
+** Center buffers
+   
+This centers some buffers. Just aesthetics.
+First, lets define the function.
+#+begin_src emacs-lisp
+  (defun my/org-mode-visual-fill ()
+    (setq visual-fill-column-width 100
+	  visual-fill-column-center-text t)
+    (visual-fill-column-mode 1))
+
+    (use-package visual-fill-column
+      :hook (
+      (org-agenda-mode . my/org-mode-visual-fill)
+      (org-mode . my/org-mode-visual-fill)))
+#+end_src
+
 ** More export formats
 Though org-mode has a long range of formats, we can add more.
 #+begin_src emacs-lisp
   ;; Pandoc support
   (use-package ox-pandoc
+    :after org
     :ensure t)
 
-  ;; LaTeX beamer support
-  (org-beamer-mode)
+    
 #+end_src
 ** Superstar
 It replaces the stars for bullets and unicode glyphs. It looks nice and it's easier to read. Also, changes some TODO keywords.
@@ -702,6 +827,7 @@ Want to make a presentation with slides but don't want to use PowerPoint, beamer
 #+begin_src emacs-lisp
   (use-package org-tree-slide
     :ensure t
+    :defer t
     :config
     (setq org-tree-slide-header nil)
     (setq org-tree-slide-slide-in-effect nil)
@@ -709,6 +835,7 @@ Want to make a presentation with slides but don't want to use PowerPoint, beamer
 
   ;; This packages hides the modeline because I don't know how to hide it without it.
   (use-package hide-mode-line
+    :defer t
     :ensure t)
 
   ;; This keys are to go to the next or previous slide. It uses ~evil-collection key-map
@@ -739,28 +866,34 @@ Org-mode is a TODO and scheduling format. So it has an integrated agenda. You ca
 
 Let's define some basic stuff first
 #+begin_src emacs-lisp
-    (setq org-directory "/mnt/Data/ORG") ; The directory of your files
-    (setq org-agenda-files '("/mnt/Data/ORG/TODO.org"))
-    (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
+  (setq org-directory "/mnt/Data/ORG") ; The directory of your files
+  (setq org-agenda-files '("/mnt/Data/ORG/TODO.org"))
+  (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
 
-    ;; by default the agenda takes the current buffer. With this it'll create its own buffer
-    (setq org-agenda-window-setup 'other-window)
-    (setq org-agenda-span 3) ; Only shows next 3 days
-    (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
-    (setq org-agenda-start-with-log-mode t)
-    (setq org-log-done 'time)
-    (setq org-log-into-drawer t)
+  ;; by default the agenda takes the current buffer. With this it'll create its own buffer
+  (setq org-agenda-window-setup 'other-window)
+  (setq org-agenda-span 3) ; Only shows next 3 days
+  (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
 
-    ;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
-    (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
-    (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
-  
-    ;; Activate hl-line-mode on agenda buffers
-    (add-hook 'org-agenda-mode-hook 'hl-line-mode)
+  ;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
+  (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+  (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+
+  ;; Activate hl-line-mode on agenda buffers
+  (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 #+end_src
+
+#+RESULTS:
 
 Now, this is pure eye-candy
 #+begin_src emacs-lisp
+  (add-hook 'org-agenda-hook
+	    (lambda ()
+	      (global-display-line-numbers nil)))
+
   ;; Removes the ~======~ between blocks. It's ugly IMO
   (setq org-agenda-block-separator (string-to-char " "))
 
@@ -815,12 +948,21 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
     (delete-other-windows))
 #+end_src
 
+** Refile
+#+begin_src emacs-lisp
+  (setq org-refile-targets
+	'(("DONE.org" :maxlevel . 1)))
+
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+#+end_src
 ** calfw
    Org-agenda shows your entries as a list. If you want a calendar view, then you need to rely on this awesome package called ~calfw~. To run it, run ~cfw:open-calendar-buffer~ or ~cfw:open-org-calendar~. 
    #+begin_src emacs-lisp
      (use-package calfw
-       :ensure t)
+       :ensure t
+       :commands cfw:open-org-calendar)
      (use-package calfw-org
+       :commands cfw:open-org-calendar
        :ensure t)
    #+end_src
 *** Org-capture
@@ -860,27 +1002,6 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
    (if (equal "capture" (frame-parameter nil 'name))
    (delete-frame)))
  #+end_src
-*** LaTeX
-    LaTeX uses some templates to define classes. You can write your own classes. I have this, one used on my thesis, the other copied from the org-wiki because it looks nice.
- #+begin_src emacs-lisp
-   (add-to-list 'org-latex-classes
-	 '("koma-article"
-	   "\\documentclass{scrartcl}"
-	   ("\\section{%s}" . "\\section*{%s}")
-	   ("\\subsection{%s}" . "\\subsection*{%s}")
-	   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	   ("\\paragraph{%s}" . "\\paragraph*{%s}")
-	   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-	
-	 '("doc-recepcional"
-	   "\\documentclass{report}"
-	   ("\\chapter{%s}" . "\\chapter*{%s}")
-	   ("\\section{%s}" . "\\section*{%s}")
-	   ("\\subsection{%s}" . "\\subsection*{%s}")
-	   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	   ("\\paragraph{%s}" . "\\paragraph*{%s}")
-	   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
- #+end_src
 ** org babel
    Org-babel allows to run code inside Emacs and print the output right after the code block. Babel it's used to create this config file. You need the required compilers and everything if you add more languages here. By default, babel only evaluates elisp.
  #+begin_src emacs-lisp
@@ -889,36 +1010,52 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
     '((python . t)
       (shell . t)))
  #+end_src
+ 
+#+begin_src emacs-lisp
+  ;; Automatically tangle our Emacs.org config file when we save it
+  (defun my/org-babel-tangle-config ()
+    (when (string-equal (file-name-directory (buffer-file-name))
+			(expand-file-name user-emacs-directory))
+      ;; Dynamic scoping to the rescue
+      (let ((org-confirm-babel-evaluate nil))
+	(org-babel-tangle))))
+
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
+#+end_src
+
 * TODO set font for emoji
 * Eshell
 #+begin_src emacs-lisp
-  (use-package eshell-git-prompt
-    :ensure t)
-    (use-package fish-completion
+    (use-package eshell-git-prompt
+      :after eshell
+      :ensure t
+      :config
+      (set-face-attribute 'eshell-git-prompt-branch-face nil :foreground "#000000")
+)
+    
+
+
+      (use-package fish-completion
+      :after esh-mode
+      :ensure t
+    :hook (eshell-mode . fish-completion-mode))
+  
+    (use-package eshell-syntax-highlighting
     :ensure t
-  :hook (eshell-mode . fish-completion-mode))
+    :after esh-mode
+    :config
+    (eshell-syntax-highlighting-global-mode +1))
   
-  (use-package eshell-syntax-highlighting
+  (use-package esh-autosuggest
   :ensure t
-  :after esh-mode
-  :config
-  (eshell-syntax-highlighting-global-mode +1))
-  
-(use-package esh-autosuggest
-:ensure t
-  :hook (eshell-mode . esh-autosuggest-mode)
-  :config
-  (setq esh-autosuggest-delay 0.5)
-  (set-face-foreground 'company-preview-common "#4b5668")
-  (set-face-background 'company-preview nil))
+    :hook (eshell-mode . esh-autosuggest-mode))
 
-  (use-package eshell-toggle
-  :ensure t
-  :bind ("<f4>" . eshell-toggle)
-  :custom
-  (eshell-toggle-size-fraction 3)
-  (eshell-toggle-use-projectile-root t)
-  (eshell-toggle-run-command nil))
-
+    (use-package eshell-toggle
+    :ensure t
+    :bind ("<f4>" . eshell-toggle)
+    :custom
+    (eshell-toggle-size-fraction 3)
+    (eshell-toggle-use-projectile-root t)
+    (eshell-toggle-run-command nil))
 #+end_src
 

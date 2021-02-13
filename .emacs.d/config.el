@@ -52,9 +52,9 @@
  ;; This is necessary on +27 to write accents. They say it's a feature... but for who?
  (require 'iso-transl)
 
-(set-face-attribute 'default nil :font "Inconsolata Nerd Font" :height 110)
-(set-face-attribute 'fixed-pitch nil :font "Inconsolata Nerd Font" :height 110)
-(set-face-attribute 'variable-pitch nil :font "Noto Sans" :height 110 :weight 'regular)
+(set-face-attribute 'default nil :font "Source Code Pro" :height 95 :width 'regular)
+(set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 95 :width 'regular)
+(set-face-attribute 'variable-pitch nil :font "Ubuntu" :height 105 :weight 'regular)
 
 (use-package evil
   :ensure t
@@ -235,10 +235,23 @@
   (yas-global-mode))
 
 (use-package projectile
-  :ensure t)
+  :ensure t
+  :config
+  (setq projectile-project-search-path '("~/.repos" "/mnt/Data/Drive/CIMB/PLANEACIONES")))
+
+(use-package fortune-cookie
+  :ensure t
+  :custom
+  (fortune-dir "/usr/share/fortunes"))
 
 (use-package dashboard
   :ensure t
+  :custom
+  (dashboard-set-footer t)
+  (dashboard-footer (with-temp-buffer
+		      (let ((fortune-buffer-name (current-buffer)))
+			(fortune-in-buffer t nil)
+			(buffer-string))))
   :config
   (dashboard-setup-startup-hook)
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
@@ -253,8 +266,7 @@
   (setq dashboard-center-content t)
   (setq dashboard-page-separator "\n\n")
   (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  )
+  (setq dashboard-set-file-icons t))
 
 (use-package doom-themes
   :ensure t
@@ -444,8 +456,8 @@
      ("v" . "verse"))))
 
 (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-table nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-code nil :inherit '(fixed-pitch))
+(set-face-attribute 'org-table nil :inherit '(fixed-pitch))
 ;(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
 (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
 (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
