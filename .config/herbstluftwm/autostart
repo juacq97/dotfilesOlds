@@ -124,6 +124,7 @@ hc keybind $Mod-period  cycle_monitor -1
 hc keybind $Mod-Tab         cycle_all +1
 hc keybind $Mod-Shift-Tab   cycle_all -1
 
+
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
@@ -133,41 +134,56 @@ hc set frame_border_active_color '#61AFEF' #Focused frame color
 hc set frame_border_normal_color '#14161A' #Unfocused frame color
 hc set frame_border_width 3  #border size
 
-hc set frame_bg_active_color '#282C34'
-hc set frame_bg_normal_color '#282C34'
-hc set frame_bg_transparent on
-hc set frame_transparent_width 0
+hc set frame_bg_active_color '#282C34' #Fill of focused frame
+hc set frame_bg_normal_color '#282C34' #Fill of unfocused frame (needs always show frame)
+hc set frame_bg_transparent on #Removes the filler color of frame
+hc set frame_transparent_width 0 # What part of the filler color should remain?
 
-hc set frame_active_transparency 0
-hc set frame_inactive_transparency 0
+hc set frame_active_opacity 255 #Focused frame opacity
+hc set frame_normal_opacity 255 # Unfocused frame opacity
+
 
 hc set frame_border_inner_width 3
 hc set frame_border_inner_color '#526eff'
 hc set always_show_frame on
 hc set frame_gap 4
 
-# Windows
-hc attr theme.active.color '#4B5263'
-hc attr theme.normal.color '#4B5263'
-hc attr theme.urgent.color orange
-hc attr theme.inner_width 3
-hc attr theme.normal.inner_width 0
-hc attr theme.normal.outer_width 0
-hc attr theme.active.inner_color blue
-hc attr theme.border_width 3
-hc attr theme.floating.active.color '#61AFEF'
-hc attr theme.floating.normal.color '#61AFEF'
-hc attr theme.floating.border_width 4
-hc attr theme.floating.normal.border_width 0
-hc attr theme.active.inner_color '#61AFEF'
-hc attr theme.active.outer_color '#61AFEF'
-hc attr theme.background_color '#ffffff'
+hc set default_frame_layout 2
 
-hc set window_gap 0
-hc set frame_padding 0
-hc set smart_window_surroundings on
+# Clients
+hc attr theme.padding_top 0 #Padding at the top of the windows
+hc attr theme.padding_right 0 #Padding 
+hc attr theme.padding_left 0 #Padding 
+hc attr theme.padding_bottom 0 #Padding 
+
+hc attr theme.border_width 3 # WIndows borders
+hc attr theme.active.color '#61AFEF' #Window border color
+hc attr theme.normal.color '#4B5263' # Window border color unfocused
+hc attr theme.urgent.color orange
+
+# Color for the inner frame
+hc attr theme.inner_width 0
+hc attr theme.normal.inner_width 0
+hc attr theme.active.inner_color '#61AFEF'
+hc attr theme.normal.inner_color '#61AFEF'
+
+# Color for the outer frame (3 borders,too much)
+hc attr theme.outer_width 0
+hc attr theme.active.outer_color '#61AFEF'
+hc attr theme.normal.outer_color '#61AFEF'
+
+# Colors for floating 
+hc attr theme.floating.active.color '#61AFEF'
+hc attr theme.floating.normal.color '#4B5263'
+hc attr theme.floating.border_width 3
+hc attr theme.background_color '#61AFEF'
+
+hc set window_gap 0 #Gap between windows
+hc set frame_padding 0 # Gapp between windows and frames
+hc set smart_window_surroundings on 
 hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0
+hc set hide_covered_windows on
 
 # rules
 hc unrule -F
@@ -199,9 +215,4 @@ hc unlock
 hc detect_monitors
 
 # find the panel
-panel=~/.config/polybar/polybar_launch.sh
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-for monitor in $(hc list_monitors | cut -d: -f1) ; do
-    # start it on each monitor
-    "$panel" "$monitor" &
-done
+~/.config/polybar/polybar_launch.sh

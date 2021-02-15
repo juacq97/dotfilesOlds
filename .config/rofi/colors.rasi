@@ -1,6 +1,6 @@
 * {
-background: #282C34;
-foreground: #ABB2BF;
+background: #fafafa;
+foreground: #383a42;
 cursorColor: #526eff;
 color0: #5C6370;
 color1: #E06C75;

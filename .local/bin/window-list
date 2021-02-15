@@ -1,0 +1,37 @@
+#! /bin/sh
+
+bring () {
+    wind=$(wmctrl -l | cut -f5- -d' ' | dmenu -i -p "Bring:")
+
+    if [ "$wind" == "" ]; then
+   	exit 0 #si se presiona ESC, el script termina
+    else
+   	if [ $(pgrep herbstluftwm) ]; then
+    	    id=$(wmctrl -l | grep "$wind" | cut -f1 -d' ')
+    	    herbstclient bring $id
+   	else
+    	    wmctrl -R $id
+   	fi
+    fi
+}
+
+follow () {
+    wind=$(wmctrl -l | cut -f5- -d' ' | dmenu -i -p "Follow:")
+    if [ "$wind" == "" ]; then
+   	exit 0 #si se presiona ESC, el script termina
+    else
+	if [ $(pgrep herbstluftwm) ]; then
+	    id=$(wmctrl -l | grep "$wind" | cut -f1 -d' ')
+	    herbstclient jumpto $id
+	else
+	    wmctrl -a $id
+	fi
+    fi
+}
+
+case $1 in
+    "bring") bring;;
+    "follow") follow;;
+    *) echo "use 'bring' or 'follow'";;
+esac
+

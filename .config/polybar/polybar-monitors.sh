@@ -8,11 +8,7 @@ if [ $(pgrep polybar) ]; then
 fi
 
 
-if type "xrandr"; then
-  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+for m in $(polybar --list-monitors | cut -d":" -f1); do
     MONITOR=$m polybar -c ~/.config/polybar/config example -r &
-  done
-else
-polybar -c ~/.config/polybar/config example -r &
-fi
-
+done
+    

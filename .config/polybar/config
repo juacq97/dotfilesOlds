@@ -28,8 +28,44 @@ color5 = ${xrdb:color5}
 color6 = ${xrdb:color6} 
 color7 = ${xrdb:color7} 
 
-[bar/example]
-monitor	= ${env:MONITOR:}
+[bar/laptop]
+monitor	= LVDS-1
+width = 100%
+height = 25
+offset-x = 0%
+offset-y = 0%
+radius = 0.0
+fixed-center = true
+locale = es_MX.UTF-8
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 0
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 0
+module-margin-right = 0
+
+font-0 = Futura Bk BT:size=10:antialias=true;2
+font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;3
+font-2 = Weather Icons:size=12;3
+
+modules-left = ewmh title
+modules-center = date
+modules-right = spotify clima pulseaudio battery network
+tray-position = none
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/external]
+monitor	= DP-2
 width = 100%
 height = 25
 offset-x = 0%

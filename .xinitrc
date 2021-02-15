@@ -22,8 +22,9 @@ xset r rate 250 60 &
 export QT_QPA_PLATFORMTHEME="qt5ct"
 
 #exec dwm
-while true; do
-     ~/.local/dwm 2> /tmp/dwm.log 
-     done
+#while true; do
+#     ~/.local/dwm 2> /tmp/dwm.log 
+#     done
 #exec dwm
-#exec herbstluftwm
+exec herbstluftwm
+#exec dbus-launch --exit-with-session emacs -mm

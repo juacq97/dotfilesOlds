@@ -131,6 +131,14 @@ Since I change fonts very often I put it here, easy to find.
 * Evil
 Evil it's a layer to use vim-like keybindings on Emacs.It's basically, VIM inside Emacs. There some functions of VIM that doesn't work inside Evil though or it does but different. Evil-mode calls the vim modes "states", because Emacs has his own meaning for the word "mode". 
 
+To undo, ~undo-tree~ is needed.
+#+begin_src emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :config
+  (global-undo-tree-mode 1))
+#+end_src
+
 #+begin_src emacs-lisp
   (use-package evil
     :ensure t
@@ -146,13 +154,6 @@ Evil it's a layer to use vim-like keybindings on Emacs.It's basically, VIM insid
     (evil-mode 1))
 #+end_src
 
-To undo, ~undo-tree~ is needed.
-#+begin_src emacs-lisp
-  (use-package undo-tree
-    :ensure t
-    :config
-  (global-undo-tree-mode 1))
-#+end_src
 
 ** Evil collection and friends
 Evil does works fine with text, but some modes has special keybindings or are interactive buffers, so Evil conflict with them. That's why ~evil-collection~ exists. Basically, it's a collection of key-maps for different modes.
@@ -191,28 +192,55 @@ By defaut, evil moves on physical lines instead of visual lines. This is annoyin
 #+end_src
 
 * Global keybindings
+I'm migrating to general, a better way to do things, I thing
+
+#+begin_src emacs-lisp
+  (use-package general
+    :config
+    (general-create-definer my/leader-keys
+      :keymaps '(normal insert visual emacs)
+      :prefix "SPC"
+      :global-prefix "C-SPC")
+
+    (my/leader-keys
+     "SPC" '(counsel-find-file :which-key "Open a file")
+     "t"  '(:ignore t :which-key "toggles")
+     "tt" '(counsel-load-theme :which-key "Choose theme")
+     "k" '(kill-current-buffer :which-key "Kill buffer")
+     "b" '(counsel-switch-buffer :which-key "Switch buffer")
+     "s" '(swiper :which-key "Swiper search")
+     "p" '(counsel-projectile-find-file :which-key "Projectile, find file")
+     "P" '(counsel-projectile-switch-project :which-key "Projectile, switch project")
+     "g" '(magit :which-key "Magit")
+     "v" '(visual-line-mode :which-key "Activate visual-line-mode")
+     "c" '(org-capture :which-key "Capture with org")
+     "RET" '((lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
+     ))
+#+end_src
+
+
+
 Since ~Evil~ it's working now, this is a good moment to define some personal keybindings. I define it here because some of them needs Evil to work.
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-x k") 'kill-current-buffer)
   (global-set-key (kbd "C-c v") 'visual-line-mode)
   (global-set-key (kbd "<f5>")  'ispell-word)
-  (define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
-  (define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
-  (define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
-  (define-key evil-normal-state-map (kbd "SPC s") 'swiper)
-  (define-key evil-normal-state-map (kbd "SPC p") 'projectile-find-file)
-  (define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
-  (define-key evil-normal-state-map (kbd "SPC g") 'magit)
-  (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
-  (define-key evil-normal-state-map (kbd "SPC c") 'org-capture)
-  (define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
+;;  (define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
+;;  (define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
+;;  (define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
+;;  (define-key evil-normal-state-map (kbd "SPC s") 'swiper)
+;;  (define-key evil-normal-state-map (kbd "SPC p") 'projectile-find-file)
+;;  (define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
+;;  (define-key evil-normal-state-map (kbd "SPC g") 'magit)
+;;  (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
+;;  (define-key evil-normal-state-map (kbd "SPC c") 'org-capture)
+;;  (define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
 #+end_src
 * Doom-modeline
 The default modeline it's fine, but ugly and with a lot of useless information for me. I could customize it, but it's easier to just install ~doom-modeline~ the default modeline of ~doom-emacs~. Most of this is a copy-paste from the official README.
 #+begin_src emacs-lisp
   (use-package doom-modeline
     :ensure t
-    :hook (after-init . doom-modeline-mode)
     :config
     (setq doom-modeline-height 25)
     (setq doom-modeline-bar-width 4)
@@ -245,7 +273,7 @@ The default modeline it's fine, but ugly and with a lot of useless information f
     (setq doom-modeline-mu4e t)
     (setq doom-modeline-irc t)
     (setq doom-modeline-irc-stylize 'identity))
-  (doom-modeline-mode 1)
+  (doom-modeline-mode 1)    
 #+end_src
 * Utilities
 There a lot of usefull packages, and they work excellent out of the box. 
@@ -273,7 +301,7 @@ The best client for git, only on Emacs.
 If an hexagesimal color is on screen, you can see the actual color as the background of the string.
 #+begin_src emacs-lisp
   (use-package rainbow-mode
-    :defer 0
+    :defer t
     :ensure t
     :config
     (rainbow-mode 1))
@@ -282,11 +310,11 @@ If an hexagesimal color is on screen, you can see the actual color as the backgr
 ** Smart parents
 Autocomplete parenthesis. If you type the left parenthesis, the right one appears automatically. On elisp it's a need.
 #+begin_src emacs-lisp
-  (use-package smartparens
-    :hook (prog-mode . smart-parents-mode)
-    :ensure t
-    :config
-    (smartparens-mode t))
+  ;(use-package smartparens
+  ;  :hook (prog-mode . smartparents-mode)
+  ;  :ensure t
+  ;  :config
+  ;  (smartparens-mode t))
 #+end_src
 ** Rainbow delimiters
 Parenthesis are colored, so it's easy to identify matching parenthesis.
@@ -302,7 +330,7 @@ Parenthesis are colored, so it's easy to identify matching parenthesis.
 I don't code too much LUA, but it's good to have, at least, color syntax.
 #+begin_src emacs-lisp
   (use-package lua-mode
-    :defer 0
+    :mode "\\.lua\\'"
     :ensure t)
 
   (use-package luarocks
@@ -318,12 +346,30 @@ It's supossed to add completion, but does nothing.
     :config
     (company-mode 1))
 #+end_src
+** Helpful
+Add some extra text to the  =describe= buffers
+#+begin_src emacs-lisp
+  (use-package helpful
+    :ensure t
+    :custom
+    (counsel-describe-function-function #'helpful-callable)
+    (counsel-describe-variable-function #'helpful-variable)
+    :bind
+    ([remap describe-function] . counsel-describe-function)
+    ([remap describe-command] . helpful-command)
+    ([remap describe-variable] . counsel-describe-variable)
+    ([remap describe-key] . helpful-key))
+#+end_src
+
+#+RESULTS:
+: helpful-key
+
 ** Ripgrep
 Like ~grep~, but cooler. It needs ~ripgrep~ installed.
 #+begin_src emacs-lisp
-  (use-package rg
-    :defer 0
-    :ensure t)
+;  (use-package rg
+;    :defer 0
+;    :ensure t)
 #+end_src
 ** Writeroom-mode
    When enabled, the text it's centered and the modeline disappears. Excellent to long writing sessions.
@@ -331,7 +377,7 @@ Like ~grep~, but cooler. It needs ~ripgrep~ installed.
  (use-package writeroom-mode
      :ensure t
      :bind ("<f6>" . writeroom-mode))
- #+end_src
+ #+end_src 
 * Ivy
 ~Ivy~ it's a completion framework. I preffer it over ~helm~ since is lighter, faster and looks better. And of course, it's a lot better than the default completion of Emacs, ido.
 #+begin_src emacs-lisp
@@ -759,12 +805,6 @@ Here's some configuration I made to org-mode, the actual package.
 	  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
 	  ("\\paragraph{%s}" . "\\paragraph*{%s}")
 	  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-          
-#+end_src
-** Load fonts
-Remember that part when the fonts function was declared. Well, now it's the time to load that function, and to end the =use-package= macro. This is ugly, though, I need to think a way to reduce all this writing.
-#+begin_src emacs-lisp
-  (my/org-font-setup)
   ) ;; <=== The use-package org ends here
 #+end_src
 ** Center buffers

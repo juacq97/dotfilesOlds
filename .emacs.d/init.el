@@ -92,6 +92,11 @@
 (set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
 (set-face-attribute 'variable-pitch nil :family "Ubuntu")
 
+(use-package undo-tree
+  :ensure t
+  :config
+(global-undo-tree-mode 1))
+
 (use-package evil
   :ensure t
   :init
@@ -104,11 +109,6 @@
   :config
   (setq-default evil-cross-lines t)
   (evil-mode 1))
-
-(use-package undo-tree
-  :ensure t
-  :config
-(global-undo-tree-mode 1))
 
 (use-package evil-collection
   :after evil
@@ -136,23 +136,44 @@
 (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
 
+(use-package general
+  :config
+  (general-create-definer my/leader-keys
+    :keymaps '(normal insert visual emacs)
+    :prefix "SPC"
+    :global-prefix "C-SPC")
+
+  (my/leader-keys
+   "SPC" '(counsel-find-file :which-key "Open a file")
+   "t"  '(:ignore t :which-key "toggles")
+   "tt" '(counsel-load-theme :which-key "Choose theme")
+   "k" '(kill-current-buffer :which-key "Kill buffer")
+   "b" '(counsel-switch-buffer :which-key "Switch buffer")
+   "s" '(swiper :which-key "Swiper search")
+   "p" '(counsel-projectile-find-file :which-key "Projectile, find file")
+   "P" '(counsel-projectile-switch-project :which-key "Projectile, switch project")
+   "g" '(magit :which-key "Magit")
+   "v" '(visual-line-mode :which-key "Activate visual-line-mode")
+   "c" '(org-capture :which-key "Capture with org")
+   "RET" '((lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
+   ))
+
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
-(global-set-key (kbd "C-c v") 'visual-line-mode)
-(global-set-key (kbd "<f5>")  'ispell-word)
-(define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
-(define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
-(define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
-(define-key evil-normal-state-map (kbd "SPC s") 'swiper)
-(define-key evil-normal-state-map (kbd "SPC p") 'projectile-find-file)
-(define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
-(define-key evil-normal-state-map (kbd "SPC g") 'magit)
-(define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
-(define-key evil-normal-state-map (kbd "SPC c") 'org-capture)
-(define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
+  (global-set-key (kbd "C-c v") 'visual-line-mode)
+  (global-set-key (kbd "<f5>")  'ispell-word)
+;;  (define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
+;;  (define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
+;;  (define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
+;;  (define-key evil-normal-state-map (kbd "SPC s") 'swiper)
+;;  (define-key evil-normal-state-map (kbd "SPC p") 'projectile-find-file)
+;;  (define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
+;;  (define-key evil-normal-state-map (kbd "SPC g") 'magit)
+;;  (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
+;;  (define-key evil-normal-state-map (kbd "SPC c") 'org-capture)
+;;  (define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
 
 (use-package doom-modeline
   :ensure t
-  :hook (after-init . doom-modeline-mode)
   :config
   (setq doom-modeline-height 25)
   (setq doom-modeline-bar-width 4)
@@ -200,16 +221,16 @@
   (global-set-key (kbd "C-x C-g") 'magit))
 
 (use-package rainbow-mode
-  :defer 0
+  :defer t
   :ensure t
   :config
   (rainbow-mode 1))
 
-(use-package smartparens
-  :hook (prog-mode . smart-parents-mode)
-  :ensure t
-  :config
-  (smartparens-mode t))
+;(use-package smartparens
+;  :hook (prog-mode . smartparents-mode)
+;  :ensure t
+;  :config
+;  (smartparens-mode t))
 
 (use-package smartparens
   :ensure t
@@ -218,7 +239,7 @@
   (smartparens-mode t))
 
 (use-package lua-mode
-  :defer 0
+  :mode "\\.lua\\'"
   :ensure t)
 
 (use-package luarocks
@@ -231,9 +252,20 @@
   :config
   (company-mode 1))
 
-(use-package rg
-  :defer 0
-  :ensure t)
+(use-package helpful
+  :ensure t
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
+;  (use-package rg
+;    :defer 0
+;    :ensure t)
 
 (use-package writeroom-mode
     :ensure t
@@ -568,8 +600,6 @@
 	("\\subsubsection{%s}" . "\\subsubsection*{%s}")
 	("\\paragraph{%s}" . "\\paragraph*{%s}")
 	("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-(my/org-font-setup)
 ) ;; <=== The use-package org ends here
 
 (defun my/org-mode-visual-fill ()
@@ -804,3 +834,19 @@
     (eshell-toggle-size-fraction 3)
     (eshell-toggle-use-projectile-root t)
     (eshell-toggle-run-command nil))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(doom-one-light))
+ '(package-selected-packages
+   '(yaml-mode yasnippet writeroom-mode which-key vterm use-package unicode-fonts undo-tree undo-fu typescript-mode transmission smartparens rg rainbow-mode rainbow-delimiters pyvenv python-mode powerline pdf-tools ox-pandoc org-tree-slide org-superstar org-bullets no-littering network-watch modus-vivendi-theme modus-operandi-theme memoize markdown-mode magit luarocks lua-mode ivy-prescient hydra hide-mode-line helpful heaven-and-hell ghub general fortune-cookie fish-completion exwm ewal-doom-themes evil-org evil-ledger evil-collection eshell-toggle eshell-syntax-highlighting eshell-git-prompt esh-autosuggest emacsql easy-hugo doom-modeline dired-subtree dired-single dired-open dired-hide-dotfiles dashboard counsel-projectile company-box command-log-mode color-theme-sanityinc-tomorrow calfw-org calfw burly bug-hunter auto-package-update all-the-icons-ivy-rich all-the-icons-dired adoc-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-calendar-event ((t (:family "Ubuntu" :inherit (default)))))
+ '(org-agenda-date-today ((t (:weight ultra-bold :height 130 :family "Ubuntu"))))
+ '(org-agenda-structure ((t (:underline t :weight bold :height 200 :width normal :family "Ubuntu")))))
