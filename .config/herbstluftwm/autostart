@@ -79,6 +79,9 @@ hc keybind $Mod-Shift-Control-k resize up -$resizestep
 
 
 # tags
+
+hc set default_frame_layout 2
+
 tag_names=( {1..6} )
 tag_keys=( {1..6} 0 )
 
@@ -107,7 +110,7 @@ hc keybind $Mod-s set_attr clients.focus.floating toggle #float focused client
 hc keybind $Mod-m cycle_layout +1 max vertical #monocle, but inside the frame
 hc keybind $Mod-r rotate
 
-hc keybind $Mod-t cycle_layout +1 vertical horizontal #change direction of clients
+hc keybind $Mod-t cycle_layout +1 horizontal vertical #change direction of clients
 hc keybind $Mod-g set_layout grid #change direction of clients
 
 
@@ -126,29 +129,37 @@ hc keybind $Mod-Shift-Tab   cycle_all -1
 
 
 # theme
+
+back=$(xrdb -query | grep background | cut -f2- -d'#')
+border=$(xrdb -query | grep cursorColor | cut -f2- -d'#')
+color0=$(xrdb -query | grep color0 | cut -f2- -d'#')
+color1=$(xrdb -query | grep color1: | cut -f2- -d'#')
+color2=$(xrdb -query | grep color2 | cut -f2- -d'#')
+color3=$(xrdb -query | grep color3 | cut -f2- -d'#')
+color4=$(xrdb -query | grep color4 | cut -f2- -d'#')
+color5=$(xrdb -query | grep color5 | cut -f2- -d'#')
+color6=$(xrdb -query | grep color6 | cut -f2- -d'#')
+color7=$(xrdb -query | grep color7 | cut -f2- -d'#')
+
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
 
 # Frames
-hc set frame_border_active_color '#61AFEF' #Focused frame color
-hc set frame_border_normal_color '#14161A' #Unfocused frame color
+hc set frame_border_active_color "#$color5" #Focused frame color
+hc set frame_border_normal_color "#$back" #Unfocused frame color
 hc set frame_border_width 3  #border size
 
-hc set frame_bg_active_color '#282C34' #Fill of focused frame
-hc set frame_bg_normal_color '#282C34' #Fill of unfocused frame (needs always show frame)
+hc set frame_bg_active_color "#$color5" #Fill of focused frame
+hc set frame_bg_normal_color "#$back" #Fill of unfocused frame (needs always show frame)
 hc set frame_bg_transparent on #Removes the filler color of frame
 hc set frame_transparent_width 0 # What part of the filler color should remain?
 
-hc set frame_active_opacity 255 #Focused frame opacity
-hc set frame_normal_opacity 255 # Unfocused frame opacity
+hc set frame_active_opacity 100 #Focused frame opacity
+hc set frame_normal_opacity 100 # Unfocused frame opacity
 
-
-hc set frame_border_inner_width 3
-hc set frame_border_inner_color '#526eff'
+hc set frame_border_inner_width 2
 hc set always_show_frame on
 hc set frame_gap 4
-
-hc set default_frame_layout 2
 
 # Clients
 hc attr theme.padding_top 0 #Padding at the top of the windows
@@ -156,31 +167,37 @@ hc attr theme.padding_right 0 #Padding
 hc attr theme.padding_left 0 #Padding 
 hc attr theme.padding_bottom 0 #Padding 
 
-hc attr theme.border_width 3 # WIndows borders
-hc attr theme.active.color '#61AFEF' #Window border color
-hc attr theme.normal.color '#4B5263' # Window border color unfocused
+hc attr theme.border_width 6 # WIndows border  s
+hc attr theme.active.color "#$back" #Window border color
+hc attr theme.normal.color "#$back" # Window border color unfocused
 hc attr theme.urgent.color orange
 
 # Color for the inner frame
-hc attr theme.inner_width 0
+hc attr theme.inner_width 2
 hc attr theme.normal.inner_width 0
-hc attr theme.active.inner_color '#61AFEF'
-hc attr theme.normal.inner_color '#61AFEF'
+hc attr theme.active.inner_color "#$color5"
+hc attr theme.normal.inner_color "#4b5263"
 
-# Color for the outer frame (3 borders,too much)
+# Color for the outer frame (3 color4s,too much)
 hc attr theme.outer_width 0
-hc attr theme.active.outer_color '#61AFEF'
-hc attr theme.normal.outer_color '#61AFEF'
+hc attr theme.active.outer_color "#$color5"
+hc attr theme.normal.outer_color "#$color5"
 
 # Colors for floating 
-hc attr theme.floating.active.color '#61AFEF'
-hc attr theme.floating.normal.color '#4B5263'
-hc attr theme.floating.border_width 3
-hc attr theme.background_color '#61AFEF'
+hc attr theme.floating.active.color "#$back"
+hc attr theme.floating.normal.color "#$back"
+hc attr theme.floating.border.width 6
+hc attr theme.background_color "#$back"
 
-hc set window_gap 0 #Gap between windows
+# Color for the inner frame
+hc attr theme.floating.inner_width 2
+hc attr theme.floating.active.inner_color "#$color5"
+hc attr theme.floating.normal.inner_color "#$back"
+
+
+hc set window_gap 2 #Gap between windows
 hc set frame_padding 0 # Gapp between windows and frames
-hc set smart_window_surroundings on 
+hc set smart_window_surroundings off
 hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0
 hc set hide_covered_windows on
@@ -199,6 +216,7 @@ hc rule class=kruler floating=on
 hc rule class=zoom floating=on
 hc rule class=Connman-gtk floating=on
 hc rule instance=calendar.txt floating=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
 
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on

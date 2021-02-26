@@ -13,18 +13,18 @@ xsetroot -cursor_name left_ptr &
 flameshot &
 sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 dunst &
-~/.local/dwmblocks & 
+#~/.local/dwmblocks & 
 xinput disable 11 &
 #fcitx5 -d &
 pcloud &
-dwm-msg run_command xrdb &
+#dwm-msg run_command xrdb &
 xset r rate 250 60 &
 export QT_QPA_PLATFORMTHEME="qt5ct"
 
 #exec dwm
 #while true; do
-#     ~/.local/dwm 2> /tmp/dwm.log 
+#	 ~/.local/dwm 2> /tmp/dwm.log 
 #     done
-#exec dwm
 exec herbstluftwm
-#exec dbus-launch --exit-with-session emacs -mm
+#exec stumpwm
+#exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/desktop.el

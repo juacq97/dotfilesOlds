@@ -17,8 +17,9 @@
 ;==========================================================
 
 [colors]
-background = #00000000
-foreground = #282C34
+background = ${xrdb:background}
+;foreground = #282C34
+foreground = ${xrdb:foreground}
 color0 = ${xrdb:color0} 
 color1 = ${xrdb:color1} 
 color2 = ${xrdb:color2} 
@@ -53,13 +54,13 @@ padding-right = 0
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Futura Bk BT:size=10:antialias=true;2
+font-0 = Urbanist:size=10:antialias=true;2
 font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;3
 font-2 = Weather Icons:size=12;3
 
 modules-left = ewmh title
 modules-center = date
-modules-right = spotify clima pulseaudio battery network
+modules-right = spotify pulseaudio battery network
 tray-position = none
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -89,8 +90,8 @@ padding-right = 0
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Futura Bk BT:size=10:antialias=true;2
-font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;3
+font-0 = Urbanist:size=10:antialias=true;1
+font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;2
 font-2 = Weather Icons:size=12;3
 
 modules-left = active-ws ewmh title
@@ -114,7 +115,7 @@ enable-scroll = false
 
 format = <label-state>
 label-active = "󰑊"
-label-active-foreground = ${colors.color0}
+label-active-foreground = ${colors.color5}
 label-active-padding = 0
 
 label-occupied = "󰧞"
@@ -150,6 +151,7 @@ time-alt = %H:%M:%S
 
 format = <label>
 format-background = 
+format-prefix-foreground = ${colors.color1}
 format-foreground = 
 
 label = "%{A3:emacsclient -c -F '(quote (name . "agenda") (width  . 80) (height . 45) (left . 250) (top . 60))' -n -e "(agenda-frame)":} %date%, %time% %{A}"
@@ -167,14 +169,18 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-full = <ramp-capacity> <label-full>
 
 format-full-background = 
-format-full-foreground = ${colors.foreground}
+format-full-foreground = ${colors.color2}
 format-charging-background = 
-format-charging-foreground = ${colors.foreground}
+format-charging-foreground = ${colors.color2}
 format-discharging-background =
-format-discharging-foreground = ${colors.foreground}
+format-discharging-foreground = ${colors.color3}
 format-full-padding = 3
 format-charging-padding = 3
 format-discharging-padding = 3
+
+label-charging-foreground = ${colors.foreground}
+label-discharging-foreground = ${colors.foreground}
+label-full-foreground = ${colors.foreground}
 
 label-charging =  %percentage%%
 label-discharging = %percentage%%
@@ -227,6 +233,8 @@ format-muted = <label-muted>
 label-volume = %percentage%%
 label-muted = 󰝟 %percentage%%
 
+ramp-volume-foreground= ${colors.color6}
+
 ramp-volume-0 = 󰕿
 ramp-volume-1 = 󰖀
 ramp-volume-2 = 󰕾
@@ -243,9 +251,10 @@ format-connected = <ramp-signal>
 format-disconnected = <label-disconnected>
 label-disconnected = 󰤭
 
-format-connected-foreground = ${colors.foreground} 
-format-disconnected-foreground = ${colors.foreground} 
+format-connected-foreground = ${colors.color5} 
+format-disconnected-foreground = ${colors.color7} 
 label-disconnected-foreground = ${colors.foreground}
+
 
 format-connected-padding = 3
 format-disconnected-padding = 3
@@ -262,20 +271,14 @@ ramp-signal-3 = "%{A1:connman-gtk:}󰤨%{A}"
 
 click-right = "if [ $(pgrep pavucontrol) ]; then pkill pavucontrol; else pavucontrol; fi"
 
-[module/clima]
-type = custom/script
-exec = ~/.config/polybar/scripts/openweathermap-detailed.sh
-interval = 600
-label-font = 3
-label-padding = 3
-label-foreground = ${colors.foreground}
-
 [module/spotify]
 type = custom/script
 tail = true
 exec = playerctl metadata --format "{{ title }} - {{ artist }}"
 format-padding = 3
+label = %output:0:100:...%
 format-prefix = "󰓇 "
+format-prefix-foreground = #1DB954
 format-foreground = ${colors.foreground}
 
 
@@ -285,10 +288,10 @@ screenchange-reload = true
 compositing-background = screen
 compositing-foreground = source
 ;compositing-border = over
-;pseudo-transparency = false
+pseudo-transparency = true
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+margin-top = 0
+margin-bottom = 0
 
 ; vim:ft=dosini

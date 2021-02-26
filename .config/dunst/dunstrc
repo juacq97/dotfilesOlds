@@ -23,7 +23,7 @@
 [global]
    frame_width = 1
     #font = JetBrains Mono 10
-    font = Futura BK Bt 11
+    font = Urbanist 11
     follow = none
     
     # Allow a small subset of html markup:

@@ -1,4 +1,7 @@
 ;; Profile emacs startup
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
 (add-hook 'emacs-startup-hook
 	  (lambda ()
 	    (message "*** Emacs loaded in %s with %d garbage collections."
@@ -14,8 +17,8 @@
 
   (package-initialize)
 
-  (add-to-list 'load-path "~/.emacs.d/modes")
-
+  (add-to-list 'load-path "~/.emacs.d/modes/")
+  (add-to-list 'load-path "~/.repos/nano-emacs")
   ;; If not here, install use-package
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
@@ -39,6 +42,7 @@
 
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
+                org-agenda-mode-hook
                 term-mode-hook
                 shell-mode-hook
                 treemacs-mode-hook
@@ -46,51 +50,66 @@
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (show-paren-mode t)
- (blink-cursor-mode 0) ; Disable the blinking
- ;; Press y/n instead of the whole word
- (defalias 'yes-or-no-p 'y-or-n-p)
- ;; Scroll line by line. Cursor doesn't stays at the center of the screen
- (setq scroll-conservatively 100)
- ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
- (setq make-backup-files nil) 
- (setq backup-directory-alist
-       `((".*" . ,"~/.emacs.d/backups/")))
- (setq auto-save-file-name-transforms
-       `((".*" ,"~/.emacs.d/backups/")))
- (setq auto-save-list-file-prefix nil)
- (setq auto-save-default nil)
+     (blink-cursor-mode 0) ; Disable the blinking
+     ;; Press y/n instead of the whole word
+     (defalias 'yes-or-no-p 'y-or-n-p)
+     ;; Scroll line by line. Cursor doesn't stays at the center of the screen
+     (setq scroll-conservatively 100)
+     ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
+     (setq make-backup-files nil) 
+     (setq backup-directory-alist
+           `((".*" . ,"~/.emacs.d/backups/")))
+     (setq auto-save-file-name-transforms
+           `((".*" ,"~/.emacs.d/backups/")))
+     (setq auto-save-list-file-prefix nil)
+     (setq auto-save-default nil)
 
- ;; This function allows to quicky open this file
- ;; TODO: MOVE THIS TO ANOTHER PLACE
- (defun config-visit ()
-   (interactive)
-   (find-file "~/.emacs.d/config.org"))
- (global-set-key (kbd "C-c e") 'config-visit)
+     ;; This function allows to quicky open this file
+     ;; TODO: MOVE THIS TO ANOTHER PLACE
+     (defun config-visit ()
+       (interactive)
+       (find-file "~/.emacs.d/config.org"))
+     (global-set-key (kbd "C-c e") 'config-visit)
 
-;; Updates the config fiel with C-c r
- (defun config-reload ()
-   (interactive)
-   ;(org-babel-load-file "~/.repos/dotfiles/.emacs.d/config.org"))
-   (load-file user-init-file))
- (global-set-key (kbd "C-c r") 'config-reload)
+    ;; Updates the config fiel with C-c r
+     (defun config-reload ()
+       (interactive)
+       ;(org-babel-load-file "~/.repos/dotfiles/.emacs.d/config.org"))
+       (load-file user-init-file))
+     (global-set-key (kbd "C-c r") 'config-reload)
 
- ;; The text nevers goes outside from the buffer
- (global-visual-line-mode 1)
+     ;; The text nevers goes outside from the buffer
+     (global-visual-line-mode 1)
 
- ;; Disables the ugly splash screen and the scratch message.
- (setq inhibit-splash-screen t)
- (setq initial-scratch-message nil)
- ;(setq initial-major-mode (quote org-mode))
+     ;; Disables the ugly splash screen and the scratch message.
+     (setq inhibit-splash-screen t)
+     (setq initial-scratch-message nil)
+     ;(setq initial-major-mode (quote org-mode))
 
- ;; With this, emacs will not ask if I want to edit the symlink every time
- (setq vc-follow-symlinks nil)
+     ;; With this, emacs will not ask if I want to edit the symlink every time
+     (setq vc-follow-symlinks nil)
 
- ;; This is necessary on +27 to write accents. They say it's a feature... but for who?
- (require 'iso-transl)
+     ;; This is necessary on +27 to write accents. They say it's a feature... but for who?
+     (require 'iso-transl)
 
-(set-face-attribute 'default nil :family "Source Code Pro" :height 95)
+;; When a split is done, follow it.
+  (defun split-and-follow-horizontally ()
+    (interactive)
+    (split-window-below)
+    (balance-windows)
+    (other-window 1))
+  (global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
+
+  (defun split-and-follow-vertically ()
+    (interactive)
+    (split-window-right)
+    (balance-windows)
+    (other-window 1))
+  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+
+(set-face-attribute 'default nil :family "Source Code Pro" :height 100)
 (set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
-(set-face-attribute 'variable-pitch nil :family "Ubuntu")
+(set-face-attribute 'variable-pitch nil :family "Urbanist")
 
 (use-package undo-tree
   :ensure t
@@ -173,40 +192,54 @@
 ;;  (define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
 
 (use-package doom-modeline
-  :ensure t
-  :config
-  (setq doom-modeline-height 25)
-  (setq doom-modeline-bar-width 4)
-  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-  (setq doom-modeline-icon t)
-  (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-modal-icon t)
-  (setq doom-modeline-major-mode-color-icon t)
-  (setq doom-modeline-minor-modes nil)
-  (setq doom-modeline-buffer-encoding nil)
-  (setq doom-modeline-enable-word-count t)
-  (setq doom-modeline-checker-simple-format t)
-  (setq doom-modeline-persp-name t)
-  (setq doom-modeline-lsp nil)
-  (setq doom-modeline-github t)
-  (setq doom-modeline-github-interval (* 30 60))
-  (setq doom-modeline-env-version t)
-  (setq doom-modeline-env-enable-python t)
-  (setq doom-modeline-env-enable-ruby t)
-  (setq doom-modeline-env-enable-perl t)
-  (setq doom-modeline-env-enable-go t)
-  (setq doom-modeline-env-enable-elixir t)
-  (setq doom-modeline-env-enable-rust t)
-  (setq doom-modeline-env-python-executable "python")
-  (setq doom-modeline-env-ruby-executable "ruby")
-  (setq doom-modeline-env-perl-executable "perl")
-  (setq doom-modeline-env-go-executable "go")
-  (setq doom-modeline-env-elixir-executable "iex")
-  (setq doom-modeline-env-rust-executable "rustc")
-  (setq doom-modeline-mu4e t)
-  (setq doom-modeline-irc t)
-  (setq doom-modeline-irc-stylize 'identity))
+    :ensure t
+    :config
+    (add-hook 'window-selection-change-functions #'doom-modeline-set-selected-window)
+    (setq doom-modeline-height 25)
+    (setq doom-modeline-bar-width 4)
+    (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+    (setq doom-modeline-icon t)
+    (setq doom-modeline-major-mode-icon t)
+    (setq doom-modeline-modal-icon t)
+    (setq doom-modeline-major-mode-color-icon t)
+    (setq doom-modeline-minor-modes nil)
+    (setq doom-modeline-buffer-encoding nil)
+    (setq doom-modeline-enable-word-count t)
+    (setq doom-modeline-checker-simple-format t)
+    (setq doom-modeline-persp-name t)
+    (setq doom-modeline-lsp nil)
+    (setq doom-modeline-github t)
+    (setq doom-modeline-github-interval (* 30 60))
+    (setq doom-modeline-env-version t)
+    (setq doom-modeline-env-enable-python t)
+    (setq doom-modeline-env-enable-ruby t)
+    (setq doom-modeline-env-enable-perl t)
+    (setq doom-modeline-env-enable-go t)
+    (setq doom-modeline-env-enable-elixir t)
+    (setq doom-modeline-env-enable-rust t)
+    (setq doom-modeline-env-python-executable "python")
+    (setq doom-modeline-env-ruby-executable "ruby")
+    (setq doom-modeline-env-perl-executable "perl")
+    (setq doom-modeline-env-go-executable "go")
+    (setq doom-modeline-env-elixir-executable "iex")
+    (setq doom-modeline-env-rust-executable "rustc")
+    (setq doom-modeline-mu4e t)
+    (setq doom-modeline-irc t)
+    (setq doom-modeline-irc-stylize 'identity))
 (doom-modeline-mode 1)
+
+;;(use-package spaceline
+;;  :ensure t
+;;  :config
+;;  (setq spaceline-minor-modes-p nil)
+;;  (setq powerline-default-separator 'bar)
+;;  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+;;  (set-face-attribute 'spaceline-evil-normal nil :foreground "#1a1c23")
+;;  (set-face-attribute 'spaceline-evil-insert nil :foreground "#1a1c23")
+;;  (set-face-attribute 'spaceline-evil-visual nil :foreground "#1a1c23")
+;;  (set-face-attribute 'spaceline-evil-replace nil :foreground "#1a1c23")
+;;  (set-face-attribute 'spaceline-evil-emacs nil :foreground "#1a1c23")
+;;  (spaceline-spacemacs-theme))
 
 (use-package which-key
   :defer 0
@@ -294,9 +327,13 @@
 
 (use-package counsel
   :ensure t
+  :custom
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :bind (
-	 ("M-x" . counsel-M-x)
-	 ("C-x C-f" . counsel-find-file))
+         ("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file)
+         ("C-x b" . counsel-switch-buffer))
+
   :config
   (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
   (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
@@ -319,28 +356,30 @@
   :config
   (setq projectile-project-search-path '("~/.repos" "/mnt/Data/Drive/CIMB/PLANEACIONES")))
 
-(use-package fortune-cookie
-  :ensure t
-  :custom
-  (fortune-dir "/usr/share/fortunes"))
-
-(use-package dashboard
-  :ensure t
-  :config
-  (dashboard-setup-startup-hook)
-  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-  (setq dashboard-banner-logo-title "Welcome to Emacs")
-  (setq dashboard-startup-banner 'logo)
-  (setq dashboard-show-shortcuts nil)
-  (setq dashboard-set-init-info nil)
-  (setq dashboard-items '(
-			  (bookmarks . 5)
-			  (projects . 5)
-			  (agenda . 5)))
-  (setq dashboard-center-content t)
-  (setq dashboard-page-separator "\n\n")
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t))
+;;  (use-package fortune-cookie
+;;    :ensure t
+;;    :custom
+;;    (fortune-dir "/usr/share/fortunes"))
+;;
+;;  (use-package dashboard
+;;    :ensure t
+;;    :config
+;;    (dashboard-setup-startup-hook)
+;;    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+;;    (setq dashboard-banner-logo-title "Welcome to Emacs")
+;;    (setq dashboard-startup-banner 'logo)
+;;    (setq dashboard-show-shortcuts nil)
+;;    (setq dashboard-set-init-info nil)
+;;    (setq dashboard-footer-messages nil)
+;;    (setq dashboard-banner-logo-title nil)
+;;    (setq dashboard-items '(
+;;                            (bookmarks . 5)
+;;                            (projects . 5)
+;;                            (agenda . 5)))
+;;    (setq dashboard-center-content t)
+;;    (setq dashboard-page-separator "\n\n")
+;;    (setq dashboard-set-heading-icons t)
+;;    (setq dashboard-set-file-icons t))
 
 (use-package doom-themes
   :ensure t
@@ -360,6 +399,9 @@
   (setq modus-operandi-theme-slanted-constructs t)
   (setq modus-operandi-theme-syntax 'alt-syntax))
 
+;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+;; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+
 (use-package heaven-and-hell
   :ensure t
   :init
@@ -367,7 +409,7 @@
   (setq heaven-and-hell-load-theme-no-confirm t)
   (setq heaven-and-hell-themes
 	'((light . doom-one-light)
-	  (dark . doom-one)))
+	  (dark . doom-horizon)))
   :hook (after-init . heaven-and-hell-init-hook)
   :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
 	 ("<f7>" . heaven-and-hell-toggle-theme)))
@@ -548,7 +590,7 @@
     :config
     ;;(add-hook 'org-mode-hook 'my/org-font-setup)
     ;; Removes the ellipsis at the end and replaces it with a string
-    (setq org-ellipsis " ●")
+    (setq org-ellipsis " ⤾")
 
     ;; If you have many subtask, when you mark it as DONE, the main task remain unchaged. With this function, if all the subtask are marked as DONE, the main task is marked as well.
     (defun org-summary-todo (n-done n-not-done)
@@ -624,24 +666,28 @@
 
  (defun my/org-enable-prettify ()
    (setq prettify-symbols-alist
-	 '(("TODO" . ?❗)
-	   ("DONE" . ?✔)
-	   ("PROJ" . ?✎)
-	   ("WAIT" . ?⌛)
-	   ("NEXT" . ?➠)
-	   ("EVENTO" . ?)
-	   ("DROP" . ?✖)
-	   ("EMISION" . ?✒)
-	   ("FINALIZADO" . ?✔)
-	   ("LIKE" . ?❤)
-	   ("CANCELADO" . ?✘)))
+         '(("TODO" . ?❗)
+           ("DONE" . ?✔)
+           ("PROJ" . ?✎)
+           ("WAIT" . ?⌛)
+           ("NEXT" . ?➠)
+           ("EVENTO" . ?)
+           ("DROP" . ?✖)
+           ("EMISION" . ?✒)
+           ("FINALIZADO" . ?✔)
+           ("LIKE" . ?❤)
+           ("CANCELADO" . ?✘)
+           (":@trabajo:" . ?⚒)
+           (":@personal:" . ?⛷)
+           (":@trabajo::" . ?⚒)
+           (":@personal::" . ?⛷)))
    (prettify-symbols-mode 1))
  (add-hook 'org-mode-hook 'my/org-enable-prettify)
 
 ;; This hook enables org-superstar 
  (add-hook 'org-mode-hook
-	   (lambda ()
-	     (org-superstar-mode 1)))
+           (lambda ()
+             (org-superstar-mode 1)))
 
 (use-package org-tree-slide
   :ensure t
@@ -695,50 +741,48 @@
 ;; Activate hl-line-mode on agenda buffers
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
-(add-hook 'org-agenda-hook
-	  (lambda ()
-	    (global-display-line-numbers nil)))
+(add-hook 'org-agenda-show-hook 'variable-pitch-mode 1)
 
 ;; Removes the ~======~ between blocks. It's ugly IMO
 (setq org-agenda-block-separator (string-to-char " "))
 
 ;;Remove ths strings ~SCHEDULED:~ and ~DEADLINE:~ 
 (setq org-agenda-scheduled-leaders '(" " " "))
-(setq org-agenda-deadline-leaders '(" " "En %d días: " "Hace %d días: "))
+(setq org-agenda-deadline-leaders '("⏰" "En %d días: " "Hace %d días: "))
 
 ;; Custom fonts! I'm using Ubuntu fonts here... I'm not sure why.
 (custom-theme-set-faces 'user
-			  '(org-agenda-date-today ((t (:weight ultra-bold :height 130 :family "Ubuntu")))) ; Today
-			  '(org-agenda-structure ((t (:underline t :weight bold :height 200 :width normal :family "Ubuntu")))) ; Titles
-			  '(org-agenda-calendar-event ((t (:family "Ubuntu" :inherit (default))))));Rest of the text
+                        '(org-agenda-date-today ((t (:weight bold :height 130)))) ; Today
+                        '(org-agenda-structure ((t (:underline t :weight bold :height 200 :width normal)))) ; Titles
+                        '(org-agenda-calendar-event ((t (:inherit (default)))))
+                        '(org-agenda-calendar-sexp ((t (:inherit (default))))));Rest of the text
 
 (setq org-agenda-custom-commands
-	'(("o" "My Agenda"
-	   ((todo "TODO" (
-			  (org-agenda-overriding-header " Tareas:\n")
-			  (tags-todo "TODO")
-			  (org-agenda-remove-tags t)
-			  (org-agenda-prefix-format "%T %?-s")
-			  (org-agenda-todo-keyword-format "")))
-	    (agenda "" (
-			(org-agenda-overriding-header "  Eventos:\n")
-			(org-agenda-skip-scheduled-if-done t)
-			(org-agenda-skip-timestamp-if-done t)
-			(org-agenda-skip-deadline-if-done t)
-			(org-agenda-skip-deadline-prewarning-if-scheduled t)
-			(org-agenda-start-day "+0d")
-			(org-agenda-span 3)
-			(org-agenda-prefix-format "  %?-t %T %?-5s")
-			(org-agenda-repeating-timestamp-show-all nil)
-			(org-agenda-remove-tags t)
-			;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator))
-)
-		    (org-agenda-todo-keyword-format " -> ")
-		    (org-agenda-time)
-		    (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈ ahora")
-		    (org-agenda-deadline-leaders '("" ""))
-		    (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-	    ))))
+      '(("o" "My Agenda"
+         ((agenda "" (
+                      (org-agenda-overriding-header "   Eventos:\n")
+                      (org-agenda-skip-scheduled-if-done t)
+                      (org-agenda-skip-timestamp-if-done t)
+                      (org-agenda-skip-deadline-if-done t)
+                      (org-agenda-skip-deadline-prewarning-if-scheduled t)
+                      (org-agenda-start-day "+0d")
+                      (org-agenda-span 7)
+                      (org-agenda-prefix-format "  %?-t %T %?-5s")
+                      (org-agenda-repeating-timestamp-show-all nil)
+                      ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
+                      (org-agenda-remove-tags t))
+                  (org-agenda-todo-keyword-format " -> ")
+                  (org-agenda-time)
+                  (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈ ahora")
+                  (org-agenda-deadline-leaders '("" ""))
+                  (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
+          (todo "TODO" (
+                        (org-agenda-overriding-header "  Tareas:\n")
+                        (tags-todo "TODO")
+                        (org-agenda-remove-tags t)
+                        (org-agenda-todo-ignore-scheduled 'future)
+                        (org-agenda-prefix-format "%T %?-s")
+                        (org-agenda-todo-keyword-format "")))))))
 
 (defun agenda-frame ()
   (interactive)
@@ -803,50 +847,76 @@
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
 
-(use-package eshell-git-prompt
-      :after eshell
-      :ensure t
-      :config
-      (set-face-attribute 'eshell-git-prompt-branch-face nil :foreground "#000000")
-)
-    
+(use-package fish-completion
+     :after esh-mode
+     :ensure t
+   :hook (eshell-mode . fish-completion-mode))
 
+   (use-package eshell-syntax-highlighting
+   :ensure t
+   :after esh-mode
+   :config
+   (eshell-syntax-highlighting-global-mode +1))
 
-      (use-package fish-completion
-      :after esh-mode
-      :ensure t
-    :hook (eshell-mode . fish-completion-mode))
-  
-    (use-package eshell-syntax-highlighting
-    :ensure t
-    :after esh-mode
-    :config
-    (eshell-syntax-highlighting-global-mode +1))
-  
-  (use-package esh-autosuggest
-  :ensure t
-    :hook (eshell-mode . esh-autosuggest-mode))
+ (use-package esh-autosuggest
+ :ensure t
+   :hook (eshell-mode . esh-autosuggest-mode))
 
-    (use-package eshell-toggle
-    :ensure t
-    :bind ("<f4>" . eshell-toggle)
-    :custom
-    (eshell-toggle-size-fraction 3)
-    (eshell-toggle-use-projectile-root t)
-    (eshell-toggle-run-command nil))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-one-light))
- '(package-selected-packages
-   '(yaml-mode yasnippet writeroom-mode which-key vterm use-package unicode-fonts undo-tree undo-fu typescript-mode transmission smartparens rg rainbow-mode rainbow-delimiters pyvenv python-mode powerline pdf-tools ox-pandoc org-tree-slide org-superstar org-bullets no-littering network-watch modus-vivendi-theme modus-operandi-theme memoize markdown-mode magit luarocks lua-mode ivy-prescient hydra hide-mode-line helpful heaven-and-hell ghub general fortune-cookie fish-completion exwm ewal-doom-themes evil-org evil-ledger evil-collection eshell-toggle eshell-syntax-highlighting eshell-git-prompt esh-autosuggest emacsql easy-hugo doom-modeline dired-subtree dired-single dired-open dired-hide-dotfiles dashboard counsel-projectile company-box command-log-mode color-theme-sanityinc-tomorrow calfw-org calfw burly bug-hunter auto-package-update all-the-icons-ivy-rich all-the-icons-dired adoc-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-calendar-event ((t (:family "Ubuntu" :inherit (default)))))
- '(org-agenda-date-today ((t (:weight ultra-bold :height 130 :family "Ubuntu"))))
- '(org-agenda-structure ((t (:underline t :weight bold :height 200 :width normal :family "Ubuntu")))))
+   (use-package eshell-toggle
+   :ensure t
+   :bind ("<f4>" . eshell-toggle)
+   :custom
+   (eshell-toggle-size-fraction 3)
+   (eshell-toggle-run-command nil))
+
+(use-package eshell
+  :ensure nil
+  :config
+  (setq eshell-banner-message (propertize (concat (shell-command-to-string "fortune-es") "\n\n") 'face `(:Weight 'bold :inherit 'eshell-ls-directory))))
+
+(use-package pdftools
+  :ensure t)
+
+(use-package org-noter
+  :config
+  ;; Your org-noter config ........
+  (require 'org-noter-pdftools))
+
+(use-package org-pdftools
+  :hook (org-mode . org-pdftools-setup-link))
+
+(use-package org-noter-pdftools
+  :after org-noter
+  :config
+  ;; Add a function to ensure precise note is inserted
+  (defun org-noter-pdftools-insert-precise-note (&optional toggle-no-questions)
+    (interactive "P")
+    (org-noter--with-valid-session
+     (let ((org-noter-insert-note-no-questions (if toggle-no-questions
+                                                   (not org-noter-insert-note-no-questions)
+                                                 org-noter-insert-note-no-questions))
+           (org-pdftools-use-isearch-link t)
+           (org-pdftools-use-freestyle-annot t))
+       (org-noter-insert-note (org-noter--get-precise-info)))))
+
+  ;; fix https://github.com/weirdNox/org-noter/pull/93/commits/f8349ae7575e599f375de1be6be2d0d5de4e6cbf
+  (defun org-noter-set-start-location (&optional arg)
+    "When opening a session with this document, go to the current location.
+With a prefix ARG, remove start location."
+    (interactive "P")
+    (org-noter--with-valid-session
+     (let ((inhibit-read-only t)
+           (ast (org-noter--parse-root))
+           (location (org-noter--doc-approx-location (when (called-interactively-p 'any) 'interactive))))
+       (with-current-buffer (org-noter--session-notes-buffer session)
+         (org-with-wide-buffer
+          (goto-char (org-element-property :begin ast))
+          (if arg
+              (org-entry-delete nil org-noter-property-note-location)
+            (org-entry-put nil org-noter-property-note-location
+                           (org-noter--pretty-print-location location))))))))
+  (with-eval-after-load 'pdf-annot
+    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))

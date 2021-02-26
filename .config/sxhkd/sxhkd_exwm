@@ -1,0 +1,179 @@
+#
+#
+#                  ██      ██          ██
+#                 ░██     ░██         ░██
+#   ██████ ██   ██░██     ░██  ██     ░██
+#  ██░░░░ ░░██ ██ ░██████ ░██ ██   ██████
+# ░░█████  ░░███  ░██░░░██░████   ██░░░██
+#  ░░░░░██  ██░██ ░██  ░██░██░██ ░██  ░██
+#  ██████  ██ ░░██░██  ░██░██░░██░░██████
+# ░░░░░░  ░░   ░░ ░░   ░░ ░░  ░░  ░░░░░░ 
+#
+###############################################
+
+########################
+# Aplicaciones
+########################
+
+super + shift + i
+    dmenuunicode
+
+super + a
+      emacsclient -c -F '(quote (name . "agenda") (width  . 80) (height . 45) (left . 250) (top . 60))' -n -e "(agenda-frame)"
+
+super + F7
+    toggle-colorscheme
+
+#Terminal
+super + Return
+#      st 
+#	emacsclient -c -F '(quote (name . "eshell"))' -e "(eshell)"
+#	emacsclient -ca ""
+
+super + control + Return
+    alacritty
+
+#super + shift + Return
+#	emacsclient -c -F '(quote (name . "eshell"))' -e "(eshell)"
+
+
+# App menu
+super + space
+#     ~/.local/bin/dmenu_run_history -h 24 -i
+#      rofi -show drun -theme style7
+
+#super + r
+##    ~/.local/bin/dmenu_run_history -h 24 -i -l 15
+#     ~/.local/bin/dmenu_run_history -h 24 -i -l 15 -x 6 -y 4 -w 1588
+
+
+## Firefox
+super + F2
+      librewolf
+#super + w
+#      ~/.local/bin/links-dmenu
+
+#File Manager
+super + f
+#	alacritty -e lf
+#	alacritty -e nnn
+#	emacsclient -c -F '(quote (name . "dired"))' -n -e "(dired nil)"
+
+super + shift + f
+      pcmanfm
+
+#Spotify
+super + F5
+      spotify
+
+#Emacsclient
+super + e
+#      emacsclient -c
+#	st -e nvim
+
+super + ctrl + t
+      ~/.local/bin/planeaciones
+
+# Newsboat
+#super + n
+##      st -e ~/.local/bin/newsboat-run
+#       st -e newsboat
+
+#htop
+super + F4
+#      st -e ~/.local/bin/htop-run
+      st -e htop
+
+#Screenshots
+Print
+	flameshot gui
+super + shift + Print	
+      flameshot gui -d 2000
+super + Print	
+      flameshot full -c
+
+##Audio
+XF86AudioMute
+	pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle ; sigdwmblocks 4
+XF86AudioLowerVolume
+	pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -2% ; sigdwmblocks 4
+XF86AudioRaiseVolume
+	pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +2% ; sigdwmblocks 4
+XF86AudioPlay
+	playerctl play-pause ; sigdwmblocks 6
+XF86AudioNext
+	playerctl next ; sigdwmblocks 6
+XF86AudioPrev
+	playerctl previous ; sigdwmblocks 6
+XF86AudioStop
+	playerctl stop ; sigdwmblocks 6
+XF86AudioMicMute
+	amixer set Capture toggle
+
+# Subir brillo
+#XF86MonBrightnessUp
+#	light -A 5 & notify-send -a "Brillo" "$(light -G)"
+#
+## Bajar brillo
+#XF86MonBrightnessDown
+#	light -U 5 & notify-send -a "Brillo" "$(light -G)"
+
+
+# bloquear teclado
+XF86ScreenSaver
+	betterlockscreen --lock blur
+
+# Reiniciar sxhdk 
+super + shift + r
+      pkill -USR1 -x sxhkd
+
+
+
+##########################
+# .Local/Bin
+##########################
+
+#Montar USB
+super + u
+      ~/.local/bin/usb-montar
+
+#Extraer USB
+super + shift + u
+      ~/.local/bin/usb-extraer
+
+#Kde-connect
+super + shift + p
+      ~/.local/bin/kdeconnect-dmenu
+
+#Apagar
+XF86Launch1
+      ~/.local/bin/apagar
+#       clearine 
+
+#Apagar
+super + F12
+      ~/.local/bin/apagar
+#       clearine 
+
+# Clipboard
+super + ctrl + p
+      clipmenu
+
+super + ctrl + alt + p
+      passmenu2
+
+# Monitores
+XF86Display
+      ~/.local/bin/monitores
+XF86Explorer
+      ~/.local/bin/monitores
+
+# Pacman-dmenu
+super + alt + p
+      ~/.local/bin/pacwrap
+
+super + d
+    ~/.local/bin/diario nuevo
+
+super + shift + d
+    ~/.local/bin/diario lista

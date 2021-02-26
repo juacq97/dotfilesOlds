@@ -1,7 +1,7 @@
-#! /bin/sh
+#!/bin/bash
 
 bring () {
-    wind=$(wmctrl -l | cut -f5- -d' ' | dmenu -i -p "Bring:")
+    wind=$(wmctrl -l | cut -f5- -d' ' | dmenu -i -l 10 -p "Bring:")
 
     if [ "$wind" == "" ]; then
    	exit 0 #si se presiona ESC, el script termina
@@ -15,8 +15,26 @@ bring () {
     fi
 }
 
+both () {
+    sel=$((wmctrl -lx | cut -d. -f2 | sed "s/^/=w\ /g" ; echo "=================================="; emacs --batch --eval "(require 'server)" --eval "(mapc #'print (read (server-eval-at \"server\" '(format \"%s\" (mapcar (lambda (buffer) (format \"\\\"%s\\\"\n\" buffer)) (buffer-list))))))" | sed '/^$/d; s/^"//g; s/"$//g') | dmenu -l 20)
+
+    if [[ "${sel:0:3}" == "=w " ]]; then
+    # Emacs output has a lot
+        newsel=$(echo $sel | cut -f4- -d' ')
+    	id=$(wmctrl -l | grep "$newsel" | cut -f1 -d' ')
+	echo $id
+    	herbstclient bring $id
+    else
+	buf=$(echo "'(switch-to-buffer \"$sel\")'")
+	echo $buf
+	emacsclient -c -e '(switch-to-buffer \"$sel\")'
+    fi
+    
+    
+    }
+
 follow () {
-    wind=$(wmctrl -l | cut -f5- -d' ' | dmenu -i -p "Follow:")
+    wind=$(wmctrl -l | cut -f5- -d' ' | dmenu -i -l 10 -p "Follow:")
     if [ "$wind" == "" ]; then
    	exit 0 #si se presiona ESC, el script termina
     else
@@ -29,9 +47,17 @@ follow () {
     fi
 }
 
+ebuff () {
+eb=$(emacs --batch --eval "(require 'server)" --eval "(mapc #'print (read (server-eval-at \"server\" '(format \"%s\" (mapcar (lambda (buffer) (format \"\\\"%s\\\"\n\" buffer)) (buffer-list))))))" | sed '/^$/d; s/^"//g; s/"$//g' | dmenu -l 20)
+sel=$(echo "'(switch-to-buffer \"$eb\")'")
+echo $sel
+emacsclient -c -e "$sel"
+    }
+
 case $1 in
     "bring") bring;;
     "follow") follow;;
+    "emacs") ebuff;;
     *) echo "use 'bring' or 'follow'";;
 esac
 

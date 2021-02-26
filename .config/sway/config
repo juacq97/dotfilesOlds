@@ -40,11 +40,11 @@ client.urgent		 #E5C07B  #E5C07B  #282C34  #E5C07B  #E5C07B
 #No more xinitrc 
 
 exec_always xrdb  ~/.Xresources &
-exec /usr/lib/kdeconnectd &
+#exec /usr/lib/kdeconnectd &
 exec_always mako & 
 #exec ibus-daemon -drx &
-exec fcitx5 &
-exec pcloud &
+#exec fcitx5 &
+#exec pcloud &
 exec_always waybar-restart &
 exec gammastep &
 exec wl-paste -t text --watch clipman store & 

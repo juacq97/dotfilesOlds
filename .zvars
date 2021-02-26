@@ -3,7 +3,7 @@
 # Colorschemes OwO
 
 export LIGHT_THEME="one-light"
-export DARK_THEME="one-dark"
+export DARK_THEME="horizon"
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket #necesario para nvim --remote
 export QT_QPA_PLATFORMTHEME="qt5ct" # Necesario para apps qt

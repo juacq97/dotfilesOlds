@@ -20,6 +20,7 @@ xrdb ~/.Xresources
 
 
 [[ $(pgrep dwm) ]]  && dwm-msg run_command xrdb
+[[ $(pgrep herbstluftwm) ]] && herbstclient reload
 
 # Change emacs colorscheme if emacsclient is running. You need to manually set the theme in your init.el since is too much easier instead of send commands to the emacs server from terminal. It needs the heaven and hell package.
 if [ "$pgrep emacs" ]; then

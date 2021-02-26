@@ -103,7 +103,7 @@ element-text {
 }
 
 element selected {
-    background-color:  @cursorColor;
+    background-color:  @color5;
     text-color:        #fafafa;
 	border:	       0% 0% 0% 0%;
     border-radius:     12px;

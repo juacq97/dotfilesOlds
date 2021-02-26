@@ -43,8 +43,7 @@ super + shift + Return
 # App menu
 super + space
 #     ~/.local/bin/dmenu_run_history -h 24 -i
-#      rofi -show drun -theme style7
-      j4-dmenu-desktop --dmenu="dmenu -i -l 15" --display-binary --usage-log="/home/juan/.cache/j4-cache"
+      rofi -show drun -theme style7
 
 #super + r
 ##    ~/.local/bin/dmenu_run_history -h 24 -i -l 15
@@ -53,7 +52,7 @@ super + space
 
 ## Firefox
 super + F2
-      librewolf
+      firefox
 super + w
       ~/.local/bin/links-dmenu
 
