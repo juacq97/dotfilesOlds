@@ -1,6 +1,6 @@
 set $background #1C1E27
 set $foreground #CACACC
-set $cursorColor #CACACC
+set $cursorColor #E95678
 set $color0 #6C6F93
 set $color1 #E4436F
 set $color2 #24E39D

@@ -1,0 +1,17 @@
+#!/usr/bin/python
+
+import argparse
+import spotify_lyrics_cli
+
+def main():
+    parser = argparse.ArgumentParser(description="Display lyrics automatically")
+    parser.add_argument("player", type=str, help="e.g. spotify,vlc,...")
+    parser.add_argument("--nocheck", action="store_true", help="Don't check "
+                        "if the first google link actually is the desired song")
+    args = parser.parse_args()
+    artist, title = spotify_lyrics_cli.get_song_info(args.player)
+    print("%s - %s\n" % (artist.upper(), title.upper()))
+    print(spotify_lyrics_cli.get_lyrics_genius(artist, title, nocheck=args.nocheck))
+
+if __name__ == "__main__":
+    main()

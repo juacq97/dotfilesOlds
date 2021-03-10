@@ -1,7 +1,7 @@
 !Horizon
 #define bg     #1C1E27
 #define fg     #CACACC
-#define cursor #CACACC
+#define cursor #E95678
 #define black   #6C6F93    
 #define red   #E4436F    
 #define green   #24E39D    

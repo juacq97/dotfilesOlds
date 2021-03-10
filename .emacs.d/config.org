@@ -4,7 +4,7 @@
  I think it's done. The entire configuration, migrated. Time to try it. 
 
 * About this file
-This is my own Emacs configuration. I started to use emacs on september of 2018, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even doesn't understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. Shutouts to [[https://github.com/daviwil][David Wilson]], cretor of the channel SystemCrafters, [[https://cestlaz.github.io/][Mike Zamansky]], [[https://protesilaos.com/][Protesilaos Stavrou]] and specially, to [[https://www.youtube.com/channel/UCDEtZ7AKmwS0_GNJog01D2g][Uncle Dave]] since thanks to his videos I started to use and finally configure Emacs for the first time, that rainy september 2nd. of 2018.
+This is my own Emacs configuration. I started to use emacs on september of 2018, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even doesn't understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. Shutouts to [[https://github.com/daviwil][David Wilson]], creator of the channel SystemCrafters, [[https://cestlaz.github.io/][Mike Zamansky]], [[https://protesilaos.com/][Protesilaos Stavrou]] and specially, to [[https://www.youtube.com/channel/UCDEtZ7AKmwS0_GNJog01D2g][Uncle Dave]] since thanks to his videos I started to use and finally configure Emacs for the first time, that rainy september 2nd. of 2018.
 
 This is an ~org-mode~ file, so you can read it directly from emacs.
 
@@ -110,7 +110,7 @@ Here's some QOL configurations
      ;; Disables the ugly splash screen and the scratch message.
      (setq inhibit-splash-screen t)
      (setq initial-scratch-message nil)
-     ;(setq initial-major-mode (quote org-mode))
+     (setq initial-major-mode (quote org-mode))
 
      ;; With this, emacs will not ask if I want to edit the symlink every time
      (setq vc-follow-symlinks nil)
@@ -227,13 +227,15 @@ I'm migrating to general, a better way to do things, I thing
      "t"  '(:ignore t :which-key "toggles")
      "tt" '(counsel-load-theme :which-key "Choose theme")
      "k" '(kill-current-buffer :which-key "Kill buffer")
-     "b" '(counsel-switch-buffer :which-key "Switch buffer")
+     "b" '(ivy-switch-buffer :which-key "Switch buffer")
      "s" '(swiper :which-key "Swiper search")
      "p" '(counsel-projectile-find-file :which-key "Projectile, find file")
      "P" '(counsel-projectile-switch-project :which-key "Projectile, switch project")
      "g" '(magit :which-key "Magit")
      "v" '(visual-line-mode :which-key "Activate visual-line-mode")
      "c" '(org-capture :which-key "Capture with org")
+     "u" '(winner-undo :which-key "Undo layout")
+     "r" '(winner-redo :which-key "Redo layout")
      "RET" '((lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
      ))
 #+end_src
@@ -276,8 +278,7 @@ The default modeline it's fine, but ugly and with a lot of useless information f
       (setq doom-modeline-checker-simple-format t)
       (setq doom-modeline-persp-name t)
       (setq doom-modeline-lsp nil)
-      (setq doom-modeline-github t)
-      (setq doom-modeline-github-interval (* 30 60))
+      (setq doom-modeline-github nil)
       (setq doom-modeline-env-version t)
       (setq doom-modeline-env-enable-python t)
       (setq doom-modeline-env-enable-ruby t)
@@ -381,7 +382,7 @@ It's supossed to add completion, but does nothing.
     :ensure t
     :defer t
     :config
-    (company-mode 1))
+    (global-company-mode 1))
 #+end_src
 ** Helpful
 Add some extra text to the  =describe= buffers
@@ -456,7 +457,7 @@ Like ~grep~, but cooler. It needs ~ripgrep~ installed.
     :bind (
            ("M-x" . counsel-M-x)
            ("C-x C-f" . counsel-find-file)
-           ("C-x b" . counsel-switch-buffer))
+           ("C-x b" . ivy-switch-buffer))
 
     :config
     (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
@@ -549,8 +550,8 @@ A collection of themes designated for ~doom-emacs~.
 
 ** Transparency
 #+begin_src emacs-lisp
- ;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
- ;; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+;;  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+;;  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 #+end_src
 * Heaven and Hell
 This packages allow to quicky change between two themes. The recommended setup, a light and a dark theme.
@@ -960,12 +961,14 @@ Org-mode is a TODO and scheduling format. So it has an integrated agenda. You ca
 Let's define some basic stuff first
 #+begin_src emacs-lisp
   (setq org-directory "/mnt/Data/ORG") ; The directory of your files
-  (setq org-agenda-files '("/mnt/Data/ORG/TODO.org"))
+  (setq org-agenda-files '(
+                           "/mnt/Data/ORG/TODO.org"
+                           "~/testing-orgfiles.org"))
   (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
 
   ;; by default the agenda takes the current buffer. With this it'll create its own buffer
   (setq org-agenda-window-setup 'other-window)
-  (setq org-agenda-span 3) ; Only shows next 3 days
+  (setq org-agenda-span 7) ; Only shows next 3 days
   (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
   (setq org-agenda-start-with-log-mode t)
   (setq org-log-done 'time)
@@ -1004,6 +1007,7 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
   (setq org-agenda-custom-commands
         '(("o" "My Agenda"
            ((agenda "" (
+                        (org-agenda-files '("/mnt/Data/ORG/TODO.org"))
                         (org-agenda-overriding-header "   Eventos:\n")
                         (org-agenda-skip-scheduled-if-done t)
                         (org-agenda-skip-timestamp-if-done t)
@@ -1021,6 +1025,7 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                     (org-agenda-deadline-leaders '("" ""))
                     (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
             (todo "TODO" (
+                          (org-agenda-files '("/mnt/Data/ORG/TODO.org"))
                           (org-agenda-overriding-header "  Tareas:\n")
                           (tags-todo "TODO")
                           (org-agenda-remove-tags t)
@@ -1048,10 +1053,8 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
    Org-agenda shows your entries as a list. If you want a calendar view, then you need to rely on this awesome package called ~calfw~. To run it, run ~cfw:open-calendar-buffer~ or ~cfw:open-org-calendar~. 
    #+begin_src emacs-lisp
      (use-package calfw
-       :ensure t
-       :commands cfw:open-org-calendar)
+       :ensure t)
      (use-package calfw-org
-       :commands cfw:open-org-calendar
        :ensure t)
    #+end_src
 *** Org-capture
@@ -1140,7 +1143,7 @@ The Emacs shell! It works fine for simple tasks, and has an awesome integration 
   (use-package eshell
     :ensure nil
     :config
-    (setq eshell-banner-message (propertize (concat (shell-command-to-string "fortune-es") "\n\n") 'face `(:Weight 'bold :inherit 'eshell-ls-directory))))
+    (setq eshell-banner-message (concat (shell-command-to-string "fortune-es") "\n\n")))
 
 
 #+end_src
@@ -1148,54 +1151,88 @@ The Emacs shell! It works fine for simple tasks, and has an awesome integration 
 * pdftools
 PDF-tools is a better pdf viewer for emacs.
 #+begin_src emacs-lisp
-  (use-package pdftools
-    :ensure t)
+;  (use-package pdf-tools
+;    :ensure t)
 #+end_src
 ** org-pdftools
 Take notes with org mode!
 #+begin_src emacs-lisp
-  (use-package org-noter
-    :config
-    ;; Your org-noter config ........
-    (require 'org-noter-pdftools))
-
-  (use-package org-pdftools
-    :hook (org-mode . org-pdftools-setup-link))
-
-  (use-package org-noter-pdftools
-    :after org-noter
-    :config
-    ;; Add a function to ensure precise note is inserted
-    (defun org-noter-pdftools-insert-precise-note (&optional toggle-no-questions)
-      (interactive "P")
-      (org-noter--with-valid-session
-       (let ((org-noter-insert-note-no-questions (if toggle-no-questions
-                                                     (not org-noter-insert-note-no-questions)
-                                                   org-noter-insert-note-no-questions))
-             (org-pdftools-use-isearch-link t)
-             (org-pdftools-use-freestyle-annot t))
-         (org-noter-insert-note (org-noter--get-precise-info)))))
-
-    ;; fix https://github.com/weirdNox/org-noter/pull/93/commits/f8349ae7575e599f375de1be6be2d0d5de4e6cbf
-    (defun org-noter-set-start-location (&optional arg)
-      "When opening a session with this document, go to the current location.
-  With a prefix ARG, remove start location."
-      (interactive "P")
-      (org-noter--with-valid-session
-       (let ((inhibit-read-only t)
-             (ast (org-noter--parse-root))
-             (location (org-noter--doc-approx-location (when (called-interactively-p 'any) 'interactive))))
-         (with-current-buffer (org-noter--session-notes-buffer session)
-           (org-with-wide-buffer
-            (goto-char (org-element-property :begin ast))
-            (if arg
-                (org-entry-delete nil org-noter-property-note-location)
-              (org-entry-put nil org-noter-property-note-location
-                             (org-noter--pretty-print-location location))))))))
-    (with-eval-after-load 'pdf-annot
-      (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+  ;;(use-package org-noter
+  ;;  :config
+  ;;  ;; Your org-noter config ........
+  ;;  (require 'org-noter-pdftools))
+  ;;
+  ;;(use-package org-pdftools
+  ;;  :hook (org-mode . org-pdftools-setup-link))
+  ;;
+  ;;(use-package org-noter-pdftools
+  ;;  :after org-noter
+  ;;  :config
+  ;;  ;; Add a function to ensure precise note is inserted
+  ;;  (defun org-noter-pdftools-insert-precise-note (&optional toggle-no-questions)
+  ;;    (interactive "P")
+  ;;    (org-noter--with-valid-session
+  ;;     (let ((org-noter-insert-note-no-questions (if toggle-no-questions
+  ;;                                                   (not org-noter-insert-note-no-questions)
+  ;;                                                 org-noter-insert-note-no-questions))
+  ;;           (org-pdftools-use-isearch-link t)
+  ;;           (org-pdftools-use-freestyle-annot t))
+  ;;       (org-noter-insert-note (org-noter--get-precise-info)))))
+  ;;
+  ;;  ;; fix https://github.com/weirdNox/org-noter/pull/93/commits/f8349ae7575e599f375de1be6be2d0d5de4e6cbf
+  ;;  (defun org-noter-set-start-location (&optional arg)
+  ;;    "When opening a session with this document, go to the current location.
+  ;;With a prefix ARG, remove start location."
+  ;;    (interactive "P")
+  ;;    (org-noter--with-valid-session
+  ;;     (let ((inhibit-read-only t)
+  ;;           (ast (org-noter--parse-root))
+  ;;           (location (org-noter--doc-approx-location (when (called-interactively-p 'any) 'interactive))))
+  ;;       (with-current-buffer (org-noter--session-notes-buffer session)
+  ;;         (org-with-wide-buffer
+  ;;          (goto-char (org-element-property :begin ast))
+  ;;          (if arg
+  ;;              (org-entry-delete nil org-noter-property-note-location)
+  ;;            (org-entry-put nil org-noter-property-note-location
+  ;;                           (org-noter--pretty-print-location location))))))))
+  ;;  (with-eval-after-load 'pdf-annot
+  ;;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 #+end_src
 
+* SLIME
+#+begin_src emacs-lisp
+  (use-package slime
+    :config
+    (load (expand-file-name "~/quicklisp/slime-helper.el"))
+    (setq inferior-lisp-program "sbcl")
+    (slime-setup '(slime-company)))
+
+#+end_src
+* Spotify
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/modes/spotify.el/")
+  (require 'spotify)
+
+  ;; Settings
+  (setq spotify-oauth2-client-secret "c3d4eac85fab446a98f4aa961db0f22f")
+  (setq spotify-oauth2-client-id "1de9dc2e4cae42e299d62c616c728324")
+#+end_src
+* Kdeconnect
+#+begin_src emacs-lisp
+  (use-package kdeconnect
+    :ensure t
+    :config
+    (setq kdeconnect-devices "7843123afa92d0a8")
+    (setq kdeconnect-active-device "7843123afa92d0a8"))
+
+#+end_src
+* Pinentry
+Pinentry is the password prompt used by GPG. With this package, instead of use the Qt or GTK window, it will ask for a password in the minibuffer.
+#+begin_src emacs-lisp
+  (use-package pinentry
+    :init
+    (pinentry-start))   
+#+end_src
 * Runtime Performance
 
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.

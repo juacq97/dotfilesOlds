@@ -84,7 +84,7 @@
      ;; Disables the ugly splash screen and the scratch message.
      (setq inhibit-splash-screen t)
      (setq initial-scratch-message nil)
-     ;(setq initial-major-mode (quote org-mode))
+     (setq initial-major-mode (quote org-mode))
 
      ;; With this, emacs will not ask if I want to edit the symlink every time
      (setq vc-follow-symlinks nil)
@@ -167,13 +167,15 @@
    "t"  '(:ignore t :which-key "toggles")
    "tt" '(counsel-load-theme :which-key "Choose theme")
    "k" '(kill-current-buffer :which-key "Kill buffer")
-   "b" '(counsel-switch-buffer :which-key "Switch buffer")
+   "b" '(ivy-switch-buffer :which-key "Switch buffer")
    "s" '(swiper :which-key "Swiper search")
    "p" '(counsel-projectile-find-file :which-key "Projectile, find file")
    "P" '(counsel-projectile-switch-project :which-key "Projectile, switch project")
    "g" '(magit :which-key "Magit")
    "v" '(visual-line-mode :which-key "Activate visual-line-mode")
    "c" '(org-capture :which-key "Capture with org")
+   "u" '(winner-undo :which-key "Undo layout")
+   "r" '(winner-redo :which-key "Redo layout")
    "RET" '((lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
    ))
 
@@ -208,8 +210,7 @@
     (setq doom-modeline-checker-simple-format t)
     (setq doom-modeline-persp-name t)
     (setq doom-modeline-lsp nil)
-    (setq doom-modeline-github t)
-    (setq doom-modeline-github-interval (* 30 60))
+    (setq doom-modeline-github nil)
     (setq doom-modeline-env-version t)
     (setq doom-modeline-env-enable-python t)
     (setq doom-modeline-env-enable-ruby t)
@@ -283,7 +284,7 @@
   :ensure t
   :defer t
   :config
-  (company-mode 1))
+  (global-company-mode 1))
 
 (use-package helpful
   :ensure t
@@ -332,7 +333,7 @@
   :bind (
          ("M-x" . counsel-M-x)
          ("C-x C-f" . counsel-find-file)
-         ("C-x b" . counsel-switch-buffer))
+         ("C-x b" . ivy-switch-buffer))
 
   :config
   (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
@@ -399,8 +400,8 @@
   (setq modus-operandi-theme-slanted-constructs t)
   (setq modus-operandi-theme-syntax 'alt-syntax))
 
-;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-;; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+;;  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+;;  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 
 (use-package heaven-and-hell
   :ensure t
@@ -723,12 +724,14 @@
 		 (variable-pitch-mode -1)))))
 
 (setq org-directory "/mnt/Data/ORG") ; The directory of your files
-(setq org-agenda-files '("/mnt/Data/ORG/TODO.org"))
+(setq org-agenda-files '(
+                         "/mnt/Data/ORG/TODO.org"
+                         "~/testing-orgfiles.org"))
 (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
 
 ;; by default the agenda takes the current buffer. With this it'll create its own buffer
 (setq org-agenda-window-setup 'other-window)
-(setq org-agenda-span 3) ; Only shows next 3 days
+(setq org-agenda-span 7) ; Only shows next 3 days
 (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
 (setq org-agenda-start-with-log-mode t)
 (setq org-log-done 'time)
@@ -760,6 +763,7 @@
 (setq org-agenda-custom-commands
       '(("o" "My Agenda"
          ((agenda "" (
+                      (org-agenda-files '("/mnt/Data/ORG/TODO.org"))
                       (org-agenda-overriding-header "   Eventos:\n")
                       (org-agenda-skip-scheduled-if-done t)
                       (org-agenda-skip-timestamp-if-done t)
@@ -777,6 +781,7 @@
                   (org-agenda-deadline-leaders '("" ""))
                   (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
           (todo "TODO" (
+                        (org-agenda-files '("/mnt/Data/ORG/TODO.org"))
                         (org-agenda-overriding-header "  Tareas:\n")
                         (tags-todo "TODO")
                         (org-agenda-remove-tags t)
@@ -795,10 +800,8 @@
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 (use-package calfw
-  :ensure t
-  :commands cfw:open-org-calendar)
+  :ensure t)
 (use-package calfw-org
-  :commands cfw:open-org-calendar
   :ensure t)
 
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -872,51 +875,74 @@
 (use-package eshell
   :ensure nil
   :config
-  (setq eshell-banner-message (propertize (concat (shell-command-to-string "fortune-es") "\n\n") 'face `(:Weight 'bold :inherit 'eshell-ls-directory))))
+  (setq eshell-banner-message (concat (shell-command-to-string "fortune-es") "\n\n")))
 
-(use-package pdftools
-  :ensure t)
+;  (use-package pdf-tools
+;    :ensure t)
 
-(use-package org-noter
+;;(use-package org-noter
+;;  :config
+;;  ;; Your org-noter config ........
+;;  (require 'org-noter-pdftools))
+;;
+;;(use-package org-pdftools
+;;  :hook (org-mode . org-pdftools-setup-link))
+;;
+;;(use-package org-noter-pdftools
+;;  :after org-noter
+;;  :config
+;;  ;; Add a function to ensure precise note is inserted
+;;  (defun org-noter-pdftools-insert-precise-note (&optional toggle-no-questions)
+;;    (interactive "P")
+;;    (org-noter--with-valid-session
+;;     (let ((org-noter-insert-note-no-questions (if toggle-no-questions
+;;                                                   (not org-noter-insert-note-no-questions)
+;;                                                 org-noter-insert-note-no-questions))
+;;           (org-pdftools-use-isearch-link t)
+;;           (org-pdftools-use-freestyle-annot t))
+;;       (org-noter-insert-note (org-noter--get-precise-info)))))
+;;
+;;  ;; fix https://github.com/weirdNox/org-noter/pull/93/commits/f8349ae7575e599f375de1be6be2d0d5de4e6cbf
+;;  (defun org-noter-set-start-location (&optional arg)
+;;    "When opening a session with this document, go to the current location.
+;;With a prefix ARG, remove start location."
+;;    (interactive "P")
+;;    (org-noter--with-valid-session
+;;     (let ((inhibit-read-only t)
+;;           (ast (org-noter--parse-root))
+;;           (location (org-noter--doc-approx-location (when (called-interactively-p 'any) 'interactive))))
+;;       (with-current-buffer (org-noter--session-notes-buffer session)
+;;         (org-with-wide-buffer
+;;          (goto-char (org-element-property :begin ast))
+;;          (if arg
+;;              (org-entry-delete nil org-noter-property-note-location)
+;;            (org-entry-put nil org-noter-property-note-location
+;;                           (org-noter--pretty-print-location location))))))))
+;;  (with-eval-after-load 'pdf-annot
+;;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+
+(use-package slime
   :config
-  ;; Your org-noter config ........
-  (require 'org-noter-pdftools))
+  (load (expand-file-name "~/quicklisp/slime-helper.el"))
+  (setq inferior-lisp-program "sbcl")
+  (slime-setup '(slime-company)))
 
-(use-package org-pdftools
-  :hook (org-mode . org-pdftools-setup-link))
+(add-to-list 'load-path "~/.emacs.d/modes/spotify.el/")
+(require 'spotify)
 
-(use-package org-noter-pdftools
-  :after org-noter
+;; Settings
+(setq spotify-oauth2-client-secret "c3d4eac85fab446a98f4aa961db0f22f")
+(setq spotify-oauth2-client-id "1de9dc2e4cae42e299d62c616c728324")
+
+(use-package kdeconnect
+  :ensure t
   :config
-  ;; Add a function to ensure precise note is inserted
-  (defun org-noter-pdftools-insert-precise-note (&optional toggle-no-questions)
-    (interactive "P")
-    (org-noter--with-valid-session
-     (let ((org-noter-insert-note-no-questions (if toggle-no-questions
-                                                   (not org-noter-insert-note-no-questions)
-                                                 org-noter-insert-note-no-questions))
-           (org-pdftools-use-isearch-link t)
-           (org-pdftools-use-freestyle-annot t))
-       (org-noter-insert-note (org-noter--get-precise-info)))))
+  (setq kdeconnect-devices "7843123afa92d0a8")
+  (setq kdeconnect-active-device "7843123afa92d0a8"))
 
-  ;; fix https://github.com/weirdNox/org-noter/pull/93/commits/f8349ae7575e599f375de1be6be2d0d5de4e6cbf
-  (defun org-noter-set-start-location (&optional arg)
-    "When opening a session with this document, go to the current location.
-With a prefix ARG, remove start location."
-    (interactive "P")
-    (org-noter--with-valid-session
-     (let ((inhibit-read-only t)
-           (ast (org-noter--parse-root))
-           (location (org-noter--doc-approx-location (when (called-interactively-p 'any) 'interactive))))
-       (with-current-buffer (org-noter--session-notes-buffer session)
-         (org-with-wide-buffer
-          (goto-char (org-element-property :begin ast))
-          (if arg
-              (org-entry-delete nil org-noter-property-note-location)
-            (org-entry-put nil org-noter-property-note-location
-                           (org-noter--pretty-print-location location))))))))
-  (with-eval-after-load 'pdf-annot
-    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+(use-package pinentry
+  :init
+  (pinentry-start))
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))

@@ -23,8 +23,8 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 
 #exec dwm
 #while true; do
-#	 ~/.local/dwm 2> /tmp/dwm.log 
-#     done
+# ~/.local/dwm 2> /tmp/dwm.log 
+#    done
 exec herbstluftwm
 #exec stumpwm
-#exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.emacs.d/desktop.el
+#exec emacs -mm --debug-init -l ~/.emacs.d/desktop.el

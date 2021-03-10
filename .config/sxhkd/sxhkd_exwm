@@ -25,7 +25,7 @@ super + F7
     toggle-colorscheme
 
 #Terminal
-super + Return
+#super + Return
 #      st 
 #	emacsclient -c -F '(quote (name . "eshell"))' -e "(eshell)"
 #	emacsclient -ca ""
@@ -163,10 +163,10 @@ super + ctrl + alt + p
       passmenu2
 
 # Monitores
-XF86Display
-      ~/.local/bin/monitores
-XF86Explorer
-      ~/.local/bin/monitores
+#XF86Display
+#      ~/.local/bin/monitores
+#XF86Explorer
+#      ~/.local/bin/monitores
 
 # Pacman-dmenu
 super + alt + p

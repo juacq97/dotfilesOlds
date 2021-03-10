@@ -16,3 +16,4 @@ chrome
 \.stow-local-ignore
 .gitignore
 .gitmodules
+juan_layout.json

@@ -65,27 +65,10 @@ super + f
 super + shift + f
       pcmanfm
 
-#Spotify
-super + F5
-      spotify
-
 #Emacsclient
 super + e
       emacsclient -c
 #	st -e nvim
-
-super + ctrl + t
-      ~/.local/bin/planeaciones
-
-# Newsboat
-#super + n
-##      st -e ~/.local/bin/newsboat-run
-#       st -e newsboat
-
-#htop
-super + F4
-#      st -e ~/.local/bin/htop-run
-      st -e htop
 
 #Screenshots
 Print
@@ -122,10 +105,6 @@ XF86AudioMicMute
 #	light -U 5 & notify-send -a "Brillo" "$(light -G)"
 
 
-# bloquear teclado
-XF86ScreenSaver
-	betterlockscreen --lock blur
-
 # Reiniciar sxhdk 
 super + shift + r
       pkill -USR1 -x sxhkd
@@ -149,14 +128,6 @@ super + u
 #Extraer USB
 super + shift + u
       ~/.local/bin/usb-extraer
-
-#Via
-alt + space
-    ~/.local/bin/via/via
-
-#Kde-connect
-super + shift + p
-      ~/.local/bin/kdeconnect-dmenu
 
 #Apagar
 XF86Launch1
