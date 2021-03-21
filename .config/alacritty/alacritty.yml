@@ -516,10 +516,10 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *horizon
+colors: *one-light
 
 # Background opacity
-background_opacity: 1
+background_opacity: 0
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"

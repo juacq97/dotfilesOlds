@@ -1,0 +1,87 @@
+# -*- mode: snippet -*-
+# name: plansmat
+# key: plansmat
+# --
+=== Organizadores curriculares
+// tag::org[]
+:materia: MATEMÁTICAS
+:trimestre: ${1:El trimestre}
+:ambito: ${2:El ámbito o el eje temático}
+:contenido: ${3:El contenido}
+:campo: PENSAMIENTO MATEMÁTICO
+:im: ${4:Inteligencias múltiples. Mínimo 3}
+:vinculacion: ${5:Relación con otros contenidos de la materia}
+:transversalidad: ${6:Relación con otras asignaturas}
+:pags: ${7:Indicar si es AMCO o SEP}
+// end::org[]
+
+=== Conocimientos previos
+// tag::conprev[]
+- ${8:Lista de conocimientos previos}
+// end::conprev[]
+
+=== Aprendizajes esperados
+// tag::apjes[]
+- ${9:Lista de aprendizajes esperados}
+// end::apjes[]
+
+=== Competencias a desarrollar
+// tag::competencias[]
+- Resolver problemas de manera autónoma
+- Comunicar información matemática
+- Validar procedimientos y resultados
+- Manejar técnicas eficientemente.
+// end::competencias[]
+
+=== SECUENCIA DIDÁCTICA
+*TIEMPOS:*
+// tag::tiempos[]
+:inicio: ${10:Minutos} minutos
+:desarrollo: ${11:Minutos} minutos
+:cierre: ${12:Minutos} minutos
+// end::tiempos[]
+
+==== INICIO
+// tag::inicio[]
+- ${13:Actividaddes para el inicio. Lista}
+// end::inicio[]
+
+==== DESARROLLO
+// tag::desa[]
+- ${14:Actividades para el desarrollo. Lista}
+// end::desa[]
+
+==== CIERRE
+// tag::cierre[]
+- ${15:Actividades para el cierre. Lista}
+// end::cierre[]
+
+==== MATERIALES
+// tag::materiales[]
+- ${16:Lista de materiales} 
+// end::materiales[]
+
+==== EVALUACIÓN
+// tag::eval[]
+- ${17:Actividad con la que se evaluará}
+// end::eval[]
+
+==== TAREA
+// tag::tarea[]
+- 
+// end::tarea[]
+
+=== RUTA DE MEJORA
+// tag::ruta[]
+-
+// end::ruta[]
+
+=== ADECUACIONES BAP/NEE
+// tag::nee[]
+- 
+// end::nee[]
+
+=== SUGERENCIAS PARA PADRES
+// tag::padres[]
+- 
+// end::padres[]

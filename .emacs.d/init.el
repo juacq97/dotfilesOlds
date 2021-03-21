@@ -229,19 +229,6 @@
     (setq doom-modeline-irc-stylize 'identity))
 (doom-modeline-mode 1)
 
-;;(use-package spaceline
-;;  :ensure t
-;;  :config
-;;  (setq spaceline-minor-modes-p nil)
-;;  (setq powerline-default-separator 'bar)
-;;  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-;;  (set-face-attribute 'spaceline-evil-normal nil :foreground "#1a1c23")
-;;  (set-face-attribute 'spaceline-evil-insert nil :foreground "#1a1c23")
-;;  (set-face-attribute 'spaceline-evil-visual nil :foreground "#1a1c23")
-;;  (set-face-attribute 'spaceline-evil-replace nil :foreground "#1a1c23")
-;;  (set-face-attribute 'spaceline-evil-emacs nil :foreground "#1a1c23")
-;;  (spaceline-spacemacs-theme))
-
 (use-package which-key
   :defer 0
   :ensure t
@@ -315,10 +302,10 @@
   (setq ivy-extra-directories nil)
   (ivy-mode 1))
 
-(use-package ivy-rich 
-  :ensure t
-  :config
-  (ivy-rich-mode 1))
+;; (use-package ivy-rich 
+;;   :ensure t
+;;   :config
+;;   (ivy-rich-mode 1))
 
 (use-package ivy-prescient
   :ensure t
@@ -400,8 +387,8 @@
   (setq modus-operandi-theme-slanted-constructs t)
   (setq modus-operandi-theme-syntax 'alt-syntax))
 
-;;  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-;;  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 
 (use-package heaven-and-hell
   :ensure t
@@ -456,26 +443,27 @@
   :ensure t
   :config
   (setq dired-open-extensions '(
-				;; Images
-				("png" . "rifle_sxiv.sh")
-				("jpg" . "rifle_sxiv.sh")
-				;; Multimedia
-				("mp4" . "mpv")
-				("mkv" . "mpv")
-				("mp3" . "mpv")
-				("aac" . "mpv")
-				("ogg" . "mpv")
-				("avi" . "mpv")
-				("mov" . "mpv")
-				("flac" . "mpv")
-				;; libreoffice
-				("odt" . "libreoffice")
-				("odf" . "libreoffice")
-				("ods" . "libreoffice")
-				("odp" . "libreoffice")
-				;; Otros
-				("pdf" . "zathura")
-				)))
+                                ;; Images
+                                ("png" . "rifle_sxiv.sh")
+                                ("jpg" . "rifle_sxiv.sh")
+                                ;; Multimedia
+                                ("mp4" . "mpv")
+                                ("mkv" . "mpv")
+                                ("mp3" . "mpv")
+                                ("aac" . "mpv")
+                                ("ogg" . "mpv")
+                                ("avi" . "mpv")
+                                ("mov" . "mpv")
+                                ("flac" . "mpv")
+                                ;; libreoffice
+                                ("odt" . "libreoffice")
+                                ("odf" . "libreoffice")
+                                ("ods" . "libreoffice")
+                                ("xlsx" . "libreoffice")
+                                ("odp" . "libreoffice")
+                                ;; Otros
+                                ("pdf" . "zathura")
+                                )))
 
 (use-package dired-hide-dotfiles
   :ensure t
@@ -920,19 +908,6 @@
 ;;                           (org-noter--pretty-print-location location))))))))
 ;;  (with-eval-after-load 'pdf-annot
 ;;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
-
-(use-package slime
-  :config
-  (load (expand-file-name "~/quicklisp/slime-helper.el"))
-  (setq inferior-lisp-program "sbcl")
-  (slime-setup '(slime-company)))
-
-(add-to-list 'load-path "~/.emacs.d/modes/spotify.el/")
-(require 'spotify)
-
-;; Settings
-(setq spotify-oauth2-client-secret "c3d4eac85fab446a98f4aa961db0f22f")
-(setq spotify-oauth2-client-id "1de9dc2e4cae42e299d62c616c728324")
 
 (use-package kdeconnect
   :ensure t

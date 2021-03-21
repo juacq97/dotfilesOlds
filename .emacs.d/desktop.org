@@ -42,16 +42,17 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
 
   (defun efs/exwm-update-title ()
     (pcase exwm-class-name
-      ("Firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))))
+      ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
+      ("qutebrowser" (exwm-workspace-rename-buffer (format "%s" exwm-title)))))
 
   (defun efs/configure-window-by-class ()
     (interactive)
     (pcase exwm-class-name
       ("Firefox" (exwm-workspace-move-window 2))
       ("Sol" (exwm-workspace-move-window 3))
-      ("mpv" (exwm-floating-toggle-floating)
+      ("zoom" (exwm-floating-toggle-floating)
+      ;;("mpv" (exwm-floating-toggle-floating)
        (exwm-layout-toggle-mode-line))))
-
 
   ;;      ;; This function should be used only after configuring autorandr!
   (defun efs/update-displays ()
@@ -72,6 +73,7 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
 
     ;; Configure windows as they're created
     (add-hook 'exwm-manage-finish-hook #'efs/configure-window-by-class)
+
 
     ;; When EXWM starts up, do some extra confifuration
     (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
@@ -140,11 +142,17 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
             ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
             ([?\s-r] . exwm-reset)
 
+            ([?\s-L] . windmove-swap-states-right)
+            ([?\s-H] . windmove-swap-states-left)
+            ([?\s-K] . windmove-swap-states-up)
+            ([?\s-J] . windmove-swap-states-down)
+
             ;; Move between windows
             ([?\s-h] . windmove-left)
             ([?\s-l] . windmove-right)
             ([?\s-k] . windmove-up)
             ([?\s-j] . windmove-down)
+
             ([?\s-\M-l] . (lambda () (interactive) (exwm-layout-enlarge-window-horizontally 10))) 
             ([?\s-\M-h] . (lambda () (interactive) (exwm-layout-shrink-window-horizontally 10))) 
             ([?\s-\M-j] . (lambda () (interactive) (exwm-layout-shrink-window 10))) 
@@ -198,6 +206,13 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
 
 
 #+begin_src emacs-lisp
+  (use-package winner
+    :ensure nil
+    :config
+    (winner-mode))
+#+end_src
+
+#+begin_src emacs-lisp
   (defun poweroff ()
     (interactive)
     (shell-command "systemctl poweroff"))
@@ -205,11 +220,26 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
     (interactive)
     (shell-command "systemctl suspend"))
   (defun reboot ()
-   (interactive)
+    (interactive)
     (shell-command "systemctl reboot"))
-
 
   (defun cursor-speed-reset ()
     (interactive)
     (shell-command "xset r rate 250 60"))
+
+  (defun reload-polybar ()
+    (interactive)
+    (shell-command "killall polybar & ~/.config/polybar/polybar_launch.sh"))
+
+  (defun dual-monitors-dock ()
+    (interactive)
+    (shell-command "xrandr --auto --output DP-2 --primary --mode 1600x900 --right-of LVDS-1"))
+
+  (defun dual-monitors-projector ()
+    (interactive)
+    (shell-command "autorandr horizontal"))
+
+  (defun dual-monitors-mirror ()
+    (interactive)
+    (shell-command "autorandr clone-largest"))
 #+end_src

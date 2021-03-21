@@ -71,7 +71,7 @@ set conceallevel=2
 let g:grubvox_italic = 1
 let g:grubvox_contrast_dark = 'hard'
 colorscheme horizon
-set background=light
+set background=dark
 "Conceal no se ve bien con este tema, con este comando se arregla OwO
 highlight Conceal guifg=White guibg=color0
 let g:one_allow_italics = 1 

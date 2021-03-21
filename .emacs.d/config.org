@@ -297,22 +297,6 @@ The default modeline it's fine, but ugly and with a lot of useless information f
       (setq doom-modeline-irc-stylize 'identity))
   (doom-modeline-mode 1)    
 #+end_src
-* Spaceline
-Another cool modeline for emacs. Spaceline it's the default modeline for spacemacs. It has a lot more of eye candy and powerline separators. It seems to be more resource intensive to , but I'm not entirely sure. It's very usefull when using EXWM since doom has some issues.
-#+begin_src emacs-lisp
-  ;;(use-package spaceline
-  ;;  :ensure t
-  ;;  :config
-  ;;  (setq spaceline-minor-modes-p nil)
-  ;;  (setq powerline-default-separator 'bar)
-  ;;  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-  ;;  (set-face-attribute 'spaceline-evil-normal nil :foreground "#1a1c23")
-  ;;  (set-face-attribute 'spaceline-evil-insert nil :foreground "#1a1c23")
-  ;;  (set-face-attribute 'spaceline-evil-visual nil :foreground "#1a1c23")
-  ;;  (set-face-attribute 'spaceline-evil-replace nil :foreground "#1a1c23")
-  ;;  (set-face-attribute 'spaceline-evil-emacs nil :foreground "#1a1c23")
-  ;;  (spaceline-spacemacs-theme))
-#+end_src
 * Utilities
 There a lot of usefull packages, and they work excellent out of the box. 
 ** Which key
@@ -347,6 +331,7 @@ If an hexagesimal color is on screen, you can see the actual color as the backgr
 
 ** Smart parents
 Autocomplete parenthesis. If you type the left parenthesis, the right one appears automatically. On elisp it's a need.
+NOTE: For some weird reason, it causes problems. It spawns a lot of \*Emacs\* buffers.
 #+begin_src emacs-lisp
   ;(use-package smartparens
   ;  :hook (prog-mode . smartparents-mode)
@@ -375,8 +360,8 @@ I don't code too much LUA, but it's good to have, at least, color syntax.
     :after (lua)
     :ensure t)
 #+end_src
-** TODO Company
-It's supossed to add completion, but does nothing.
+** Company
+Adds some autocompletions. It can be slower than the actual typing tho. 
 #+begin_src emacs-lisp
   (use-package company
     :ensure t
@@ -398,9 +383,6 @@ Add some extra text to the  =describe= buffers
     ([remap describe-variable] . counsel-describe-variable)
     ([remap describe-key] . helpful-key))
 #+end_src
-
-#+RESULTS:
-: helpful-key
 
 ** Ripgrep
 Like ~grep~, but cooler. It needs ~ripgrep~ installed.
@@ -432,10 +414,10 @@ Like ~grep~, but cooler. It needs ~ripgrep~ installed.
 
 ~ivy-rich~ adds some extra functionality. My favorite: a description of the command right on the minibuffer.
 #+begin_src emacs-lisp
-  (use-package ivy-rich 
-    :ensure t
-    :config
-    (ivy-rich-mode 1))
+ ;; (use-package ivy-rich 
+ ;;   :ensure t
+ ;;   :config
+ ;;   (ivy-rich-mode 1))
 #+end_src
 
 ~ivy-prescient~ adds a sort of history to ~ivy~, so it remembers my latest commands.
@@ -482,6 +464,7 @@ Snippets are templates that are called interactively. I can write my own snippet
 #+end_src
 
 * Projectile
+Projectile allows you to quickly switch between files inside projects. =git= repos are considered projects.
 #+begin_src emacs-lisp
     (use-package projectile
       :bind (
@@ -492,6 +475,7 @@ Snippets are templates that are called interactively. I can write my own snippet
       (setq projectile-project-search-path '("~/.repos" "/mnt/Data/Drive/CIMB/PLANEACIONES")))
 #+end_src 
 * Dashboard
+A cool dashboard. Deprecated in my config in favor of a simple =*scratch*= buffer.
 #+begin_src emacs-lisp
 ;;  (use-package fortune-cookie
 ;;    :ensure t
@@ -520,8 +504,6 @@ Snippets are templates that are called interactively. I can write my own snippet
 #+end_src
 * Themes
   Emacs has a lot of themes available on internet. It's possible to set one with ~(load-theme)~. Check the ~heaven&hell~ package below.
-  /dfjsdlfjksdj/ 
-  
 ** Doom-themes
 A collection of themes designated for ~doom-emacs~.
 #+begin_src emacs-lisp
@@ -549,9 +531,10 @@ A collection of themes designated for ~doom-emacs~.
  #+end_src
 
 ** Transparency
+To have cool transparency. It can be managed throught =picom= too.
 #+begin_src emacs-lisp
-;;  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-;;  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+ (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+ (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 #+end_src
 * Heaven and Hell
 This packages allow to quicky change between two themes. The recommended setup, a light and a dark theme.
@@ -629,26 +612,27 @@ As I said before, the integration with external tools can be improved. This pack
     :ensure t
     :config
     (setq dired-open-extensions '(
-				  ;; Images
-				  ("png" . "rifle_sxiv.sh")
-				  ("jpg" . "rifle_sxiv.sh")
-				  ;; Multimedia
-				  ("mp4" . "mpv")
-				  ("mkv" . "mpv")
-				  ("mp3" . "mpv")
-				  ("aac" . "mpv")
-				  ("ogg" . "mpv")
-				  ("avi" . "mpv")
-				  ("mov" . "mpv")
-				  ("flac" . "mpv")
-				  ;; libreoffice
-				  ("odt" . "libreoffice")
-				  ("odf" . "libreoffice")
-				  ("ods" . "libreoffice")
-				  ("odp" . "libreoffice")
-				  ;; Otros
-				  ("pdf" . "zathura")
-				  )))
+                                  ;; Images
+                                  ("png" . "rifle_sxiv.sh")
+                                  ("jpg" . "rifle_sxiv.sh")
+                                  ;; Multimedia
+                                  ("mp4" . "mpv")
+                                  ("mkv" . "mpv")
+                                  ("mp3" . "mpv")
+                                  ("aac" . "mpv")
+                                  ("ogg" . "mpv")
+                                  ("avi" . "mpv")
+                                  ("mov" . "mpv")
+                                  ("flac" . "mpv")
+                                  ;; libreoffice
+                                  ("odt" . "libreoffice")
+                                  ("odf" . "libreoffice")
+                                  ("ods" . "libreoffice")
+                                  ("xlsx" . "libreoffice")
+                                  ("odp" . "libreoffice")
+                                  ;; Otros
+                                  ("pdf" . "zathura")
+                                  )))
 #+end_src
 
 Dired shows your dotfiles or it doesn't. This packages allows to toggle the directories that starts with a period. I added a keybinding to toggle it.
@@ -1199,25 +1183,8 @@ Take notes with org mode!
   ;;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 #+end_src
 
-* SLIME
-#+begin_src emacs-lisp
-  (use-package slime
-    :config
-    (load (expand-file-name "~/quicklisp/slime-helper.el"))
-    (setq inferior-lisp-program "sbcl")
-    (slime-setup '(slime-company)))
-
-#+end_src
-* Spotify
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/modes/spotify.el/")
-  (require 'spotify)
-
-  ;; Settings
-  (setq spotify-oauth2-client-secret "c3d4eac85fab446a98f4aa961db0f22f")
-  (setq spotify-oauth2-client-id "1de9dc2e4cae42e299d62c616c728324")
-#+end_src
 * Kdeconnect
+A =kdeconnect= client inside emacs. I want to integrate it with dired.
 #+begin_src emacs-lisp
   (use-package kdeconnect
     :ensure t
