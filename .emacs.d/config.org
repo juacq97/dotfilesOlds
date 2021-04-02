@@ -11,17 +11,20 @@ This is an ~org-mode~ file, so you can read it directly from emacs.
 * Startup 
 Set the garbage collection to a better number for the load. Also, a message with the time and garbage collection is showed.
 #+begin_src emacs-lisp
-  ;; Profile emacs startup
-  ;; The default is 800 kilobytes.  Measured in bytes.
-  (setq gc-cons-threshold (* 50 1000 1000))
-    
-  (add-hook 'emacs-startup-hook
-	    (lambda ()
-	      (message "*** Emacs loaded in %s with %d garbage collections."
-		       (format "%.2f seconds"
-			       (float-time
-				(time-subtract after-init-time before-init-time)))
-		       gcs-done)))
+    ;; Profile emacs startup
+    ;; The default is 800 kilobytes.  Measured in bytes.
+    (setq gc-cons-threshold (* 50 1000 1000))
+
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                (message "*** Emacs loaded in %s with %d garbage collections."
+                         (format "%.2f seconds"
+                                 (float-time
+                                  (time-subtract after-init-time before-init-time)))
+                         gcs-done)))
+
+  (setq comp-deferred-compilation t)
+  (setq comp-async-report-warnings-errors nil)
 #+end_src
 * Use-package
 ~use-package~ is a macro set to install and configure packages.
@@ -69,6 +72,7 @@ This include a lot of configurations so Emacs doesn't look like a very ugly note
                     term-mode-hook
                     shell-mode-hook
                     treemacs-mode-hook
+                    elpher-mode-hook
                     eshell-mode-hook))
       (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
@@ -143,9 +147,9 @@ Fonts are a ~face~. You can set different faces. I define three kind of fonts he
   
 Since I change fonts very often I put it here, easy to find.
 #+begin_src emacs-lisp
-    (set-face-attribute 'default nil :family "Source Code Pro" :height 100)
+    (set-face-attribute 'default nil :family "Source Code Pro" :height 102)
     (set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
-    (set-face-attribute 'variable-pitch nil :family "Urbanist")
+    (set-face-attribute 'variable-pitch nil :family "Open Sans")
 #+end_src
 
 * Evil
@@ -770,54 +774,55 @@ Now, let's make a more elegant style, without colors for title and with differen
 ** org-mode configuration
 Here's some configuration I made to org-mode, the actual package.
 #+begin_src emacs-lisp
-    (defun my/org-mode-setup ()
-      (org-indent-mode)
-      (variable-pitch-mode 1)
-      (visual-line-mode 1))
+  (defun my/org-mode-setup ()
+    (org-indent-mode)
+    (variable-pitch-mode 1)
+    (visual-line-mode 1))
 
-      (use-package org
-        :ensure nil
-        :hook (
-               (org-mode . my/org-mode-setup)
-               (org-mode . my/org-font-setup))
-      
-        :config
-        ;;(add-hook 'org-mode-hook 'my/org-font-setup)
-        ;; Removes the ellipsis at the end and replaces it with a string
-        (setq org-ellipsis " ⤾")
+    (use-package org
+      :ensure nil
+      :hook (
+             (org-mode . my/org-mode-setup)
+             (org-mode . my/org-font-setup))
 
-        ;; If you have many subtask, when you mark it as DONE, the main task remain unchaged. With this function, if all the subtask are marked as DONE, the main task is marked as well.
-        (defun org-summary-todo (n-done n-not-done)
-          "Switch entry to DONE when all subentries are done, to TODO otherwise."
-          (let (org-log-done org-log-states)   ; turn off logging
-            (org-todo (if (= n-not-done 0) "DONE" "PROJ"))))
-        (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-        ;; This keybinding uses org-store-link to store a postition on a document, so you can link it on other document.
-        (global-set-key (kbd "C-c l") 'org-store-link)
+      :config
+      ;;(add-hook 'org-mode-hook 'my/org-font-setup)
+      ;; Removes the ellipsis at the end and replaces it with a string
+      (setq org-ellipsis " ⤾")
 
-        ;; Change TODO states with SPC t. It uses evil-collection key-map.
-        (evil-define-key 'normal org-mode-map
-          (kbd "SPC t") 'org-todo)
-      
-    ;; Activate org-beamer
-      (org-beamer-mode)
 
-        ;; You can add blocks pressing C-, and then the corresponding key.
-      (require 'org-tempo)
-      (setq org-structure-template-alist
-         '(("el" . "src emacs-lisp")
-           ("a" . "export ascii")
-           ("c" . "center")
-           ("C" . "comment")
-           ("e" . "example")
-           ("E" . "export")
-           ("h" . "export html")
-           ("x" . "export latex")
-           ("q" . "quote")
-           ("s" . "src")
-           ("v" . "verse")))
-       
-    ;; NOTE: THE USE PACKAGE MACRO CONTINUES
+      ;; If you have many subtask, when you mark it as DONE, the main task remain unchaged. With this function, if all the subtask are marked as DONE, the main task is marked as well.
+      (defun org-summary-todo (n-done n-not-done)
+        "Switch entry to DONE when all subentries are done, to TODO otherwise."
+        (let (org-log-done org-log-states)   ; turn off logging
+          (org-todo (if (= n-not-done 0) "DONE" "PROJ"))))
+      (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+      ;; This keybinding uses org-store-link to store a postition on a document, so you can link it on other document.
+      (global-set-key (kbd "C-c l") 'org-store-link)
+
+      ;; Change TODO states with SPC t. It uses evil-collection key-map.
+      (evil-define-key 'normal org-mode-map
+        (kbd "SPC t") 'org-todo)
+
+  ;; Activate org-beamer
+    (org-beamer-mode)
+
+      ;; You can add blocks pressing C-, and then the corresponding key.
+    (require 'org-tempo)
+    (setq org-structure-template-alist
+       '(("el" . "src emacs-lisp")
+         ("a" . "export ascii")
+         ("c" . "center")
+         ("C" . "comment")
+         ("e" . "example")
+         ("E" . "export")
+         ("h" . "export html")
+         ("x" . "export latex")
+         ("q" . "quote")
+         ("s" . "src")
+         ("v" . "verse")))
+
+  ;; NOTE: THE USE PACKAGE MACRO CONTINUES
 #+end_src
 ** LaTeX
    LaTeX uses some templates to define classes. You can write your own classes. I have this, one used on my thesis, the other copied from the org-wiki because it looks nice.
@@ -848,13 +853,14 @@ First, lets define the function.
 #+begin_src emacs-lisp
   (defun my/org-mode-visual-fill ()
     (setq visual-fill-column-width 100
-	  visual-fill-column-center-text t)
+          visual-fill-column-center-text t)
     (visual-fill-column-mode 1))
 
     (use-package visual-fill-column
       :hook (
       (org-agenda-mode . my/org-mode-visual-fill)
-      (org-mode . my/org-mode-visual-fill)))
+      (org-mode . my/org-mode-visual-fill)
+      (elpher-mode . my/org-mode-visual-fill)))
 #+end_src
 
 ** More export formats
@@ -1099,6 +1105,71 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
   (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
 #+end_src
 
+** Org appear
+Hide some characters.
+#+begin_src emacs-lisp
+  (use-package org-appear
+    :config
+    ;; This is needed to org-appear
+    (setq org-hide-emphasis-markers t)
+    (setq org-pretty-entities t)
+    (setq org-link-descriptive t)
+    (setq org-appear-autoemphasis t)
+    (setq org-appear-autolinks t)
+    (setq org-appear-autosubmarkers t)
+	
+    :hook (org-mode . org-appear-mode))
+
+#+end_src
+** Org publish
+Who needs a static web generator with emacs? Write your web page or project on org mode and export it to a complete web site, and in my case, a gemini capsule too. Just run =org-publish-all= or  =org-publish-project=.
+
+First I want the exporter for gemini
+#+begin_src emacs-lisp
+  (use-package ox-gemini
+    :config
+    (require 'ox-gemini))
+#+end_src
+
+Now, lets put the configuration of org publish.
+#+begin_src emacs-lisp
+  (require 'ox-publish)
+  (setq org-publish-project-alist
+        '(
+          ("http_website"
+           :base-directory "/mnt/Data/www/source/"
+           :base-extension "org"
+           :publishing-directory "/mnt/Data/www/site/"
+           :recursive t
+           :publishing-function org-html-publish-to-html
+           :exclude "^_GEM"
+           :with-date t
+           :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css />"
+           :html-head-include-default-style nil
+           :with-toc nil
+           :html-postamble t
+           :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Made with Emacs 27 (Org-mode 9.4.4) <a rel=homepage href=https://juancastro.xyz>Home page </a></p> </footer>"))
+          :section-numbers nil
+           ;:html-postable nil
+           :headline-levels 4             ; Just the default for this project.
+           :auto-preamble t
+           )
+          ("gemini_capsule"
+           :base-directory "/mnt/Data/www/source/"
+           :base-extension "org"
+           :publishing-directory "/mnt/Data/www/capsule/"
+           :recursive t
+           :publishing-function org-gemini-publish-to-gemini
+           :exclude "index"
+           :with-date t
+           :with-toc nil
+           :section-numbers nil
+           ;:html-postable nil
+           :headline-levels 4             ; Just the default for this project.
+           ;:auto-preamble t
+           )))
+#+end_src
+
 * Eshell
 The Emacs shell! It works fine for simple tasks, and has an awesome integration with emacs itself. If I need some complex CLI or TUI programs I just use alacritty.
 #+begin_src emacs-lisp
@@ -1199,6 +1270,11 @@ Pinentry is the password prompt used by GPG. With this package, instead of use t
   (use-package pinentry
     :init
     (pinentry-start))   
+#+end_src
+* Gemini
+A better web.. Adds colorscheme for gmi files
+#+begin_src emacs-lisp
+  (use-package gemini-mode)
 #+end_src
 * Runtime Performance
 

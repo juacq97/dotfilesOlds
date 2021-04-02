@@ -1,14 +1,17 @@
 ;; Profile emacs startup
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+  ;; The default is 800 kilobytes.  Measured in bytes.
+  (setq gc-cons-threshold (* 50 1000 1000))
 
-(add-hook 'emacs-startup-hook
-	  (lambda ()
-	    (message "*** Emacs loaded in %s with %d garbage collections."
-		     (format "%.2f seconds"
-			     (float-time
-			      (time-subtract after-init-time before-init-time)))
-		     gcs-done)))
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (message "*** Emacs loaded in %s with %d garbage collections."
+                       (format "%.2f seconds"
+                               (float-time
+                                (time-subtract after-init-time before-init-time)))
+                       gcs-done)))
+
+(setq comp-deferred-compilation t)
+(setq comp-async-report-warnings-errors nil)
 
 (require 'package)
   ;; Allows to install packages from melpa
@@ -46,6 +49,7 @@
                 term-mode-hook
                 shell-mode-hook
                 treemacs-mode-hook
+                elpher-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
@@ -107,9 +111,9 @@
     (other-window 1))
   (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 
-(set-face-attribute 'default nil :family "Source Code Pro" :height 100)
+(set-face-attribute 'default nil :family "Source Code Pro" :height 102)
 (set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
-(set-face-attribute 'variable-pitch nil :family "Urbanist")
+(set-face-attribute 'variable-pitch nil :family "Open Sans")
 
 (use-package undo-tree
   :ensure t
@@ -581,6 +585,7 @@
     ;; Removes the ellipsis at the end and replaces it with a string
     (setq org-ellipsis " ⤾")
 
+
     ;; If you have many subtask, when you mark it as DONE, the main task remain unchaged. With this function, if all the subtask are marked as DONE, the main task is marked as well.
     (defun org-summary-todo (n-done n-not-done)
       "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -635,13 +640,14 @@
 
 (defun my/org-mode-visual-fill ()
   (setq visual-fill-column-width 100
-	visual-fill-column-center-text t)
+        visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
   (use-package visual-fill-column
     :hook (
     (org-agenda-mode . my/org-mode-visual-fill)
-    (org-mode . my/org-mode-visual-fill)))
+    (org-mode . my/org-mode-visual-fill)
+    (elpher-mode . my/org-mode-visual-fill)))
 
 ;; Pandoc support
 (use-package ox-pandoc
@@ -838,6 +844,58 @@
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
 
+(use-package org-appear
+  :config
+  ;; This is needed to org-appear
+  (setq org-hide-emphasis-markers t)
+  (setq org-pretty-entities t)
+  (setq org-link-descriptive t)
+  (setq org-appear-autoemphasis t)
+  (setq org-appear-autolinks t)
+  (setq org-appear-autosubmarkers t)
+
+  :hook (org-mode . org-appear-mode))
+
+(use-package ox-gemini
+  :config
+  (require 'ox-gemini))
+
+(require 'ox-publish)
+(setq org-publish-project-alist
+      '(
+        ("http_website"
+         :base-directory "/mnt/Data/www/source/"
+         :base-extension "org"
+         :publishing-directory "/mnt/Data/www/site/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :exclude "^_GEM"
+         :with-date t
+         :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css />"
+         :html-head-include-default-style nil
+         :with-toc nil
+         :html-postamble t
+         :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Made with Emacs 27 (Org-mode 9.4.4) <a rel=homepage href=https://juancastro.xyz>Home page </a></p> </footer>"))
+        :section-numbers nil
+         ;:html-postable nil
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t
+         )
+        ("gemini_capsule"
+         :base-directory "/mnt/Data/www/source/"
+         :base-extension "org"
+         :publishing-directory "/mnt/Data/www/capsule/"
+         :recursive t
+         :publishing-function org-gemini-publish-to-gemini
+         :exclude "index"
+         :with-date t
+         :with-toc nil
+         :section-numbers nil
+         ;:html-postable nil
+         :headline-levels 4             ; Just the default for this project.
+         ;:auto-preamble t
+         )))
+
 (use-package fish-completion
      :after esh-mode
      :ensure t
@@ -919,5 +977,26 @@
   :init
   (pinentry-start))
 
+(use-package gemini-mode)
+
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(doom-horizon))
+ '(custom-safe-themes
+   '("f4876796ef5ee9c82b125a096a590c9891cec31320569fc6ff602ff99ed73dca" default))
+ '(package-selected-packages
+   '(ivy-ycmd unicode-enbox discover yasnippet-snippets yaml-mode writeroom-mode which-key webfeeder vterm use-package unicode-troll-stopper unicode-fonts undo-tree undo-fu typescript-mode transmission telephone-line tab-bar-groups stumpwm-mode spotify speed-type spaceline-all-the-icons smartparens slime-company simple-rtm simple-httpd rg rainbow-mode rainbow-delimiters pyvenv python-mode pulseaudio-control pinentry password-store ox-slimhtml ox-pandoc ox-gemini org-tree-slide org-superstar org-super-agenda org-noter-pdftools org-bullets org-appear oauth2-request oauth no-littering network-watch modus-vivendi-theme modus-operandi-theme mini-modeline markdown-mode magit lyrics luarocks lua-mode kdeconnect ivy-yasnippet ivy-prescient ivy-emoji ivy-clipmenu htmlize hide-mode-line helpful helm-spotify-plus helm-icons heaven-and-hell ghub general gemini-mode fortune-cookie fish-completion figlet exwm ewal-doom-themes evil-org evil-ledger evil-collection esxml eshell-toggle eshell-syntax-highlighting eshell-prompt-extras eshell-git-prompt esh-autosuggest emojify emoji-fontset emacsql elpher easy-hugo doom-modeline dired-subtree dired-single dired-rsync dired-open dired-hide-dotfiles desktop-environment dashboard countdown counsel-projectile company-box command-log-mode color-theme-sanityinc-tomorrow clocker calfw-org calfw burly bug-hunter boon auto-package-update all-the-icons-ivy-rich all-the-icons-dired adoc-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-calendar-event ((t (:inherit (default)))))
+ '(org-agenda-calendar-sexp ((t (:inherit (default)))))
+ '(org-agenda-date-today ((t (:weight bold :height 130))))
+ '(org-agenda-structure ((t (:underline t :weight bold :height 200 :width normal)))))

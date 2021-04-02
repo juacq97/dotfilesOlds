@@ -53,24 +53,8 @@ hc keybind $Mod-Mod1-Shift-l shift -e right
 # splitting frames
 # create an empty frame at the specified direction
 # Split and focus, ready to work
-
-split-right () {
-    if [ $(herbstclient attr tags.focus.tiling.focused_frame.client_count) > 1 ]; then
-        herbstclient chain - cycle +1 - split right 0.5 - shift -e right
-    fi
-}
-
-split-down () {
-    if [ $(herbstclient attr tags.focus.tiling.focused_frame.client_count) > 1 ]; then
-        herbstclient chain - cycle +1 - split down 0.5 - shift -e right
-    fi
-}
-
-hc keybind $Mod-i exec split-down
-hc keybind $Mod-o exec split-right
-
-#hc keybind $Mod-i  chain , split bottom  0.5 , focus -e down 
-#hc keybind $Mod-o  chain , split right   0.5 , focus -e right
+hc keybind $Mod-i  chain , split bottom  0.5 , focus -e down 
+hc keybind $Mod-o  chain , split right   0.5 , focus -e right
 hc keybind $Mod-Control-i  chain , split top  0.5 , focus -e up
 hc keybind $Mod-Control-o  chain , split left   0.5 , focus -e left
 
@@ -173,9 +157,9 @@ hc set frame_transparent_width 0 # What part of the filler color should remain?
 hc set frame_active_opacity 100 #Focused frame opacity
 hc set frame_normal_opacity 100 # Unfocused frame opacity
 
-hc set frame_border_inner_width 0
+hc set frame_border_inner_width 2
 hc set always_show_frame on
-hc set frame_gap 1
+hc set frame_gap 4
 
 # Clients
 hc attr theme.padding_top 0 #Padding at the top of the windows
@@ -183,40 +167,40 @@ hc attr theme.padding_right 0 #Padding
 hc attr theme.padding_left 0 #Padding 
 hc attr theme.padding_bottom 0 #Padding 
 
-hc attr theme.border_width 1 # WIndows border  s
+hc attr theme.border_width 6 # WIndows border  s
 hc attr theme.active.color "#$back" #Window border color
 hc attr theme.normal.color "#$back" # Window border color unfocused
 hc attr theme.urgent.color orange
 
 # Color for the inner frame
-hc attr theme.inner_width 0
+hc attr theme.inner_width 2
 hc attr theme.normal.inner_width 0
 hc attr theme.active.inner_color "#$color5"
 hc attr theme.normal.inner_color "#4b5263"
 
 # Color for the outer frame (3 color4s,too much)
-hc attr theme.outer_width 1
+hc attr theme.outer_width 0
 hc attr theme.active.outer_color "#$color5"
-hc attr theme.normal.outer_color "#$back"
+hc attr theme.normal.outer_color "#$color5"
 
 # Colors for floating 
 hc attr theme.floating.active.color "#$back"
 hc attr theme.floating.normal.color "#$back"
-hc attr theme.floating.border.width 3
+hc attr theme.floating.border.width 6
 hc attr theme.background_color "#$back"
 
 # Color for the inner frame
-hc attr theme.floating.inner_width 3
+hc attr theme.floating.inner_width 2
 hc attr theme.floating.active.inner_color "#$color5"
 hc attr theme.floating.normal.inner_color "#$back"
 
 
-hc set window_gap 0 #Gap between windows
+hc set window_gap 2 #Gap between windows
 hc set frame_padding 0 # Gapp between windows and frames
-hc set smart_window_surroundings on
+hc set smart_window_surroundings off
 hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0
-hc set hide_covered_windows off
+hc set hide_covered_windows on
 
 # rules
 hc unrule -F
@@ -233,6 +217,7 @@ hc rule class=zoom floating=on
 hc rule class=Connman-gtk floating=on
 hc rule instance=calendar.txt floating=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
+
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off

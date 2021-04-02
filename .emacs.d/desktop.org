@@ -33,7 +33,7 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
 
   ;; Launch apps that will run in the background
   (efs/run-in-background "~/.config/polybar/polybar_launch.sh")
-  (efs/run-in-background "sxhkd -c ~/.config/sxhkd/sxhkd_exwm")
+;;  (efs/run-in-background "sxhkd -c ~/.config/sxhkd/sxhkd_exwm")
                                           ;(efs/run-in-background "pasystray")
                                           ;(efs/run-in-background "blueman-applet"))
 
@@ -227,13 +227,9 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
     (interactive)
     (shell-command "xset r rate 250 60"))
 
-  (defun reload-polybar ()
-    (interactive)
-    (shell-command "killall polybar & ~/.config/polybar/polybar_launch.sh"))
-
   (defun dual-monitors-dock ()
     (interactive)
-    (shell-command "xrandr --auto --output DP-2 --primary --mode 1600x900 --right-of LVDS-1"))
+    (shell-command "autorandr dock"))
 
   (defun dual-monitors-projector ()
     (interactive)

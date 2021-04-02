@@ -1,6 +1,6 @@
 #! /bin/sh
 
-xrandr --output DP-2 --auto --same-as LVDS-1 &
+xrandr --output DP-2 --primary --auto --same-as LVDS-1 &
 nitrogen --restore &
 xrdb  ~/.Xresources &
 picom &
@@ -15,7 +15,7 @@ flameshot &
 sxhkd -c ~/.config/sxhkd/sxhkd_exwm &
 dunst &
 #~/.local/dwmblocks & 
-xinput disable 11 &
+#xinput disable 11 &
 #fcitx5 -d &
 pcloud &
 #dwm-msg run_command xrdb &
