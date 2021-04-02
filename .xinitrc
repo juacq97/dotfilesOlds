@@ -14,7 +14,7 @@ flameshot &
 #sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 sxhkd -c ~/.config/sxhkd/sxhkd_exwm &
 dunst &
-#~/.local/dwmblocks & 
+~/.local/dwmblocks & 
 #xinput disable 11 &
 #fcitx5 -d &
 pcloud &

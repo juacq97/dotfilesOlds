@@ -53,11 +53,11 @@
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-(show-paren-mode t)
+(show-paren-mode t) ; Highlight the matching parenthesis
      (blink-cursor-mode 0) ; Disable the blinking
      ;; Press y/n instead of the whole word
      (defalias 'yes-or-no-p 'y-or-n-p)
-     ;; Scroll line by line. Cursor doesn't stays at the center of the screen
+     ;; Scroll line by line. Cursor doesn't stays at the center of the screen. Can be laggy
      (setq scroll-conservatively 100)
      ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
      (setq make-backup-files nil) 
@@ -82,18 +82,17 @@
        (load-file user-init-file))
      (global-set-key (kbd "C-c r") 'config-reload)
 
-     ;; The text nevers goes outside from the buffer
-     (global-visual-line-mode 1)
+     (global-visual-line-mode 1) ; wrap lines to the size of the buffer
 
-     ;; Disables the ugly splash screen and the scratch message.
+     ;; Disables the ugly splash screen 
      (setq inhibit-splash-screen t)
-     (setq initial-scratch-message nil)
-     (setq initial-major-mode (quote org-mode))
+     (setq initial-scratch-message nil) ; Disable the scratch mesage
+     (setq initial-major-mode (quote org-mode)) ; Change the mode of the scratch buffer
 
      ;; With this, emacs will not ask if I want to edit the symlink every time
      (setq vc-follow-symlinks nil)
 
-     ;; This is necessary on +27 to write accents. They say it's a feature... but for who?
+     ;; This is necessary on 27+ to write accents. They say it's a feature... not for me!
      (require 'iso-transl)
 
 ;; When a split is done, follow it.
@@ -168,10 +167,8 @@
 
   (my/leader-keys
    "SPC" '(counsel-find-file :which-key "Open a file")
-   "t"  '(:ignore t :which-key "toggles")
-   "tt" '(counsel-load-theme :which-key "Choose theme")
    "k" '(kill-current-buffer :which-key "Kill buffer")
-   "b" '(ivy-switch-buffer :which-key "Switch buffer")
+   "b" '(counsel-switch-buffer :which-key "Switch buffer")
    "s" '(swiper :which-key "Swiper search")
    "p" '(counsel-projectile-find-file :which-key "Projectile, find file")
    "P" '(counsel-projectile-switch-project :which-key "Projectile, switch project")
@@ -180,58 +177,50 @@
    "c" '(org-capture :which-key "Capture with org")
    "u" '(winner-undo :which-key "Undo layout")
    "r" '(winner-redo :which-key "Redo layout")
-   "RET" '((lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
-   ))
+   "RET" '((lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))))
 
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
-  (global-set-key (kbd "C-c v") 'visual-line-mode)
-  (global-set-key (kbd "<f5>")  'ispell-word)
-;;  (define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
-;;  (define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
-;;  (define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
-;;  (define-key evil-normal-state-map (kbd "SPC s") 'swiper)
-;;  (define-key evil-normal-state-map (kbd "SPC p") 'projectile-find-file)
-;;  (define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
-;;  (define-key evil-normal-state-map (kbd "SPC g") 'magit)
-;;  (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
-;;  (define-key evil-normal-state-map (kbd "SPC c") 'org-capture)
-;;  (define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
+(global-set-key (kbd "C-c v") 'visual-line-mode)
+(global-set-key (kbd "<f5>")  'ispell-word)
 
-(use-package doom-modeline
-    :ensure t
-    :config
-    (add-hook 'window-selection-change-functions #'doom-modeline-set-selected-window)
-    (setq doom-modeline-height 25)
-    (setq doom-modeline-bar-width 4)
-    (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-    (setq doom-modeline-icon t)
-    (setq doom-modeline-major-mode-icon t)
-    (setq doom-modeline-modal-icon t)
-    (setq doom-modeline-major-mode-color-icon t)
-    (setq doom-modeline-minor-modes nil)
-    (setq doom-modeline-buffer-encoding nil)
-    (setq doom-modeline-enable-word-count t)
-    (setq doom-modeline-checker-simple-format t)
-    (setq doom-modeline-persp-name t)
-    (setq doom-modeline-lsp nil)
-    (setq doom-modeline-github nil)
-    (setq doom-modeline-env-version t)
-    (setq doom-modeline-env-enable-python t)
-    (setq doom-modeline-env-enable-ruby t)
-    (setq doom-modeline-env-enable-perl t)
-    (setq doom-modeline-env-enable-go t)
-    (setq doom-modeline-env-enable-elixir t)
-    (setq doom-modeline-env-enable-rust t)
-    (setq doom-modeline-env-python-executable "python")
-    (setq doom-modeline-env-ruby-executable "ruby")
-    (setq doom-modeline-env-perl-executable "perl")
-    (setq doom-modeline-env-go-executable "go")
-    (setq doom-modeline-env-elixir-executable "iex")
-    (setq doom-modeline-env-rust-executable "rustc")
-    (setq doom-modeline-mu4e t)
-    (setq doom-modeline-irc t)
-    (setq doom-modeline-irc-stylize 'identity))
-(doom-modeline-mode 1)
+(use-package ivy
+  :ensure t
+  :config
+  (setq ivy-use-virtual-buffers t
+	ivy-count-format "%d/%d ")
+  (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+				(t . ivy--regex-fuzzy)))
+  (setq ivy-extra-directories nil)
+  (ivy-mode 1))
+
+;; (use-package ivy-rich 
+;;   :ensure t
+;;   :config
+;;   (ivy-rich-mode 1))
+
+(use-package ivy-prescient
+  :ensure t
+  :config
+  (prescient-persist-mode 1)
+  (ivy-prescient-mode 1))
+
+(use-package counsel
+  :ensure t
+  :custom
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+  :bind (
+         ("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file)
+         ("C-x b" . counsel-switch-buffer))
+
+  :config
+  (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+  (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+  (counsel-mode 1))
+
+(use-package swiper
+  :ensure t
+  :bind (("C-s" . swiper)))
 
 (use-package which-key
   :defer 0
@@ -263,13 +252,15 @@
   :config
   (smartparens-mode t))
 
-(use-package lua-mode
-  :mode "\\.lua\\'"
-  :ensure t)
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode))
 
-(use-package luarocks
-  :after (lua)
-  :ensure t)
+(use-package projectile
+    :bind (("C-c p" . projectile-find-file) ("C-c P" . projectile-switch-projects))
+  :ensure t
+:config (setq projectile-project-search-path '("~/.repos" "/mnt/Data/Drive/CIMB/PLANEACIONES")))
 
 (use-package company
   :ensure t
@@ -288,131 +279,13 @@
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 
-;  (use-package rg
-;    :defer 0
-;    :ensure t)
+(use-package rg
+  :defer 0
+  :ensure t)
 
 (use-package writeroom-mode
     :ensure t
     :bind ("<f6>" . writeroom-mode))
-
-(use-package ivy
-  :ensure t
-  :config
-  (setq ivy-use-virtual-buffers t
-	ivy-count-format "%d/%d ")
-  (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-				(t . ivy--regex-fuzzy)))
-  (setq ivy-extra-directories nil)
-  (ivy-mode 1))
-
-;; (use-package ivy-rich 
-;;   :ensure t
-;;   :config
-;;   (ivy-rich-mode 1))
-
-(use-package ivy-prescient
-  :ensure t
-  :config
-  (prescient-persist-mode 1)
-  (ivy-prescient-mode 1))
-
-(use-package counsel
-  :ensure t
-  :custom
-  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-  :bind (
-         ("M-x" . counsel-M-x)
-         ("C-x C-f" . counsel-find-file)
-         ("C-x b" . ivy-switch-buffer))
-
-  :config
-  (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
-  (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
-  (counsel-mode 1))
-
-(use-package swiper
-  :ensure t
-  :bind (("C-s" . swiper)))
-
-(use-package yasnippet
-  :ensure t
-  :config
-  (yas-global-mode))
-
-(use-package projectile
-  :bind (
-	 ("C-c p" . projectile-find-file)
-	 ("C-c P" . projectile-switch-projects))
-  :ensure t
-  :config
-  (setq projectile-project-search-path '("~/.repos" "/mnt/Data/Drive/CIMB/PLANEACIONES")))
-
-;;  (use-package fortune-cookie
-;;    :ensure t
-;;    :custom
-;;    (fortune-dir "/usr/share/fortunes"))
-;;
-;;  (use-package dashboard
-;;    :ensure t
-;;    :config
-;;    (dashboard-setup-startup-hook)
-;;    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-;;    (setq dashboard-banner-logo-title "Welcome to Emacs")
-;;    (setq dashboard-startup-banner 'logo)
-;;    (setq dashboard-show-shortcuts nil)
-;;    (setq dashboard-set-init-info nil)
-;;    (setq dashboard-footer-messages nil)
-;;    (setq dashboard-banner-logo-title nil)
-;;    (setq dashboard-items '(
-;;                            (bookmarks . 5)
-;;                            (projects . 5)
-;;                            (agenda . 5)))
-;;    (setq dashboard-center-content t)
-;;    (setq dashboard-page-separator "\n\n")
-;;    (setq dashboard-set-heading-icons t)
-;;    (setq dashboard-set-file-icons t))
-
-(use-package doom-themes
-  :ensure t
-  :config
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-	doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (doom-themes-visual-bell-config)
-  (doom-themes-neotree-config)
-  (doom-themes-treemacs-config)
-  (doom-themes-org-config))
-
-(use-package modus-vivendi-theme
-  :ensure t)
-(use-package modus-operandi-theme
-  :ensure t
-  :config
-  (setq modus-operandi-theme-slanted-constructs t)
-  (setq modus-operandi-theme-syntax 'alt-syntax))
-
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
-
-(use-package heaven-and-hell
-  :ensure t
-  :init
-  (setq heaven-and-hell-theme-type 'dark)
-  (setq heaven-and-hell-load-theme-no-confirm t)
-  (setq heaven-and-hell-themes
-	'((light . doom-one-light)
-	  (dark . doom-horizon)))
-  :hook (after-init . heaven-and-hell-init-hook)
-  :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
-	 ("<f7>" . heaven-and-hell-toggle-theme)))
-
-(use-package markdown-mode
-  :ensure t
-  :mode (("README\\.md\\'" . gfm-mode)
-	 ("\\.md\\'" . markdown-mode)
-	 ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
-(setq markdown-command "/usr/bin/pandoc")
 
 (use-package dired
   :ensure nil ; it's a built-in package
@@ -492,6 +365,100 @@
   (dired)
   (delete-other-windows))
 
+(use-package doom-modeline
+    :ensure t
+    :config
+    (add-hook 'window-selection-change-functions #'doom-modeline-set-selected-window)
+    (setq doom-modeline-height 25)
+    (setq doom-modeline-bar-width 4)
+    (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+    (setq doom-modeline-icon t)
+    (setq doom-modeline-major-mode-icon t)
+    (setq doom-modeline-modal-icon t)
+    (setq doom-modeline-major-mode-color-icon t)
+    (setq doom-modeline-minor-modes nil)
+    (setq doom-modeline-buffer-encoding nil)
+    (setq doom-modeline-enable-word-count t)
+    (setq doom-modeline-checker-simple-format t)
+    (setq doom-modeline-persp-name t)
+    (setq doom-modeline-lsp nil)
+    (setq doom-modeline-github nil)
+    (setq doom-modeline-env-version t)
+    (setq doom-modeline-env-enable-python t)
+    (setq doom-modeline-env-enable-ruby t)
+    (setq doom-modeline-env-enable-perl t)
+    (setq doom-modeline-env-enable-go t)
+    (setq doom-modeline-env-enable-elixir t)
+    (setq doom-modeline-env-enable-rust t)
+    (setq doom-modeline-env-python-executable "python")
+    (setq doom-modeline-env-ruby-executable "ruby")
+    (setq doom-modeline-env-perl-executable "perl")
+    (setq doom-modeline-env-go-executable "go")
+    (setq doom-modeline-env-elixir-executable "iex")
+    (setq doom-modeline-env-rust-executable "rustc")
+    (setq doom-modeline-mu4e t)
+    (setq doom-modeline-irc t)
+    (setq doom-modeline-irc-stylize 'identity))
+(doom-modeline-mode 1)
+
+(use-package heaven-and-hell
+  :ensure t
+  :init
+  (setq heaven-and-hell-theme-type 'dark)
+  (setq heaven-and-hell-load-theme-no-confirm t)
+  (setq heaven-and-hell-themes
+	'((light . doom-one-light)
+	  (dark . doom-horizon)))
+  :hook (after-init . heaven-and-hell-init-hook)
+  :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
+	 ("<f7>" . heaven-and-hell-toggle-theme)))
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+	doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
+
+(use-package modus-vivendi-theme
+  :ensure t)
+(use-package modus-operandi-theme
+  :ensure t
+  :config
+  (setq modus-operandi-theme-slanted-constructs t)
+  (setq modus-operandi-theme-syntax 'alt-syntax))
+
+(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+
+;;  (use-package fortune-cookie
+;;    :ensure t
+;;    :custom
+;;    (fortune-dir "/usr/share/fortunes"))
+;;
+;;  (use-package dashboard
+;;    :ensure t
+;;    :config
+;;    (dashboard-setup-startup-hook)
+;;    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+;;    (setq dashboard-banner-logo-title "Welcome to Emacs")
+;;    (setq dashboard-startup-banner 'logo)
+;;    (setq dashboard-show-shortcuts nil)
+;;    (setq dashboard-set-init-info nil)
+;;    (setq dashboard-footer-messages nil)
+;;    (setq dashboard-banner-logo-title nil)
+;;    (setq dashboard-items '(
+;;                            (bookmarks . 5)
+;;                            (projects . 5)
+;;                            (agenda . 5)))
+;;    (setq dashboard-center-content t)
+;;    (setq dashboard-page-separator "\n\n")
+;;    (setq dashboard-set-heading-icons t)
+;;    (setq dashboard-set-file-icons t))
+
 (use-package all-the-icons
   :ensure t)
 
@@ -509,31 +476,6 @@
   :after ivy-rich
   :config
   (all-the-icons-ivy-rich-mode 1))
-
-(use-package easy-hugo
-  :ensure t
-  :commands easy-hugo
-  :init 
-  ;;; Main blog. you can have more if you want
-  (setq easy-hugo-basedir "/mnt/Data/Blog/")
-  (setq easy-hugo-postdir "content/posts/")
-  :config
-  (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
-  (setq easy-hugo-default-ext ".org")
-  (setq easy-hugo-org-header t))
-
-(use-package ledger-mode
-  :ensure t
-  :mode "\\.lgr\\'"
-  :config
-  (evil-define-key 'normal ledger-mode-map (kbd "SPC r") 'ledger-report)
-  (evil-define-key 'normal ledger-mode-map (kbd "SPC i") 'ledger-add-transaction))
-
-(use-package evil-ledger
-  :ensure t
-  :after ledger-mode
-  :hook
-  (ledger-mode . evil-ledger-mode))
 
 (defun my/org-font-setup ()
   (require 'org-faces) 
@@ -923,6 +865,59 @@
   :config
   (setq eshell-banner-message (concat (shell-command-to-string "fortune-es") "\n\n")))
 
+(use-package lua-mode
+  :mode "\\.lua\\'"
+  :ensure t)
+
+(use-package luarocks
+  :after (lua)
+  :ensure t)
+
+(use-package markdown-mode
+  :ensure t
+  :mode (("README\\.md\\'" . gfm-mode)
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+(setq markdown-command "/usr/bin/pandoc")
+
+(use-package easy-hugo
+  :ensure t
+  :commands easy-hugo
+  :init 
+  ;;; Main blog. you can have more if you want
+  (setq easy-hugo-basedir "/mnt/Data/Blog/")
+  (setq easy-hugo-postdir "content/posts/")
+  :config
+  (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
+  (setq easy-hugo-default-ext ".org")
+  (setq easy-hugo-org-header t))
+
+(use-package ledger-mode
+  :ensure t
+  :mode "\\.lgr\\'"
+  :config
+  (evil-define-key 'normal ledger-mode-map (kbd "SPC r") 'ledger-report)
+  (evil-define-key 'normal ledger-mode-map (kbd "SPC i") 'ledger-add-transaction))
+
+(use-package evil-ledger
+  :ensure t
+  :after ledger-mode
+  :hook
+  (ledger-mode . evil-ledger-mode))
+
+(use-package kdeconnect
+  :ensure t
+  :config
+  (setq kdeconnect-devices "7843123afa92d0a8")
+  (setq kdeconnect-active-device "7843123afa92d0a8"))
+
+(use-package pinentry
+  :init
+  (pinentry-start))
+
+(use-package gemini-mode)
+
 ;  (use-package pdf-tools
 ;    :ensure t)
 
@@ -967,36 +962,5 @@
 ;;  (with-eval-after-load 'pdf-annot
 ;;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 
-(use-package kdeconnect
-  :ensure t
-  :config
-  (setq kdeconnect-devices "7843123afa92d0a8")
-  (setq kdeconnect-active-device "7843123afa92d0a8"))
-
-(use-package pinentry
-  :init
-  (pinentry-start))
-
-(use-package gemini-mode)
-
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-horizon))
- '(custom-safe-themes
-   '("f4876796ef5ee9c82b125a096a590c9891cec31320569fc6ff602ff99ed73dca" default))
- '(package-selected-packages
-   '(ivy-ycmd unicode-enbox discover yasnippet-snippets yaml-mode writeroom-mode which-key webfeeder vterm use-package unicode-troll-stopper unicode-fonts undo-tree undo-fu typescript-mode transmission telephone-line tab-bar-groups stumpwm-mode spotify speed-type spaceline-all-the-icons smartparens slime-company simple-rtm simple-httpd rg rainbow-mode rainbow-delimiters pyvenv python-mode pulseaudio-control pinentry password-store ox-slimhtml ox-pandoc ox-gemini org-tree-slide org-superstar org-super-agenda org-noter-pdftools org-bullets org-appear oauth2-request oauth no-littering network-watch modus-vivendi-theme modus-operandi-theme mini-modeline markdown-mode magit lyrics luarocks lua-mode kdeconnect ivy-yasnippet ivy-prescient ivy-emoji ivy-clipmenu htmlize hide-mode-line helpful helm-spotify-plus helm-icons heaven-and-hell ghub general gemini-mode fortune-cookie fish-completion figlet exwm ewal-doom-themes evil-org evil-ledger evil-collection esxml eshell-toggle eshell-syntax-highlighting eshell-prompt-extras eshell-git-prompt esh-autosuggest emojify emoji-fontset emacsql elpher easy-hugo doom-modeline dired-subtree dired-single dired-rsync dired-open dired-hide-dotfiles desktop-environment dashboard countdown counsel-projectile company-box command-log-mode color-theme-sanityinc-tomorrow clocker calfw-org calfw burly bug-hunter boon auto-package-update all-the-icons-ivy-rich all-the-icons-dired adoc-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-calendar-event ((t (:inherit (default)))))
- '(org-agenda-calendar-sexp ((t (:inherit (default)))))
- '(org-agenda-date-today ((t (:weight bold :height 130))))
- '(org-agenda-structure ((t (:underline t :weight bold :height 200 :width normal)))))

@@ -1,14 +1,13 @@
 #+TITLE: Emacs configuration
  #+PROPERTY: header-args:emacs-lisp :tangle ~/.repos/dotfiles/.emacs.d/init.el
  
- I think it's done. The entire configuration, migrated. Time to try it. 
-
 * About this file
-This is my own Emacs configuration. I started to use emacs on september of 2018, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even doesn't understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. Shutouts to [[https://github.com/daviwil][David Wilson]], creator of the channel SystemCrafters, [[https://cestlaz.github.io/][Mike Zamansky]], [[https://protesilaos.com/][Protesilaos Stavrou]] and specially, to [[https://www.youtube.com/channel/UCDEtZ7AKmwS0_GNJog01D2g][Uncle Dave]] since thanks to his videos I started to use and finally configure Emacs for the first time, that rainy september 2nd. of 2018.
+This is my own Emacs configuration. I started to use emacs about 3 years ago, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even doesn't understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. Shutouts to [[https://github.com/daviwil][David Wilson]], creator of the channel SystemCrafters, [[https://cestlaz.github.io/][Mike Zamansky]], [[https://protesilaos.com/][Protesilaos Stavrou]] and specially, to [[https://www.youtube.com/channel/UCDEtZ7AKmwS0_GNJog01D2g][Uncle Dave]], because is thanks to his videos I started to use and finally configure Emacs for the first time, that rainy day in september 2018.
 
 This is an ~org-mode~ file, so you can read it directly from emacs.
 
 * Startup 
+
 Set the garbage collection to a better number for the load. Also, a message with the time and garbage collection is showed.
 #+begin_src emacs-lisp
     ;; Profile emacs startup
@@ -26,7 +25,7 @@ Set the garbage collection to a better number for the load. Also, a message with
   (setq comp-deferred-compilation t)
   (setq comp-async-report-warnings-errors nil)
 #+end_src
-* Use-package
+** Use-package
 ~use-package~ is a macro set to install and configure packages.
 #+begin_src emacs-lisp
     (require 'package)
@@ -48,6 +47,7 @@ Set the garbage collection to a better number for the load. Also, a message with
   ;;  (setq use-package-verbose t)
 #+end_src
 * Basic configurations
+** UI and QOL configurations
 This include a lot of configurations so Emacs doesn't look like a very ugly notepad. 
 #+begin_src emacs-lisp
   (tool-bar-mode -1)
@@ -79,11 +79,11 @@ This include a lot of configurations so Emacs doesn't look like a very ugly note
 
 Here's some QOL configurations
 #+begin_src emacs-lisp
-     (show-paren-mode t)
+     (show-paren-mode t) ; Highlight the matching parenthesis
      (blink-cursor-mode 0) ; Disable the blinking
      ;; Press y/n instead of the whole word
      (defalias 'yes-or-no-p 'y-or-n-p)
-     ;; Scroll line by line. Cursor doesn't stays at the center of the screen
+     ;; Scroll line by line. Cursor doesn't stays at the center of the screen. Can be laggy
      (setq scroll-conservatively 100)
      ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
      (setq make-backup-files nil) 
@@ -108,18 +108,17 @@ Here's some QOL configurations
        (load-file user-init-file))
      (global-set-key (kbd "C-c r") 'config-reload)
 
-     ;; The text nevers goes outside from the buffer
-     (global-visual-line-mode 1)
+     (global-visual-line-mode 1) ; wrap lines to the size of the buffer
 
-     ;; Disables the ugly splash screen and the scratch message.
+     ;; Disables the ugly splash screen 
      (setq inhibit-splash-screen t)
-     (setq initial-scratch-message nil)
-     (setq initial-major-mode (quote org-mode))
+     (setq initial-scratch-message nil) ; Disable the scratch mesage
+     (setq initial-major-mode (quote org-mode)) ; Change the mode of the scratch buffer
 
      ;; With this, emacs will not ask if I want to edit the symlink every time
      (setq vc-follow-symlinks nil)
 
-     ;; This is necessary on +27 to write accents. They say it's a feature... but for who?
+     ;; This is necessary on 27+ to write accents. They say it's a feature... not for me!
      (require 'iso-transl)
 
 ;; When a split is done, follow it.
@@ -139,20 +138,19 @@ Here's some QOL configurations
 
 #+end_src
 
-* Fonts
+** Fonts
 Fonts are a ~face~. You can set different faces. I define three kind of fonts here:
 - Default: The default font
 - fixed-pitch: The monospace font
 - Variable-pitch: The "normal" font
-  
-Since I change fonts very often I put it here, easy to find.
 #+begin_src emacs-lisp
     (set-face-attribute 'default nil :family "Source Code Pro" :height 102)
     (set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
     (set-face-attribute 'variable-pitch nil :family "Open Sans")
 #+end_src
 
-* Evil
+* Keybindings
+** Evil
 Evil it's a layer to use vim-like keybindings on Emacs.It's basically, VIM inside Emacs. There some functions of VIM that doesn't work inside Evil though or it does but different. Evil-mode calls the vim modes "states", because Emacs has his own meaning for the word "mode". 
 
 To undo, ~undo-tree~ is needed.
@@ -177,7 +175,6 @@ To undo, ~undo-tree~ is needed.
     (setq-default evil-cross-lines t)
     (evil-mode 1))
 #+end_src
-
 
 ** Evil collection and friends
 Evil does works fine with text, but some modes has special keybindings or are interactive buffers, so Evil conflict with them. That's why ~evil-collection~ exists. Basically, it's a collection of key-maps for different modes.
@@ -215,8 +212,8 @@ By defaut, evil moves on physical lines instead of visual lines. This is annoyin
   (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
 #+end_src
 
-* Global keybindings
-I'm migrating to general, a better way to do things, I thing
+** Global keybindings
+I'm using =general= to create keybindings using a ~leader~ key.
 
 #+begin_src emacs-lisp
   (use-package general
@@ -228,10 +225,8 @@ I'm migrating to general, a better way to do things, I thing
 
     (my/leader-keys
      "SPC" '(counsel-find-file :which-key "Open a file")
-     "t"  '(:ignore t :which-key "toggles")
-     "tt" '(counsel-load-theme :which-key "Choose theme")
      "k" '(kill-current-buffer :which-key "Kill buffer")
-     "b" '(ivy-switch-buffer :which-key "Switch buffer")
+     "b" '(counsel-switch-buffer :which-key "Switch buffer")
      "s" '(swiper :which-key "Swiper search")
      "p" '(counsel-projectile-find-file :which-key "Projectile, find file")
      "P" '(counsel-projectile-switch-project :which-key "Projectile, switch project")
@@ -240,17 +235,15 @@ I'm migrating to general, a better way to do things, I thing
      "c" '(org-capture :which-key "Capture with org")
      "u" '(winner-undo :which-key "Undo layout")
      "r" '(winner-redo :which-key "Redo layout")
-     "RET" '((lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
-     ))
+     "RET" '((lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))))
 #+end_src
 
-
-
-Since ~Evil~ it's working now, this is a good moment to define some personal keybindings. I define it here because some of them needs Evil to work.
+Since ~Evil~ it's working now, this is a good moment to define some personal keybindings.
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-x k") 'kill-current-buffer)
   (global-set-key (kbd "C-c v") 'visual-line-mode)
   (global-set-key (kbd "<f5>")  'ispell-word)
+#+end_src
 ;;  (define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
 ;;  (define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
 ;;  (define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
@@ -261,45 +254,63 @@ Since ~Evil~ it's working now, this is a good moment to define some personal key
 ;;  (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
 ;;  (define-key evil-normal-state-map (kbd "SPC c") 'org-capture)
 ;;  (define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
-#+end_src
-* Doom-modeline
-The default modeline it's fine, but ugly and with a lot of useless information for me. I could customize it, but it's easier to just install ~doom-modeline~ the default modeline of ~doom-emacs~. Most of this is a copy-paste from the official README.
+* Completion framework
+I'm using =ivy= as my completion method. I like some fuzzy finding and the cool icons you can add to =ivy= to make it nicer.
+** Ivy
 #+begin_src emacs-lisp
-    (use-package doom-modeline
-      :ensure t
-      :config
-      (add-hook 'window-selection-change-functions #'doom-modeline-set-selected-window)
-      (setq doom-modeline-height 25)
-      (setq doom-modeline-bar-width 4)
-      (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-      (setq doom-modeline-icon t)
-      (setq doom-modeline-major-mode-icon t)
-      (setq doom-modeline-modal-icon t)
-      (setq doom-modeline-major-mode-color-icon t)
-      (setq doom-modeline-minor-modes nil)
-      (setq doom-modeline-buffer-encoding nil)
-      (setq doom-modeline-enable-word-count t)
-      (setq doom-modeline-checker-simple-format t)
-      (setq doom-modeline-persp-name t)
-      (setq doom-modeline-lsp nil)
-      (setq doom-modeline-github nil)
-      (setq doom-modeline-env-version t)
-      (setq doom-modeline-env-enable-python t)
-      (setq doom-modeline-env-enable-ruby t)
-      (setq doom-modeline-env-enable-perl t)
-      (setq doom-modeline-env-enable-go t)
-      (setq doom-modeline-env-enable-elixir t)
-      (setq doom-modeline-env-enable-rust t)
-      (setq doom-modeline-env-python-executable "python")
-      (setq doom-modeline-env-ruby-executable "ruby")
-      (setq doom-modeline-env-perl-executable "perl")
-      (setq doom-modeline-env-go-executable "go")
-      (setq doom-modeline-env-elixir-executable "iex")
-      (setq doom-modeline-env-rust-executable "rustc")
-      (setq doom-modeline-mu4e t)
-      (setq doom-modeline-irc t)
-      (setq doom-modeline-irc-stylize 'identity))
-  (doom-modeline-mode 1)    
+  (use-package ivy
+    :ensure t
+    :config
+    (setq ivy-use-virtual-buffers t
+	  ivy-count-format "%d/%d ")
+    (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+				  (t . ivy--regex-fuzzy)))
+    (setq ivy-extra-directories nil)
+    (ivy-mode 1))
+#+end_src
+
+~ivy-rich~ adds some extra functionality. My favorite: a description of the command right on the minibuffer.
+NOTE: THIS PACKAGE MAKES SWITCH BUFFERS PAINFULLY SLOW. IS DEPRECATED IN MY CONFIG FOR NOW
+#+begin_src emacs-lisp
+ ;; (use-package ivy-rich 
+ ;;   :ensure t
+ ;;   :config
+ ;;   (ivy-rich-mode 1))
+#+end_src
+
+~ivy-prescient~ adds a sort of history to ~ivy~, so it remembers my latest commands.
+#+begin_src emacs-lisp
+  (use-package ivy-prescient
+    :ensure t
+    :config
+    (prescient-persist-mode 1)
+    (ivy-prescient-mode 1))
+#+end_src
+
+** Counsel
+~counsel~ adds some fixes to the search mechanism of Emacs. It's necesary for some packages and replaces some default commands like ~M-x~.
+#+begin_src emacs-lisp
+  (use-package counsel
+    :ensure t
+    :custom
+    (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+    :bind (
+           ("M-x" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file)
+           ("C-x b" . counsel-switch-buffer))
+
+    :config
+    (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+    (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+    (counsel-mode 1))
+#+end_src
+
+** Swiper
+A searching tool. It uses counsel and ivy. It adds a minibuffer with the matching results.
+#+begin_src emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind (("C-s" . swiper)))
 #+end_src
 * Utilities
 There a lot of usefull packages, and they work excellent out of the box. 
@@ -353,16 +364,22 @@ Parenthesis are colored, so it's easy to identify matching parenthesis.
     (smartparens-mode t))
 #+end_src
 
-** Lua support
-I don't code too much LUA, but it's good to have, at least, color syntax.
+** Yasnippet
+Snippets are templates that are called interactively. I can write my own snippets.
 #+begin_src emacs-lisp
-  (use-package lua-mode
-    :mode "\\.lua\\'"
-    :ensure t)
+  (use-package yasnippet
+    :ensure t
+    :config
+    (yas-global-mode))
+#+end_src
 
-  (use-package luarocks
-    :after (lua)
-    :ensure t)
+** Projectile
+Projectile allows you to quickly switch between files inside projects. =git= repos are considered projects.
+#+begin_src emacs-lisp
+      (use-package projectile
+      :bind (("C-c p" . projectile-find-file) ("C-c P" . projectile-switch-projects))
+    :ensure t
+  :config (setq projectile-project-search-path '("~/.repos" "/mnt/Data/Drive/CIMB/PLANEACIONES")))
 #+end_src
 ** Company
 Adds some autocompletions. It can be slower than the actual typing tho. 
@@ -391,9 +408,9 @@ Add some extra text to the  =describe= buffers
 ** Ripgrep
 Like ~grep~, but cooler. It needs ~ripgrep~ installed.
 #+begin_src emacs-lisp
-;  (use-package rg
-;    :defer 0
-;    :ensure t)
+  (use-package rg
+    :defer 0
+    :ensure t)
 #+end_src
 ** Writeroom-mode
    When enabled, the text it's centered and the modeline disappears. Excellent to long writing sessions.
@@ -402,173 +419,7 @@ Like ~grep~, but cooler. It needs ~ripgrep~ installed.
      :ensure t
      :bind ("<f6>" . writeroom-mode))
  #+end_src 
-* Ivy
-~Ivy~ it's a completion framework. I preffer it over ~helm~ since is lighter, faster and looks better. And of course, it's a lot better than the default completion of Emacs, ido.
-#+begin_src emacs-lisp
-  (use-package ivy
-    :ensure t
-    :config
-    (setq ivy-use-virtual-buffers t
-	  ivy-count-format "%d/%d ")
-    (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-				  (t . ivy--regex-fuzzy)))
-    (setq ivy-extra-directories nil)
-    (ivy-mode 1))
-#+end_src
-
-~ivy-rich~ adds some extra functionality. My favorite: a description of the command right on the minibuffer.
-#+begin_src emacs-lisp
- ;; (use-package ivy-rich 
- ;;   :ensure t
- ;;   :config
- ;;   (ivy-rich-mode 1))
-#+end_src
-
-~ivy-prescient~ adds a sort of history to ~ivy~, so it remembers my latest commands.
-#+begin_src emacs-lisp
-  (use-package ivy-prescient
-    :ensure t
-    :config
-    (prescient-persist-mode 1)
-    (ivy-prescient-mode 1))
-#+end_src
-
-** Counsel
-~counsel~ adds some fixes to the search mechanism of Emacs. It's necesary for some packages and replaces some default commands like ~M-x~.
-#+begin_src emacs-lisp
-  (use-package counsel
-    :ensure t
-    :custom
-    (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-    :bind (
-           ("M-x" . counsel-M-x)
-           ("C-x C-f" . counsel-find-file)
-           ("C-x b" . ivy-switch-buffer))
-
-    :config
-    (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
-    (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
-    (counsel-mode 1))
-#+end_src
-
-** Swiper
-A searching tool. It uses counsel and ivy. It adds a minibuffer with the matching results.
-#+begin_src emacs-lisp
-  (use-package swiper
-    :ensure t
-    :bind (("C-s" . swiper)))
-#+end_src
-* Yasnippet
-Snippets are templates that are called interactively. I can write my own snippets.
-#+begin_src emacs-lisp
-  (use-package yasnippet
-    :ensure t
-    :config
-    (yas-global-mode))
-#+end_src
-
-* Projectile
-Projectile allows you to quickly switch between files inside projects. =git= repos are considered projects.
-#+begin_src emacs-lisp
-    (use-package projectile
-      :bind (
-	     ("C-c p" . projectile-find-file)
-	     ("C-c P" . projectile-switch-projects))
-      :ensure t
-      :config
-      (setq projectile-project-search-path '("~/.repos" "/mnt/Data/Drive/CIMB/PLANEACIONES")))
-#+end_src 
-* Dashboard
-A cool dashboard. Deprecated in my config in favor of a simple =*scratch*= buffer.
-#+begin_src emacs-lisp
-;;  (use-package fortune-cookie
-;;    :ensure t
-;;    :custom
-;;    (fortune-dir "/usr/share/fortunes"))
-;;
-;;  (use-package dashboard
-;;    :ensure t
-;;    :config
-;;    (dashboard-setup-startup-hook)
-;;    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-;;    (setq dashboard-banner-logo-title "Welcome to Emacs")
-;;    (setq dashboard-startup-banner 'logo)
-;;    (setq dashboard-show-shortcuts nil)
-;;    (setq dashboard-set-init-info nil)
-;;    (setq dashboard-footer-messages nil)
-;;    (setq dashboard-banner-logo-title nil)
-;;    (setq dashboard-items '(
-;;                            (bookmarks . 5)
-;;                            (projects . 5)
-;;                            (agenda . 5)))
-;;    (setq dashboard-center-content t)
-;;    (setq dashboard-page-separator "\n\n")
-;;    (setq dashboard-set-heading-icons t)
-;;    (setq dashboard-set-file-icons t))
-#+end_src
-* Themes
-  Emacs has a lot of themes available on internet. It's possible to set one with ~(load-theme)~. Check the ~heaven&hell~ package below.
-** Doom-themes
-A collection of themes designated for ~doom-emacs~.
-#+begin_src emacs-lisp
-  (use-package doom-themes
-    :ensure t
-    :config
-    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-	  doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (doom-themes-visual-bell-config)
-    (doom-themes-neotree-config)
-    (doom-themes-treemacs-config)
-    (doom-themes-org-config))
-#+end_src
-
-** Modus theme
-   The famous modus themes by Protesilaos Stavrou. Sadly, I can't stand the dark theme. Too dark for my taste.
- #+begin_src emacs-lisp
-   (use-package modus-vivendi-theme
-     :ensure t)
-   (use-package modus-operandi-theme
-     :ensure t
-     :config
-     (setq modus-operandi-theme-slanted-constructs t)
-     (setq modus-operandi-theme-syntax 'alt-syntax))
- #+end_src
-
-** Transparency
-To have cool transparency. It can be managed throught =picom= too.
-#+begin_src emacs-lisp
- (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
- (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
-#+end_src
-* Heaven and Hell
-This packages allow to quicky change between two themes. The recommended setup, a light and a dark theme.
-#+begin_src emacs-lisp
-  (use-package heaven-and-hell
-    :ensure t
-    :init
-    (setq heaven-and-hell-theme-type 'dark)
-    (setq heaven-and-hell-load-theme-no-confirm t)
-    (setq heaven-and-hell-themes
-	  '((light . doom-one-light)
-	    (dark . doom-horizon)))
-    :hook (after-init . heaven-and-hell-init-hook)
-    :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
-	   ("<f7>" . heaven-and-hell-toggle-theme)))
-#+end_src
-
-* Markdown
-  Though I don't use markdown a lot on Emacs, it's fine to have syntax highlightning and some functionality with ~pandoc~. It needs ~pandoc~ installed. If you're on arch and you doesn't work with Haskell, download ~pandoc-bin~ from AUR and evade the +750Mb of haskell libraries.
-
-#+begin_src emacs-lisp
-  (use-package markdown-mode
-    :ensure t
-    :mode (("README\\.md\\'" . gfm-mode)
-	   ("\\.md\\'" . markdown-mode)
-	   ("\\.markdown\\'" . markdown-mode))
-    :init (setq markdown-command "multimarkdown"))
-  (setq markdown-command "/usr/bin/pandoc")
-#+end_src
-
+ 
 * Dired
 ~Dired~ it's the Emacs buit-in file manager. Dired it's awesome, it does a lot out of the box liike compress, copy, move ("rename" in dired language), delete, and of course, edit files. There's some extensions to add more functionality, so you can have a very powerfull file manager, even better than ~ranger~, ~nnn~ or ~lf~.
 
@@ -671,7 +522,125 @@ This is needed to launch dired with a keybinding from my window manager
     (dired)
     (delete-other-windows))
 #+end_src
-* All the icons
+* UI and appeareance stuff
+** Doom-modeline
+The default modeline it's fine, but ugly and with a lot of useless information for me. I could customize it, but it's easier to just install ~doom-modeline~ the default modeline of ~doom-emacs~. Most of this is a copy-paste from the official README.
+#+begin_src emacs-lisp
+    (use-package doom-modeline
+      :ensure t
+      :config
+      (add-hook 'window-selection-change-functions #'doom-modeline-set-selected-window)
+      (setq doom-modeline-height 25)
+      (setq doom-modeline-bar-width 4)
+      (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+      (setq doom-modeline-icon t)
+      (setq doom-modeline-major-mode-icon t)
+      (setq doom-modeline-modal-icon t)
+      (setq doom-modeline-major-mode-color-icon t)
+      (setq doom-modeline-minor-modes nil)
+      (setq doom-modeline-buffer-encoding nil)
+      (setq doom-modeline-enable-word-count t)
+      (setq doom-modeline-checker-simple-format t)
+      (setq doom-modeline-persp-name t)
+      (setq doom-modeline-lsp nil)
+      (setq doom-modeline-github nil)
+      (setq doom-modeline-env-version t)
+      (setq doom-modeline-env-enable-python t)
+      (setq doom-modeline-env-enable-ruby t)
+      (setq doom-modeline-env-enable-perl t)
+      (setq doom-modeline-env-enable-go t)
+      (setq doom-modeline-env-enable-elixir t)
+      (setq doom-modeline-env-enable-rust t)
+      (setq doom-modeline-env-python-executable "python")
+      (setq doom-modeline-env-ruby-executable "ruby")
+      (setq doom-modeline-env-perl-executable "perl")
+      (setq doom-modeline-env-go-executable "go")
+      (setq doom-modeline-env-elixir-executable "iex")
+      (setq doom-modeline-env-rust-executable "rustc")
+      (setq doom-modeline-mu4e t)
+      (setq doom-modeline-irc t)
+      (setq doom-modeline-irc-stylize 'identity))
+  (doom-modeline-mode 1)    
+#+end_src
+** Heaven and Hell
+This packages allow to quicky change between two themes. The recommended setup, a light and a dark theme.
+#+begin_src emacs-lisp
+  (use-package heaven-and-hell
+    :ensure t
+    :init
+    (setq heaven-and-hell-theme-type 'dark)
+    (setq heaven-and-hell-load-theme-no-confirm t)
+    (setq heaven-and-hell-themes
+	  '((light . doom-one-light)
+	    (dark . doom-horizon)))
+    :hook (after-init . heaven-and-hell-init-hook)
+    :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
+	   ("<f7>" . heaven-and-hell-toggle-theme)))
+#+end_src
+
+** Themes
+  Emacs has a lot of themes available on internet. It's possible to set one with ~(load-theme)~. Check the ~heaven&hell~ package below.
+*** Doom-themes
+A collection of themes designated for ~doom-emacs~.
+#+begin_src emacs-lisp
+  (use-package doom-themes
+    :ensure t
+    :config
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+	  doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    (doom-themes-visual-bell-config)
+    (doom-themes-neotree-config)
+    (doom-themes-treemacs-config)
+    (doom-themes-org-config))
+#+end_src
+
+*** Modus theme
+   The famous modus themes by Protesilaos Stavrou. Sadly, I can't stand the dark theme. Too dark for my taste.
+ #+begin_src emacs-lisp
+   (use-package modus-vivendi-theme
+     :ensure t)
+   (use-package modus-operandi-theme
+     :ensure t
+     :config
+     (setq modus-operandi-theme-slanted-constructs t)
+     (setq modus-operandi-theme-syntax 'alt-syntax))
+ #+end_src
+
+** Transparency
+To have cool transparency. It can be managed throught =picom= too.
+#+begin_src emacs-lisp
+ (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+ (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+#+end_src
+** Dashboard
+A cool dashboard. Deprecated in my config in favor of a simple =*scratch*= buffer.
+#+begin_src emacs-lisp 
+;;  (use-package fortune-cookie
+;;    :ensure t
+;;    :custom
+;;    (fortune-dir "/usr/share/fortunes"))
+;;
+;;  (use-package dashboard
+;;    :ensure t
+;;    :config
+;;    (dashboard-setup-startup-hook)
+;;    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+;;    (setq dashboard-banner-logo-title "Welcome to Emacs")
+;;    (setq dashboard-startup-banner 'logo)
+;;    (setq dashboard-show-shortcuts nil)
+;;    (setq dashboard-set-init-info nil)
+;;    (setq dashboard-footer-messages nil)
+;;    (setq dashboard-banner-logo-title nil)
+;;    (setq dashboard-items '(
+;;                            (bookmarks . 5)
+;;                            (projects . 5)
+;;                            (agenda . 5)))
+;;    (setq dashboard-center-content t)
+;;    (setq dashboard-page-separator "\n\n")
+;;    (setq dashboard-set-heading-icons t)
+;;    (setq dashboard-set-file-icons t))
+#+end_src
+** All the icons
 Cool icons! It adds icons to ~doom-modeline~, ~dired~ and ~ivy~. Remember to run ~all-the-icons-install-font~ to actually see the icons. 
 #+begin_src emacs-lisp
   (use-package all-the-icons
@@ -692,44 +661,10 @@ Cool icons! It adds icons to ~doom-modeline~, ~dired~ and ~ivy~. Remember to run
     :config
     (all-the-icons-ivy-rich-mode 1))
 #+end_src
-* Easy Hugo
-Run ~hugo~ commands from Emacs and administrate your blogs. It needs ~hugo~ installed and configured. Note that evil mode is disabled for ~easy-hugo~.
-#+begin_src emacs-lisp
-  (use-package easy-hugo
-    :ensure t
-    :commands easy-hugo
-    :init 
-    ;;; Main blog. you can have more if you want
-    (setq easy-hugo-basedir "/mnt/Data/Blog/")
-    (setq easy-hugo-postdir "content/posts/")
-    :config
-    (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
-    (setq easy-hugo-default-ext ".org")
-    (setq easy-hugo-org-header t))
-#+end_src
-
-* Ledger
-Ledger it's a program to keep track of your expenses. It's very unix-y, it reads a text file with a very simple and human-readable format and prints out information about your balance. This is a mode to easily write the transactions and run ledger directly from Emacs.
-
-#+begin_src emacs-lisp
-  (use-package ledger-mode
-    :ensure t
-    :mode "\\.lgr\\'"
-    :config
-    (evil-define-key 'normal ledger-mode-map (kbd "SPC r") 'ledger-report)
-    (evil-define-key 'normal ledger-mode-map (kbd "SPC i") 'ledger-add-transaction))
-
-  (use-package evil-ledger
-    :ensure t
-    :after ledger-mode
-    :hook
-    (ledger-mode . evil-ledger-mode))
-#+end_src
-
 * Org-mode
 The killer feature of Emacs and the reason why I started to use Emacs. Org-mode it's a note taking and schedulling format with some markup capabilities. This "markup" it's more powerful than any other. You can create tables, spreadsheets, run code (just see this config file), export to a lot of formats, the integration with LaTeX it's awesome, and there's a lot of plugins and packages to extend it. If you want an idea of the potential of org-mode, my thesis was written almost entirely on org-mode with cites, bibliography, images, tables and everything else; just the final design (fonts, colors and things like that) was made with LibreOffice, and that's beacause I didn't knew a lot of LaTeX back then.
 
-I pass most of the time on org-mode. Since I'm not a developer it takes the place of word processors, simple spreadsheets and any calendar and /todo/ application. SO this section it'll be long, but the most important to me.
+I spend most of the time on org-mode. Since I'm not a developer it takes the place of word processors, simple spreadsheets and any calendar and /todo/ application. SO this section it'll be long, but the most important to me.
 
 ** Fonts
 It's possible to mix monospace fonts with variable-spaced fonts. To activate this behaviour, enable ~variable-pitch-mode~. This uses the fonts declared at the beggining of the document.
@@ -1106,7 +1041,7 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
 #+end_src
 
 ** Org appear
-Hide some characters.
+This package hides the emphasis characters. Similar to the =conceal= feature of vim.
 #+begin_src emacs-lisp
   (use-package org-appear
     :config
@@ -1203,6 +1138,87 @@ The Emacs shell! It works fine for simple tasks, and has an awesome integration 
 
 #+end_src
 
+* Other formats, languages and programs
+** Lua support
+I don't code too much LUA, but it's good to have, at least, color syntax.
+#+begin_src emacs-lisp
+  (use-package lua-mode
+    :mode "\\.lua\\'"
+    :ensure t)
+
+  (use-package luarocks
+    :after (lua)
+    :ensure t)
+#+end_src
+** Markdown
+  Though I don't use markdown a lot on Emacs, it's fine to have syntax highlightning and some functionality with ~pandoc~. It needs ~pandoc~ installed. If you're on arch and you doesn't work with Haskell, download ~pandoc-bin~ from AUR and evade the +750Mb of haskell libraries.
+
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :mode (("README\\.md\\'" . gfm-mode)
+	   ("\\.md\\'" . markdown-mode)
+	   ("\\.markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown"))
+  (setq markdown-command "/usr/bin/pandoc")
+#+end_src
+
+** Easy Hugo
+Run ~hugo~ commands from Emacs and administrate your blogs. It needs ~hugo~ installed and configured. Note that evil mode is disabled for ~easy-hugo~.
+#+begin_src emacs-lisp
+  (use-package easy-hugo
+    :ensure t
+    :commands easy-hugo
+    :init 
+    ;;; Main blog. you can have more if you want
+    (setq easy-hugo-basedir "/mnt/Data/Blog/")
+    (setq easy-hugo-postdir "content/posts/")
+    :config
+    (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
+    (setq easy-hugo-default-ext ".org")
+    (setq easy-hugo-org-header t))
+#+end_src
+
+** Ledger
+Ledger it's a program to keep track of your expenses. It's very unix-y, it reads a text file with a very simple and human-readable format and prints out information about your balance. This is a mode to easily write the transactions and run ledger directly from Emacs.
+
+#+begin_src emacs-lisp
+  (use-package ledger-mode
+    :ensure t
+    :mode "\\.lgr\\'"
+    :config
+    (evil-define-key 'normal ledger-mode-map (kbd "SPC r") 'ledger-report)
+    (evil-define-key 'normal ledger-mode-map (kbd "SPC i") 'ledger-add-transaction))
+
+  (use-package evil-ledger
+    :ensure t
+    :after ledger-mode
+    :hook
+    (ledger-mode . evil-ledger-mode))
+#+end_src
+
+** Kdeconnect
+A =kdeconnect= client inside emacs. I want to integrate it with dired.
+#+begin_src emacs-lisp
+  (use-package kdeconnect
+    :ensure t
+    :config
+    (setq kdeconnect-devices "7843123afa92d0a8")
+    (setq kdeconnect-active-device "7843123afa92d0a8"))
+
+#+end_src
+** Pinentry
+Pinentry is the password prompt used by GPG. With this package, instead of use the Qt or GTK window, it will ask for a password in the minibuffer.
+#+begin_src emacs-lisp
+  (use-package pinentry
+    :init
+    (pinentry-start))   
+#+end_src
+** Gemini
+A better web.. Adds colorscheme for gmi files
+#+begin_src emacs-lisp
+  (use-package gemini-mode)
+#+end_src
 * pdftools
 PDF-tools is a better pdf viewer for emacs.
 #+begin_src emacs-lisp
@@ -1253,31 +1269,7 @@ Take notes with org mode!
   ;;  (with-eval-after-load 'pdf-annot
   ;;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 #+end_src
-
-* Kdeconnect
-A =kdeconnect= client inside emacs. I want to integrate it with dired.
-#+begin_src emacs-lisp
-  (use-package kdeconnect
-    :ensure t
-    :config
-    (setq kdeconnect-devices "7843123afa92d0a8")
-    (setq kdeconnect-active-device "7843123afa92d0a8"))
-
-#+end_src
-* Pinentry
-Pinentry is the password prompt used by GPG. With this package, instead of use the Qt or GTK window, it will ask for a password in the minibuffer.
-#+begin_src emacs-lisp
-  (use-package pinentry
-    :init
-    (pinentry-start))   
-#+end_src
-* Gemini
-A better web.. Adds colorscheme for gmi files
-#+begin_src emacs-lisp
-  (use-package gemini-mode)
-#+end_src
 * Runtime Performance
-
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
 #+begin_src emacs-lisp
 
