@@ -248,4 +248,4 @@ hc unlock
 hc detect_monitors
 
 # find the panel
-~/.config/polybar/polybar_launch.sh
+polybar -r panel

@@ -7,7 +7,7 @@ export DARK_THEME="horizon"
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket #necesario para nvim --remote
 export QT_QPA_PLATFORMTHEME="qt5ct" # Necesario para apps qt
-export WM=herbstluftwm # Necesario para ufetch
+export WM=EXWM # Necesario para ufetch
 export LANG=es_MX.UTF-8
 export EDITOR="nvim"
 export VISUAL="nvim"

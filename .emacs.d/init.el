@@ -37,6 +37,10 @@
 (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
 (column-number-mode 1) ; The modeline shows the column number at the end
 
+(setq  cursor-in-non-selected-windows nil     ; Hide the cursor in inactive windows
+       select-enable-clipboard t              ; Merge system's and Emacs' clipboard
+        x-stretch-cursor t)                    ; Stretch cursor to the glyph width
+
 (global-display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
 
@@ -92,7 +96,7 @@
      ;; With this, emacs will not ask if I want to edit the symlink every time
      (setq vc-follow-symlinks nil)
 
-     ;; This is necessary on 27+ to write accents. They say it's a feature... not for me!
+     ;; This is necessary on 27+ to write accents (needed to write spanish). They say it's a feature... not for me!
      (require 'iso-transl)
 
 ;; When a split is done, follow it.
@@ -113,6 +117,10 @@
 (set-face-attribute 'default nil :family "Source Code Pro" :height 102)
 (set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
 (set-face-attribute 'variable-pitch nil :family "Open Sans")
+
+(use-package emojify
+  :config
+  (global-emojify-mode))
 
 (use-package undo-tree
   :ensure t
@@ -581,15 +589,15 @@
 ) ;; <=== The use-package org ends here
 
 (defun my/org-mode-visual-fill ()
-  (setq visual-fill-column-width 100
-        visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
+    (setq visual-fill-column-width 100
+          visual-fill-column-center-text t)
+    (visual-fill-column-mode 1))
 
-  (use-package visual-fill-column
-    :hook (
-    (org-agenda-mode . my/org-mode-visual-fill)
-    (org-mode . my/org-mode-visual-fill)
-    (elpher-mode . my/org-mode-visual-fill)))
+;    (use-package visual-fill-column
+;      :hook (
+;      (org-agenda-mode . my/org-mode-visual-fill)
+;      (org-mode . my/org-mode-visual-fill)
+;      (elpher-mode . my/org-mode-visual-fill)))
 
 ;; Pandoc support
 (use-package ox-pandoc
@@ -964,3 +972,23 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(doom-horizon))
+ '(custom-safe-themes
+   '("0685ffa6c9f1324721659a9cd5a8931f4bb64efae9ce43a3dba3801e9412b4d8" default))
+ '(global-emojify-mode t)
+ '(package-selected-packages
+   '(eyebrowse quiz yasnippet-snippets yaml-mode writeroom-mode which-key webfeeder vterm use-package unicode-troll-stopper unicode-fonts unicode-enbox undo-tree undo-fu typescript-mode transmission telephone-line tab-bar-groups stumpwm-mode spotify speed-type spaceline-all-the-icons smartparens slime-company simple-rtm simple-httpd rg rainbow-mode rainbow-delimiters pyvenv python-mode pulseaudio-control pinentry password-store ox-slimhtml ox-pandoc ox-gemini org-tree-slide org-superstar org-super-agenda org-noter-pdftools org-bullets org-appear oauth2-request oauth no-littering network-watch modus-vivendi-theme modus-operandi-theme mini-modeline markdown-mode magit lyrics luarocks lua-mode kdeconnect ivy-yasnippet ivy-prescient ivy-emoji ivy-clipmenu htmlize hide-mode-line helpful helm-spotify-plus helm-icons heaven-and-hell ghub general gemini-mode fortune-cookie fish-completion figlet exwm ewal-doom-themes evil-org evil-ledger evil-collection esxml eshell-toggle eshell-syntax-highlighting eshell-prompt-extras eshell-git-prompt esh-autosuggest emojify-logos emoji-fontset emacsql elpher easy-hugo doom-modeline discover dired-subtree dired-single dired-rsync dired-open dired-hide-dotfiles desktop-environment deferred dashboard countdown counsel-projectile company-box command-log-mode color-theme-sanityinc-tomorrow clocker calfw-org calfw burly bug-hunter boon auto-package-update all-the-icons-ivy-rich all-the-icons-dired adoc-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-calendar-event ((t (:inherit (default)))))
+ '(org-agenda-calendar-sexp ((t (:inherit (default)))))
+ '(org-agenda-date-today ((t (:weight bold :height 130))))
+ '(org-agenda-structure ((t (:underline t :weight bold :height 200 :width normal)))))

@@ -5,7 +5,6 @@
 ## INFO
 
 # user is already defined
-host="$(hostname)"
 os='Arch Linux'
 kernel="$(uname -sr)"
 uptime="$(uptime -p | sed 's/up //')"
@@ -65,7 +64,7 @@ c0="${reset}${bold}${blue}"         # first color
 
 cat <<EOF
 
-${c0}        /\\         ${nc}${USER}${ic}@${nc}${host}${reset}
+${c0}        /\\         
 ${c0}       /  \\        ${lc}OS:        ${ic}${os}${reset}
 ${c0}      /\\   \\       ${lc}KERNEL:    ${ic}${kernel}${reset}
 ${c0}     /  __  \\      ${lc}UPTIME:    ${ic}${uptime}${reset}

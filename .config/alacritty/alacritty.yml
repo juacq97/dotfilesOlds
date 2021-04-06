@@ -519,7 +519,7 @@ schemes:
 colors: *horizon
 
 # Background opacity
-background_opacity: 1.0
+background_opacity: 1
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"

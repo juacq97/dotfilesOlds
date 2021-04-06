@@ -2,12 +2,11 @@
  #+PROPERTY: header-args:emacs-lisp :tangle ~/.repos/dotfiles/.emacs.d/init.el
  
 * About this file
-This is my own Emacs configuration. I started to use emacs about 3 years ago, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even doesn't understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. Shutouts to [[https://github.com/daviwil][David Wilson]], creator of the channel SystemCrafters, [[https://cestlaz.github.io/][Mike Zamansky]], [[https://protesilaos.com/][Protesilaos Stavrou]] and specially, to [[https://www.youtube.com/channel/UCDEtZ7AKmwS0_GNJog01D2g][Uncle Dave]], because is thanks to his videos I started to use and finally configure Emacs for the first time, that rainy day in september 2018.
+This is my own Emacs configuration. I started to use emacs about 3 years ago, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even don''t understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. Shutouts to [[https://github.com/daviwil][David Wilson]], creator of the channel SystemCrafters, [[https://cestlaz.github.io/][Mike Zamansky]], [[https://protesilaos.com/][Protesilaos Stavrou]] and specially, to [[https://www.youtube.com/channel/UCDEtZ7AKmwS0_GNJog01D2g][Uncle Dave]], because is thanks to his videos I started to use and finally configure Emacs for the first time, that rainy day in september 2018.
 
 This is an ~org-mode~ file, so you can read it directly from emacs.
 
 * Startup 
-
 Set the garbage collection to a better number for the load. Also, a message with the time and garbage collection is showed.
 #+begin_src emacs-lisp
     ;; Profile emacs startup
@@ -56,6 +55,18 @@ This include a lot of configurations so Emacs doesn't look like a very ugly note
   (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
   (column-number-mode 1) ; The modeline shows the column number at the end
   #+end_src
+  
+How you doing angrybacon?
+
+#+begin_src emacs-lisp
+  (setq  cursor-in-non-selected-windows nil     ; Hide the cursor in inactive windows
+         select-enable-clipboard t              ; Merge system's and Emacs' clipboard
+          x-stretch-cursor t)                    ; Stretch cursor to the glyph width
+
+#+end_src
+
+
+
   
   This enables the line numbers at the left. It adds some customization to look fine even with variable-pitch fonts.
   
@@ -118,7 +129,7 @@ Here's some QOL configurations
      ;; With this, emacs will not ask if I want to edit the symlink every time
      (setq vc-follow-symlinks nil)
 
-     ;; This is necessary on 27+ to write accents. They say it's a feature... not for me!
+     ;; This is necessary on 27+ to write accents (needed to write spanish). They say it's a feature... not for me!
      (require 'iso-transl)
 
 ;; When a split is done, follow it.
@@ -147,6 +158,15 @@ Fonts are a ~face~. You can set different faces. I define three kind of fonts he
     (set-face-attribute 'default nil :family "Source Code Pro" :height 102)
     (set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
     (set-face-attribute 'variable-pitch nil :family "Open Sans")
+#+end_src
+
+** Emojis
+To be able to see emojis on emacs the following packages are needeed 🦀
+
+#+begin_src emacs-lisp
+  (use-package emojify
+    :config
+    (global-emojify-mode))
 #+end_src
 
 * Keybindings
@@ -244,16 +264,6 @@ Since ~Evil~ it's working now, this is a good moment to define some personal key
   (global-set-key (kbd "C-c v") 'visual-line-mode)
   (global-set-key (kbd "<f5>")  'ispell-word)
 #+end_src
-;;  (define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-find-file)
-;;  (define-key evil-normal-state-map (kbd "SPC k") 'kill-current-buffer)
-;;  (define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
-;;  (define-key evil-normal-state-map (kbd "SPC s") 'swiper)
-;;  (define-key evil-normal-state-map (kbd "SPC p") 'projectile-find-file)
-;;  (define-key evil-normal-state-map (kbd "SPC P") 'projectile-switch-project)
-;;  (define-key evil-normal-state-map (kbd "SPC g") 'magit)
-;;  (define-key evil-normal-state-map (kbd "SPC v") 'visual-line-mode)
-;;  (define-key evil-normal-state-map (kbd "SPC c") 'org-capture)
-;;  (define-key evil-normal-state-map (kbd "SPC RET") (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))
 * Completion framework
 I'm using =ivy= as my completion method. I like some fuzzy finding and the cool icons you can add to =ivy= to make it nicer.
 ** Ivy
@@ -423,9 +433,9 @@ Like ~grep~, but cooler. It needs ~ripgrep~ installed.
 * Dired
 ~Dired~ it's the Emacs buit-in file manager. Dired it's awesome, it does a lot out of the box liike compress, copy, move ("rename" in dired language), delete, and of course, edit files. There's some extensions to add more functionality, so you can have a very powerfull file manager, even better than ~ranger~, ~nnn~ or ~lf~.
 
-Dired it's a hard topic to me. I really want to like it, and really I try. The main problem is, though dired is awesome inside Emacs, maybe you'll have problems trying to open files externally, let's say videos or LibreOffice files. Right now, I think I have a good setup and I can use it, but I'm not sure how many time it'll take until I return to ~lf~...
+Dired it's great, but  while dired is awesome inside Emacs, maybe you'll have problems trying to open files externally, let's say videos or LibreOffice files. Right now, I think I have a good setup and I can use it.
 
-But lets configure this thing!
+Lets configure this thing!
 #+begin_src emacs-lisp
     (use-package dired
       :ensure nil ; it's a built-in package
@@ -791,11 +801,11 @@ First, lets define the function.
           visual-fill-column-center-text t)
     (visual-fill-column-mode 1))
 
-    (use-package visual-fill-column
-      :hook (
-      (org-agenda-mode . my/org-mode-visual-fill)
-      (org-mode . my/org-mode-visual-fill)
-      (elpher-mode . my/org-mode-visual-fill)))
+;    (use-package visual-fill-column
+;      :hook (
+;      (org-agenda-mode . my/org-mode-visual-fill)
+;      (org-mode . my/org-mode-visual-fill)
+;      (elpher-mode . my/org-mode-visual-fill)))
 #+end_src
 
 ** More export formats
