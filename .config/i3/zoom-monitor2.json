@@ -1,0 +1,134 @@
+// vim:ts=4:sw=4:et
+{
+    // splith split container with 3 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splith",
+    "marks": [],
+    "percent": null,
+    "type": "con",
+    "nodes": [
+        {
+            // splitv split container with 1 children
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "splitv",
+            "marks": [],
+            "percent": 0.222979797979798,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 3,
+                    "floating": "user_off",
+                    "geometry": {
+                       "height": 500,
+                       "width": 450,
+                       "x": 2175,
+                       "y": 200
+                    },
+                    "marks": [],
+                    "name": "Participants (1)",
+                    "percent": null,
+                    "swallows": [
+                       {
+                           "class": "^zoom$",
+                       // "instance": "^zoom$",
+                           "title": "^Participants\\ \\(1\\)$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        },
+        {
+            // tabbed split container with 1 children
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "tabbed",
+            "marks": [],
+            "percent": 0.516540404040404,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 3,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 600,
+                       "width": 800,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "marks": [],
+                    "name": "Alacritty",
+                    "percent": 1,
+                    "swallows": [
+                       {
+                           "class": "^Alacritty$"
+                       // "instance": "^Alacritty$",
+                       // "title": "^Alacritty$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        },
+        {
+            // splitv split container with 2 children
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "splitv",
+            "marks": [],
+            "percent": 0.260479797979798,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 3,
+                    "floating": "user_off",
+                    "geometry": {
+                       "height": 600,
+                       "width": 800,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "marks": [],
+                    "name": "sxiv",
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                           "class": "^Sxiv$"
+                       // "instance": "^sxiv$",
+                       // "title": "^sxiv$"
+                       }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "pixel",
+                    "current_border_width": 3,
+                    "floating": "user_off",
+                    "geometry": {
+                       "height": 800,
+                       "width": 1188,
+                       "x": 206,
+                       "y": 50
+                    },
+                    "marks": [],
+                    "name": "Zoom",
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                           "class": "^zoom$",
+                           "instance": "^zoom$",
+                           "title": "^Zoom$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        }
+    ]
+}
+

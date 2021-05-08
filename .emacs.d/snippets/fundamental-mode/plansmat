@@ -63,7 +63,7 @@
 
 ==== EVALUACIÓN
 // tag::eval[]
-- ${17:Actividad con la que se evaluará}
+- ${0:Actividad con la que se evaluará}
 // end::eval[]
 
 ==== TAREA

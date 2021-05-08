@@ -2,6 +2,7 @@
 #
 #                  ██      ██          ██
 #                 ░██     ░██         ░██
+
 #   ██████ ██   ██░██     ░██  ██     ░██
 #  ██░░░░ ░░██ ██ ░██████ ░██ ██   ██████
 # ░░█████  ░░███  ░██░░░██░████   ██░░░██
@@ -108,7 +109,11 @@ XF86AudioPrev
 XF86AudioStop
 	playerctl stop ; sigdwmblocks 6
 XF86AudioMicMute
-	amixer set Capture toggle
+      pactl set-source-mute 1 toggle; polybar-msg hook mic-volume 1
+
+super + alt + m
+      pactl set-source-mute 1 toggle; polybar-msg hook mic-volume 1
+	
 
 # Subir brillo
 #XF86MonBrightnessUp

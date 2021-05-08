@@ -5,7 +5,7 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 /* static char *font = "Fantasque Sans Mono:pixelsize=16:antialias=true:autohint=true"; */
-static char *font = "Fantasque Sans Mono:pixelsize=13:antialias=true:autohint=true, Font Awesome 5 Free:pixelsize=13:antialias=true:autohint=true";
+static char *font = "Source Code Pro:pixelsize=13:antialias=true:autohint=true, Font Awesome 5 Free:pixelsize=13:antialias=true:autohint=true";
 
 static int borderpx = 2;
 

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+
+status=$(pamixer --source 1 --get-mute)
+vol=$(pamixer --source 1 --get-volume)
+
+if [ $status = true ]; then
+    echo "M"
+else
+    echo $vol%
+fi
+

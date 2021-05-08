@@ -24,7 +24,7 @@ own_window_transparent yes
 
 ## cairo-compmgr
 own_window_type override
-own_window_argb_visual no
+own_window_argb_visual yes
 ##############################################
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 double_buffer yes
@@ -55,7 +55,7 @@ override_utf8_locale yes
 color1 1D1F1E
 color2 CC0C36
 color3 E82A2A
-own_window_argb_value 51
+own_window_argb_value 0
 own_window_colour 000000
 TEXT
 ${goto 90}${voffset 25}${font adele:bold:size=25} Today

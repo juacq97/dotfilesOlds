@@ -8,3 +8,8 @@ case $sel in
    Espejo) autorandr clone-largest;;
    Espejo-2) autorandr common;;
 esac
+
+if [ $(pgrep herbstluftwm) ]; then
+    herbstclient reload
+fi
+

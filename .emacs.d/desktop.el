@@ -22,7 +22,7 @@
   ;;(efs/start-panel)
 
   ;; Launch apps that will run in the background
-  (efs/run-in-background "polybar panel")
+;  (efs/run-in-background "polybar panel")
 ;;  (efs/run-in-background "sxhkd -c ~/.config/sxhkd/sxhkd_exwm")
                                           ;(efs/run-in-background "pasystray")
                                           ;(efs/run-in-background "blueman-applet"))
@@ -41,7 +41,7 @@
       ("Firefox" (exwm-workspace-move-window 2))
       ("Sol" (exwm-workspace-move-window 3))
       ("zoom" (exwm-floating-toggle-floating)
-      ;;("mpv" (exwm-floating-toggle-floating)
+      ;"mpv" (exwm-floating-toggle-floating)
        (exwm-layout-toggle-mode-line))))
 
   ;;      ;; This function should be used only after configuring autorandr!

@@ -8,200 +8,203 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
 *NOTE:* Make sure you've installed =nm-applet=, =pasystray= and =blueman= for the system tray apps to work!
 
 #+begin_src emacs-lisp
-    (defun my/run-in-background (command)
-      (let ((command-parts (split-string command "[ ]+")))
-        (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+      (defun my/run-in-background (command)
+        (let ((command-parts (split-string command "[ ]+")))
+          (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-    (defun my/exwm-init-hook ()
-      ;; Make workspace 1 be the one where we land at startup
-      (exwm-workspace-switch-create 1)
+      (defun my/exwm-init-hook ()
+        ;; Make workspace 1 be the one where we land at startup
+        (exwm-workspace-switch-create 1)
 
-      (org-agenda nil "o")) 
-    ;; NOTE: The next two are disabled because we now use Polybar!
+        (org-agenda nil "o")) 
+      ;; NOTE: The next two are disabled because we now use Polybar!
 
-    ;; Show battery status in the mode line
-    ;;    (display-battery-mode 1)
-    ;;
-    ;;    ;; Show the time and date in modeline
-    ;;    (setq display-time-day-and-date t)
-    ;;    (display-time-mode 1)
-    ;;(dashboard-setup-startup-hook)
-    ;;(add-hook 'after-make-frame-functions #'doom-modeline-set-selected-window)
-    ;; Also take a look at display-time-format and format-time-string
+      ;; Show battery status in the mode line
+      ;;    (display-battery-mode 1)
+      ;;
+      ;;    ;; Show the time and date in modeline
+      ;;    (setq display-time-day-and-date t)
+      ;;    (display-time-mode 1)
+      ;;(dashboard-setup-startup-hook)
+      ;;(add-hook 'after-make-frame-functions #'doom-modeline-set-selected-window)
+      ;; Also take a look at display-time-format and format-time-string
 
-    ;; Start the Polybar panel
-    ;;(my/start-panel)
+      ;; Start the Polybar panel
+      ;;(my/start-panel)
 
-    ;; Launch apps that will run in the background
-    (my/run-in-background "polybar panel")
-  ;;  (my/run-in-background "sxhkd -c ~/.config/sxhkd/sxhkd_exwm")
-                                            ;(my/run-in-background "pasystray")
-                                            ;(my/run-in-background "blueman-applet"))
+      ;; Launch apps that will run in the background
+      (my/run-in-background "polybar panel")
+      (my/run-in-background "nextcloud")
+    ;;  (my/run-in-background "sxhkd -c ~/.config/sxhkd/sxhkd_exwm")
+                                              ;(my/run-in-background "pasystray")
+                                              ;(my/run-in-background "blueman-applet"))
 
-    (defun my/exwm-update-class ()
-      (exwm-workspace-rename-buffer exwm-class-name))
+      (defun my/exwm-update-class ()
+        (exwm-workspace-rename-buffer exwm-class-name))
 
-    (defun my/exwm-update-title ()
-      (pcase exwm-class-name
-        ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
-        ("qutebrowser" (exwm-workspace-rename-buffer (format "%s" exwm-title)))))
+      (defun my/exwm-update-title ()
+        (pcase exwm-class-name
+          ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
+          ("qutebrowser" (exwm-workspace-rename-buffer (format "%s" exwm-title)))))
 
-    (defun my/configure-window-by-class ()
-      (interactive)
-      (pcase exwm-class-name
-        ("Firefox" (exwm-workspace-move-window 2))
-        ("Sol" (exwm-workspace-move-window 3))
-        ("zoom" (exwm-floating-toggle-floating)
-        ;;("mpv" (exwm-floating-toggle-floating)
-         (exwm-layout-toggle-mode-line))))
+      (defun my/configure-window-by-class ()
+        (interactive)
+        (pcase exwm-class-name
+          ("Firefox" (exwm-workspace-move-window 2))
+          ("Sol" (exwm-workspace-move-window 3))
+          ("zoom" (exwm-floating-toggle-floating)
+          ;;("mpv" (exwm-floating-toggle-floating)
+           (exwm-layout-toggle-mode-line))))
 
-    ;;      ;; This function should be used only after configuring autorandr!
-    (defun my/update-displays ()
-      (my/run-in-background "autorandr --change --force")
-      (message "Display config: %s"
-               (string-trim (shell-command-to-string "autorandr --current"))))
+      ;;      ;; This function should be used only after configuring autorandr!
+      (defun my/update-displays ()
+        (my/run-in-background "autorandr --change --force")
+        (message "Display config: %s"
+                 (string-trim (shell-command-to-string "autorandr --current"))))
 
-    (use-package exwm
-      :config
-      ;; Set the default number of workspaces
-      (setq exwm-workspace-number 6)
+    (defun bring-window ()
+      (interactive
+      (let ((exwm-layout-show-all-buffers t))
+        (call-interactively #'exwm-workspace-switch-to-buffer))))
 
-      ;; When window "class" updates, use it to set the buffer name
-      (add-hook 'exwm-update-class-hook #'my/exwm-update-class)
+      (use-package exwm
+        :config
+        ;; Set the default number of workspaces
+        (setq exwm-workspace-number 9)
 
-      ;; When window title updates, use it to set the buffer name
-      (add-hook 'exwm-update-title-hook #'my/exwm-update-title)
+        ;; When window "class" updates, use it to set the buffer name
+        (add-hook 'exwm-update-class-hook #'my/exwm-update-class)
 
-      ;; Configure windows as they're created
-      (add-hook 'exwm-manage-finish-hook #'my/configure-window-by-class)
+        ;; When window title updates, use it to set the buffer name
+        (add-hook 'exwm-update-title-hook #'my/exwm-update-title)
 
-
-      ;; When EXWM starts up, do some extra confifuration
-      (add-hook 'exwm-init-hook #'my/exwm-init-hook)
-
-      ;; Rebind CapsLock to Ctrl
-      ;;(start-process-shell-command "xmodmap" nil "xmodmap ~/.emacs.d/exwm/Xmodmap")
-
-      ;; NOTE: Uncomment the following two options if you want window buffers
-      ;;       to be available on all workspaces!
-
-      ;; Automatically move EXWM buffer to current workspace when selected
-      ;; (setq exwm-layout-show-all-buffers t)
-
-      ;; Display all EXWM buffers in every workspace buffer list
-      ;; (setq exwm-workspace-show-all-buffers t)
-
-      ;; NOTE: Uncomment this option if you want to detach the minibuffer!
-      ;; Detach the minibuffer (show it with exwm-workspace-toggle-minibuffer)
-      ;;(setq exwm-workspace-minibuffer-position 'top)
-
-      ;; Set the screen resolution (update this to be the correct resolution for your screen!)
-      (require 'exwm-randr)
-      (exwm-randr-enable)
-      ;;(start-process-shell-command "xrandr" nil "xrandr --output DP-2 --primary --mode 1600x900 --pos 0x0 --rotate normal")
-
-      ;; This will need to be updated to the name of a display!  You can find
-      ;; the names of your displays by looking at arandr or the output of xrandr
-      (setq exwm-randr-workspace-monitor-plist '(1 "DP-2" 2 "DP-2" 3 "DP-2" 4 "DP-2" 5 "DP-2" 6 "DP-2" 7 "LVDS-1" 8 "LVDS-1" 9 "LVDS-1"))
-
-      ;; NOTE: Uncomment these lines after setting up autorandr!
-      ;; React to display connectivity changes, do initial display update
-              (add-hook 'exwm-randr-screen-change-hook #'my/update-displays)
-              (my/update-displays)
-
-      ;; Set the wallpaper after changing the resolution
-      ;;(my/set-wallpaper)
-
-      ;; NOTE: This is disabled because we now use Polybar!
-      ;; Load the system tray before exwm-init
-      ;; (require 'exwm-systemtray)
-      ;; (setq exwm-systemtray-height 32)
-      ;; (exwm-systemtray-enable)
-
-      ;; Automatically send the mouse cursor to the selected workspace's display
-      (setq exwm-workspace-warp-cursor nil)
-
-      ;; These keys should always pass through to Emacs
-      (setq exwm-input-prefix-keys
-            '(?\C-x
-              ?\C-u
-              ?\C-h
-              ?\M-x
-              ?\M-`
-              ?\M-&
-              ?\M-:
-              ?\C-\M-j  ;; Buffer list
-              ?\C-\ ))  ;; Ctrl+Space
-
-      ;; Ctrl+Q will enable the next key to be sent directly
-      (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
-
-      ;; Set up global key bindings.  These always work, no matter the input state!
-      ;; Keep in mind that changing this list after EXWM initializes has no effect.
-      (setq exwm-input-global-keys
-            `(
-              ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
-              ([?\s-r] . exwm-reset)
-
-              ([?\s-L] . windmove-swap-states-right)
-              ([?\s-H] . windmove-swap-states-left)
-              ([?\s-K] . windmove-swap-states-up)
-              ([?\s-J] . windmove-swap-states-down)
-
-              ;; Move between windows
-              ([?\s-h] . windmove-left)
-              ([?\s-l] . windmove-right)
-              ([?\s-k] . windmove-up)
-              ([?\s-j] . windmove-down)
-
-              ([?\s-\M-l] . (lambda () (interactive) (exwm-layout-enlarge-window-horizontally 10))) 
-              ([?\s-\M-h] . (lambda () (interactive) (exwm-layout-shrink-window-horizontally 10))) 
-              ([?\s-\M-j] . (lambda () (interactive) (exwm-layout-shrink-window 10))) 
-              ([?\s-\M-k] . (lambda () (interactive) (exwm-layout-enlarge-window 10))) 
+        ;; Configure windows as they're created
+        (add-hook 'exwm-manage-finish-hook #'my/configure-window-by-class)
 
 
-                                            ;	  (defun split-and-follow-horizontally ()
-                                            ;	    (interactive)
-                                            ;	    (split-window-below)
-                                            ;	    (balance-windows)
-                                            ;	    (other-window 1))
-                                            ;	  
-                                            ;	  (defun split-and-follow-vertically ()
-                                            ;	    (interactive)
-                                            ;	    (split-window-right)
-                                            ;	    (balance-windows)
-                                            ;	    (other-window 1))
+        ;; When EXWM starts up, do some extra confifuration
+        (add-hook 'exwm-init-hook #'my/exwm-init-hook)
 
-              ;; Launch applications via shell command
-              ([?\s-&] . (lambda (command)
-                           (interactive (list (read-shell-command "$ ")))
-                           (start-process-shell-command command nil command)))
+        ;; Rebind CapsLock to Ctrl
+        ;;(start-process-shell-command "xmodmap" nil "xmodmap ~/.emacs.d/exwm/Xmodmap")
 
-              ;; Switch workspace
-              ([?\s-w] . exwm-workspace-switch)
+        ;; NOTE: Uncomment the following two options if you want window buffers
+        ;;       to be available on all workspaces!
 
-              ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
-              ,@(mapcar (lambda (i)
-                          `(,(kbd (format "s-%d" i)) .
-                            (lambda ()
-                              (interactive)
-                              (exwm-workspace-switch-create ,i))))
-                        (number-sequence 0 9))))
+        ;; Automatically move EXWM buffer to current workspace when selected
+        ;; (setq exwm-layout-show-all-buffers t)
 
-      ;; keybindings
+        ;; Display all EXWM buffers in every workspace buffer list
+        ;; (setq exwm-workspace-show-all-buffers t)
 
-      (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
-      (exwm-input-set-key (kbd "s-i") 'split-and-follow-horizontally)
-      (exwm-input-set-key (kbd "s-o") 'split-and-follow-vertically)
-      (exwm-input-set-key (kbd "s-RET") 'eshell)
+        ;; NOTE: Uncomment this option if you want to detach the minibuffer!
+        ;; Detach the minibuffer (show it with exwm-workspace-toggle-minibuffer)
+        ;;(setq exwm-workspace-minibuffer-position 'top)
+
+        ;; Set the screen resolution (update this to be the correct resolution for your screen!)
+        (require 'exwm-randr)
+        (exwm-randr-enable)
+        ;;(start-process-shell-command "xrandr" nil "xrandr --output DP-2 --primary --mode 1600x900 --pos 0x0 --rotate normal")
+
+        ;; This will need to be updated to the name of a display!  You can find
+        ;; the names of your displays by looking at arandr or the output of xrandr
+        (setq exwm-randr-workspace-monitor-plist '(1 "DP-2" 2 "DP-2" 3 "DP-2" 4 "DP-2" 5 "DP-2" 6 "DP-2" 7 "LVDS-1" 8 "LVDS-1" 9 "LVDS-1"))
+
+        ;; NOTE: Uncomment these lines after setting up autorandr!
+        ;; React to display connectivity changes, do initial display update
+                (add-hook 'exwm-randr-screen-change-hook #'my/update-displays)
+                (my/update-displays)
+
+        ;; Set the wallpaper after changing the resolution
+        ;;(my/set-wallpaper)
+
+        ;; NOTE: This is disabled because we now use Polybar!
+        ;; Load the system tray before exwm-init
+        ;; (require 'exwm-systemtray)
+        ;; (setq exwm-systemtray-height 32)
+        ;; (exwm-systemtray-enable)
+
+        ;; Automatically send the mouse cursor to the selected workspace's display
+        (setq exwm-workspace-warp-cursor nil)
+
+        ;; These keys should always pass through to Emacs
+        (setq exwm-input-prefix-keys
+              '(?\C-x
+                ?\C-u
+                ?\C-h
+                ?\M-x
+                ?\M-`
+                ?\M-&
+                ?\M-:
+                ?\C-\M-j  ;; Buffer list
+                ?\C-\ ))  ;; Ctrl+Space
+
+        ;; Ctrl+Q will enable the next key to be sent directly
+        (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+
+        ;; Set up global key bindings.  These always work, no matter the input state!
+        ;; Keep in mind that changing this list after EXWM initializes has no effect.
+        (setq exwm-input-global-keys
+              `(
+                ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+                ([?\s-r] . exwm-reset)
+
+                ([?\s-L] . windmove-swap-states-right)
+                ([?\s-H] . windmove-swap-states-left)
+                ([?\s-K] . windmove-swap-states-up)
+                ([?\s-J] . windmove-swap-states-down)
+
+                ;; Move between windows
+                ([?\s-h] . windmove-left)
+                ([?\s-l] . windmove-right)
+                ([?\s-k] . windmove-up)
+                ([?\s-j] . windmove-down)
+
+                ([?\s-\M-l] . (lambda () (interactive) (exwm-layout-enlarge-window-horizontally 10))) 
+                ([?\s-\M-h] . (lambda () (interactive) (exwm-layout-shrink-window-horizontally 10))) 
+                ([?\s-\M-j] . (lambda () (interactive) (exwm-layout-shrink-window 10))) 
+                ([?\s-\M-k] . (lambda () (interactive) (exwm-layout-enlarge-window 10))) 
 
 
+                                              ;	  (defun split-and-follow-horizontally ()
+                                              ;	    (interactive)
+                                              ;	    (split-window-below)
+                                              ;	    (balance-windows)
+                                              ;	    (other-window 1))
+                                              ;	  
+                                              ;	  (defun split-and-follow-vertically ()
+                                              ;	    (interactive)
+                                              ;	    (split-window-right)
+                                              ;	    (balance-windows)
+                                              ;	    (other-window 1))
 
+                ;; Launch applications via shell command
+                ([?\s-&] . (lambda (command)
+                             (interactive (list (read-shell-command "$ ")))
+                             (start-process-shell-command command nil command)))
 
+                ;; Switch workspace
+                ([?\s-w] . exwm-workspace-switch)
 
-      (exwm-enable))
-    (require 'exwm-config)
-    ;;(exwm-config-example)
+                ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
+                ,@(mapcar (lambda (i)
+                            `(,(kbd (format "s-%d" i)) .
+                              (lambda ()
+                                (interactive)
+                                (exwm-workspace-switch-create ,i))))
+                          (number-sequence 0 9))))
+
+        ;; keybindings
+
+        (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
+        (exwm-input-set-key (kbd "s-i") 'split-and-follow-horizontally)
+        (exwm-input-set-key (kbd "s-o") 'split-and-follow-vertically)
+        (exwm-input-set-key (kbd "s-b") 'bring-window)
+        (exwm-input-set-key (kbd "s-RET") 'eshell)
+
+        (exwm-enable))
+      (require 'exwm-config)
+      ;;(exwm-config-example)
 
 #+end_src
 
@@ -239,4 +242,9 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
   (defun dual-monitors-mirror ()
     (interactive)
     (shell-command "autorandr clone-largest"))
+#+end_src
+
+  This function allows to "bring" an exwm buffer from another workspace and put it on the focused window.
+  #+begin_src emacs-lisp
+(server-start)
 #+end_src

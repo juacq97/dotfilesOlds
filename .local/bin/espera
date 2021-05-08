@@ -1,0 +1,6 @@
+#! /bin/sh
+
+case $1 in
+     'a') pqiv -sF -d 20 6A.png efe.png ../26/acertijo.png;;
+     'b') pqiv -sF -d 20 6B.png efe.png ../26/acertijo.png;;
+esac

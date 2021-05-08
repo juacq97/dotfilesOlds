@@ -38,6 +38,7 @@ offset-y = 0%
 radius = 0.0
 fixed-center = true
 locale = es_MX.UTF-8
+enable-ipc = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -48,7 +49,7 @@ line-color = #f00
 border-size = 0
 border-color = #00000000
 
-padding-left = 0
+padding-left = 2
 padding-right = 0
 
 module-margin-left = 0
@@ -58,12 +59,17 @@ font-0 = Urbanist:size=10:antialias=true;1
 font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;2
 font-2 = Weather Icons:size=12;3
 
-modules-left = active-ws ewmh title
+modules-left = hlwm title
 modules-center = date
-modules-right = spotify clima pulseaudio battery network
+modules-right = spotify clima pulseaudio mic-volume battery network
 tray-position = none
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+[module/hlwm]
+type = custom/script
+exec = ~/.config/polybar/scripts/info-hlwm-workspaces.sh
+tail = true
 
 [module/title]
 type = internal/xwindow
@@ -71,7 +77,6 @@ label-maxlen = 30
 label-padding = 3
 
 [module/ewmh]
-
 type = internal/xworkspaces
 pin-workspaces = false
 enable-click = true
@@ -244,6 +249,13 @@ label = %output:0:70:...%
 format-prefix = "󰓇 "
 format-prefix-foreground = #1DB954
 format-foreground = ${colors.foreground}
+
+[module/mic-volume]
+type = custom/ipc
+hook-0 = mic-mute
+initial = 1
+format-prefix = "󰍬 "
+format-prefix-foreground = ${colors.color3}
 
 
 [settings]

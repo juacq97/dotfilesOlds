@@ -2,17 +2,14 @@
  #+PROPERTY: header-args:emacs-lisp :tangle ~/.repos/dotfiles/.emacs.d/init.el
  
 * About this file
-This is my own Emacs configuration. I started to use emacs about 3 years ago, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even don''t understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. Shutouts to [[https://github.com/daviwil][David Wilson]], creator of the channel SystemCrafters, [[https://cestlaz.github.io/][Mike Zamansky]], [[https://protesilaos.com/][Protesilaos Stavrou]] and specially, to [[https://www.youtube.com/channel/UCDEtZ7AKmwS0_GNJog01D2g][Uncle Dave]], because is thanks to his videos I started to use and finally configure Emacs for the first time, that rainy day in september 2018.
+This is my own Emacs configuration. I started to use emacs about 3 years ago, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even don''t understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. Shutouts to [[https://github.com/daviwil][David Wilson]],  [[https://cestlaz.github.io/][Mike Zamansky]], [[https://protesilaos.com/][Protesilaos Stavrou]] and specially, to [[https://www.youtube.com/channel/UCDEtZ7AKmwS0_GNJog01D2g][Uncle Dave]], because is thanks to his videos I started to use and finally configure Emacs for the first time, that rainy day in september 2018.
 
 This is an ~org-mode~ file, so you can read it directly from emacs.
 
 * Startup 
-Set the garbage collection to a better number for the load. Also, a message with the time and garbage collection is showed.
-#+begin_src emacs-lisp
+Set the garbage collection to a better number for the load. Also, a message with the time and garbage collection is showed. #+begin_src emacs-lisp
     ;; Profile emacs startup
-    ;; The default is 800 kilobytes.  Measured in bytes.
-    (setq gc-cons-threshold (* 50 1000 1000))
-
+    ;; The default is 800 kilobytes.  Measured in bytes. (setq gc-cons-threshold (* 50 1000 1000))
     (add-hook 'emacs-startup-hook
               (lambda ()
                 (message "*** Emacs loaded in %s with %d garbage collections."
@@ -64,9 +61,6 @@ How you doing angrybacon?
           x-stretch-cursor t)                    ; Stretch cursor to the glyph width
 
 #+end_src
-
-
-
   
   This enables the line numbers at the left. It adds some customization to look fine even with variable-pitch fonts.
   
@@ -81,6 +75,7 @@ How you doing angrybacon?
     (dolist (mode '(org-mode-hook
                     org-agenda-mode-hook
                     term-mode-hook
+                    vterm-mode-hook
                     shell-mode-hook
                     treemacs-mode-hook
                     elpher-mode-hook
@@ -155,8 +150,8 @@ Fonts are a ~face~. You can set different faces. I define three kind of fonts he
 - fixed-pitch: The monospace font
 - Variable-pitch: The "normal" font
 #+begin_src emacs-lisp
-    (set-face-attribute 'default nil :family "Source Code Pro" :height 102)
-    (set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
+    (set-face-attribute 'default nil :family "Fira Code" :height 102)
+    (set-face-attribute 'fixed-pitch nil :family "Fira Code")
     (set-face-attribute 'variable-pitch nil :family "Open Sans")
 #+end_src
 
@@ -236,11 +231,13 @@ By defaut, evil moves on physical lines instead of visual lines. This is annoyin
 I'm using =general= to create keybindings using a ~leader~ key.
 
 #+begin_src emacs-lisp
+
+(global-unset-key (kbd "C-z"))
   (use-package general
     :config
     (general-create-definer my/leader-keys
-      :keymaps '(normal insert visual emacs)
-      :prefix "SPC"
+       :keymaps '(normal insert visual emacs)
+       :prefix "SPC"
       :global-prefix "C-SPC")
 
     (my/leader-keys
@@ -264,6 +261,7 @@ Since ~Evil~ it's working now, this is a good moment to define some personal key
   (global-set-key (kbd "C-c v") 'visual-line-mode)
   (global-set-key (kbd "<f5>")  'ispell-word)
 #+end_src
+
 * Completion framework
 I'm using =ivy= as my completion method. I like some fuzzy finding and the cool icons you can add to =ivy= to make it nicer.
 ** Ivy
@@ -367,11 +365,9 @@ NOTE: For some weird reason, it causes problems. It spawns a lot of \*Emacs\* bu
 ** Rainbow delimiters
 Parenthesis are colored, so it's easy to identify matching parenthesis.
 #+begin_src emacs-lisp
-  (use-package smartparens
+  (use-package rainbow-delimiters
     :ensure t
-    :hook (prog-mode . rainbow-delimiters-mode)
-    :config
-    (smartparens-mode t))
+    :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
 ** Yasnippet
@@ -430,6 +426,56 @@ Like ~grep~, but cooler. It needs ~ripgrep~ installed.
      :bind ("<f6>" . writeroom-mode))
  #+end_src 
  
+** Ace window
+#+begin_src emacs-lisp
+  (use-package switch-window
+    :bind ("C-x o" . switch-window)
+    :config
+    (setq switch-window-shortcut-style 'qwerty)
+    (setq switch-window-minibuffer-shortcut ?z))
+
+
+#+end_src
+* Elfeed
+Elfeed is a RSS feeds reader. It can sync my news with newscloud throught the elfeed-protocol package.
+#+begin_src emacs-lisp
+
+  (use-package elfeed
+    :config
+    (setq elfeed-search-filter "@4-months-ago +unread")
+    (setq elfeed-show-unique-buffers t))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package elfeed-org
+    :config
+    (elfeed-org)
+    (setq rmh-elfeed-org-files (list "~/.repos/dotfiles/.emacs.d/feeds.org")))
+#+end_src
+
+#+begin_src emacs-lisp
+    (use-package elfeed-protocol
+      :config
+      (setq elfeed-use-curl t)
+      (elfeed-set-timeout 36000)
+      (setq elfeed-curl-extra-arguments '("--insecure")) ;necessary for https without a trust certificate
+      ;; setup extra protocol feeds
+
+      (defadvice elfeed (after configure-elfeed-feeds activate)
+        "Make elfeed-org autotags rules works with elfeed-protocol."
+        (setq elfeed-protocol-tags elfeed-feeds)
+        (setq elfeed-feeds '(
+                             ;; format 6, for password in pass(1), using password-store.el
+                             ("owncloud+https://admin@cloud.juancastro.xyz"
+                              :password (password-store-get "nextcloud/admin")
+                              :autotags elfeed-protocol-tags))))
+
+        ;; use autotags
+
+        ;; enable elfeed-protocol
+        (elfeed-protocol-enable))
+#+end_src
+
 * Dired
 ~Dired~ it's the Emacs buit-in file manager. Dired it's awesome, it does a lot out of the box liike compress, copy, move ("rename" in dired language), delete, and of course, edit files. There's some extensions to add more functionality, so you can have a very powerfull file manager, even better than ~ranger~, ~nnn~ or ~lf~.
 
@@ -437,29 +483,30 @@ Dired it's great, but  while dired is awesome inside Emacs, maybe you'll have pr
 
 Lets configure this thing!
 #+begin_src emacs-lisp
-    (use-package dired
-      :ensure nil ; it's a built-in package
-      :commands (dired dired-jump)
-      :bind (("C-x C-j" . dired-jump) ; To quickly open a dired buffer on the file path
-	     ("C-<return>" . (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))) ; To quickly open a Terminal window
-      :hook (
-	     (dired-mode . dired-hide-details-mode)
-	     (dired-mode . hl-line-mode))
-      :config
-      (setq dired-listing-switches "-AgGhovF --group-directories-first") ; man ls to details
-      (setq dired-recursive-copies 'always)
-      (setq dired-recursive-deletes 'always)
-      (setq delete-by-moving-to-trash t) ;It uses the trash bin
-      (setq dired-dwim-target 'dired-dwim-target-next-visible) ; If I have two buffers or frames open and I try to copy a file from one buffer, it understand that I want to copy it to the other buffer.
+      (use-package dired
+        :ensure nil ; it's a built-in package
+        :commands (dired dired-jump)
+        :bind (("C-x C-j" . dired-jump) ; To quickly open a dired buffer on the file path
+               ("C-<return>" . (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))) ; To quickly open a Terminal window
+        :hook (
+               (dired-mode . dired-hide-details-mode)
+               (dired-mode . hl-line-mode))
+        :config
+        (setq dired-listing-switches "-AgGhovF --group-directories-first") ; man ls to details
+        (setq dired-recursive-copies 'always)
+        (setq dired-recursive-deletes 'always)
+        (setq delete-by-moving-to-trash t) ;It uses the trash bin
+        (setq dired-dwim-target 'dired-dwim-target-next-visible) ; If I have two buffers or frames open and I try to copy a file from one buffer, it understand that I want to copy it to the other buffer.
 
-      ;; Some keybindings. It makes use of the ~evil-collection~ key-map and (maybe) replaces some default keybindings.
-      (evil-collection-define-key 'normal 'dired-mode-map
-	"h" 'dired-single-up-directory
-	"l" 'dired-open-file
-	"nd" 'dired-create-directory
-	"nf" 'dired-create-empty-file
-	"/" 'swiper
-	"gj" 'counsel-bookmark))
+        ;; Some keybindings. It makes use of the ~evil-collection~ key-map and (maybe) replaces some default keybindings.
+        (evil-collection-define-key 'normal 'dired-mode-map
+          "h" 'dired-single-up-directory
+          "l" 'dired-open-file
+          "nd" 'dired-create-directory
+          "nf" 'dired-create-empty-file
+          "/" 'swiper
+          "gj" 'counsel-bookmark)
+  )
 #+end_src
 
 By default dired creates a new buffer for every directory open. This will create a mess of buffers with a lot of dired buffers open. This packages try to avoid this, but dired still creates some buffers. 
@@ -503,12 +550,13 @@ As I said before, the integration with external tools can be improved. This pack
 Dired shows your dotfiles or it doesn't. This packages allows to toggle the directories that starts with a period. I added a keybinding to toggle it.
 
 #+begin_src emacs-lisp
-  (use-package dired-hide-dotfiles
-    :ensure t
-    :hook (dired-mode . dired-hide-dotfiles-mode)
-    :config
-    (evil-collection-define-key 'normal 'dired-mode-map
-      "zh" 'dired-hide-dotfiles-mode))
+    (use-package dired-hide-dotfiles
+      :ensure t
+      :hook (dired-mode . dired-hide-dotfiles-mode)
+      :config
+      (evil-collection-define-key 'normal 'dired-mode-map
+        "zh" 'dired-hide-dotfiles-mode)
+  )
 #+end_src
 
 This is an interesting package. It adds a tree layout to dired, so I can navigate directories in a similar fashion to ~org-mode~.
@@ -619,8 +667,8 @@ A collection of themes designated for ~doom-emacs~.
 ** Transparency
 To have cool transparency. It can be managed throught =picom= too.
 #+begin_src emacs-lisp
- (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
- (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 #+end_src
 ** Dashboard
 A cool dashboard. Deprecated in my config in favor of a simple =*scratch*= buffer.
@@ -653,23 +701,25 @@ A cool dashboard. Deprecated in my config in favor of a simple =*scratch*= buffe
 ** All the icons
 Cool icons! It adds icons to ~doom-modeline~, ~dired~ and ~ivy~. Remember to run ~all-the-icons-install-font~ to actually see the icons. 
 #+begin_src emacs-lisp
-  (use-package all-the-icons
-    :ensure t)
+    (use-package all-the-icons
+      :ensure t)
 
-  ;; Icons for dired
-  (use-package all-the-icons-dired
-    :ensure t
-    :hook (dired-mode . (lambda ()
-			  (interactive)
-			  (unless (file-remote-p default-directory)
-			    (all-the-icons-dired-mode)))))
+    ;; Icons for dired
+    (use-package all-the-icons-dired
+      :ensure t
+      :hook (dired-mode . (lambda ()
+                            (interactive)
+                            (unless (file-remote-p default-directory)
+                              (all-the-icons-dired-mode)))))
+  (use-package all-the-icons-ivy
+  :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
 
-  ;; Icons for ivy
-  (use-package all-the-icons-ivy-rich
-    :ensure t
-    :after ivy-rich
-    :config
-    (all-the-icons-ivy-rich-mode 1))
+    ;; Icons for ivy
+    (use-package all-the-icons-ivy-rich
+      :ensure t
+      :after ivy-rich
+      :config
+      (all-the-icons-ivy-rich-mode 1))
 #+end_src
 * Org-mode
 The killer feature of Emacs and the reason why I started to use Emacs. Org-mode it's a note taking and schedulling format with some markup capabilities. This "markup" it's more powerful than any other. You can create tables, spreadsheets, run code (just see this config file), export to a lot of formats, the integration with LaTeX it's awesome, and there's a lot of plugins and packages to extend it. If you want an idea of the potential of org-mode, my thesis was written almost entirely on org-mode with cites, bibliography, images, tables and everything else; just the final design (fonts, colors and things like that) was made with LibreOffice, and that's beacause I didn't knew a lot of LaTeX back then.
@@ -746,8 +796,8 @@ Here's some configuration I made to org-mode, the actual package.
       (global-set-key (kbd "C-c l") 'org-store-link)
 
       ;; Change TODO states with SPC t. It uses evil-collection key-map.
-      (evil-define-key 'normal org-mode-map
-        (kbd "SPC t") 'org-todo)
+      ;;(evil-define-key 'normal org-mode-map
+      ;;  (kbd "SPC t") 'org-todo)
 
   ;; Activate org-beamer
     (org-beamer-mode)
@@ -812,9 +862,9 @@ First, lets define the function.
 Though org-mode has a long range of formats, we can add more.
 #+begin_src emacs-lisp
   ;; Pandoc support
-  (use-package ox-pandoc
-    :after org
-    :ensure t)
+  ;(use-package ox-pandoc
+  ;  :after org
+  ;  :ensure t)
 
     
 #+end_src
@@ -828,21 +878,10 @@ It replaces the stars for bullets and unicode glyphs. It looks nice and it's eas
 
      (defun my/org-enable-prettify ()
        (setq prettify-symbols-alist
-             '(("TODO" . ?❗)
-               ("DONE" . ?✔)
-               ("PROJ" . ?✎)
-               ("WAIT" . ?⌛)
-               ("NEXT" . ?➠)
-               ("EVENTO" . ?)
-               ("DROP" . ?✖)
+             '(("DROP" . ?✖)
                ("EMISION" . ?✒)
                ("FINALIZADO" . ?✔)
-               ("LIKE" . ?❤)
-               ("CANCELADO" . ?✘)
-               (":@trabajo:" . ?⚒)
-               (":@personal:" . ?⛷)
-               (":@trabajo::" . ?⚒)
-               (":@personal::" . ?⛷)))
+               ("LIKE" . ?❤)))
        (prettify-symbols-mode 1))
      (add-hook 'org-mode-hook 'my/org-enable-prettify)
 
@@ -897,7 +936,7 @@ Let's define some basic stuff first
 #+begin_src emacs-lisp
   (setq org-directory "/mnt/Data/ORG") ; The directory of your files
   (setq org-agenda-files '(
-                           "/mnt/Data/ORG/TODO.org"
+                           "/mnt/data/Nextcloud/ORG/sync/TODO.org"
                            "~/testing-orgfiles.org"))
   (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
 
@@ -919,19 +958,19 @@ Let's define some basic stuff first
 
 Now, this is pure eye-candy
 #+begin_src emacs-lisp
-  (add-hook 'org-agenda-show-hook 'variable-pitch-mode 1)
 
   ;; Removes the ~======~ between blocks. It's ugly IMO
   (setq org-agenda-block-separator (string-to-char " "))
+  (setq org-agenda-window-setup 'current-window)
 
   ;;Remove ths strings ~SCHEDULED:~ and ~DEADLINE:~ 
-  (setq org-agenda-scheduled-leaders '(" " " "))
-  (setq org-agenda-deadline-leaders '("⏰" "En %d días: " "Hace %d días: "))
+  (setq org-agenda-scheduled-leaders '("" ""))
+  (setq org-agenda-deadline-leaders '("🕓" "En %d días:" "Hace %d días:"))
 
   ;; Custom fonts! I'm using Ubuntu fonts here... I'm not sure why.
   (custom-theme-set-faces 'user
                           '(org-agenda-date-today ((t (:weight bold :height 130)))) ; Today
-                          '(org-agenda-structure ((t (:underline t :weight bold :height 200 :width normal)))) ; Titles
+                          '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))) ; Titles
                           '(org-agenda-calendar-event ((t (:inherit (default)))))
                           '(org-agenda-calendar-sexp ((t (:inherit (default))))));Rest of the text
 #+end_src
@@ -942,31 +981,59 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
   (setq org-agenda-custom-commands
         '(("o" "My Agenda"
            ((agenda "" (
-                        (org-agenda-files '("/mnt/Data/ORG/TODO.org"))
-                        (org-agenda-overriding-header "   Eventos:\n")
+                        (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
+                        (org-agenda-overriding-header "📅 Calendario\n")
                         (org-agenda-skip-scheduled-if-done t)
                         (org-agenda-skip-timestamp-if-done t)
                         (org-agenda-skip-deadline-if-done t)
-                        (org-agenda-skip-deadline-prewarning-if-scheduled t)
+                        (org-agenda-skip-deadline-prewarning-if-scheduled nil)
                         (org-agenda-start-day "+0d")
                         (org-agenda-span 7)
-                        (org-agenda-prefix-format "  %?-t %T %?-5s")
-                        (org-agenda-repeating-timestamp-show-all nil)
+                        (org-agenda-prefix-format "  %?-t %T %?5s")
+                        (org-agenda-repeating-timestamp-show-all t)
                         ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
-                        (org-agenda-remove-tags t))
-                    (org-agenda-todo-keyword-format " -> ")
+                        (org-agenda-remove-tags t)
+                   (org-agenda-todo-keyword-format " ")
                     (org-agenda-time)
-                    (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈ ahora")
-                    (org-agenda-deadline-leaders '("" ""))
-                    (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-            (todo "TODO" (
-                          (org-agenda-files '("/mnt/Data/ORG/TODO.org"))
-                          (org-agenda-overriding-header "  Tareas:\n")
-                          (tags-todo "TODO")
-                          (org-agenda-remove-tags t)
+                    (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
+                    ;(org-agenda-deadline-leaders '("" ""))
+                    (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
+
+            (todo "NEXT" (
+                          (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
+                          (org-agenda-overriding-header "⭐ Siguientes\n")
+                          (org-agenda-remove-tags nil)
+                          (org-agenda-hide-tags-regexp "^\@")
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%T %?-s")
-                          (org-agenda-todo-keyword-format "")))))))
+                          (org-agenda-todo-keyword-format "")))
+
+            (todo "ESPERANDO" (
+                          (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
+                          (org-agenda-overriding-header "🕘 Esperando\n")
+                          (org-agenda-remove-tags nil)
+                          (org-agenda-hide-tags-regexp "^\@")
+                          (org-agenda-todo-ignore-scheduled 'future)
+                          (org-agenda-prefix-format "%T %?-s")
+                          (org-agenda-todo-keyword-format "")))
+
+
+            (todo "PROJ" (
+                          (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
+                          (org-agenda-overriding-header "✈ Proyectos\n")
+                          (org-agenda-remove-tags nil)
+                          (org-agenda-hide-tags-regexp "^\@")
+                          (org-agenda-todo-ignore-scheduled 'future)
+                          (org-agenda-prefix-format "%T %?-s")
+                          (org-agenda-todo-keyword-format "")))
+
+            (todo "" (
+                          (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
+                          (org-agenda-overriding-header "☑ Tareas\n")
+                          (org-agenda-remove-tags nil)
+                          (org-agenda-todo-ignore-scheduled 'future)
+                          (org-agenda-prefix-format "%?-s")
+                          (org-agenda-todo-keyword-format "%-1s")))))))
 #+end_src
 
 Finally, this function it's needed to spawn a floating agenda with my Window Manger
@@ -980,7 +1047,7 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
 ** Refile
 #+begin_src emacs-lisp
   (setq org-refile-targets
-	'(("DONE.org" :maxlevel . 1)))
+	'(("../DONE.org" :maxlevel . 1)))
 
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 #+end_src
@@ -1082,12 +1149,12 @@ Now, lets put the configuration of org publish.
   (setq org-publish-project-alist
         '(
           ("http_website"
-           :base-directory "/mnt/Data/www/source/"
+           :base-directory "/mnt/data/www/source/"
            :base-extension "org"
-           :publishing-directory "/mnt/Data/www/site/"
+           :publishing-directory "/mnt/data/www/site/"
            :recursive t
            :publishing-function org-html-publish-to-html
-           :exclude "^_GEM"
+           :exclude "GEM_.*"
            :with-date t
            :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css />"
            :html-head-include-default-style nil
@@ -1100,9 +1167,9 @@ Now, lets put the configuration of org publish.
            :auto-preamble t
            )
           ("gemini_capsule"
-           :base-directory "/mnt/Data/www/source/"
+           :base-directory "/mnt/data/www/source/"
            :base-extension "org"
-           :publishing-directory "/mnt/Data/www/capsule/"
+           :publishing-directory "/mnt/data/www/capsule/"
            :recursive t
            :publishing-function org-gemini-publish-to-gemini
            :exclude "index"
@@ -1115,7 +1182,28 @@ Now, lets put the configuration of org publish.
            )))
 #+end_src
 
-* Eshell
+** Org caldav
+
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.repos/org-caldav")
+  (setq org-icalendar-include-todo 'all
+        org-caldav-sync-todo t
+        org-icalendar-categories '(local-tags)
+        org-caldav-url "https://cloud.juancastro.xyz/remote.php/dav/calendars/admin/"
+        org-caldav-calendar-id "prueba"
+        org-caldav-files '("~/ywy.org")
+        org-caldav-inbox "~/testing-caldav.org")
+  (require 'org-caldav)
+#+end_src
+* Term
+** Vterm
+Vterm is a real terminal emulator based on libvterm.
+
+#+begin_src emacs-lisp
+  (use-package vterm)
+  
+#+end_src
+** Eshell
 The Emacs shell! It works fine for simple tasks, and has an awesome integration with emacs itself. If I need some complex CLI or TUI programs I just use alacritty.
 #+begin_src emacs-lisp
   (use-package fish-completion
@@ -1148,6 +1236,47 @@ The Emacs shell! It works fine for simple tasks, and has an awesome integration 
 
 #+end_src
 
+* mu4e
+#+begin_src emacs-lisp
+  (use-package mu4e
+    :ensure nil
+    :load-path "/usr/share/emacs/site-lisp/mu4e/"
+    :defer 20 ; Wait until 20 seconds after startup
+    :config
+
+    ;; This is set to 't' to avoid mail syncing issues when using mbsync
+    (setq mu4e-change-filenames-when-moving t)
+
+    ;; Refresh mail using isync every 10 minutes
+    (setq mu4e-update-interval (* 10 60))
+    (setq mu4e-get-mail-command "mbsync -a")
+    (setq mu4e-maildir "/mnt/data/.mail/juancastro.xyz")
+
+    (setq mu4e-drafts-folder "/Drafts")
+    (setq mu4e-sent-folder   "/Sent")
+    (setq mu4e-refile-folder "/All Mail")
+    (setq mu4e-trash-folder  "/Trash")
+
+    (setq mu4e-maildir-shortcuts
+          '((:maildir "/Inbox"     :key ?i)
+            (:maildir "/Sent"      :key ?s)
+            (:maildir "/Trash"     :key ?t)
+            (:maildir "/Drafts"    :key ?d)
+            (:maildir "/All Mail"  :key ?a)))
+
+    (setq smtpmail-smtp-server "mail.juancastro.xyz"
+          smtpmail-smtp-service 587
+          smtpmail-stream-type  'starttls)
+
+    (setq message-send-mail-function 'smtpmail-send-it)
+    (setq mu4e-compose-format-flowed t)
+    (setq user-mail-address "juan@juancastro.xyz")
+    (setq user-full-name "Juan Adrián Castro Quintana")
+    (setq mu4e-compose-signature "Juan Adrián Castro Quintana")
+
+    (mu4e t))
+
+#+end_src
 * Other formats, languages and programs
 ** Lua support
 I don't code too much LUA, but it's good to have, at least, color syntax.
@@ -1193,18 +1322,18 @@ Run ~hugo~ commands from Emacs and administrate your blogs. It needs ~hugo~ inst
 Ledger it's a program to keep track of your expenses. It's very unix-y, it reads a text file with a very simple and human-readable format and prints out information about your balance. This is a mode to easily write the transactions and run ledger directly from Emacs.
 
 #+begin_src emacs-lisp
-  (use-package ledger-mode
-    :ensure t
-    :mode "\\.lgr\\'"
-    :config
-    (evil-define-key 'normal ledger-mode-map (kbd "SPC r") 'ledger-report)
-    (evil-define-key 'normal ledger-mode-map (kbd "SPC i") 'ledger-add-transaction))
+    (use-package ledger-mode
+      :ensure t
+      :mode "\\.lgr\\'"
+      :config
+      (evil-define-key 'normal ledger-mode-map (kbd "SPC r") 'ledger-report)
+      (evil-define-key 'normal ledger-mode-map (kbd "SPC i") 'ledger-add-transaction))
 
-  (use-package evil-ledger
-    :ensure t
-    :after ledger-mode
-    :hook
-    (ledger-mode . evil-ledger-mode))
+    (use-package evil-ledger
+      :ensure t
+      :after ledger-mode
+      :hook
+      (ledger-mode . evil-ledger-mode))
 #+end_src
 
 ** Kdeconnect

@@ -126,7 +126,7 @@ header:
     recto:
       columns: "<10% =80% >10%"
       left:
-          content: image:/mnt/Data/Drive/CIMB/LOGO_CIMB.jpg[pdfwidth=0.7in]
+          content: image:/mnt/data/Drive/CIMB/LOGO_CIMB.jpg[pdfwidth=0.7in]
       center:
         content: |
             *LA PAZ BAJA CALIFORNIA SUR, MÉXICO* +
@@ -134,11 +134,11 @@ header:
             *PLANEACIÓN DIDÁCTICA* +
             *{section-or-chapter-title}*
       right:
-          content: image:/mnt/Data/Drive/CIMB/LOGO_CIMB.jpg[pdfwidth=0.7in]
+          content: image:/mnt/data/Drive/CIMB/LOGO_CIMB.jpg[pdfwidth=0.7in]
     verso:
       columns: "<10% =80% >10%"
       left:
-          content: image:/mnt/Data/Drive/CIMB/LOGO_CIMB.jpg[pdfwidth=0.7in]
+          content: image:/mnt/data/Drive/CIMB/LOGO_CIMB.jpg[pdfwidth=0.7in]
       center:
         content: |
             *LA PAZ BAJA CALIFORNIA SUR, MÉXICO* +
@@ -146,7 +146,7 @@ header:
             *PLANEACIÓN DIDÁCTICA* +
             *{section-or-chapter-title}*
       right:
-          content: image:/mnt/Data/Drive/CIMB/LOGO_CIMB.jpg[pdfwidth=0.7in]
+          content: image:/mnt/data/Drive/CIMB/LOGO_CIMB.jpg[pdfwidth=0.7in]
 
 footer_recto_right_content: '{page-number}'
 footer_verso_left_content: '{page-number}'

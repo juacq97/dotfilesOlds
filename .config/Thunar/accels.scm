@@ -1,4 +1,4 @@
-; thunar GtkAccelMap rc-file         -*- scheme -*-
+; Thunar GtkAccelMap rc-file         -*- scheme -*-
 ; this file is an automated accelerator map dump
 ;
 ; (gtk_accel_path "<Actions>/ThunarLauncher/delete-3" "<Shift>KP_Delete")
@@ -37,6 +37,7 @@
 ; (gtk_accel_path "<Actions>/ThunarWindow/sendto-menu" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/reload-alt" "F5")
 ; (gtk_accel_path "<Actions>/ThunarWindow/zoom-out-alt" "<Primary>minus")
+; (gtk_accel_path "<Actions>/ThunarStandardView/select-all-files" "<Primary>a")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/select-by-pattern" "<Primary>s")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/create-document" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/close-tab" "<Primary>w")
@@ -54,7 +55,7 @@
 ; (gtk_accel_path "<Actions>/ThunarLauncher/sendto-desktop" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/zoom-in-alt2" "<Primary>equal")
 ; (gtk_accel_path "<Actions>/ThunarWindow/view-location-selector-toolbar" "")
-; (gtk_accel_path "<Actions>/ThunarStandardView/select-all-files" "<Primary>a")
+; (gtk_accel_path "<Actions>/ThunarBookmarks/200d92d88c67483c92e4f67b678a3838" "")
 ; (gtk_accel_path "<Actions>/ThunarLauncher/open-with-other" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/zoom-out" "<Primary>KP_Subtract")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/duplicate" "")

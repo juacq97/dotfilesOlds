@@ -1,0 +1,47 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 648,
+       "width": 736,
+       "x": 0,
+       "y": 0
+    },
+    "marks": [],
+    "name": "*scratch* - GNU Emacs at t430",
+    "percent": 0.2125,
+    "swallows": [
+       {
+           "class": "^Emacs$"
+       // "instance": "^emacs$",
+       // "title": "^\\*scratch\\*\\ \\-\\ GNU\\ Emacs\\ at\\ t430$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "user_off",
+    "geometry": {
+       "height": 800,
+       "width": 1188,
+       "x": 1806,
+       "y": 50
+    },
+    "marks": [],
+    "name": "Zoom Meeting",
+    "percent": 0.7875,
+    "swallows": [
+       {
+           "class": "^zoom$",
+       // "instance": "^zoom$",
+           "title": "^Zoom\\ Meeting$"
+       }
+    ],
+    "type": "con"
+}
+

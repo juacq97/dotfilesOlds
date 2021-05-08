@@ -28,9 +28,9 @@ gaps outer 5
 
 # Colors definitions. 
 # Class		          t_b       bg        fg     split    border
-client.focused		 #526eff  #526eff  #282C34  #E5C07B  #526eff
-client.focused_inactive	 #A3B2FF  #A3B2FF  #ABB2BF  #E0BEAE  #A3B2FF
-client.unfocused	 #6C6F93  #6C6F93  #ABB2BF  #2E303E  #6C6F93
+client.focused		 #E4436F  #E4436F  #282C34  #E5C07B  #E4436F
+client.focused_inactive	 #61AFEF  #61AFEF  #282C34  #E0BEAE  #61AFEF
+client.unfocused	 #6C6F93  #6C6F93  #282C34  #2E303E  #6C6F93
 client.urgent		 #E5C07B  #E5C07B  #282C34  #E5C07B  #E5C07B
 
 ###############
@@ -38,12 +38,11 @@ client.urgent		 #E5C07B  #E5C07B  #282C34  #E5C07B  #E5C07B
 ###############
 #No more xinitrc 
 
-#exec_always xrdb  ~/.Xresources
+exec polybar panel -r &
+#exec_always xrdb  ~/.Xresources &
 #exec /usr/lib/kdeconnectd
 #exec_always mako 
 ##exec ibus-daemon -drx &
-#exec pcloud &
-#exec_always waybar-restart &
 #exec gammastep &
 #exec wl-paste -t text --watch clipman store & 
 
@@ -73,22 +72,8 @@ workspace 1 output $m1
 workspace 2 output $m1
 workspace 3 output $m1
 workspace 4 output $m1
-workspace 5 output $m1
-workspace 6 output $m1
-workspace 7 output $m2
-workspace 8 output $m2
-workspace 9 output $m2
-
-# Menu to turn off the pc. Replaces the old but cool dmenu script. Not compositor agnostic tho
-set $poweroff ¿Desea salir? [A]pagar [S]uspender [R]einiciar [C]errar sesión
-mode "$poweroff" {
-    bindsym a exec sudo poweroff
-    bindsym s exec sudo zzz
-    bindsym r exec sudo reboot
-   # bindsym c exec swaymsg exit
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+workspace 5 output $m2
+workspace 6 output $m2
 
 #########
 # Basics
@@ -104,6 +89,7 @@ floating_modifier $mod
 
 # Reload the configuration file
 bindsym $mod+Control+r reload
+
 
 ###################
 # i3 keybindings
@@ -130,9 +116,6 @@ bindsym $mod+3 workspace number 3
 bindsym $mod+4 workspace number 4
 bindsym $mod+5 workspace number 5
 bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
@@ -140,31 +123,32 @@ bindsym $mod+Shift+3 move container to workspace number 3
 bindsym $mod+Shift+4 move container to workspace number 4
 bindsym $mod+Shift+5 move container to workspace number 5
 bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
-bindsym $mod+Shift+8 move container to workspace number 8
-bindsym $mod+Shift+9 move container to workspace number 9
 
 bindsym $mod+Control+$left workspace prev_on_output
 bindsym $mod+Control+$right workspace next_on_output
 
-bindsym $mod+Control+period focus output right
-bindsym $mod+Control+comma focus output left
+bindsym $mod+period focus output right
+bindsym $mod+comma focus output left
+
+bindsym $mod+shift+period move container to output right
+bindsym $mod+shift+comma move container to output left
+
+bindsym $mod+control+comma move workspace to output left
+bindsym $mod+control+period move workspace to output right
+
 
 # Layout stuff
+
 # Split horizontally
-bindsym $mod+b splith
+bindsym $mod+o splith
 # Split vertically
-bindsym $mod+v splitv
+bindsym $mod+i splitv
 
 # Switch between layouts
-# Default
-bindsym $mod+t layout toggle split
 # "Monocle", here's tabbed and stacking (tabs one on top of another)
-bindsym $mod+m layout toggle tabbed stacking
-# Cycle trought all the layouts
-bindsym $mod+period layout toggle all
+bindsym $mod+m layout toggle tabbed split
 # Toggle split
-bindsym $mod+comma layout toggle split
+bindsym $mod+t layout toggle split
 
 # Make the current focus fullscreen
 bindsym $mod+F11 fullscreen
@@ -177,7 +161,7 @@ bindsym $mod+Control+j focus mode_toggle
 bindsym $mod+Control+k focus mode_toggle
 
 # Move focus to the parent container
-bindsym $mod+a focus parent
+bindsym $mod+Tab focus parent
 
 # Scratchpad
 # Move the currently focused window to the scratchpad
@@ -200,7 +184,6 @@ bindsym $mod+Mod1+$right resize grow width 20px
 #########
 # Rules
 #########
-# Wayland native apps uses app_id instead of class
 
 for_window [class="(?i)mpv"] floating enable
 for_window [class="(?i)sxiv"] floating enable
@@ -210,3 +193,5 @@ for_window [class="zoom"] floating enable
 for_window [class="(?i)connman-gtk"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable
 for_window [class="calendar.txt"] floating enable
+
+    

@@ -1,0 +1,17 @@
+* Música                                                      :musica:elfeed:
+** [[https://www.metalsucks.net/feed/][MetalSucks]]
+** [[http://feeds2.feedburner.com/metalinjection][Metal Injection]]
+* Linux                                                        :linux:elfeed:
+** [[https://archlinux.org/feeds/news/][Arch Linux: Recent news updates]] :tech:
+** [[https://sachachua.com/blog/category/emacs-news/feed/][Emacs News]]                                                   :emacs:tech:
+* Gaming                                                      :gaming:elfeed:
+** [[https://www.3djuegos.com/universo/rss/rss.php?plats=1-2-3-4-5-6-7&tipos=noticia-analisis-avance-video-imagenes-demo&fotos=no&limit=20][3DJuegos.com]]                                                    :español:
+** [[http://feeds.ign.com/ign/games-all][IGN Video Games]]
+** [[https://vandal.elespanol.com/xml.cgi][Vandal]]                                                          :español:
+
+* Noticias                                                  :noticias:elfeed:
+** [[https://colectivopericu.net/feed/][Colectivo Pericú]]                                                    :bcs:
+** [[https://www.bcsnoticias.mx/feed/][BCS Noticias]]                                                        :bcs:
+** [[https://elinformantebcs.mx/feed][El informante de BCS]]           :bcs:
+** [[https://www.engadget.com/rss.xml][Engadget RSS Feed]]            :tech:
+** [[https://www.theverge.com/rss/full.xml][The Verge -  All Posts]]                                             :tech:

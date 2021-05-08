@@ -1,7 +1,7 @@
 # NOTE file is read "as is"; variables are not parsed; key layout must be flat
 # QUESTION should vertical_spacing be block_spacing instead?
 vertical_spacing: 12
-page_background_color: 'FFFFFF'
+page_background_color: '000000'
 page_layout: portrait
 page_initial_zoom: FitH
 # 36 is equivalent to 0.5in

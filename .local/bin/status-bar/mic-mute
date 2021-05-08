@@ -1,0 +1,12 @@
+#!/bin/sh
+
+status=$(pamixer --source 1 --get-mute)
+vol=$(pamixer --source 1 --get-volume)
+icon="󰍬 "
+
+
+if [ $status = true ]; then
+    echo $icon "M"
+else
+    echo $icon $vol%
+fi

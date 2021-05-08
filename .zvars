@@ -7,7 +7,7 @@ export DARK_THEME="horizon"
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket #necesario para nvim --remote
 export QT_QPA_PLATFORMTHEME="qt5ct" # Necesario para apps qt
-export WM=EXWM # Necesario para ufetch
+export WM=herbstluftwm # Necesario para ufetch
 export LANG=es_MX.UTF-8
 export EDITOR="nvim"
 export VISUAL="nvim"
@@ -32,3 +32,6 @@ GLFW_IM_MODULE=fcitx5
 INPUT_METHOD=fcitx5
 IMSETTINGS_MODULE=fcitx5
 QT_IM_MODULE=fcitx5
+
+# This is for zoom on wayland
+XDG_CURRENT_DESKTOP=gnome

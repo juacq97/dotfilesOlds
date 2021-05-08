@@ -1,18 +1,3 @@
-;; Profile emacs startup
-  ;; The default is 800 kilobytes.  Measured in bytes.
-  (setq gc-cons-threshold (* 50 1000 1000))
-
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (message "*** Emacs loaded in %s with %d garbage collections."
-                       (format "%.2f seconds"
-                               (float-time
-                                (time-subtract after-init-time before-init-time)))
-                       gcs-done)))
-
-(setq comp-deferred-compilation t)
-(setq comp-async-report-warnings-errors nil)
-
 (require 'package)
   ;; Allows to install packages from melpa
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -51,6 +36,7 @@
 (dolist (mode '(org-mode-hook
                 org-agenda-mode-hook
                 term-mode-hook
+                vterm-mode-hook
                 shell-mode-hook
                 treemacs-mode-hook
                 elpher-mode-hook
@@ -114,8 +100,8 @@
     (other-window 1))
   (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 
-(set-face-attribute 'default nil :family "Source Code Pro" :height 102)
-(set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
+(set-face-attribute 'default nil :family "Fira Code" :height 102)
+(set-face-attribute 'fixed-pitch nil :family "Fira Code")
 (set-face-attribute 'variable-pitch nil :family "Open Sans")
 
 (use-package emojify
@@ -166,26 +152,27 @@
 (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
 
-(use-package general
-  :config
-  (general-create-definer my/leader-keys
-    :keymaps '(normal insert visual emacs)
-    :prefix "SPC"
-    :global-prefix "C-SPC")
+(global-unset-key (kbd "C-z"))
+  (use-package general
+    :config
+    (general-create-definer my/leader-keys
+       :keymaps '(normal insert visual emacs)
+       :prefix "SPC"
+      :global-prefix "C-SPC")
 
-  (my/leader-keys
-   "SPC" '(counsel-find-file :which-key "Open a file")
-   "k" '(kill-current-buffer :which-key "Kill buffer")
-   "b" '(counsel-switch-buffer :which-key "Switch buffer")
-   "s" '(swiper :which-key "Swiper search")
-   "p" '(counsel-projectile-find-file :which-key "Projectile, find file")
-   "P" '(counsel-projectile-switch-project :which-key "Projectile, switch project")
-   "g" '(magit :which-key "Magit")
-   "v" '(visual-line-mode :which-key "Activate visual-line-mode")
-   "c" '(org-capture :which-key "Capture with org")
-   "u" '(winner-undo :which-key "Undo layout")
-   "r" '(winner-redo :which-key "Redo layout")
-   "RET" '((lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))))
+    (my/leader-keys
+     "SPC" '(counsel-find-file :which-key "Open a file")
+     "k" '(kill-current-buffer :which-key "Kill buffer")
+     "b" '(counsel-switch-buffer :which-key "Switch buffer")
+     "s" '(swiper :which-key "Swiper search")
+     "p" '(counsel-projectile-find-file :which-key "Projectile, find file")
+     "P" '(counsel-projectile-switch-project :which-key "Projectile, switch project")
+     "g" '(magit :which-key "Magit")
+     "v" '(visual-line-mode :which-key "Activate visual-line-mode")
+     "c" '(org-capture :which-key "Capture with org")
+     "u" '(winner-undo :which-key "Undo layout")
+     "r" '(winner-redo :which-key "Redo layout")
+     "RET" '((lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))))
 
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 (global-set-key (kbd "C-c v") 'visual-line-mode)
@@ -254,11 +241,9 @@
 ;  :config
 ;  (smartparens-mode t))
 
-(use-package smartparens
+(use-package rainbow-delimiters
   :ensure t
-  :hook (prog-mode . rainbow-delimiters-mode)
-  :config
-  (smartparens-mode t))
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package yasnippet
   :ensure t
@@ -295,29 +280,67 @@
     :ensure t
     :bind ("<f6>" . writeroom-mode))
 
-(use-package dired
-  :ensure nil ; it's a built-in package
-  :commands (dired dired-jump)
-  :bind (("C-x C-j" . dired-jump) ; To quickly open a dired buffer on the file path
-	 ("C-<return>" . (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))) ; To quickly open a Terminal window
-  :hook (
-	 (dired-mode . dired-hide-details-mode)
-	 (dired-mode . hl-line-mode))
+(use-package switch-window
+  :bind ("C-x o" . switch-window)
   :config
-  (setq dired-listing-switches "-AgGhovF --group-directories-first") ; man ls to details
-  (setq dired-recursive-copies 'always)
-  (setq dired-recursive-deletes 'always)
-  (setq delete-by-moving-to-trash t) ;It uses the trash bin
-  (setq dired-dwim-target 'dired-dwim-target-next-visible) ; If I have two buffers or frames open and I try to copy a file from one buffer, it understand that I want to copy it to the other buffer.
+  (setq switch-window-shortcut-style 'qwerty)
+  (setq switch-window-minibuffer-shortcut ?z))
 
-  ;; Some keybindings. It makes use of the ~evil-collection~ key-map and (maybe) replaces some default keybindings.
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-single-up-directory
-    "l" 'dired-open-file
-    "nd" 'dired-create-directory
-    "nf" 'dired-create-empty-file
-    "/" 'swiper
-    "gj" 'counsel-bookmark))
+(use-package elfeed
+  :config
+  (setq elfeed-search-filter "@4-months-ago +unread")
+  (setq elfeed-show-unique-buffers t))
+
+(use-package elfeed-org
+  :config
+  (elfeed-org)
+  (setq rmh-elfeed-org-files (list "~/.repos/dotfiles/.emacs.d/feeds.org")))
+
+(use-package elfeed-protocol
+  :config
+  (setq elfeed-use-curl t)
+  (elfeed-set-timeout 36000)
+  (setq elfeed-curl-extra-arguments '("--insecure")) ;necessary for https without a trust certificate
+  ;; setup extra protocol feeds
+
+  (defadvice elfeed (after configure-elfeed-feeds activate)
+    "Make elfeed-org autotags rules works with elfeed-protocol."
+    (setq elfeed-protocol-tags elfeed-feeds)
+    (setq elfeed-feeds '(
+                         ;; format 6, for password in pass(1), using password-store.el
+                         ("owncloud+https://admin@cloud.juancastro.xyz"
+                          :password (password-store-get "nextcloud/admin")
+                          :autotags elfeed-protocol-tags))))
+
+    ;; use autotags
+
+    ;; enable elfeed-protocol
+    (elfeed-protocol-enable))
+
+(use-package dired
+      :ensure nil ; it's a built-in package
+      :commands (dired dired-jump)
+      :bind (("C-x C-j" . dired-jump) ; To quickly open a dired buffer on the file path
+             ("C-<return>" . (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))) ; To quickly open a Terminal window
+      :hook (
+             (dired-mode . dired-hide-details-mode)
+             (dired-mode . hl-line-mode))
+      :config
+      (setq dired-listing-switches "-AgGhovF --group-directories-first") ; man ls to details
+      (setq dired-recursive-copies 'always)
+      (setq dired-recursive-deletes 'always)
+      (setq delete-by-moving-to-trash t) ;It uses the trash bin
+      (setq dired-dwim-target 'dired-dwim-target-next-visible) ; If I have two buffers or frames open and I try to copy a file from one buffer, it understand that I want to copy it to the other buffer.
+
+      ;; Some keybindings. It makes use of the ~evil-collection~ key-map and (maybe) replaces some default keybindings.
+      (evil-collection-define-key 'normal 'dired-mode-map
+        "h" 'dired-single-up-directory
+        "l" 'dired-open-file
+        "nd" 'dired-create-directory
+        "nf" 'dired-create-empty-file
+        "/" 'swiper
+        "gj" 'counsel-bookmark)
+)
 
 (use-package dired-single
   :after dired
@@ -351,11 +374,12 @@
                                 )))
 
 (use-package dired-hide-dotfiles
-  :ensure t
-  :hook (dired-mode . dired-hide-dotfiles-mode)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "zh" 'dired-hide-dotfiles-mode))
+    :ensure t
+    :hook (dired-mode . dired-hide-dotfiles-mode)
+    :config
+    (evil-collection-define-key 'normal 'dired-mode-map
+      "zh" 'dired-hide-dotfiles-mode)
+)
 
 (use-package dired-subtree
   :after dired
@@ -439,8 +463,8 @@
   (setq modus-operandi-theme-slanted-constructs t)
   (setq modus-operandi-theme-syntax 'alt-syntax))
 
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 
 ;;  (use-package fortune-cookie
 ;;    :ensure t
@@ -468,22 +492,24 @@
 ;;    (setq dashboard-set-file-icons t))
 
 (use-package all-the-icons
-  :ensure t)
+    :ensure t)
 
-;; Icons for dired
-(use-package all-the-icons-dired
-  :ensure t
-  :hook (dired-mode . (lambda ()
-			(interactive)
-			(unless (file-remote-p default-directory)
-			  (all-the-icons-dired-mode)))))
+  ;; Icons for dired
+  (use-package all-the-icons-dired
+    :ensure t
+    :hook (dired-mode . (lambda ()
+                          (interactive)
+                          (unless (file-remote-p default-directory)
+                            (all-the-icons-dired-mode)))))
+(use-package all-the-icons-ivy
+:init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
 
-;; Icons for ivy
-(use-package all-the-icons-ivy-rich
-  :ensure t
-  :after ivy-rich
-  :config
-  (all-the-icons-ivy-rich-mode 1))
+  ;; Icons for ivy
+  (use-package all-the-icons-ivy-rich
+    :ensure t
+    :after ivy-rich
+    :config
+    (all-the-icons-ivy-rich-mode 1))
 
 (defun my/org-font-setup ()
   (require 'org-faces) 
@@ -546,8 +572,8 @@
     (global-set-key (kbd "C-c l") 'org-store-link)
 
     ;; Change TODO states with SPC t. It uses evil-collection key-map.
-    (evil-define-key 'normal org-mode-map
-      (kbd "SPC t") 'org-todo)
+    ;;(evil-define-key 'normal org-mode-map
+    ;;  (kbd "SPC t") 'org-todo)
 
 ;; Activate org-beamer
   (org-beamer-mode)
@@ -600,9 +626,9 @@
 ;      (elpher-mode . my/org-mode-visual-fill)))
 
 ;; Pandoc support
-(use-package ox-pandoc
-  :after org
-  :ensure t)
+;(use-package ox-pandoc
+;  :after org
+;  :ensure t)
 
 (use-package org-superstar
    :ensure t
@@ -611,21 +637,10 @@
 
  (defun my/org-enable-prettify ()
    (setq prettify-symbols-alist
-         '(("TODO" . ?❗)
-           ("DONE" . ?✔)
-           ("PROJ" . ?✎)
-           ("WAIT" . ?⌛)
-           ("NEXT" . ?➠)
-           ("EVENTO" . ?)
-           ("DROP" . ?✖)
+         '(("DROP" . ?✖)
            ("EMISION" . ?✒)
            ("FINALIZADO" . ?✔)
-           ("LIKE" . ?❤)
-           ("CANCELADO" . ?✘)
-           (":@trabajo:" . ?⚒)
-           (":@personal:" . ?⛷)
-           (":@trabajo::" . ?⚒)
-           (":@personal::" . ?⛷)))
+           ("LIKE" . ?❤)))
    (prettify-symbols-mode 1))
  (add-hook 'org-mode-hook 'my/org-enable-prettify)
 
@@ -669,7 +684,7 @@
 
 (setq org-directory "/mnt/Data/ORG") ; The directory of your files
 (setq org-agenda-files '(
-                         "/mnt/Data/ORG/TODO.org"
+                         "/mnt/data/Nextcloud/ORG/sync/TODO.org"
                          "~/testing-orgfiles.org"))
 (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
 
@@ -688,50 +703,77 @@
 ;; Activate hl-line-mode on agenda buffers
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
-(add-hook 'org-agenda-show-hook 'variable-pitch-mode 1)
-
 ;; Removes the ~======~ between blocks. It's ugly IMO
 (setq org-agenda-block-separator (string-to-char " "))
+(setq org-agenda-window-setup 'current-window)
 
 ;;Remove ths strings ~SCHEDULED:~ and ~DEADLINE:~ 
-(setq org-agenda-scheduled-leaders '(" " " "))
-(setq org-agenda-deadline-leaders '("⏰" "En %d días: " "Hace %d días: "))
+(setq org-agenda-scheduled-leaders '("" ""))
+(setq org-agenda-deadline-leaders '("🕓" "En %d días:" "Hace %d días:"))
 
 ;; Custom fonts! I'm using Ubuntu fonts here... I'm not sure why.
 (custom-theme-set-faces 'user
                         '(org-agenda-date-today ((t (:weight bold :height 130)))) ; Today
-                        '(org-agenda-structure ((t (:underline t :weight bold :height 200 :width normal)))) ; Titles
+                        '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))) ; Titles
                         '(org-agenda-calendar-event ((t (:inherit (default)))))
                         '(org-agenda-calendar-sexp ((t (:inherit (default))))));Rest of the text
 
 (setq org-agenda-custom-commands
       '(("o" "My Agenda"
          ((agenda "" (
-                      (org-agenda-files '("/mnt/Data/ORG/TODO.org"))
-                      (org-agenda-overriding-header "   Eventos:\n")
+                      (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
+                      (org-agenda-overriding-header "📅 Calendario\n")
                       (org-agenda-skip-scheduled-if-done t)
                       (org-agenda-skip-timestamp-if-done t)
                       (org-agenda-skip-deadline-if-done t)
-                      (org-agenda-skip-deadline-prewarning-if-scheduled t)
+                      (org-agenda-skip-deadline-prewarning-if-scheduled nil)
                       (org-agenda-start-day "+0d")
                       (org-agenda-span 7)
-                      (org-agenda-prefix-format "  %?-t %T %?-5s")
-                      (org-agenda-repeating-timestamp-show-all nil)
+                      (org-agenda-prefix-format "  %?-t %T %?5s")
+                      (org-agenda-repeating-timestamp-show-all t)
                       ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
-                      (org-agenda-remove-tags t))
-                  (org-agenda-todo-keyword-format " -> ")
+                      (org-agenda-remove-tags t)
+                 (org-agenda-todo-keyword-format " ")
                   (org-agenda-time)
-                  (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈ ahora")
-                  (org-agenda-deadline-leaders '("" ""))
-                  (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-          (todo "TODO" (
-                        (org-agenda-files '("/mnt/Data/ORG/TODO.org"))
-                        (org-agenda-overriding-header "  Tareas:\n")
-                        (tags-todo "TODO")
-                        (org-agenda-remove-tags t)
+                  (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
+                  ;(org-agenda-deadline-leaders '("" ""))
+                  (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
+
+          (todo "NEXT" (
+                        (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
+                        (org-agenda-overriding-header "⭐ Siguientes\n")
+                        (org-agenda-remove-tags nil)
+                        (org-agenda-hide-tags-regexp "^\@")
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-prefix-format "%T %?-s")
-                        (org-agenda-todo-keyword-format "")))))))
+                        (org-agenda-todo-keyword-format "")))
+
+          (todo "ESPERANDO" (
+                        (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
+                        (org-agenda-overriding-header "🕘 Esperando\n")
+                        (org-agenda-remove-tags nil)
+                        (org-agenda-hide-tags-regexp "^\@")
+                        (org-agenda-todo-ignore-scheduled 'future)
+                        (org-agenda-prefix-format "%T %?-s")
+                        (org-agenda-todo-keyword-format "")))
+
+
+          (todo "PROJ" (
+                        (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
+                        (org-agenda-overriding-header "✈ Proyectos\n")
+                        (org-agenda-remove-tags nil)
+                        (org-agenda-hide-tags-regexp "^\@")
+                        (org-agenda-todo-ignore-scheduled 'future)
+                        (org-agenda-prefix-format "%T %?-s")
+                        (org-agenda-todo-keyword-format "")))
+
+          (todo "" (
+                        (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
+                        (org-agenda-overriding-header "☑ Tareas\n")
+                        (org-agenda-remove-tags nil)
+                        (org-agenda-todo-ignore-scheduled 'future)
+                        (org-agenda-prefix-format "%?-s")
+                        (org-agenda-todo-keyword-format "%-1s")))))))
 
 (defun agenda-frame ()
   (interactive)
@@ -739,7 +781,7 @@
   (delete-other-windows))
 
 (setq org-refile-targets
-      '(("DONE.org" :maxlevel . 1)))
+      '(("../DONE.org" :maxlevel . 1)))
 
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
@@ -814,12 +856,12 @@
 (setq org-publish-project-alist
       '(
         ("http_website"
-         :base-directory "/mnt/Data/www/source/"
+         :base-directory "/mnt/data/www/source/"
          :base-extension "org"
-         :publishing-directory "/mnt/Data/www/site/"
+         :publishing-directory "/mnt/data/www/site/"
          :recursive t
          :publishing-function org-html-publish-to-html
-         :exclude "^_GEM"
+         :exclude "GEM_.*"
          :with-date t
          :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css />"
          :html-head-include-default-style nil
@@ -832,9 +874,9 @@
          :auto-preamble t
          )
         ("gemini_capsule"
-         :base-directory "/mnt/Data/www/source/"
+         :base-directory "/mnt/data/www/source/"
          :base-extension "org"
-         :publishing-directory "/mnt/Data/www/capsule/"
+         :publishing-directory "/mnt/data/www/capsule/"
          :recursive t
          :publishing-function org-gemini-publish-to-gemini
          :exclude "index"
@@ -845,6 +887,18 @@
          :headline-levels 4             ; Just the default for this project.
          ;:auto-preamble t
          )))
+
+(add-to-list 'load-path "~/.repos/org-caldav")
+(setq org-icalendar-include-todo 'all
+      org-caldav-sync-todo t
+      org-icalendar-categories '(local-tags)
+      org-caldav-url "https://cloud.juancastro.xyz/remote.php/dav/calendars/admin/"
+      org-caldav-calendar-id "prueba"
+      org-caldav-files '("~/ywy.org")
+      org-caldav-inbox "~/testing-caldav.org")
+(require 'org-caldav)
+
+(use-package vterm)
 
 (use-package fish-completion
      :after esh-mode
@@ -872,6 +926,44 @@
   :ensure nil
   :config
   (setq eshell-banner-message (concat (shell-command-to-string "fortune-es") "\n\n")))
+
+(use-package mu4e
+  :ensure nil
+  :load-path "/usr/share/emacs/site-lisp/mu4e/"
+  :defer 20 ; Wait until 20 seconds after startup
+  :config
+
+  ;; This is set to 't' to avoid mail syncing issues when using mbsync
+  (setq mu4e-change-filenames-when-moving t)
+
+  ;; Refresh mail using isync every 10 minutes
+  (setq mu4e-update-interval (* 10 60))
+  (setq mu4e-get-mail-command "mbsync -a")
+  (setq mu4e-maildir "/mnt/data/.mail/juancastro.xyz")
+
+  (setq mu4e-drafts-folder "/Drafts")
+  (setq mu4e-sent-folder   "/Sent")
+  (setq mu4e-refile-folder "/All Mail")
+  (setq mu4e-trash-folder  "/Trash")
+
+  (setq mu4e-maildir-shortcuts
+        '((:maildir "/Inbox"     :key ?i)
+          (:maildir "/Sent"      :key ?s)
+          (:maildir "/Trash"     :key ?t)
+          (:maildir "/Drafts"    :key ?d)
+          (:maildir "/All Mail"  :key ?a)))
+
+  (setq smtpmail-smtp-server "mail.juancastro.xyz"
+        smtpmail-smtp-service 587
+        smtpmail-stream-type  'starttls)
+
+  (setq message-send-mail-function 'smtpmail-send-it)
+  (setq mu4e-compose-format-flowed t)
+  (setq user-mail-address "juan@juancastro.xyz")
+  (setq user-full-name "Juan Adrián Castro Quintana")
+  (setq mu4e-compose-signature "Juan Adrián Castro Quintana")
+
+  (mu4e t))
 
 (use-package lua-mode
   :mode "\\.lua\\'"
@@ -980,9 +1072,7 @@
  '(custom-enabled-themes '(doom-horizon))
  '(custom-safe-themes
    '("0685ffa6c9f1324721659a9cd5a8931f4bb64efae9ce43a3dba3801e9412b4d8" default))
- '(global-emojify-mode t)
- '(package-selected-packages
-   '(eyebrowse quiz yasnippet-snippets yaml-mode writeroom-mode which-key webfeeder vterm use-package unicode-troll-stopper unicode-fonts unicode-enbox undo-tree undo-fu typescript-mode transmission telephone-line tab-bar-groups stumpwm-mode spotify speed-type spaceline-all-the-icons smartparens slime-company simple-rtm simple-httpd rg rainbow-mode rainbow-delimiters pyvenv python-mode pulseaudio-control pinentry password-store ox-slimhtml ox-pandoc ox-gemini org-tree-slide org-superstar org-super-agenda org-noter-pdftools org-bullets org-appear oauth2-request oauth no-littering network-watch modus-vivendi-theme modus-operandi-theme mini-modeline markdown-mode magit lyrics luarocks lua-mode kdeconnect ivy-yasnippet ivy-prescient ivy-emoji ivy-clipmenu htmlize hide-mode-line helpful helm-spotify-plus helm-icons heaven-and-hell ghub general gemini-mode fortune-cookie fish-completion figlet exwm ewal-doom-themes evil-org evil-ledger evil-collection esxml eshell-toggle eshell-syntax-highlighting eshell-prompt-extras eshell-git-prompt esh-autosuggest emojify-logos emoji-fontset emacsql elpher easy-hugo doom-modeline discover dired-subtree dired-single dired-rsync dired-open dired-hide-dotfiles desktop-environment deferred dashboard countdown counsel-projectile company-box command-log-mode color-theme-sanityinc-tomorrow clocker calfw-org calfw burly bug-hunter boon auto-package-update all-the-icons-ivy-rich all-the-icons-dired adoc-mode)))
+ '(org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -991,4 +1081,4 @@
  '(org-agenda-calendar-event ((t (:inherit (default)))))
  '(org-agenda-calendar-sexp ((t (:inherit (default)))))
  '(org-agenda-date-today ((t (:weight bold :height 130))))
- '(org-agenda-structure ((t (:underline t :weight bold :height 200 :width normal)))))
+ '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))
