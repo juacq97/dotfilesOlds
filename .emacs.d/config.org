@@ -6,6 +6,8 @@ This is my own Emacs configuration. I started to use emacs about 3 years ago, an
 
 This is an ~org-mode~ file, so you can read it directly from emacs.
 
+FROM THIS MOMENT I'LL FORCE MYSELF TO USE EMACS KEYBINDINGS
+
 * Startup 
 Set the garbage collection to a better number for the load. Also, a message with the time and garbage collection is showed. #+begin_src emacs-lisp
     ;; Profile emacs startup
