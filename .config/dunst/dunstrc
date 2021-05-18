@@ -1,5 +1,5 @@
 [colors]
-#Theme: light
+##Theme: light
     background	= "#2940B6"
     foreground 	= "#CACACC"
     frame_color = "#CACACC"

@@ -233,17 +233,15 @@ format-connected-background =
 format-disconnected-background =
 label-disconnected-background =
 
-ramp-signal-0 = "%{A1:connman-gtk:}󰤟%{A}"
-ramp-signal-1 = "%{A1:connman-gtk:}󰤢%{A}"
-ramp-signal-2 = "%{A1:connman-gtk:}󰤥%{A}"
-ramp-signal-3 = "%{A1:connman-gtk:}󰤨%{A}"
-
-click-right = "if [ $(pgrep pavucontrol) ]; then pkill pavucontrol; else pavucontrol; fi"
+ramp-signal-0 = "󰤟"
+ramp-signal-1 = "󰤢"
+ramp-signal-2 = "󰤥"
+ramp-signal-3 = "󰤨"
 
 [module/spotify]
 type = custom/script
 tail = true
-exec = playerctl metadata --format "{{ title }} - {{ artist }}"
+exec = playerctl --player=spotify metadata --format "{{ title }} - {{ artist }}"
 format-padding = 3
 label = %output:0:70:...%
 format-prefix = "󰓇 "

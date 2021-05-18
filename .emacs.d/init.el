@@ -21,6 +21,7 @@
 (menu-bar-mode -1)
 (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
 (column-number-mode 1) ; The modeline shows the column number at the end
+(setq frame-resize-pixelwise t)
 
 (setq  cursor-in-non-selected-windows nil     ; Hide the cursor in inactive windows
        select-enable-clipboard t              ; Merge system's and Emacs' clipboard
@@ -463,8 +464,8 @@
   (setq modus-operandi-theme-slanted-constructs t)
   (setq modus-operandi-theme-syntax 'alt-syntax))
 
-; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+;; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 
 ;;  (use-package fortune-cookie
 ;;    :ensure t
@@ -684,8 +685,7 @@
 
 (setq org-directory "/mnt/Data/ORG") ; The directory of your files
 (setq org-agenda-files '(
-                         "/mnt/data/Nextcloud/ORG/sync/TODO.org"
-                         "~/testing-orgfiles.org"))
+                         "/mnt/data/Nextcloud/ORG/sync/TODO.org"))
 (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
 
 ;; by default the agenda takes the current buffer. With this it'll create its own buffer
@@ -1064,21 +1064,3 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-horizon))
- '(custom-safe-themes
-   '("0685ffa6c9f1324721659a9cd5a8931f4bb64efae9ce43a3dba3801e9412b4d8" default))
- '(org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org")))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-calendar-event ((t (:inherit (default)))))
- '(org-agenda-calendar-sexp ((t (:inherit (default)))))
- '(org-agenda-date-today ((t (:weight bold :height 130))))
- '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))

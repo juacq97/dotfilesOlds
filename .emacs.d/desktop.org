@@ -33,8 +33,6 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
       ;;(my/start-panel)
 
       ;; Launch apps that will run in the background
-      (my/run-in-background "polybar panel")
-      (my/run-in-background "nextcloud")
     ;;  (my/run-in-background "sxhkd -c ~/.config/sxhkd/sxhkd_exwm")
                                               ;(my/run-in-background "pasystray")
                                               ;(my/run-in-background "blueman-applet"))
@@ -246,5 +244,7 @@ We use the excellent [[https://github.com/ch11ng/exwm][EXWM]] module as the basi
 
   This function allows to "bring" an exwm buffer from another workspace and put it on the focused window.
   #+begin_src emacs-lisp
-(server-start)
+    (my/run-in-background "polybar panel")
+    (my/run-in-background "nextcloud")
+    (server-start)
 #+end_src

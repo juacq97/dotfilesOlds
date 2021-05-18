@@ -18,9 +18,10 @@ dunst &
 #~/.local/dwmblocks & 
 #xinput disable 11 &
 #fcitx5 -d &
-dwm-msg run_command xrdb &
+#dwm-msg run_command xrdb &
 nextcloud &
 xset r rate 250 60 &
+lxsession &
 export QT_QPA_PLATFORMTHEME="qt5ct"
 
 #exec dwm
@@ -28,6 +29,7 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 # ~/.local/dwm 2> /tmp/dwm.log 
 #    done
 exec herbstluftwm
+#openbox
 #i3
 #exec stumpwm
 #exec emacs -mm --debug-init -l ~/.emacs.d/desktop.el

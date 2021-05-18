@@ -1,23 +1,30 @@
 #!/usr/bin/env bash
+# _               _         _   _        __ _                      
+#| |__   ___ _ __| |__  ___| |_| |_   _ / _| |___      ___ __ ___  
+#| '_ \ / _ \ '__| '_ \/ __| __| | | | | |_| __\ \ /\ / / '_ ` _ \ 
+#| | | |  __/ |  | |_) \__ \ |_| | |_| |  _| |_ \ V  V /| | | | | |
+#|_| |_|\___|_|  |_.__/|___/\__|_|\__,_|_|  \__| \_/\_/ |_| |_| |_|
+                                                                  
+
 hc() {
     herbstclient "$@"
 }
 
 hc emit_hook reload
-xsetroot -solid '#5A8E3A'
 
+xsetroot -solid '#5A8E3A'
 # remove all existing keybindings
 hc keyunbind --all
-Mod=Mod4   
+# if you have a super key you will be much happier with Mod set to Mod4
+Mod=Mod4   # Use the super key as the main modifier
 
 hc keybind $Mod-Control-r reload
 hc keybind $Mod-Shift-q close_or_remove
-hc keybind $Mod-Control-q remove #remove frame, merge client with the next frame
+#hc keybind $Mod-Return spawn "${TERMINAL:-xterm}" # use your $TERMINAL with xterm as fallback
 
 # basic movement in tiling and floating mode
 hc keybind $Mod-Control-m spawn ~/.config/herbstluftwm/maximize.sh
 hc keybind $Mod-z spawn ~/.config/herbstluftwm/scratchpad.sh
-hc keybind $Mod-Control-s attr theme.floating.border_width 0
 
 # focusing clients inside the container
 hc keybind $Mod-h  focus left
@@ -43,21 +50,24 @@ hc keybind $Mod-Mod1-Shift-j shift -e down
 hc keybind $Mod-Mod1-Shift-k shift -e up
 hc keybind $Mod-Mod1-Shift-l shift -e right
 
-hc keybind $Mod-Control-j cycle +1
-hc keybind $Mod-Control-k cycle -1
-
 # splitting frames
+# create an empty frame at the specified direction
+# Split and focus, ready to work
+
+#hc keybind $Mod-i exec split-down
+#hc keybind $Mod-o exec split-right
+
 hc keybind $Mod-i  chain , split bottom  0.5 , focus -e down 
 hc keybind $Mod-o  chain , split right   0.5 , focus -e right
 hc keybind $Mod-Control-i  chain , split top  0.5 , focus -e up
 hc keybind $Mod-Control-o  chain , split left   0.5 , focus -e left
 
-# Split but no focus
+# Split but no focus, ready to not work yet
 hc keybind $Mod-Control-v       split   bottom  0.5
 hc keybind $Mod-Control-b       split   right   0.5
 
 # Split by half from the longest side
-hc keybind $Mod-Control-space split explode
+hc keybind $Mod-Control-space split explode 
 
 # resizing frames and floating clients
 resizestep=0.02
@@ -71,11 +81,33 @@ hc keybind $Mod-Shift-Control-l resize right -$resizestep
 hc keybind $Mod-Shift-Control-j resize down -$resizestep
 hc keybind $Mod-Shift-Control-k resize up -$resizestep
 
+
+# tags
+
+hc set default_frame_layout 2
+
+tag_names=( 󰎤 󰎧 󰎪 󰎭 󰎱 󰎳 )
+tag_keys=( {1..6} 0 )
+
+hc rename default "${tag_names[0]}" || true
+for i in "${!tag_names[@]}" ; do
+    hc add "${tag_names[$i]}"
+    key="${tag_keys[$i]}"
+    if ! [ -z "$key" ] ; then
+        hc keybind "$Mod-$key" use_index "$i"
+        hc keybind "$Mod-Shift-$key" move_index "$i"
+    fi
+done
+
 # cycle through tags
 hc keybind $Mod-Control-l use_index +1 --skip-visible #next tag
 hc keybind $Mod-Control-h use_index -1 --skip-visible #prev tag
 
+hc keybind $Mod-Control-j cycle +1
+hc keybind $Mod-Control-k cycle -1
+
 # layouting
+hc keybind $Mod-Control-q remove #remove frame, merge client with the next frame
 hc keybind $Mod-F11 fullscreen toggle
 hc keybind $Mod-s set_attr clients.focus.floating toggle #float focused client
 #hc keybind $Mod-p pseudotile toggle 
@@ -85,6 +117,8 @@ hc keybind $Mod-r rotate
 hc keybind $Mod-t cycle_layout +1 horizontal vertical #change direction of clients
 hc keybind $Mod-g set_layout grid #change direction of clients
 
+
+# mouse
 hc mouseunbind --all
 hc mousebind $Mod-Button1 move
 hc mousebind $Mod-Button2 zoom
@@ -101,23 +135,9 @@ hc keybind $Mod-Shift-period shift_to_monitor -1
 hc keybind $Mod-Tab         cycle_all +1
 hc keybind $Mod-Shift-Tab   cycle_all -1
 
-# Set the default layout to 2, that's "monocle" inside the container
-hc set default_frame_layout 2
 
-tag_names=( 󰎤 󰎧 󰎪 󰎭 󰎱 󰎳 )
-tag_keys=( {1..6} 0 )
+# theme
 
-hc rename default "${tag_names[0]}" || true
-for i in "${!tag_names[@]}" ; do
-    hc add "${tag_names[$i]}"
-    key="${tag_keys[$i]}"
-    if ! [ -z "$key" ] ; then
-        hc keybind "$Mod-$key" use_index "$i"
-        hc keybind "$Mod-Shift-$key" move_index "$i"
-    fi
-done
-
-# Takes colors from Xresources because why not
 back=$(xrdb -query | grep background | cut -f2- -d'#')
 border=$(xrdb -query | grep cursorColor | cut -f2- -d'#')
 color0=$(xrdb -query | grep color0 | cut -f2- -d'#')
@@ -174,13 +194,14 @@ hc attr theme.normal.outer_color "#$back"
 # Colors for floating 
 hc attr theme.floating.active.color "#$back"
 hc attr theme.floating.normal.color "#$back"
-hc attr theme.floating.border.width 0
+hc attr theme.floating.border.width 3
 hc attr theme.background_color "#$back"
 
 # Color for the inner frame
-hc attr theme.floating.inner_width 0
+hc attr theme.floating.inner_width 3
 hc attr theme.floating.active.inner_color "#$color5"
 hc attr theme.floating.normal.inner_color "#$back"
+
 
 hc set window_gap 2 #Gap between windows
 hc set frame_padding -1 # Gapp between windows and frames
@@ -208,9 +229,9 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
 
 hc set tree_style '╾│ ├└╼─┐'
+
 # unlock, just to be sure
 hc unlock
 

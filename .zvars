@@ -17,7 +17,7 @@ export PAGER=less
 export OPENER="mimeopen"
 [ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
 export LESS='-Ri ' #Esto es para poder ver el contenido de archivos comprimidos
-export $(dbus-launch) #Variable para dbus
+#export $(dbus-launch) #Variable para dbus
 export WINIT_X11_SCALE_FACTOR=1 #No estoy sguro, pero ayuda a alacritty en multiples monitores
 . ~/.config/lf/LF_ICONS #íconos para lf
 . ~/.local/bin/nwrap

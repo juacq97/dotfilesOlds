@@ -1,0 +1,3 @@
+#! /bin/sh
+
+emacsclient -c -F '(quote (name . "agenda") (width  . 80) (height . 45) (left . 250) (top . 60))' -n -e "(agenda-frame)"

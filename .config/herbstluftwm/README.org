@@ -100,7 +100,7 @@ Here I define my keybindings for HLWM. This doesn't include keybindings for laun
    hc keybind $Mod-Mod1-Shift-k shift -e up
    hc keybind $Mod-Mod1-Shift-l shift -e right
 
-   keybind $Mod-Control-j cycle +1
+   hc keybind $Mod-Control-j cycle +1
    hc keybind $Mod-Control-k cycle -1
 #+end_src
 
@@ -309,7 +309,7 @@ Rules for certain windows.
   hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
   hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
   hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
-
+  hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
 
 #+end_src
 

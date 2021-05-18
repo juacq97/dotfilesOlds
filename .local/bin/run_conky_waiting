@@ -1,0 +1,12 @@
+#! /bin/sh
+
+# run all the conkys I can
+
+conky -c ~/conky-espera/calendar &
+conky -c ~/conky-espera/fecha &
+conky -c ~/conky-espera/palabra-dia &
+conky -c ~/conky-espera/clima &
+conky -c ~/conky-espera/song &
+
+nitrogen --head=0 --set-zoom-fill /mnt/data/Drive/CIMB/MAYO/back.png &
+
