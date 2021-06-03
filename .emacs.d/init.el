@@ -1,3 +1,15 @@
+;; Profile emacs startup
+  ;; The default is 800 kilobytes.  Measured in bytes. (setq gc-cons-threshold (* 50 1000 1000))
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (message "*** Emacs loaded in %s with %d garbage collections."
+                       (format "%.2f seconds"
+                               (float-time
+                                (time-subtract after-init-time before-init-time)))
+                       gcs-done)))
+(setq comp-deferred-compilation t)
+(setq comp-async-report-warnings-errors nil)
+
 (require 'package)
   ;; Allows to install packages from melpa
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -287,36 +299,36 @@
   (setq switch-window-shortcut-style 'qwerty)
   (setq switch-window-minibuffer-shortcut ?z))
 
-(use-package elfeed
-  :config
-  (setq elfeed-search-filter "@4-months-ago +unread")
-  (setq elfeed-show-unique-buffers t))
+;;  (use-package elfeed
+;;    :config
+;;    (setq elfeed-search-filter "@4-months-ago +unread")
+;;    (setq elfeed-show-unique-buffers t))
 
-(use-package elfeed-org
-  :config
-  (elfeed-org)
-  (setq rmh-elfeed-org-files (list "~/.repos/dotfiles/.emacs.d/feeds.org")))
+;;  (use-package elfeed-org
+;;    :config
+;;    (elfeed-org)
+;;    (setq rmh-elfeed-org-files (list "~/.repos/dotfiles/.emacs.d/feeds.org")))
 
-(use-package elfeed-protocol
-  :config
-  (setq elfeed-use-curl t)
-  (elfeed-set-timeout 36000)
-  (setq elfeed-curl-extra-arguments '("--insecure")) ;necessary for https without a trust certificate
-  ;; setup extra protocol feeds
-
-  (defadvice elfeed (after configure-elfeed-feeds activate)
-    "Make elfeed-org autotags rules works with elfeed-protocol."
-    (setq elfeed-protocol-tags elfeed-feeds)
-    (setq elfeed-feeds '(
-                         ;; format 6, for password in pass(1), using password-store.el
-                         ("owncloud+https://admin@cloud.juancastro.xyz"
-                          :password (password-store-get "nextcloud/admin")
-                          :autotags elfeed-protocol-tags))))
-
-    ;; use autotags
-
-    ;; enable elfeed-protocol
-    (elfeed-protocol-enable))
+;;    (use-package elfeed-protocol
+;;      :config
+;;      (setq elfeed-use-curl t)
+;;      (elfeed-set-timeout 36000)
+;;      (setq elfeed-curl-extra-arguments '("--insecure")) ;necessary for https without a trust certificate
+;;      ;; setup extra protocol feeds
+;;
+;;      (defadvice elfeed (after configure-elfeed-feeds activate)
+;;        "Make elfeed-org autotags rules works with elfeed-protocol."
+;;        (setq elfeed-protocol-tags elfeed-feeds)
+;;        (setq elfeed-feeds '(
+;;                             ;; format 6, for password in pass(1), using password-store.el
+;;                             ("owncloud+https://admin@cloud.juancastro.xyz"
+;;                              :password (password-store-get "nextcloud/admin")
+;;                              :autotags elfeed-protocol-tags))))
+;;
+;;        ;; use autotags
+;;
+;;        ;; enable elfeed-protocol
+;;        (elfeed-protocol-enable))
 
 (use-package dired
       :ensure nil ; it's a built-in package
@@ -898,7 +910,7 @@
       org-caldav-inbox "~/testing-caldav.org")
 (require 'org-caldav)
 
-(use-package vterm)
+;; (use-package vterm)
 
 (use-package fish-completion
      :after esh-mode

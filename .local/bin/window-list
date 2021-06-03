@@ -6,11 +6,12 @@ bring () {
     if [ "$wind" == "" ]; then
    	exit 0 #si se presiona ESC, el script termina
     else
+    	id=$(wmctrl -l | grep "$wind" | cut -f1 -d' ')
+	echo $id
    	if [ $(pgrep herbstluftwm) ]; then
-    	    id=$(wmctrl -l | grep "$wind" | cut -f1 -d' ')
     	    herbstclient bring $id
    	else
-    	    wmctrl -R $id
+    	    wmctrl -i -R $id
    	fi
     fi
 }

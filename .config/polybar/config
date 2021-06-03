@@ -17,9 +17,10 @@
 ;==========================================================
 
 [colors]
-background = ${xrdb:background}
+;background = ${xrdb:background}
+background = #00000000
 ;foreground = #282C34
-foreground = ${xrdb:foreground}
+foreground = #fffffff
 color0 = ${xrdb:color0} 
 color1 = ${xrdb:color1} 
 color2 = ${xrdb:color2} 
@@ -59,12 +60,95 @@ font-0 = Urbanist:size=10:antialias=true;1
 font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;2
 font-2 = Weather Icons:size=12;3
 
-modules-left = hlwm title
+modules-left = i3 hlwm title
 modules-center = date
 modules-right = spotify clima pulseaudio mic-volume battery network
 tray-position = none
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+[module/i3]
+type = internal/i3
+pin-workspaces = false
+index-sort = true
+enable-click = true
+wraping-scroll = true
+
+ws-icon-0 = 1;󰎤
+ws-icon-1 = 2;󰎧
+ws-icon-2 = 3;󰎪
+ws-icon-3 = 4;󰎭
+ws-icon-4 = 5;󰎱
+ws-icon-5 = 6;󰎱
+ws-icon-6 = 7;󰎶
+ws-icon-7 = 8;󰎹
+ws-icon-8 = 9;󰎼
+ws-icon-default = ♟
+; NOTE: You cannot skip icons, e.g. to get a ws-icon-6
+; you must also define a ws-icon-5.
+; NOTE: Icon will be available as the %icon% token inside label-*
+
+; Available tags:
+;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
+;   <label-mode> (default)
+format = <label-state> <label-mode>
+
+; Available tokens:
+;   %mode%
+; Default: %mode%
+label-mode = %mode%
+label-mode-padding = 1
+label-mode-background = 
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-focused = %icon%
+label-focused-foreground = ${colors.color1}
+label-focused-background = 
+label-focused-underline = 
+label-focused-padding = 1
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-unfocused = %icon%
+label-unfocused-padding = 1
+label-unfocused-foreground =
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-visible = %icon%
+label-visible-underline = #555555
+label-visible-foreground = ${colors.color5}
+label-visible-padding = 1
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-urgent = %icon%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-padding = 1
+
+; Separator in between workspaces
+label-separator = 
+label-separator-padding = 0
+label-separator-foreground = #ffb52a
+
 
 [module/hlwm]
 type = custom/script
@@ -241,7 +325,7 @@ ramp-signal-3 = "󰤨"
 [module/spotify]
 type = custom/script
 tail = true
-exec = playerctl --player=spotify metadata --format "{{ title }} - {{ artist }}"
+exec = playerctl metadata --format "{{ title }} - {{ artist }}"
 format-padding = 3
 label = %output:0:70:...%
 format-prefix = "󰓇 "

@@ -9,7 +9,7 @@ emacs --daemon &
 xfce4-power-manager &
 clipmenud &
 /usr/lib/kdeconnectd &
-redshift -l 24.14:110.27 -m xrandr &
+redshift -l 24.14:-110.27 -m randr &
 xsetroot -cursor_name left_ptr &
 flameshot &
 sxhkd -c ~/.config/sxhkd/sxhkd_dwm &

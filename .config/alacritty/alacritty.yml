@@ -545,11 +545,6 @@ mouse:
 
   hide_when_typing: true
 
-  url:
-    launcher:
-      program: firefox
-    #  args: []
-    #modifiers: None
 
 key_bindings:
   # (Windows, Linux, and BSD only)

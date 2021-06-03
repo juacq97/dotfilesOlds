@@ -1,5 +1,5 @@
 #+title:Herbstluftwm configuration file
-#+property: header-args :tangle autostart
+#+property: header-args :tangle autostart :tangle-mode (identity #o755)
 
 This is my herbstluftwm configuration. HLWM became my principal window manager after I tried =sway= and I wanted more control over my windows. =dwm= is fine, but I don't like how it moves all the windows every time I open a new one HLWM solves this thanks to /frames/, or containers, rectangles that can put windows inside. When you closes a window the rest of the screen remains untouched, because all the action happens inside the frame. Of course, in herbstluftwm you need to explicitely tell where you want the next frame since it doesn't do it for you, that can be a lot of work for some people who want their windows arranged automagically, but if you want more control over your windows, try HLWM.
 
@@ -191,7 +191,6 @@ Though HLWM uses the term "tags", they're just normal virtual workspaces. You ca
 
 #+begin_src bash
   # Set the default layout to 2, that's "monocle" inside the container
-  hc set default_frame_layout 2
 
   tag_names=( 󰎤 󰎧 󰎪 󰎭 󰎱 󰎳 )
   tag_keys=( {1..6} 0 )
@@ -206,6 +205,7 @@ Though HLWM uses the term "tags", they're just normal virtual workspaces. You ca
       fi
   done
 
+  hc set default_frame_layout 2
 #+end_src
 
 * Themes
@@ -236,7 +236,7 @@ Herbstluftwm has a lot of configuration related to colors and styles, and can be
 
   hc set frame_bg_active_color "#$color5" #Fill of focused frame
   hc set frame_bg_normal_color "#$back" #Fill of unfocused frame (needs always show frame)
-  hc set frame_bg_transparent on #Removes the filler color of frame
+  hc set frame_bg_transparent off #Removes the filler color of frame
   hc set frame_transparent_width 0 # What part of the filler color should remain?
 
   hc set frame_active_opacity 100 #Focused frame opacity
@@ -270,18 +270,24 @@ Herbstluftwm has a lot of configuration related to colors and styles, and can be
 
   # Colors for floating 
   hc attr theme.floating.active.color "#$back"
-  hc attr theme.floating.normal.color "#$back"
+  hc attr theme.floating.normal.color "#$color5"
+  hc attr theme.floating.normal.title_color "#$color5"
+  hc attr theme.floating.active.title_color "#$color1"
+
+  hc attr theme.floating.outer_width 3
+  hc attr theme.floating.normal.outer_color "#$color5"
+  hc attr theme.floating.title_height 15
   hc attr theme.floating.border.width 3
   hc attr theme.background_color "#$back"
 
   # Color for the inner frame
-  hc attr theme.floating.inner_width 3
-  hc attr theme.floating.active.inner_color "#$color5"
-  hc attr theme.floating.normal.inner_color "#$back"
+  hc attr theme.floating.inner_width 15
+  hc attr theme.floating.active.inner_color "#$color1"
+  hc attr theme.floating.normal.inner_color "#$color5"
 
   hc set window_gap 2 #Gap between windows
   hc set frame_padding -1 # Gapp between windows and frames
-  hc set smart_window_surroundings on
+  hc set smart_window_surroundings off
   hc set smart_frame_surroundings on
   hc set mouse_recenter_gap 0
   hc set hide_covered_windows off
@@ -295,6 +301,7 @@ Rules for certain windows.
   #hc rule class=XTerm tag=3 # move all xterms to tag 3
   hc rule focus=on # normally focus new clients
   hc rule floatplacement=center
+  hc rule class=Pqiv floating=on
   hc rule class=Steam floating=on
   hc rule class=mpv floating=on
   hc rule class=Lxappareance floating=on
@@ -310,7 +317,6 @@ Rules for certain windows.
   hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
   hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
   hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
-
 #+end_src
 
 * Misc

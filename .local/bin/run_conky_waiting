@@ -8,5 +8,5 @@ conky -c ~/conky-espera/palabra-dia &
 conky -c ~/conky-espera/clima &
 conky -c ~/conky-espera/song &
 
-nitrogen --head=0 --set-zoom-fill /mnt/data/Drive/CIMB/MAYO/back.png &
+nitrogen --head=0 --set-zoom-fill /mnt/data/Drive/CIMB/JUNIO/image.jpg
 

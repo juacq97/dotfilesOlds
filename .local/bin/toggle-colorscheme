@@ -56,7 +56,7 @@ if [ $pgrep sway ]; then
     
 fi
 
-[[ $(pgrep polybar) ]] && polybar-msg cmd restart
+# [[ $(pgrep polybar) ]] && polybar-msg cmd restart
 
 
 
