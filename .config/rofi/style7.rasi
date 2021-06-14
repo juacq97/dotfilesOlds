@@ -8,7 +8,7 @@
  */
 
 configuration {
-	font:		     "Futura Bk BT 10";
+	font:		     "Open Sans 10";
 	show-icons:	     true;
 	icon-theme:	     "Tela cirlce red dark";
 	display-drun:	     "";

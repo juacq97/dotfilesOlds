@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 bring () {
     wind=$(wmctrl -l | cut -f5- -d' ' | dmenu -i -l 10 -p "Bring:")

@@ -133,39 +133,32 @@ sed -i --follow-symlinks "s/${oxfg}/${xfg}/" ~/.config/mako/config
 
 [[ $(pgrep mako) ]] && pkill mako
 
+
+# Change dunstrc colors. Needs to reload xrdb first and the global colors needs to be the fist ocurrence of "background" "color" and "frame_color" on the file
+# THIS WAS A COMPLETE FAILURE, for some weird reason, dbus dies with this code.
+
+dbg=$(grep -m 1 background ~/.config/dunst/dunstrc | cut -d '"' -f2)
+dlbg=$(grep -n -m 1 background ~/.config/dunst/dunstrc | cut -d: -f1)
+
+dfg=$(grep -m 1 foreground ~/.config/dunst/dunstrc | cut -d '"' -f2)
+dlfg=$(grep -n -m 1 foreground ~/.config/dunst/dunstrc | cut -d: -f1)
+
+db=$(grep -m 1 frame_color ~/.config/dunst/dunstrc | cut -d '"' -f2) 
+dlb=$(grep -n -m 1 frame_color ~/.config/dunst/dunstrc | cut -d: -f1)
+
+
+#reemplazar cada iteración de "dbg" por "xbg"
+
+
+sed -i --follow-symlinks "${dlbg}s/$dbg/$xbg/" ~/.config/dunst/dunstrc
+sed -i --follow-symlinks "${dlfg}s/$dfg/$xfg/" ~/.config/dunst/dunstrc
+sed -i --follow-symlinks "${dlb}s/$db/$xb/" ~/.config/dunst/dunstrc
+#
+
+killall dunst
+
 if [ "$xtheme" = "$LIGHT_THEME" ]; then
     notify-send "Modo oscuro activado"
 else
     notify-send "Modo claro activado"
 fi
-
-# Change dunstrc colors. Needs to reload xrdb first and the global colors needs to be the fist ocurrence of "background" "color" and "frame_color" on the file
-# THIS WAS A COMPLETE FAILURE, for some weird reason, dbus dies with this code.
-
-#dbg=$(grep -m 1 background ~/.config/dunst/dunstrc | cut -d '"' -f2)
-#dlbg=$(grep -n -m 1 background ~/.config/dunst/dunstrc | cut -d: -f1)
-#
-#dfg=$(grep -m 1 foreground ~/.config/dunst/dunstrc | cut -d '"' -f2)
-#dlfg=$(grep -n -m 1 foreground ~/.config/dunst/dunstrc | cut -d: -f1)
-#
-#db=$(grep -m 1 frame_color ~/.config/dunst/dunstrc | cut -d '"' -f2) 
-#dlb=$(grep -n -m 1 frame_color ~/.config/dunst/dunstrc | cut -d: -f1)
-#
-#
-##reemplazar cada iteración de "dbg" por "xbg"
-#
-#killall dunst
-#
-#sed -i --follow-symlinks "${dlbg}s/$dbg/$xbg/" ~/.config/dunst/dunstrc
-#sed -i --follow-symlinks "${dlfg}s/$dfg/$xfg/" ~/.config/dunst/dunstrc
-#sed -i --follow-symlinks "${dlb}s/$db/$xb/" ~/.config/dunst/dunstrc
-#
-#
-#if [ "$xtheme" = "$LIGHT_THEME" ]; then
-#    notify-send -a "dwm" "Modo oscuro activado"
-#else
-#    notify-send -a "dwm" "Modo claro activado"
-#fi
-#
-
-

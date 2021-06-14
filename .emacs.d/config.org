@@ -18,16 +18,22 @@ Set the garbage collection to a better number for the load. Also, a message with
                                  (float-time
                                   (time-subtract after-init-time before-init-time)))
                          gcs-done)))
-  (setq comp-deferred-compilation t)
-  (setq comp-async-report-warnings-errors nil)
+;(setq comp-deferred-compilation t)
+;  (setq comp-async-report-warnings-errors nil)
 #+end_src
 ** Use-package
 ~use-package~ is a macro set to install and configure packages.
 #+begin_src emacs-lisp
     (require 'package)
     ;; Allows to install packages from melpa
-    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-    ;; this is a test
+   ; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+			
+  
+(setq package-archives
+      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
+        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
+        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
+
 
     (package-initialize)
 
@@ -1185,15 +1191,15 @@ Now, lets put the configuration of org publish.
 ** Org caldav
 
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.repos/org-caldav")
-  (setq org-icalendar-include-todo 'all
-        org-caldav-sync-todo t
-        org-icalendar-categories '(local-tags)
-        org-caldav-url "https://cloud.juancastro.xyz/remote.php/dav/calendars/admin/"
-        org-caldav-calendar-id "prueba"
-        org-caldav-files '("~/ywy.org")
-        org-caldav-inbox "~/testing-caldav.org")
-  (require 'org-caldav)
+ ; (add-to-list 'load-path "~/.repos/org-caldav")
+ ; (setq org-icalendar-include-todo 'all
+ ;       org-caldav-sync-todo t
+ ;       org-icalendar-categories '(local-tags)
+ ;       org-caldav-url "https://cloud.juancastro.xyz/remote.php/dav/calendars/admin/"
+ ;       org-caldav-calendar-id "prueba"
+ ;       org-caldav-files '("~/ywy.org")
+ ;       org-caldav-inbox "~/testing-caldav.org")
+ ; (require 'org-caldav)
 #+end_src
 * Term
 ** Vterm
@@ -1349,9 +1355,9 @@ A =kdeconnect= client inside emacs. I want to integrate it with dired.
 ** Pinentry
 Pinentry is the password prompt used by GPG. With this package, instead of use the Qt or GTK window, it will ask for a password in the minibuffer.
 #+begin_src emacs-lisp
-  (use-package pinentry
-    :init
-    (pinentry-start))   
+ ; (use-package pinentry
+ ;   :init
+ ;   (pinentry-start))   
 #+end_src
 ** Gemini
 A better web.. Adds colorscheme for gmi files

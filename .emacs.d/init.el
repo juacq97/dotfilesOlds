@@ -1,32 +1,38 @@
 ;; Profile emacs startup
-  ;; The default is 800 kilobytes.  Measured in bytes. (setq gc-cons-threshold (* 50 1000 1000))
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (message "*** Emacs loaded in %s with %d garbage collections."
-                       (format "%.2f seconds"
-                               (float-time
-                                (time-subtract after-init-time before-init-time)))
-                       gcs-done)))
-(setq comp-deferred-compilation t)
-(setq comp-async-report-warnings-errors nil)
+    ;; The default is 800 kilobytes.  Measured in bytes. (setq gc-cons-threshold (* 50 1000 1000))
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                (message "*** Emacs loaded in %s with %d garbage collections."
+                         (format "%.2f seconds"
+                                 (float-time
+                                  (time-subtract after-init-time before-init-time)))
+                         gcs-done)))
+;(setq comp-deferred-compilation t)
+;  (setq comp-async-report-warnings-errors nil)
 
 (require 'package)
-  ;; Allows to install packages from melpa
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-  ;; this is a test
+    ;; Allows to install packages from melpa
+   ; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+			
+  
+(setq package-archives
+      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
+        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
+        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
 
-  (package-initialize)
 
-  (add-to-list 'load-path "~/.emacs.d/modes/")
-  (add-to-list 'load-path "~/.repos/nano-emacs")
-  ;; If not here, install use-package
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
+    (package-initialize)
 
-  ;; Automatically download all packages. To prevent this, add ~:ensure nil~
-  (setq use-package-always-ensure t)
-;;  (setq use-package-verbose t)
+    (add-to-list 'load-path "~/.emacs.d/modes/")
+    (add-to-list 'load-path "~/.repos/nano-emacs")
+    ;; If not here, install use-package
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package))
+
+    ;; Automatically download all packages. To prevent this, add ~:ensure nil~
+    (setq use-package-always-ensure t)
+  ;;  (setq use-package-verbose t)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -900,15 +906,15 @@
          ;:auto-preamble t
          )))
 
-(add-to-list 'load-path "~/.repos/org-caldav")
-(setq org-icalendar-include-todo 'all
-      org-caldav-sync-todo t
-      org-icalendar-categories '(local-tags)
-      org-caldav-url "https://cloud.juancastro.xyz/remote.php/dav/calendars/admin/"
-      org-caldav-calendar-id "prueba"
-      org-caldav-files '("~/ywy.org")
-      org-caldav-inbox "~/testing-caldav.org")
-(require 'org-caldav)
+; (add-to-list 'load-path "~/.repos/org-caldav")
+; (setq org-icalendar-include-todo 'all
+;       org-caldav-sync-todo t
+;       org-icalendar-categories '(local-tags)
+;       org-caldav-url "https://cloud.juancastro.xyz/remote.php/dav/calendars/admin/"
+;       org-caldav-calendar-id "prueba"
+;       org-caldav-files '("~/ywy.org")
+;       org-caldav-inbox "~/testing-caldav.org")
+; (require 'org-caldav)
 
 ;; (use-package vterm)
 
@@ -1024,9 +1030,9 @@
   (setq kdeconnect-devices "7843123afa92d0a8")
   (setq kdeconnect-active-device "7843123afa92d0a8"))
 
-(use-package pinentry
-  :init
-  (pinentry-start))
+; (use-package pinentry
+;   :init
+;   (pinentry-start))
 
 (use-package gemini-mode)
 

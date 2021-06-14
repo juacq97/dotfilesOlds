@@ -1,0 +1,43 @@
+conky.config = {
+   background = false,
+	update_interval = 5,
+	double_buffer = true,
+	own_window = true,
+	own_window_type = 'desktop',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_title = '',
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+	own_window_transparent = true,
+
+	-- gap_x = 50,
+	gap_x = 100,
+	gap_y = 30,
+
+	border_inner_margin = 0,
+	border_outer_margin = 0,
+
+	draw_shades = true,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+
+	alignment = 'top_right',
+	-- default_color = 'B2B2B2',
+
+	use_xft = true,
+	xftalpha = 255,
+	font1 = 'Louis George Cafe:Regular:size=20:antialias=true',
+	font2 = 'JoyPixels:Regular:size=20:antialias=true',
+	font3 = 'JoyPixels:Regular:size=50:antialias=true'
+
+};
+
+conky.text = [[
+${font3}${execpi 3600 ~/.local/bin/weather-icon.sh}${font1}${execpi 3600 curl -s es.wttr.in/LAP?format="\${font1}+%t+(%f)" | sed "s/+//g"}
+
+                   ${font2}${execpi 3600 curl -s es.wttr.in/LAP?format="🌞\${font1}+%S\n+++++++++++++++++++\${font2}🌚\${font1}+%s" }
+]];;
+
+
+

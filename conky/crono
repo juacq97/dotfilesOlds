@@ -1,0 +1,40 @@
+conky.config = {
+   background = false,
+	update_interval = 1,
+	double_buffer = true,
+
+	own_window = true,
+	own_window_type = 'desktop',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_title = '',
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+	own_window_transparent = true,
+
+	gap_x = 0,
+	gap_y = 30,
+
+	border_inner_margin = 0,
+	border_outer_margin = 0,
+
+	draw_shades = true,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+
+	alignment = 'top_middle',
+
+	use_xft = true,
+	xftalpha = 255,
+	font = 'Louis George Cafe:Regular:size=60:antialias=true',
+	default_color = 'B2B2B2',
+	override_utf8_locale = true,
+
+
+};
+
+conky.text = [[
+${execi 10 date +"%R"}
+]];;
+
+

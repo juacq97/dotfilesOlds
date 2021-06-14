@@ -205,7 +205,7 @@ Though HLWM uses the term "tags", they're just normal virtual workspaces. You ca
       fi
   done
 
-  hc set default_frame_layout 2
+  hc set default_frame_layout 3
 #+end_src
 
 * Themes
@@ -229,68 +229,68 @@ Herbstluftwm has a lot of configuration related to colors and styles, and can be
   hc attr theme.tiling.reset 1
   hc attr theme.floating.reset 1
 
-  # Frames
-  hc set frame_border_active_color "#$color5" #Focused frame color
-  hc set frame_border_normal_color "#$back" #Unfocused frame color
-  hc set frame_border_width 3  #border size
+# Frames
+hc set frame_border_active_color "#$color5" #Focused frame color
+hc set frame_border_normal_color "#000000aa" #Unfocused frame color
+hc set frame_border_width 0  #border size
 
-  hc set frame_bg_active_color "#$color5" #Fill of focused frame
-  hc set frame_bg_normal_color "#$back" #Fill of unfocused frame (needs always show frame)
-  hc set frame_bg_transparent off #Removes the filler color of frame
-  hc set frame_transparent_width 0 # What part of the filler color should remain?
+hc set frame_bg_active_color "#00000000" #Fill of focused frame
+hc set frame_bg_normal_color "#000000aa" #Fill of unfocused frame (needs always show frame)
+hc set frame_bg_transparent off #Removes the filler color of frame
+hc set frame_transparent_width 0 # What part of the filler color should remain?
 
-  hc set frame_active_opacity 100 #Focused frame opacity
-  hc set frame_normal_opacity 100 # Unfocused frame opacity
+hc set frame_active_opacity 100 #Focused frame opacity
+hc set frame_normal_opacity 100 # Unfocused frame opacity
 
-  hc set frame_border_inner_width 0
-  hc set always_show_frame on
-  hc set frame_gap 6
+hc set frame_border_inner_width 0
+hc set always_show_frame on
+hc set frame_gap 6
 
-  # Clients
-  hc attr theme.padding_top 0 #Padding at the top of the windows
-  hc attr theme.padding_right 0 #Padding 
-  hc attr theme.padding_left 0 #Padding 
-  hc attr theme.padding_bottom 0 #Padding 
+# Clients
+hc attr theme.padding_top 0 #Padding at the top of the windows
+hc attr theme.padding_right 0 #Padding 
+hc attr theme.padding_left 0 #Padding 
+hc attr theme.padding_bottom 0 #Padding 
 
-  hc attr theme.border_width 3 # WIndows border  s
-  hc attr theme.active.color "#$back" #Window border color
-  hc attr theme.normal.color "#$back" # Window border color unfocused
-  hc attr theme.urgent.color orange
+hc attr theme.border_width 3 # WIndows border  s
+hc attr theme.active.color "#$back" #Window border color
+hc attr theme.normal.color "#$back" # Window border color unfocused
+hc attr theme.urgent.color orange
 
-  # Color for the inner frame
-  hc attr theme.inner_width 3
-  hc attr theme.normal.inner_width 0
-  hc attr theme.active.inner_color "#$color1"
-  hc attr theme.normal.inner_color "#4b5263"
+# Color for the inner frame
+hc attr theme.inner_width 3
+hc attr theme.normal.inner_width 0
+hc attr theme.active.inner_color "#$color1"
+hc attr theme.normal.inner_color "#4b5263"
 
-  # Color for the outer frame (3 color4s,too much)
-  hc attr theme.outer_width 3
-  hc attr theme.active.outer_color "#$color1"
-  hc attr theme.normal.outer_color "#$back"
+# Color for the outer frame (3 color4s,too much)
+hc attr theme.outer_width 3
+hc attr theme.active.outer_color "#$color1"
+hc attr theme.normal.outer_color "#$back"
 
-  # Colors for floating 
-  hc attr theme.floating.active.color "#$back"
-  hc attr theme.floating.normal.color "#$color5"
-  hc attr theme.floating.normal.title_color "#$color5"
-  hc attr theme.floating.active.title_color "#$color1"
+# Colors for floating 
+hc attr theme.floating.active.color "#$back"
+hc attr theme.floating.normal.color "#$color5"
+hc attr theme.floating.normal.title_color "#$color5"
+hc attr theme.floating.active.title_color "#$color1"
 
-  hc attr theme.floating.outer_width 3
-  hc attr theme.floating.normal.outer_color "#$color5"
-  hc attr theme.floating.title_height 15
-  hc attr theme.floating.border.width 3
-  hc attr theme.background_color "#$back"
+hc attr theme.floating.outer_width 3
+hc attr theme.floating.normal.outer_color "#$color5"
+hc attr theme.floating.title_height 15
+hc attr theme.floating.border.width 3
+hc attr theme.background_color "#$back"
 
-  # Color for the inner frame
-  hc attr theme.floating.inner_width 15
-  hc attr theme.floating.active.inner_color "#$color1"
-  hc attr theme.floating.normal.inner_color "#$color5"
+# Color for the inner frame
+hc attr theme.floating.inner_width 15
+hc attr theme.floating.active.inner_color "#$color1"
+hc attr theme.floating.normal.inner_color "#$color5"
 
-  hc set window_gap 2 #Gap between windows
-  hc set frame_padding -1 # Gapp between windows and frames
-  hc set smart_window_surroundings off
-  hc set smart_frame_surroundings on
-  hc set mouse_recenter_gap 0
-  hc set hide_covered_windows off
+hc set window_gap 2 #Gap between windows
+hc set frame_padding 0 # Gapp between windows and frames
+hc set smart_window_surroundings off
+hc set smart_frame_surroundings on
+hc set mouse_recenter_gap 0
+hc set hide_covered_windows off
 #+end_src
 
 * Rules

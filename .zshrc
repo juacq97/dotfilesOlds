@@ -1,31 +1,28 @@
-### Definiendo path ###
-PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin:$HOME/.config/rofi:$HOME/.emacs.d/bin"
-export PATH
-source $HOME/.zvars
+# Load variables, including path. I decided to keep it on a separate file
+source $HOME/.zvars.zsh
 
-### Ejecuta xinit si es la TTY 1 ###
-# Probando con sway
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-      exec startx
-#    sway
-#    exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) sway
-fi
+# Run the graphical environment when not using a display manager.
+ if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+     exec startx
+   #  sway
+   #  exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) sway
+ fi
 
-### Ejecuta al abrir terminales 
-ufetch-noascii
+# Fetch when terminal appears
+#ufetch-noascii
+ufetch-nixos
 
 # Enable Powerlevel10k instant prompt.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 #Themes
-#source ~/.repos/powerlevel10k/powerlevel10k.zsh-theme
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-plugins=(
-    git
-)
+# source ~/.repos/powerlevel10k/powerlevel10k.zsh-theme
+# source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+# plugins=(
+#     git
+# )
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -49,8 +46,8 @@ export KEYTIMEOUT=1
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept #Completa con C-space
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
 
@@ -71,6 +68,9 @@ alias n="ncmd"
 alias ref.adoc="nvim /mnt/Data/TODO/REF.adoc"
 alias semana="remind -@c+1 ~/docs/DOSIFICACIONES/HORARIO.rem"
 
+# NIXOS
+alias nix-install="nix-env -f '<nixpkgs>' -i"
+
 ### cd on quit para nnn ###
 #NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 #nnn(){
@@ -87,7 +87,7 @@ alias semana="remind -@c+1 ~/docs/DOSIFICACIONES/HORARIO.rem"
 #}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Historial de zsh
 HISTFILE=~/.cache/zsh/history
@@ -132,4 +132,4 @@ vterm_printf(){
     fi
 }
 
-source /home/juan/.rvm/scripts/rvm
+eval "$(starship init zsh)"

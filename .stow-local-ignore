@@ -17,3 +17,6 @@ chrome
 .gitignore
 .gitmodules
 juan_layout.json
+configuration.nix
+hardware-configuration.nix
+conky

@@ -1,0 +1,47 @@
+conky.config = {
+   background = false,
+	update_interval = 5,
+	double_buffer = true,
+
+	own_window = true,
+	own_window_type = 'desktop',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_title = 'palabra-dia',
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+	own_window_transparent = true,
+
+	-- gap_x = 40,
+	-- gap_y = 20,
+
+	 gap_x = 40,
+	 gap_y = 20,
+
+	border_inner_margin = 0,
+	border_outer_margin = 0,
+	
+	draw_shades = true,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+	-- alignment = 'middle_right',
+	alignment = 'bottom_middle',
+-- 	default_color = 'B2B2B2',
+
+
+	use_xft = true,
+	xftalpha = 255,
+	font1 = 'Louis George Cafe:Regular:size=20:antialias=true',
+	font2 = 'Louis George Cafe:Regular:size=16:antialias=true'
+
+};
+
+conky.text = [[
+${color E13CCD} ${font1}
+Palabra del día:
+Gastrobar${color}
+${font2}De gastro[nomía] y bar${font1}
+
+Bar o restaurante que ofrece tapas y
+raciones de alta cocina.
+]];;

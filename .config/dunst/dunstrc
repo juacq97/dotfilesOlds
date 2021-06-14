@@ -1,12 +1,12 @@
 [colors]
 ##Theme: light
-    background	= "#2940B6"
-    foreground 	= "#CACACC"
-    frame_color = "#CACACC"
+#    background	= "fafafa"
+#    foreground 	= "383a42"
+#    frame_color = "526eff"
 # horizon
-#    background	= "#1c1e27"
-#    foreground 	= "#cacacc"
-#    frame_color = "#282828"
+    background	= "#1c1e27"
+    foreground 	= "#cacacc"
+    frame_color = "#282828"
 
 
 ## gruvbox

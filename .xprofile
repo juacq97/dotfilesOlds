@@ -1,17 +1,25 @@
 #! /bin/sh
 
-# compton -b --config ~/.config/compton.conf &
-# xfce4-power-manager &
-# pcloud &
-# copyq &
-#conky -c ~/conkys/reloj-texto &
-# emacs --daemon &
-# /usr/lib/kdeconnectd &
-# redshift &
-# xsetroot -cursor_name left_ptr &
-# light -S 50 &
+source $HOME/.zvars.zsh
 
-# if [ "$XDG_SESSION_DEKTOP" == "bspwm" ]; then
-#     ~/.config/polybar/polybar-monitors.sh &
-# fi
- 
+autorandr clone-largest &
+nitrogen --restore &
+xrdb  ~/.Xresources &
+picom &
+emacs --daemon &
+##xfce4-power-manager &
+clipmenud &
+~/.nix-profile/libexec/kdeconnectd &
+redshift -l 24.14:-110.27 -m randr &
+xsetroot -cursor_name left_ptr &
+flameshot &
+sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
+dunst &
+#~/.local/dwmblocks & 
+##fcitx5 -d &
+##dwm-msg run_command xrdb &
+##nextcloud &
+set r rate 250 60 &
+lxsession &
+export QT_QPA_PLATFORMTHEME="qt5ct"
+

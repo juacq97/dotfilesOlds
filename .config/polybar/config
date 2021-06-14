@@ -17,10 +17,10 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:background}
-background = #00000000
-;foreground = #282C34
-foreground = #fffffff
+background = ${xrdb:background}
+;background = #00000000
+foreground = ${xrdb:foreground}
+;foreground = #fffffff
 color0 = ${xrdb:color0} 
 color1 = ${xrdb:color1} 
 color2 = ${xrdb:color2} 
@@ -50,19 +50,19 @@ line-color = #f00
 border-size = 0
 border-color = #00000000
 
-padding-left = 2
+padding-left = 0
 padding-right = 0
 
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Urbanist:size=10:antialias=true;1
+font-0 = Open Sans:normal:size=10:antialias=true;1
 font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;2
 font-2 = Weather Icons:size=12;3
 
 modules-left = i3 hlwm title
-modules-center = date
-modules-right = spotify clima pulseaudio mic-volume battery network
+modules-center = 
+modules-right = spotify clima pulseaudio battery date network
 tray-position = none
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -97,7 +97,7 @@ format = <label-state> <label-mode>
 ;   %mode%
 ; Default: %mode%
 label-mode = %mode%
-label-mode-padding = 1
+label-mode-padding = 0
 label-mode-background = 
 
 ; Available tokens:
@@ -110,7 +110,7 @@ label-focused = %icon%
 label-focused-foreground = ${colors.color1}
 label-focused-background = 
 label-focused-underline = 
-label-focused-padding = 1
+label-focused-padding = 0
 
 ; Available tokens:
 ;   %name%
@@ -119,7 +119,7 @@ label-focused-padding = 1
 ;   %output%
 ; Default: %icon%  %name%
 label-unfocused = %icon%
-label-unfocused-padding = 1
+label-unfocused-padding = 0
 label-unfocused-foreground =
 
 ; Available tokens:
@@ -131,7 +131,7 @@ label-unfocused-foreground =
 label-visible = %icon%
 label-visible-underline = #555555
 label-visible-foreground = ${colors.color5}
-label-visible-padding = 1
+label-visible-padding = 0
 
 ; Available tokens:
 ;   %name%
@@ -142,7 +142,7 @@ label-visible-padding = 1
 label-urgent = %icon%
 label-urgent-foreground = #000000
 label-urgent-background = #bd2c40
-label-urgent-padding = 1
+label-urgent-padding = 0
 
 ; Separator in between workspaces
 label-separator = 
@@ -193,7 +193,7 @@ type = internal/date
 interval = 1.0
 date = "%b %e"
 
-format-prefix = "󱑆"
+format-prefix = " 󱑆"
 ; Optional time format
 time = %R
 
@@ -272,15 +272,15 @@ animation-charging-framerate = 750
 type = internal/pulseaudio
 use-ui-max = true
 interval = 2
-format-volume = <ramp-volume> <label-volume>
+format-volume = "<ramp-volume> <label-volume>"
 
 format-volume-background = 
 format-muted-background = 
 format-volume-foreground = ${colors.foreground}
 format-muted-foreground = ${colors.color0}
 
-format-volume-padding = 3
-format-muted-padding = 3
+format-volume-padding = 2
+format-muted-padding = 2
 
 format-muted = <label-muted> 
 label-volume = %percentage%%
@@ -298,7 +298,7 @@ click-right = "if [ $(pgrep pavucontrol) ]; then pkill pavucontrol; else pavucon
 
 [module/network]
 type = internal/network
-interface = wlan0
+interface = wlp3s0
 interval = 15.0
 format-connected = <ramp-signal> 
 format-disconnected = <label-disconnected>

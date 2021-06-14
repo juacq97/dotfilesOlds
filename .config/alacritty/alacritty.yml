@@ -13,16 +13,16 @@ scrolling:
 # Font configuration
 font:
   normal:
-    family: CaskaydiaCove Nerd Font
-    style: Regular
+    family: Fira Code
+    style: Medium
   bold:
-    family: CaskaydiaCove Nerd Font
+    family: Fira Code
     style: bold
   italic:
-    family: CaskaydiaCove Nerd Font
+    family: Fira Code
     style: italic
   bold_italic:
-    family: CaskaydiaCove Nerd Font
+    family: Fira Code
     style: bold_italic
 
   size: 10
@@ -516,7 +516,7 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *horizon
+colors: *one-light
 
 # Background opacity
 background_opacity: 1

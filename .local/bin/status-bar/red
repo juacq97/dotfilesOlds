@@ -1,6 +1,6 @@
 #! /bin/sh
 
-if [[ $(cat /sys/class/net/wlan0/operstate) == "up" ]]; then
+if [[ $(cat /sys/class/net/w*/operstate) == "up" ]]; then
     echo "   󰤨 "
 else
     echo "  󰤭 "
