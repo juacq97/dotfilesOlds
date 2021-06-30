@@ -3,39 +3,52 @@ with (import <nixpkgs> {});
 	allowUnfree = true;
 	joypixels.acceptLicense = true;
 	packageOverrides = pkgs: with pkgs; {
-
-
+    
+    
 		themes = pkgs.buildEnv {
 			name = "themes";
 			paths = [
         flat-remix-icon-theme
         flat-remix-gtk
-				];
-			};
-
+			];
+		};
+    
 		plasma-pkgs = pkgs.buildEnv {
 			name = "plasma-pkgs";
 			paths = [
         plasma-pass
-				];
-			};
+        plasma-applet-virtual-desktop-bar
+        qt5.qtwebsockets
+        latte-dock
+        plasma5Packages.applet-window-buttons
+        krunner-pass
+			];
+		};
 
+	 gnome-ext = pkgs.buildEnv {
+			name = "gnome-ext";
+ 			paths = [
+        gnome.gnome-tweak-tool
+	];
+};
+    
 		wm = pkgs.buildEnv {
 			name = "wm";
 			paths = [
 				dunst
 				sxhkd
-#				xfce.xfce4_power_manager_gtk3
+        #				xfce.xfce4_power_manager_gtk3
 				nitrogen
 				clipmenu
-				picom
+        # Use the ibhagwan fork of picom, with blur and rounded corners
+        picom
 				redshift
 				(polybar.override { pulseSupport = true; })
         lxappearance
         lxsession
-				];
-			};
-
+			];
+		};
+    
 		media = pkgs.buildEnv {
 			name = "media";
 			paths = [
@@ -46,11 +59,11 @@ with (import <nixpkgs> {});
 				krita
 				kdenlive
 				ffmpeg
-				playerctl
+#				playerctl
 				youtube-dl
-				];
-			};
-
+			];
+		};
+    
 		misc = pkgs.buildEnv {
 			name = "misc";
 			paths = [
@@ -72,13 +85,13 @@ with (import <nixpkgs> {});
         wmctrl
         xclip
         poppler_utils
+        playerctl
         pamixer
-        #unzip
-
-				#zathura-pdf-mupdf
-				];
-			};
-
+        unzip
+        brightnessctl
+			];
+		};
+    
 		fonts = pkgs.buildEnv {
 			name = "fonts";
 			paths = [
@@ -88,10 +101,11 @@ with (import <nixpkgs> {});
 				opensans-ttf
 				material-design-icons
         fira-code
-				];
-			};
-
-  
+        fira
+			];
+		};
+    
+    
     # Dev libraries. Though I should use nix-shell for libraries, I need some like jq
 		dev = pkgs.buildEnv {
 			name = "dev";
@@ -102,9 +116,9 @@ with (import <nixpkgs> {});
     
 	};
 }
-
-
-
-				
-				
-
+  
+  
+  
+	
+	
+  

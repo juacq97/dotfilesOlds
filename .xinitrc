@@ -1,7 +1,9 @@
 #! /bin/sh
 
 source ./.xprofile
+
 #exec dwm
+export wm=dwm
 while true; do
  ~/.local/dwm 2> /tmp/dwm.log 
     done

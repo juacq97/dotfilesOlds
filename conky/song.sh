@@ -1,10 +1,10 @@
 #! /bin/sh
 
 title () {
-    var=$(playerctl --player=firefox metadata --format " {{title}}")
+    var=$(playerctl --player=spotify metadata --format " {{title}}")
     check=$(echo $var | wc -m)
    
-    if [[ $check -gt 25 ]]; then
+    if [[ $check -gt 80 ]]; then
 	text=$(echo $var | cut -c1-30)
 	echo $text...
     else
@@ -13,7 +13,7 @@ title () {
 }
 
 artist () {
-    var=$(playerctl --player=firefox metadata --format " {{artist}}")
+    var=$(playerctl --player=spotify metadata --format " {{artist}}")
     check=$(echo $var | wc -m)
     
     if [[ $check -gt 25 ]]; then

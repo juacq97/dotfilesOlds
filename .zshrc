@@ -69,7 +69,7 @@ alias ref.adoc="nvim /mnt/Data/TODO/REF.adoc"
 alias semana="remind -@c+1 ~/docs/DOSIFICACIONES/HORARIO.rem"
 
 # NIXOS
-alias nix-install="nix-env -f '<nixpkgs>' -i"
+alias nix-install="nix-env -f '<nixpkgs>' -Ai"
 
 ### cd on quit para nnn ###
 #NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"

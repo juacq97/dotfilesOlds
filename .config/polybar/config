@@ -17,10 +17,10 @@
 ;==========================================================
 
 [colors]
-background = ${xrdb:background}
-;background = #00000000
-foreground = ${xrdb:foreground}
-;foreground = #fffffff
+;background = ${xrdb:background}
+background = #00000000
+;foreground = ${xrdb:foreground}
+foreground = #ffffff
 color0 = ${xrdb:color0} 
 color1 = ${xrdb:color1} 
 color2 = ${xrdb:color2} 
@@ -56,104 +56,23 @@ padding-right = 0
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Open Sans:normal:size=10:antialias=true;1
+font-0 = Open Sans:semibold:size=10:antialias=true;1
 font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;2
 font-2 = Weather Icons:size=12;3
 
-modules-left = i3 hlwm title
-modules-center = 
-modules-right = spotify clima pulseaudio battery date network
+modules-left = hlwm title
+modules-center = date
+modules-right = spotify term temperature sep pulseaudio battery network
 tray-position = none
 cursor-click = pointer
 cursor-scroll = ns-resize
-
-[module/i3]
-type = internal/i3
-pin-workspaces = false
-index-sort = true
-enable-click = true
-wraping-scroll = true
-
-ws-icon-0 = 1;󰎤
-ws-icon-1 = 2;󰎧
-ws-icon-2 = 3;󰎪
-ws-icon-3 = 4;󰎭
-ws-icon-4 = 5;󰎱
-ws-icon-5 = 6;󰎱
-ws-icon-6 = 7;󰎶
-ws-icon-7 = 8;󰎹
-ws-icon-8 = 9;󰎼
-ws-icon-default = ♟
-; NOTE: You cannot skip icons, e.g. to get a ws-icon-6
-; you must also define a ws-icon-5.
-; NOTE: Icon will be available as the %icon% token inside label-*
-
-; Available tags:
-;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
-;   <label-mode> (default)
-format = <label-state> <label-mode>
-
-; Available tokens:
-;   %mode%
-; Default: %mode%
-label-mode = %mode%
-label-mode-padding = 0
-label-mode-background = 
-
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-;   %output%
-; Default: %icon%  %name%
-label-focused = %icon%
-label-focused-foreground = ${colors.color1}
-label-focused-background = 
-label-focused-underline = 
-label-focused-padding = 0
-
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-;   %output%
-; Default: %icon%  %name%
-label-unfocused = %icon%
-label-unfocused-padding = 0
-label-unfocused-foreground =
-
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-;   %output%
-; Default: %icon%  %name%
-label-visible = %icon%
-label-visible-underline = #555555
-label-visible-foreground = ${colors.color5}
-label-visible-padding = 0
-
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-;   %output%
-; Default: %icon%  %name%
-label-urgent = %icon%
-label-urgent-foreground = #000000
-label-urgent-background = #bd2c40
-label-urgent-padding = 0
-
-; Separator in between workspaces
-label-separator = 
-label-separator-padding = 0
-label-separator-foreground = #ffb52a
 
 
 [module/hlwm]
 type = custom/script
 exec = ~/.config/polybar/scripts/info-hlwm-workspaces.sh
 tail = true
+
 
 [module/title]
 type = internal/xwindow
@@ -204,7 +123,7 @@ time-alt = %H:%M:%S
 
 format = <label>
 format-background = 
-format-prefix-foreground = ${colors.color1}
+format-prefix-foreground = ${colors.foreground}
 format-foreground = 
 
 label = "%{A3:emacsclient -c -F '(quote (name . "agenda") (width  . 80) (height . 45) (left . 250) (top . 60))' -n -e "(agenda-frame)":} %date%, %time% %{A}"
@@ -294,7 +213,42 @@ ramp-volume-2 = 󰕾
 
 ; Right and Middle click
 click-right = "if [ $(pgrep pavucontrol) ]; then pkill pavucontrol; else pavucontrol; fi"
-; click-middle = 
+click-middle = "notify-send -a "Volumen" "$(pamixer --get-volume)"%"
+
+[module/term]
+type = custom/text
+content = " 󰔏 "
+content-foreground = "#FF5555"
+
+
+[module/temperature]
+type = internal/temperature
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 0.5
+
+; Thermal zone to use
+; To list all the zone types, run 
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 0
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input
+
+; Base temperature for where to start the ramp (in degrees celsius)
+; Default: 0
+base-temperature = 20
+
+; Threshold temperature to display warning label (in degrees celsius)
+; Default: 80
+warn-temperature = 85
+
 
 [module/network]
 type = internal/network
@@ -338,6 +292,10 @@ hook-0 = mic-mute
 initial = 1
 format-prefix = "󰍬 "
 format-prefix-foreground = ${colors.color3}
+
+[module/sep]
+type = custom/text
+content = " "
 
 
 [settings]

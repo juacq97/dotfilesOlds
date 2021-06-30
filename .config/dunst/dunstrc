@@ -1,8 +1,8 @@
 [colors]
 ##Theme: light
-#    background	= "fafafa"
-#    foreground 	= "383a42"
-#    frame_color = "526eff"
+#    background	= "282a36"
+#    foreground 	= "f8f8f2"
+#    frame_color = ""
 # horizon
     background	= "#1c1e27"
     foreground 	= "#cacacc"

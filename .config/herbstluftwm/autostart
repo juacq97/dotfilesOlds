@@ -46,7 +46,7 @@ hc keybind $Mod-Control-j cycle +1
 hc keybind $Mod-Control-k cycle -1
 
 # splitting frames
-hc keybind $Mod-i  chain , split bottom  0.5 , focus -e down 
+hc keybind $Mod-i  chain , cycle_layout +1 horizontal vertical , split bottom  0.5 , focus -e down 
 hc keybind $Mod-o  chain , split right   0.5 , focus -e right
 hc keybind $Mod-Control-i  chain , split top  0.5 , focus -e up
 hc keybind $Mod-Control-o  chain , split left   0.5 , focus -e left
@@ -102,8 +102,8 @@ hc keybind $Mod-Shift-Tab   cycle_all -1
 
 # Set the default layout to 2, that's "monocle" inside the container
 
-tag_names=( 󰎤 󰎧 󰎪 󰎭 󰎱 󰎳 )
-tag_keys=( {1..6} 0 )
+tag_names=( 󱄅 󰨇 󰅬 󰽯 )
+tag_keys=( {1..4} 0 )
 
 hc rename default "${tag_names[0]}" || true
 for i in "${!tag_names[@]}" ; do
@@ -189,7 +189,7 @@ hc attr theme.floating.active.inner_color "#$color1"
 hc attr theme.floating.normal.inner_color "#$color5"
 
 hc set window_gap 2 #Gap between windows
-hc set frame_padding 0 # Gapp between windows and frames
+hc set frame_padding -2 # Gapp between windows and frames
 hc set smart_window_surroundings off
 hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0
@@ -201,6 +201,7 @@ hc unrule -F
 hc rule focus=on # normally focus new clients
 hc rule floatplacement=center
 hc rule class=Pqiv floating=on
+hc rule class=conky manage=off
 hc rule class=Steam floating=on
 hc rule class=mpv floating=on
 hc rule class=Lxappareance floating=on

@@ -3,14 +3,14 @@ conky.config = {
 	update_interval = 5,
 	double_buffer = true,
 	own_window = true,
-	own_window_type = 'desktop',
+	own_window_type = 'override',
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	own_window_title = '',
 	own_window_argb_visual = true,
 	own_window_argb_value = 0,
 	own_window_transparent = true,
 
-	gap_x = 100,
+	gap_x = 30,
 	gap_y = 20,
 
 	border_inner_margin = 0,
@@ -21,15 +21,15 @@ conky.config = {
 	draw_borders = false,
 	draw_graph_borders = false,
 
-	alignment = 'bottom_right',
+	alignment = 'bottom_left',
 
 	use_xft = true,
 -- 	default_color = 'B2B2B2',
 	xftalpha = 255,
-	font1 = 'Louis George Cafe:Regular:size=18:antialias=true',
-	font2 = 'Louis George Cafe:Regular:size=15:antialias=true',
-	font3 = 'Material Design Icons:Regular:size=18:antialias=true',
-	font4 = 'Material Design Icons:Regular:size=17:antialias=true'
+	font1 = 'Louis George Cafe:Regular:size=27:antialias=true',
+	font2 = 'Louis George Cafe:Regular:size=23:antialias=true',
+	font3 = 'Material Design Icons:Regular:size=27:antialias=true',
+	font4 = 'Material Design Icons:Regular:size=23:antialias=true'
 
 
 };
@@ -37,4 +37,5 @@ conky.config = {
 conky.text = [[
 ${font3}󰎆${font1} ${exec ~/.repos/dotfiles/conky/song.sh title}
 ${font4}󰀉${font2} ${exec ~/.repos/dotfiles/conky/song.sh artist}
+
 ]];;

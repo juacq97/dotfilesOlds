@@ -15,6 +15,6 @@ font=Futura Bk BT 10
 default-timeout=5000
 
 # Colors
-background-color=#fafafa
-text-color=#383a42
+background-color=#*.background:	bg
+text-color=#*.foreground:	fg
 border-color=#526eff

@@ -1,0 +1,40 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+((".repos"
+ (filename . "~/.repos/")
+ (front-context-string . "dotfiles/\n  drwx")
+ (rear-context-string . "0K jun 26 21:52 ")
+ (position . 207))
+("local/bin"
+ (filename . "~/.local/bin/")
+ (front-context-string . "status-bar/\n  dr")
+ (rear-context-string . "0K jun 14 21:31 ")
+ (position . 109))
+(".config"
+ (filename . "~/.config/")
+ (front-context-string . "Asciidoctor -> .")
+ (rear-context-string . "38 jun 14 21:31 ")
+ (position . 106))
+("home"
+ (filename . "~/")
+ (front-context-string . "Descargas/\n  drw")
+ (rear-context-string . "0K jun 17 11:17 ")
+ (position . 98))
+("PLANEACIONES"
+ (filename . "/mnt/data/Drive/CIMB/PLANEACIONES/")
+ (front-context-string . "2021/\n  drwxr-xr")
+ (rear-context-string . "0K jun 12 23:31 ")
+ (position . 162))
+("CIMB"
+ (filename . "/mnt/data/Drive/CIMB/")
+ (front-context-string . "ABRIL/\n  drwxr-x")
+ (rear-context-string . "0K may 14 00:26 ")
+ (position . 108))
+("data"
+ (filename . "/mnt/data/")
+ (front-context-string . "CUADERNILLOS REG")
+ (rear-context-string . "0K abr  7 14:43 ")
+ (position . 100))
+)

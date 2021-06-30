@@ -5,7 +5,7 @@ source $HOME/.zvars.zsh
 autorandr clone-largest &
 nitrogen --restore &
 xrdb  ~/.Xresources &
-picom &
+picom --experimental-backends &
 emacs --daemon &
 ##xfce4-power-manager &
 clipmenud &
@@ -16,10 +16,11 @@ flameshot &
 sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 dunst &
 #~/.local/dwmblocks & 
-##fcitx5 -d &
-##dwm-msg run_command xrdb &
-##nextcloud &
-set r rate 250 60 &
-lxsession &
+###fcitx5 -d &
+###dwm-msg run_command xrdb &
+###nextcloud &
+xset r rate 250 60 &
+volumeicon &
+#lxsession &
 export QT_QPA_PLATFORMTHEME="qt5ct"
 

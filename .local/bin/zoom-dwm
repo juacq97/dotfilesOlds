@@ -1,0 +1,5 @@
+#! /bin/sh
+
+export vblank_mode=0
+
+zoom &

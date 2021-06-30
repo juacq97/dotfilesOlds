@@ -471,9 +471,9 @@ schemes:
       cyan: '0x8ec07c'
       white: '0xebdbb2'
 
-  dracula:
+  dracula: &dracula
     primary:
-      background: '#272A34'
+      background: '#282A36'
       foreground: '#f8f8f2'
     cursor:
       text: '#44475a'
@@ -516,7 +516,7 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *one-light
+colors: *dracula
 
 # Background opacity
 background_opacity: 1

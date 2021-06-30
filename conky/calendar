@@ -4,7 +4,7 @@ conky.config = {
 	double_buffer = true,
 
 	own_window = true,
-	own_window_type = 'desktop',
+	own_window_type = 'override',
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	own_window_title = '',
 	own_window_argb_visual = true,
@@ -22,7 +22,7 @@ conky.config = {
 	draw_borders = false,
 	draw_graph_borders = false,
 
-	alignment = 'bottom_left',
+	alignment = 'middle_right',
 	-- default_color = 'B2B2B2',
 
 	use_xft = true,

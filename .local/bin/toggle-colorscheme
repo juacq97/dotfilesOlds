@@ -3,11 +3,11 @@
 # Change xresources. This includes dmenu and dwm. dwm needs the xresources and ipc patch; dmenu needs the xrdb patch. All the Wayland programs takes their colors from here too (allow me to xD)
 
 # This are the original colors before the change, it'll be useful later
-oxbg=$(xrdb -query ~/.Xresources | grep background | cut -d"#" -f2 | tr -d ' ')
-oxfg=$(xrdb -query ~/.Xresources | grep foreground | cut -d"#" -f2 | tr -d ' ')
-oxb=$(xrdb -query ~/.Xresources | grep border | cut -d"#" -f2 | tr -d ' ')
-oc6=$(xrdb -query ~/.Xresources | grep color6 | cut -d"#" -f2 | tr -d ' ')
-oc9=$(xrdb -query ~/.Xresources | grep color9 | cut -d"#" -f2 | tr -d ' ')
+oxbg=$(xrdb -query ~/.Xresources | grep "*.background" | cut -d"#" -f2 | tr -d ' ')
+oxfg=$(xrdb -query ~/.Xresources | grep "*.foreground" | cut -d"#" -f2 | tr -d ' ')
+oxb=$(xrdb -query ~/.Xresources | grep "*.border" | cut -d"#" -f2 | tr -d ' ')
+oc6=$(xrdb -query ~/.Xresources | grep "*.color6" | cut -d"#" -f2 | tr -d ' ')
+oc9=$(xrdb -query ~/.Xresources | grep "*.color9" | cut -d"#" -f2 | tr -d ' ')
 
 xpath=$(grep -n include ~/.Xresources | cut -d ' ' -f2 | tr -d '"')
 xtheme=$(basename -- $xpath)
@@ -107,11 +107,11 @@ fi
     fi
 
 # getting the new colors from Xresources
-xbg=$(xrdb -query ~/.Xresources | grep background | cut -d"#" -f2 | tr -d ' ')
-xfg=$(xrdb -query ~/.Xresources | grep foreground | cut -d"#" -f2 | tr -d ' ')
-xb=$(xrdb -query ~/.Xresources | grep border | cut -d"#" -f2 | tr -d ' ')
-c6=$(xrdb -query ~/.Xresources | grep color6 | cut -d"#" -f2 | tr -d ' ')
-c9=$(xrdb -query ~/.Xresources | grep color9 | cut -d"#" -f2 | tr -d ' ')
+xbg=$(xrdb -query ~/.Xresources | grep "*.background" | cut -d"#" -f2 | tr -d ' ')
+xfg=$(xrdb -query ~/.Xresources | grep "*.foreground" | cut -d"#" -f2 | tr -d ' ')
+xb=$(xrdb -query ~/.Xresources | grep "*.border" | cut -d"#" -f2 | tr -d ' ')
+c6=$(xrdb -query ~/.Xresources | grep "*.color6" | cut -d"#" -f2 | tr -d ' ')
+c9=$(xrdb -query ~/.Xresources | grep "*.color9" | cut -d"#" -f2 | tr -d ' ')
 
 # Change colors from zathura. Zathura allows to change only background, and bg and fg for recolor. izzi to change right?
 

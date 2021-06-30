@@ -10,7 +10,7 @@ herbstclient --idle "tag_*" 2>/dev/null | {
                 # Read the prefix from each tag and render them according to that prefix
                 case ${i:0:1} in
                     '#')
-			echo "%{F#E4436F}"
+			echo "%{F#bd9ef9}"
                         # the tag is viewed on the focused monitor
                         # TODO Add your formatting tags for focused workspaces
                         ;;
@@ -31,7 +31,7 @@ herbstclient --idle "tag_*" 2>/dev/null | {
                     *)
                         # . the tag is empty
                         # There are also other possible prefixes but they won't appear here
-                        echo "%{F#6C6F93}" # Add your formatting tags for empty workspaces
+                        echo "%{F#64677B}" # Add your formatting tags for empty workspaces
                         ;;
                 esac
 

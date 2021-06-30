@@ -78,7 +78,7 @@ ${c0}   ==\\___${c1}\\/ ${c0}//  ${lc}os     ~> ${ic}${os}${reset}
 ${c1}     //    \\${c0}//   ${lc}kernel ~> ${ic}${kernel}${reset}
 ${c1}  ==//      ${c0}//==  ${lc}uptime ~> ${ic}${uptime}${reset}
 ${c1}   //${c0}\\${c1}____${c0}//     ${lc}shell  ~> ${ic}${shell}${reset}    
-${c1}  // ${c0}/\\   ${c1}\\==   ${lc}wm     ~> ${ic}${ui}${reset}
+${c1}  // ${c0}/\\   ${c1}\\==   ${lc}de     ~> ${ic}${ui}${reset}
 ${c0}    // \\   ${c1}\\    
 
 EOF

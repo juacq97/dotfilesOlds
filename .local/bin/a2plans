@@ -19,9 +19,6 @@
 # The numbers at the beggining of every folder is to 
 # keep an order at the moment of compile the pdf.
 
-# Im using rvm, so I need to set the correct ruby version
-rvm use 2.6.7
-
 build () {
 if [ -e PLANEACION.pdf ]; then
     rm PLANEACION.pdf

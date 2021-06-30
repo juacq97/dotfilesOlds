@@ -32,7 +32,7 @@ super + Return
 #      st 
 #	emacsclient -c -F '(quote (name . "eshell"))' -e "(eshell)"
 	emacsclient -ca ""
-
+	
 super + control + Return
     alacritty
 
@@ -78,13 +78,15 @@ super + shift + Print
 super + Print	
       flameshot full -c
 
-##Audio
+#Audio
 XF86AudioMute
 	pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle ; sigdwmblocks 4
 XF86AudioLowerVolume
 	pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -2% ; sigdwmblocks 4
 XF86AudioRaiseVolume
 	pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +2% ; sigdwmblocks 4
+
+
 XF86AudioPlay
 	playerctl play-pause 
 XF86AudioNext
@@ -102,12 +104,12 @@ super + alt + m
       pactl set-source-mute 1 toggle; polybar-msg hook mic-volume 1
 
 # Subir brillo
-#XF86MonBrightnessUp
-#	light -A 5 & notify-send -a "Brillo" "$(light -G)"
-#
-## Bajar brillo
-#XF86MonBrightnessDown
-#	light -U 5 & notify-send -a "Brillo" "$(light -G)"
+XF86MonBrightnessUp
+	brightnessctl set +5% 
+
+# Bajar brillo
+XF86MonBrightnessDown
+	brightnessctl set 5%- 
 
 
 # Reiniciar sxhdk 

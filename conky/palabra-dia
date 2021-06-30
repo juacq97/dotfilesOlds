@@ -39,9 +39,10 @@ conky.config = {
 conky.text = [[
 ${color E13CCD} ${font1}
 Palabra del día:
-Gastrobar${color}
-${font2}De gastro[nomía] y bar${font1}
-
-Bar o restaurante que ofrece tapas y
-raciones de alta cocina.
+Muceta${color}
+${font2}(Del it. mozzetta)${font1}
+Esclavina que cubre el pecho y la espalda,
+y que, abotonada por delante, usan como
+señal de su dignidad los prelados, doctores,
+licenciados y ciertos eclesiásticos.
 ]];;

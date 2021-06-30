@@ -12,13 +12,13 @@
 
 (require 'package)
     ;; Allows to install packages from melpa
-   ; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 			
   
-(setq package-archives
-      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
-        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
-        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
+;;(setq package-archives
+;;      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
+;;        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
+;;        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
 
 
     (package-initialize)
@@ -459,7 +459,7 @@
   (setq heaven-and-hell-load-theme-no-confirm t)
   (setq heaven-and-hell-themes
 	'((light . doom-one-light)
-	  (dark . doom-horizon)))
+	  (dark . doom-dracula)))
   :hook (after-init . heaven-and-hell-init-hook)
   :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
 	 ("<f7>" . heaven-and-hell-toggle-theme)))

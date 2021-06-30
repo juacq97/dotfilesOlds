@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -41,17 +37,48 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    # desktopManager.xfce.enable = true;
-#    desktopManager.plasma5.enable = true;
-    displayManager.lightdm.enable = true; # enable or disable lightdm
-#    displayManager.sddm.enable = true;
-    #displayManager.startx.enable = true; # if lightdm is enabled, then startx should be disabled
-    windowManager.herbstluftwm.enable = true; # install herbstluftwm
+    videoDrivers = [ "intel" ];
+    desktopManager = {
+      #xfce.enable = true;
+      #plasma5.enable = false;
+      #gnome.enable = true;
+    };
+
+      displayManager = {
+        lightdm.enable = true; 
+        #sddm.enable = true;
+        #gdm.enable = true;
+        startx.enable = false;
+      };
+
+      windowManager = {
+        herbstluftwm.enable = true;
+        bspwm.enable = false;
+        exwm.enable = false;
+        openbox.enable = false;
+        i3.enable = false;
+        i3.package = "pkgs.i3-gaps";
+      };
     layout = "latam"; # layout of keyboard
     libinput.enable = true; #enable touchpad
   };
 
-  services.xserver.serverFlagsSection =
+  #environment.gnome.excludePackages = with pkgs.gnome; [
+  #  cheese
+  #  eog
+  #  epiphany
+  #  gedit
+  #  gnome-contacts
+  #  gnome-logs
+  #  gnome-maps
+  #  gnome-music
+  #  gnome-photos
+  #  simple-scan
+  #  totem
+  #  yelp
+  #];
+
+    services.xserver.serverFlagsSection = 
     ''
     Option "StandbyTime" "30" 
     Option "BlankTime" "30"
@@ -66,6 +93,9 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  # Enable bluethooth
+  hardware.bluetooth.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -75,12 +105,13 @@
     syntaxHighlighting.enable = true;
   };
 
+
    users.users.juan = {
      isNormalUser = true;
      home = "/home/juan";
      shell = pkgs.zsh;
      description = "Juan Adrián Castro Quintana";
-     extraGroups = [ "wheel" "networkmanager" "users" ]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "wheel" "networkmanager" "users" "video" ]; # Enable ‘sudo’ for the user.
    };
 
   # List packages installed in system profile. To search, run:
@@ -89,7 +120,7 @@
      vim
      neovim
      wget
-     firefox
+     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
      emacs
      git
      stow
@@ -104,6 +135,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    #pinentryFlavor = "gtk2";
   };
 
   # List services that you want to enable:
@@ -115,7 +147,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

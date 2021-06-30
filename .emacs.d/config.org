@@ -26,13 +26,13 @@ Set the garbage collection to a better number for the load. Also, a message with
 #+begin_src emacs-lisp
     (require 'package)
     ;; Allows to install packages from melpa
-   ; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 			
   
-(setq package-archives
-      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
-        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
-        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
+;;(setq package-archives
+;;      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
+;;        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
+;;        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
 
 
     (package-initialize)
@@ -637,7 +637,7 @@ This packages allow to quicky change between two themes. The recommended setup, 
     (setq heaven-and-hell-load-theme-no-confirm t)
     (setq heaven-and-hell-themes
 	  '((light . doom-one-light)
-	    (dark . doom-horizon)))
+	    (dark . doom-dracula)))
     :hook (after-init . heaven-and-hell-init-hook)
     :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
 	   ("<f7>" . heaven-and-hell-toggle-theme)))

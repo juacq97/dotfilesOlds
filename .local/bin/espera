@@ -1,6 +1,35 @@
 #! /bin/sh
 
+run_conky () {
+# run all the conkys I can
+conky -c ~/.repos/dotfiles/conky/calendar &
+conky -c ~/.repos/dotfiles/conky/pie &
+#conky -c ~/.repos/dotfiles/conky/palabra-dia &
+conky -c ~/.repos/dotfiles/conky/clima &
+conky -c ~/.repos/dotfiles/conky/song &
+
+
+if [ $(pgrep herbstluftwm) ]; then
+    herbstclient attr theme.floating.border_width 0
+    nitrogen --head=0 --set-zoom-fill /mnt/data/Drive/CIMB/JUNIO/image.jpg
+    herbstclient attr theme.floating.title_height 0
+    herbstclient set frame_bg_transparent toggle
+    polybar-msg cmd toggle
+fi
+}
+
+restore_config () {
+    killall conky
+    if [ $(pgrep herbstluftwm) ]; then
+	herbstclient reload
+	nitrogen --restore
+    fi
+    }
+
+
+
+
 case $1 in
-     'a') pqiv -sF -d 20 6A.png efe.png ../26/acertijo.png;;
-     'b') pqiv -sF -d 20 6B.png efe.png ../26/acertijo.png;;
+    'run') run_conky;;
+    'kill') restore_config;;
 esac
