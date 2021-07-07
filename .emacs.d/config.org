@@ -869,9 +869,9 @@ First, lets define the function.
 Though org-mode has a long range of formats, we can add more.
 #+begin_src emacs-lisp
   ;; Pandoc support
-  ;(use-package ox-pandoc
-  ;  :after org
-  ;  :ensure t)
+  (use-package ox-pandoc
+    :after org
+    :ensure t)
 
     
 #+end_src

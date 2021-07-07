@@ -160,6 +160,7 @@ HLWM has 4 layouts, the layouts affects how the windows are arranged inside the 
   hc keybind $Mod-r rotate
 
   hc keybind $Mod-t cycle_layout +1 horizontal vertical #change direction of clients
+  hc keybind $Mod-Tab cycle_layout +1 horizontal vertical
   hc keybind $Mod-g set_layout grid #change direction of clients
 
 #+end_src
@@ -183,7 +184,6 @@ HLWM has 4 layouts, the layouts affects how the windows are arranged inside the 
   hc keybind $Mod-Shift-period shift_to_monitor -1
 
 
-  hc keybind $Mod-Tab         cycle_all +1
   hc keybind $Mod-Shift-Tab   cycle_all -1
 
 #+end_src
@@ -193,8 +193,8 @@ Though HLWM uses the term "tags", they're just normal virtual workspaces. You ca
 #+begin_src bash
   # Set the default layout to 2, that's "monocle" inside the container
 
-  tag_names=( 󱄅 󰨇 󰅬 󰽯 )
-  tag_keys=( {1..4} 0 )
+  tag_names=( 󰲠 󰲢 󰲤 󰲦 󰲨 󰲪 )
+  tag_keys=( {1..6} 0 )
 
   hc rename default "${tag_names[0]}" || true
   for i in "${!tag_names[@]}" ; do

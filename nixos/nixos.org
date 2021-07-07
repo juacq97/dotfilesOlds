@@ -1,3 +1,7 @@
+* NixOS configuration!
+
+Importing the hardware-configuration file
+#+begin_src nix
 { config, pkgs, ... }:
 
 {
@@ -5,27 +9,39 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+#+end_src
 
-  # Use the GRUB 2 boot loader.
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
+* Grub configuration
+Use the GRUB 2 boot loader. No efi system
+#+begin_src nix
   boot.loader.grub = {
     enable = true;
     version = 2;
-    device = "/dev/sda"; # or "nodev" for efi only
-  # efiSupport = true;
-  # efiInstallAsRemovable = true;
+    device = "/dev/sda"; 
   };
+#+end_src
 
+* Network
+
+#+begin_src nix
   networking = {
-    hostName = "t430-pc"; # Define your hostname.
-    networkmanager.enable = true;  # Enables wireless support via nm
+    hostName = "t430-pc"; 
+    networkmanager.enable = true; 
     useDHCP = false;
     interfaces.enp0s25.useDHCP = true;
     interfaces.wlp3s0.useDHCP = true;
   };
 
+  hardware.bluetooth.enable = true;
+#+end_src
+
+* Time zone and system configuration
+#+begin_src nix
   # Set your time zone.
   time.timeZone = "America/Chihuahua";
+
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "es_MX.UTF-8";
@@ -34,6 +50,10 @@
     keyMap = "la-latin1";
   };
 
+#+end_src
+
+* Graphical environment
+#+begin_src nix
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -44,21 +64,21 @@
       #gnome.enable = true;
     };
 
-      displayManager = {
-        #lightdm.enable = true; 
-        #sddm.enable = true;
-        #gdm.enable = true;
-        startx.enable = false;
-      };
+    displayManager = {
+      #lightdm.enable = true; 
+      #sddm.enable = true;
+      #gdm.enable = true;
+      startx.enable = false;
+    };
 
-      windowManager = {
-        herbstluftwm.enable = true;
-        bspwm.enable = false;
-        exwm.enable = false;
-        openbox.enable = false;
-        i3.enable = false;
-        i3.package = "pkgs.i3-gaps";
-      };
+    windowManager = {
+      herbstluftwm.enable = true;
+      bspwm.enable = false;
+      exwm.enable = false;
+      openbox.enable = false;
+      i3.enable = false;
+      i3.package = "pkgs.i3-gaps";
+    };
     layout = "latam"; # layout of keyboard
     libinput.enable = true; #enable touchpad
   };
@@ -78,23 +98,20 @@
   #  yelp
   #];
 
-    services.xserver.serverFlagsSection = 
+  services.xserver.serverFlagsSection = 
     ''
-    Option "StandbyTime" "30" 
-    Option "BlankTime" "30"
-    Option "SuspendTime" "40"
-    Option "OffTime""30"
-    '';
-  
+        Option "StandbyTime" "30" 
+            Option "BlankTime" "30"
+                Option "SuspendTime" "40"
+                    Option "OffTime""30"
+                        '';
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
 
   # Enable bluethooth
-  hardware.bluetooth.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
 
@@ -106,28 +123,28 @@
   };
 
 
-   users.users.juan = {
-     isNormalUser = true;
-     home = "/home/juan";
-     shell = pkgs.zsh;
-     description = "Juan Adrián Castro Quintana";
-     extraGroups = [ "wheel" "networkmanager" "users" "video" ]; # Enable ‘sudo’ for the user.
-   };
+  users.users.juan = {
+    isNormalUser = true;
+    home = "/home/juan";
+    shell = pkgs.zsh;
+    description = "Juan Adrián Castro Quintana";
+    extraGroups = [ "wheel" "networkmanager" "users" "video" ]; # Enable ‘sudo’ for the user.
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-   environment.systemPackages = with pkgs; [
-     vim
-     neovim
-     wget
-     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
-     emacs
-     git
-     stow
-     fish
-     pavucontrol
-     ffmpeg
-   ];
+  environment.systemPackages = with pkgs; [
+    vim
+    neovim
+    wget
+    (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
+    emacs
+    git
+    stow
+    fish
+    pavucontrol
+    ffmpeg
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -157,5 +174,5 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.05"; # Did you read the comment?
 
-}
-
+  }
+#+end_src

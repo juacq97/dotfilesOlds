@@ -645,9 +645,9 @@
 ;      (elpher-mode . my/org-mode-visual-fill)))
 
 ;; Pandoc support
-;(use-package ox-pandoc
-;  :after org
-;  :ensure t)
+(use-package ox-pandoc
+  :after org
+  :ensure t)
 
 (use-package org-superstar
    :ensure t

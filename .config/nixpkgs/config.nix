@@ -44,8 +44,9 @@ with (import <nixpkgs> {});
         picom
 				redshift
 				(polybar.override { pulseSupport = true; })
-        lxappearance
+        lxappearance-gtk2
         lxsession
+        libsForQt5.qtstyleplugins
 			];
 		};
     
@@ -89,6 +90,7 @@ with (import <nixpkgs> {});
         pamixer
         unzip
         brightnessctl
+        nextcloud-client
 			];
 		};
     
@@ -105,6 +107,17 @@ with (import <nixpkgs> {});
 			];
 		};
     
+    latex = pkgs.buildEnv {
+      name = "latex";
+        paths = [
+               (texlive.combine {
+                 inherit (texlive)
+                   scheme-medium
+                   capt-of
+                   wrapfig;
+               })
+             ];
+    };
     
     # Dev libraries. Though I should use nix-shell for libraries, I need some like jq
 		dev = pkgs.buildEnv {

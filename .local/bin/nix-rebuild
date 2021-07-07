@@ -1,0 +1,8 @@
+#! /bin/sh
+
+REBUILD_PATH="/home/juan/.repos/dotfiles/nixos"
+
+echo "Building from $REBUILD_PATH"
+
+exec nixos-rebuild -I nixos-config="$REBUILD_PATH/configuration.nix" $1
+

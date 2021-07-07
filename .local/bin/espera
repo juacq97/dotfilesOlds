@@ -11,7 +11,7 @@ conky -c ~/.repos/dotfiles/conky/song &
 
 if [ $(pgrep herbstluftwm) ]; then
     herbstclient attr theme.floating.border_width 0
-    nitrogen --head=0 --set-zoom-fill /mnt/data/Drive/CIMB/JUNIO/image.jpg
+    nitrogen --head=0 --set-zoom-fill /mnt/data/Drive/CIMB/JUNIO/image2.jpg
     herbstclient attr theme.floating.title_height 0
     herbstclient set frame_bg_transparent toggle
     polybar-msg cmd toggle

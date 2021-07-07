@@ -36,5 +36,6 @@ INPUT_METHOD=fcitx5
 IMSETTINGS_MODULE=fcitx5
 QT_IM_MODULE=fcitx5
 
+export NIXOS_CONFIG="$HOME/.repos/dotfiles/nixos/configuration.nix"
 # This is for zoom on wayland
 #XDG_CURRENT_DESKTOP=gnome

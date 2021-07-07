@@ -1,13 +1,14 @@
 #! /bin/sh
 
 source $HOME/.zvars.zsh
+export QT_QPA_PLATFORMTHEME="qt5ct"
 
 autorandr clone-largest &
 nitrogen --restore &
 xrdb  ~/.Xresources &
 picom --experimental-backends &
 emacs --daemon &
-##xfce4-power-manager &
+#xfce4-power-manager &
 clipmenud &
 ~/.nix-profile/libexec/kdeconnectd &
 redshift -l 24.14:-110.27 -m randr &
@@ -20,7 +21,6 @@ dunst &
 ###dwm-msg run_command xrdb &
 ###nextcloud &
 xset r rate 250 60 &
-volumeicon &
+#volumeicon &
 #lxsession &
-export QT_QPA_PLATFORMTHEME="qt5ct"
 
