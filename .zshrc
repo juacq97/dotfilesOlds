@@ -10,16 +10,16 @@ source $HOME/.zvars.zsh
 
 # Fetch when terminal appears
 #ufetch-noascii
-ufetch-nixos
+ufetch-arch
 
 # Enable Powerlevel10k instant prompt.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
+ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+ fi
 
 #Themes
 # source ~/.repos/powerlevel10k/powerlevel10k.zsh-theme
-# source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # plugins=(
 #     git
 # )
@@ -46,8 +46,8 @@ export KEYTIMEOUT=1
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept #Completa con C-space
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
 
@@ -132,4 +132,7 @@ vterm_printf(){
     fi
 }
 
-eval "$(starship init zsh)"
+#eval "$(starship init zsh)"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

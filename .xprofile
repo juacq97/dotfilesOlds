@@ -1,22 +1,22 @@
 #! /bin/sh
 
 source $HOME/.zvars.zsh
-export QT_QPA_PLATFORMTHEME="qt5ct"
-
-autorandr clone-largest &
+#export QT_QPA_PLATFORMTHEME="qt5ct"
+#
+#autorandr clone-largest &
 nitrogen --restore &
 xrdb  ~/.Xresources &
 picom --experimental-backends &
 emacs --daemon &
 #xfce4-power-manager &
-clipmenud &
+#clipmenud &
 ~/.nix-profile/libexec/kdeconnectd &
-redshift -l 24.14:-110.27 -m randr &
+#redshift -l 24.14:-110.27 -m randr &
 xsetroot -cursor_name left_ptr &
 flameshot &
 sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 dunst &
-#~/.local/dwmblocks & 
+~/.local/dwmblocks & 
 ###fcitx5 -d &
 ###dwm-msg run_command xrdb &
 ###nextcloud &

@@ -1082,3 +1082,22 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(doom-dracula))
+ '(custom-safe-themes
+   '("b7e460a67bcb6cac0a6aadfdc99bdf8bbfca1393da535d4e8945df0648fa95fb" default))
+ '(package-selected-packages
+   '(haskell-mode gemini-mode kdeconnect evil-ledger ledger-mode easy-hugo markdown-mode luarocks lua-mode eshell-toggle esh-autosuggest eshell-syntax-highlighting fish-completion ox-gemini org-appear calfw-org calfw hide-mode-line org-tree-slide org-superstar ox-pandoc all-the-icons-ivy-rich all-the-icons-ivy all-the-icons-dired modus-operandi-theme modus-vivendi-theme doom-themes heaven-and-hell doom-modeline dired-subtree dired-hide-dotfiles dired-open dired-single switch-window writeroom-mode rg helpful company projectile yasnippet rainbow-delimiters rainbow-mode magit which-key counsel ivy-prescient ivy general evil-org evil-collection evil undo-tree emojify use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-calendar-event ((t (:inherit (default)))))
+ '(org-agenda-calendar-sexp ((t (:inherit (default)))))
+ '(org-agenda-date-today ((t (:weight bold :height 130))))
+ '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))

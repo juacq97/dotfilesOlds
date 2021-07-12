@@ -36,7 +36,7 @@ else
 	uitype='UI'
 fi
 
-f="$(fortune-es)"
+#f="$(fortune-es)"
 
 ## DEFINE COLORS
 
