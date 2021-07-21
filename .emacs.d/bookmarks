@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((".repos"
+(("org-capture-last-stored"
+ (filename . "/mnt/data/Nextcloud/Notas/inbox/inbox.org")
+ (front-context-string . "* Comida para pe")
+ (rear-context-string . "\n* \n* \n* \n* \n* \n")
+ (position . 27))
+(".repos"
  (filename . "~/.repos/")
  (front-context-string . "dotfiles/\n  drwx")
  (rear-context-string . "0K jun 26 21:52 ")

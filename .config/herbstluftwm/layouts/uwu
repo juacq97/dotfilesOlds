@@ -1,0 +1,7 @@
+herbstclient load '(split horizontal:0.6:0 (clients vertical:1 0x1a007d9 0x2c00002) (clients vertical:0 0x1800003))'
+herbstclient rule once class=firefox instance=Navigator tag=󰲠 title=herbstclient dump/load using window class:instance? (Save/load states across reboots) · Issue #1335 · herbstluftwm/herbstluftwm — Mozilla Firefox index=1 # 0x1800003
+herbstclient apply_tmp_rule class=firefox instance=Navigator tag=󰲠 title=herbstclient dump/load using window class:instance? (Save/load states across reboots) · Issue #1335 · herbstluftwm/herbstluftwm — Mozilla Firefox index=1 # 0x1800003
+herbstclient rule once class=Emacs instance=emacs tag=󰲠 title=emacs@t430-pc index=0 # 0x1a007d9
+herbstclient apply_tmp_rule class=Emacs instance=emacs tag=󰲠 title=emacs@t430-pc index=0 # 0x1a007d9
+herbstclient rule once class=Alacritty instance=Alacritty tag=󰲠 title=Alacritty index=0 # 0x2c00002
+herbstclient apply_tmp_rule class=Alacritty instance=Alacritty tag=󰲠 title=Alacritty index=0 # 0x2c00002

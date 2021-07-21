@@ -1,5 +1,0 @@
-#!/bin/bash
-
-#MUESTRA UN BANNER COLORIDO AL EJECUTARLO
-
-toilet -f pagga "$1" | lolcat

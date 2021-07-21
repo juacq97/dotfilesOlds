@@ -248,12 +248,12 @@ I'm using =general= to create keybindings using a ~leader~ key.
       :global-prefix "C-SPC")
 
     (my/leader-keys
-     "SPC" '(counsel-find-file :which-key "Open a file")
+     "SPC" '(find-file :which-key "Open a file")
      "k" '(kill-current-buffer :which-key "Kill buffer")
-     "b" '(counsel-switch-buffer :which-key "Switch buffer")
-     "s" '(swiper :which-key "Swiper search")
-     "p" '(counsel-projectile-find-file :which-key "Projectile, find file")
-     "P" '(counsel-projectile-switch-project :which-key "Projectile, switch project")
+     "b" '(consult-buffer :which-key "Switch buffer")
+     "s" '(consult-line :which-key "Search")
+     "p" '(projectile-find-file :which-key "Projectile, find file")
+     "P" '(projectile-switch-project :which-key "Projectile, switch project")
      "g" '(magit :which-key "Magit")
      "v" '(visual-line-mode :which-key "Activate visual-line-mode")
      "c" '(org-capture :which-key "Capture with org")
@@ -269,19 +269,55 @@ Since ~Evil~ it's working now, this is a good moment to define some personal key
   (global-set-key (kbd "<f5>")  'ispell-word)
 #+end_src
 
+* Vertico
+#+begin_src emacs-lisp
+  (use-package vertico
+    :ensure t
+    :custom
+    (vertico-cycle t)
+    :init
+    (setq vertico-resize t)
+    (vertico-mode))
+  
+  (use-package savehist
+    :init
+    (savehist-mode))
+  
+  (use-package orderless
+    :init
+    (setq completion-styles '(orderless)
+          completion-category-defaults nil
+          completion-category-overrides '((file (styles partial-completion)))))
+  
+  (use-package marginalia
+    :after vertico
+    :ensure t
+    :custom
+    (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+    :init
+    (marginalia-mode))
+  
+  (use-package consult
+    :ensure t
+    :bind (
+           ("C-s" . consult-line)
+           ("C-x b" . consult-buffer)))
+  
+  
+#+end_src
 * Completion framework
 I'm using =ivy= as my completion method. I like some fuzzy finding and the cool icons you can add to =ivy= to make it nicer.
 ** Ivy
 #+begin_src emacs-lisp
-  (use-package ivy
-    :ensure t
-    :config
-    (setq ivy-use-virtual-buffers t
-	  ivy-count-format "%d/%d ")
-    (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-				  (t . ivy--regex-fuzzy)))
-    (setq ivy-extra-directories nil)
-    (ivy-mode 1))
+ ;; (use-package ivy
+ ;;   :ensure t
+ ;;   :config
+ ;;   (setq ivy-use-virtual-buffers t
+ ;;         ivy-count-format "%d/%d ")
+ ;;   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+ ;;       			  (t . ivy--regex-fuzzy)))
+ ;;   (setq ivy-extra-directories nil)
+ ;;   (ivy-mode 1))
 #+end_src
 
 ~ivy-rich~ adds some extra functionality. My favorite: a description of the command right on the minibuffer.
@@ -295,37 +331,37 @@ NOTE: THIS PACKAGE MAKES SWITCH BUFFERS PAINFULLY SLOW. IS DEPRECATED IN MY CONF
 
 ~ivy-prescient~ adds a sort of history to ~ivy~, so it remembers my latest commands.
 #+begin_src emacs-lisp
-  (use-package ivy-prescient
-    :ensure t
-    :config
-    (prescient-persist-mode 1)
-    (ivy-prescient-mode 1))
+  ;;(use-package ivy-prescient
+  ;;  :ensure t
+  ;;  :config
+  ;;  (prescient-persist-mode 1)
+  ;;  (ivy-prescient-mode 1))
 #+end_src
 
 ** Counsel
 ~counsel~ adds some fixes to the search mechanism of Emacs. It's necesary for some packages and replaces some default commands like ~M-x~.
 #+begin_src emacs-lisp
-  (use-package counsel
-    :ensure t
-    :custom
-    (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-    :bind (
-           ("M-x" . counsel-M-x)
-           ("C-x C-f" . counsel-find-file)
-           ("C-x b" . counsel-switch-buffer))
+ ;; (use-package counsel
+ ;;   :ensure t
+ ;;   :custom
+ ;;   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+ ;;   :bind (
+ ;;          ("M-x" . counsel-M-x)
+ ;;          ("C-x C-f" . counsel-find-file)
+ ;;          ("C-x b" . counsel-switch-buffer))
 
-    :config
-    (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
-    (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
-    (counsel-mode 1))
+ ;;   :config
+ ;;   (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+ ;;   (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+ ;;   (counsel-mode 1))
 #+end_src
 
 ** Swiper
 A searching tool. It uses counsel and ivy. It adds a minibuffer with the matching results.
 #+begin_src emacs-lisp
-  (use-package swiper
-    :ensure t
-    :bind (("C-s" . swiper)))
+ ;; (use-package swiper
+ ;;   :ensure t
+ ;;   :bind (("C-s" . swiper)))
 #+end_src
 * Utilities
 There a lot of usefull packages, and they work excellent out of the box. 
@@ -718,15 +754,15 @@ Cool icons! It adds icons to ~doom-modeline~, ~dired~ and ~ivy~. Remember to run
                             (interactive)
                             (unless (file-remote-p default-directory)
                               (all-the-icons-dired-mode)))))
-  (use-package all-the-icons-ivy
-  :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
+  ;; (use-package all-the-icons-ivy
+  ;; :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
 
     ;; Icons for ivy
-    (use-package all-the-icons-ivy-rich
-      :ensure t
-      :after ivy-rich
-      :config
-      (all-the-icons-ivy-rich-mode 1))
+ ;;   (use-package all-the-icons-ivy-rich
+ ;;     :ensure t
+ ;;     :after ivy-rich
+ ;;     :config
+ ;;     (all-the-icons-ivy-rich-mode 1))
 #+end_src
 * Org-mode
 The killer feature of Emacs and the reason why I started to use Emacs. Org-mode it's a note taking and schedulling format with some markup capabilities. This "markup" it's more powerful than any other. You can create tables, spreadsheets, run code (just see this config file), export to a lot of formats, the integration with LaTeX it's awesome, and there's a lot of plugins and packages to extend it. If you want an idea of the potential of org-mode, my thesis was written almost entirely on org-mode with cites, bibliography, images, tables and everything else; just the final design (fonts, colors and things like that) was made with LibreOffice, and that's beacause I didn't knew a lot of LaTeX back then.
@@ -1065,26 +1101,14 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
      (use-package calfw-org
        :ensure t)
    #+end_src
-*** Org-capture
+** Org-capture
     Org-capture allows to capture text at any moment, just call the buffer, write text and automatically it will be appended to the selected file. This are my templates.
  #+begin_src emacs-lisp
    (global-set-key (kbd "C-c c") 'org-capture)
-   (setq org-capture-templates
-	 '(
-	   ("t" "Entradas del trabajo")
-	   ("tt" "TODO" entry
-	    (file "~/mnt/DATA/ORG/Trabajo.org")
-	    "* TODO %?\n%u" :prepend t)
-	   ("ta" "Agenda"  entry
-	    (file "~/mnt/DATA/ORG/Trabajo.org")
-	    "* %?\n SCHEDULED: %t")
-	   ("p" "Entradas personales")
-	   ("pt" "TODO" entry
-	    (file "~/mnt/DATA/ORG/Trabajo.org")
-	    "* TODO %?\n%u" :prepend t)
-	   ("pa" "Agenda"  entry
-	    (file "~/mnt/DATA/ORG/Trabajo.org")
-	    "* %?\n SCHEDULED: %t")))
+      (setq org-capture-templates
+            '(
+              ("i" "Inbox" entry
+               (file "/mnt/data/Nextcloud/Notas/inbox/Inbox.org"))))
  #+end_src
    
  It's possible to call org-capture from anywhere using the Window Manager. To have a floating window, this snippet its needed
@@ -1095,12 +1119,29 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
    "Advise capture-finalize to close the frame"
    (if (equal "capture" (frame-parameter nil 'name))
    (delete-frame)))
-
+   
    (defadvice org-capture-destroy
    (after delete-capture-frame activate)
    "Advise capture-destroy to close the frame"
    (if (equal "capture" (frame-parameter nil 'name))
    (delete-frame)))
+   
+   (defadvice org-switch-to-buffer-other-window
+       (after supress-window-splitting activate)
+     "Delete the extra window if we're in a capture frame"
+     (if (equal "capture" (frame-parameter nil 'name))
+         (delete-other-windows)))
+   
+   (defadvice org-capture-finalize
+       (after delete-capture-frame activate)
+     "Advise capture-finalize to close the frame"
+     (if (equal "capture" (frame-parameter nil 'name))
+         (delete-frame))) 
+   
+   (defun capture-frame ()
+     (interactive)
+     (org-capture)
+     (delete-other-windows))
  #+end_src
 ** org babel
    Org-babel allows to run code inside Emacs and print the output right after the code block. Babel it's used to create this config file. You need the required compilers and everything if you add more languages here. By default, babel only evaluates elisp.

@@ -1,5 +1,0 @@
-#! /usr/bin/zsh
-
-source ~/.config/lf/LF_ICONS
-
-st -e lf

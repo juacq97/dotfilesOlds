@@ -180,12 +180,12 @@
       :global-prefix "C-SPC")
 
     (my/leader-keys
-     "SPC" '(counsel-find-file :which-key "Open a file")
+     "SPC" '(find-file :which-key "Open a file")
      "k" '(kill-current-buffer :which-key "Kill buffer")
-     "b" '(counsel-switch-buffer :which-key "Switch buffer")
-     "s" '(swiper :which-key "Swiper search")
-     "p" '(counsel-projectile-find-file :which-key "Projectile, find file")
-     "P" '(counsel-projectile-switch-project :which-key "Projectile, switch project")
+     "b" '(consult-buffer :which-key "Switch buffer")
+     "s" '(consult-line :which-key "Search")
+     "p" '(projectile-find-file :which-key "Projectile, find file")
+     "P" '(projectile-switch-project :which-key "Projectile, switch project")
      "g" '(magit :which-key "Magit")
      "v" '(visual-line-mode :which-key "Activate visual-line-mode")
      "c" '(org-capture :which-key "Capture with org")
@@ -197,44 +197,76 @@
 (global-set-key (kbd "C-c v") 'visual-line-mode)
 (global-set-key (kbd "<f5>")  'ispell-word)
 
-(use-package ivy
+(use-package vertico
   :ensure t
-  :config
-  (setq ivy-use-virtual-buffers t
-	ivy-count-format "%d/%d ")
-  (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-				(t . ivy--regex-fuzzy)))
-  (setq ivy-extra-directories nil)
-  (ivy-mode 1))
+  :custom
+  (vertico-cycle t)
+  :init
+  (setq vertico-resize t)
+  (vertico-mode))
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package marginalia
+  :after vertico
+  :ensure t
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
+
+(use-package consult
+  :ensure t
+  :bind (
+         ("C-s" . consult-line)
+         ("C-x b" . consult-buffer)))
+
+;; (use-package ivy
+;;   :ensure t
+;;   :config
+;;   (setq ivy-use-virtual-buffers t
+;;         ivy-count-format "%d/%d ")
+;;   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+;;       			  (t . ivy--regex-fuzzy)))
+;;   (setq ivy-extra-directories nil)
+;;   (ivy-mode 1))
 
 ;; (use-package ivy-rich 
 ;;   :ensure t
 ;;   :config
 ;;   (ivy-rich-mode 1))
 
-(use-package ivy-prescient
-  :ensure t
-  :config
-  (prescient-persist-mode 1)
-  (ivy-prescient-mode 1))
+;;(use-package ivy-prescient
+;;  :ensure t
+;;  :config
+;;  (prescient-persist-mode 1)
+;;  (ivy-prescient-mode 1))
 
-(use-package counsel
-  :ensure t
-  :custom
-  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-  :bind (
-         ("M-x" . counsel-M-x)
-         ("C-x C-f" . counsel-find-file)
-         ("C-x b" . counsel-switch-buffer))
+;; (use-package counsel
+;;   :ensure t
+;;   :custom
+;;   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+;;   :bind (
+;;          ("M-x" . counsel-M-x)
+;;          ("C-x C-f" . counsel-find-file)
+;;          ("C-x b" . counsel-switch-buffer))
 
-  :config
-  (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
-  (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
-  (counsel-mode 1))
+;;   :config
+;;   (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+;;   (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+;;   (counsel-mode 1))
 
-(use-package swiper
-  :ensure t
-  :bind (("C-s" . swiper)))
+;; (use-package swiper
+;;   :ensure t
+;;   :bind (("C-s" . swiper)))
 
 (use-package which-key
   :defer 0
@@ -511,24 +543,24 @@
 ;;    (setq dashboard-set-file-icons t))
 
 (use-package all-the-icons
-    :ensure t)
+     :ensure t)
 
-  ;; Icons for dired
-  (use-package all-the-icons-dired
-    :ensure t
-    :hook (dired-mode . (lambda ()
-                          (interactive)
-                          (unless (file-remote-p default-directory)
-                            (all-the-icons-dired-mode)))))
-(use-package all-the-icons-ivy
-:init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
+   ;; Icons for dired
+   (use-package all-the-icons-dired
+     :ensure t
+     :hook (dired-mode . (lambda ()
+                           (interactive)
+                           (unless (file-remote-p default-directory)
+                             (all-the-icons-dired-mode)))))
+ ;; (use-package all-the-icons-ivy
+ ;; :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
 
-  ;; Icons for ivy
-  (use-package all-the-icons-ivy-rich
-    :ensure t
-    :after ivy-rich
-    :config
-    (all-the-icons-ivy-rich-mode 1))
+   ;; Icons for ivy
+;;   (use-package all-the-icons-ivy-rich
+;;     :ensure t
+;;     :after ivy-rich
+;;     :config
+;;     (all-the-icons-ivy-rich-mode 1))
 
 (defun my/org-font-setup ()
   (require 'org-faces) 
@@ -809,22 +841,10 @@
   :ensure t)
 
 (global-set-key (kbd "C-c c") 'org-capture)
-(setq org-capture-templates
-      '(
-	("t" "Entradas del trabajo")
-	("tt" "TODO" entry
-	 (file "~/mnt/DATA/ORG/Trabajo.org")
-	 "* TODO %?\n%u" :prepend t)
-	("ta" "Agenda"  entry
-	 (file "~/mnt/DATA/ORG/Trabajo.org")
-	 "* %?\n SCHEDULED: %t")
-	("p" "Entradas personales")
-	("pt" "TODO" entry
-	 (file "~/mnt/DATA/ORG/Trabajo.org")
-	 "* TODO %?\n%u" :prepend t)
-	("pa" "Agenda"  entry
-	 (file "~/mnt/DATA/ORG/Trabajo.org")
-	 "* %?\n SCHEDULED: %t")))
+   (setq org-capture-templates
+         '(
+           ("i" "Inbox" entry
+            (file "/mnt/data/Nextcloud/Notas/inbox/Inbox.org"))))
 
 ;; Org capture flotante
 (defadvice org-capture-finalize
@@ -838,6 +858,23 @@
 "Advise capture-destroy to close the frame"
 (if (equal "capture" (frame-parameter nil 'name))
 (delete-frame)))
+
+(defadvice org-switch-to-buffer-other-window
+    (after supress-window-splitting activate)
+  "Delete the extra window if we're in a capture frame"
+  (if (equal "capture" (frame-parameter nil 'name))
+      (delete-other-windows)))
+
+(defadvice org-capture-finalize
+    (after delete-capture-frame activate)
+  "Advise capture-finalize to close the frame"
+  (if (equal "capture" (frame-parameter nil 'name))
+      (delete-frame))) 
+
+(defun capture-frame ()
+  (interactive)
+  (org-capture)
+  (delete-other-windows))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -1082,22 +1119,3 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-dracula))
- '(custom-safe-themes
-   '("b7e460a67bcb6cac0a6aadfdc99bdf8bbfca1393da535d4e8945df0648fa95fb" default))
- '(package-selected-packages
-   '(haskell-mode gemini-mode kdeconnect evil-ledger ledger-mode easy-hugo markdown-mode luarocks lua-mode eshell-toggle esh-autosuggest eshell-syntax-highlighting fish-completion ox-gemini org-appear calfw-org calfw hide-mode-line org-tree-slide org-superstar ox-pandoc all-the-icons-ivy-rich all-the-icons-ivy all-the-icons-dired modus-operandi-theme modus-vivendi-theme doom-themes heaven-and-hell doom-modeline dired-subtree dired-hide-dotfiles dired-open dired-single switch-window writeroom-mode rg helpful company projectile yasnippet rainbow-delimiters rainbow-mode magit which-key counsel ivy-prescient ivy general evil-org evil-collection evil undo-tree emojify use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-calendar-event ((t (:inherit (default)))))
- '(org-agenda-calendar-sexp ((t (:inherit (default)))))
- '(org-agenda-date-today ((t (:weight bold :height 130))))
- '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))

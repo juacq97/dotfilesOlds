@@ -101,7 +101,7 @@ hc keybind $Mod-Shift-period shift_to_monitor -1
 
 hc keybind $Mod-Shift-Tab   cycle_all -1
 
-# Set the default layout to 2, that's "monocle" inside the container
+hc set default_frame_layout horizontal
 
 tag_names=( 󰲠 󰲢 󰲤 󰲦 󰲨 󰲪 )
 tag_keys=( {1..6} 0 )
@@ -115,8 +115,6 @@ for i in "${!tag_names[@]}" ; do
         hc keybind "$Mod-Shift-$key" move_index "$i"
     fi
 done
-
-hc set default_frame_layout 3
 
 # Takes colors from Xresources because why not
   back=$(xrdb -query | grep background | cut -f2- -d'#')
@@ -134,7 +132,7 @@ hc set default_frame_layout 3
   hc attr theme.floating.reset 1
 
 # Frames
-hc set frame_border_active_color "#$color5" #Focused frame color
+hc set frame_border_active_color "#$back" #Focused frame color
 hc set frame_border_normal_color "#000000aa" #Unfocused frame color
 hc set frame_border_width 0  #border size
 
@@ -148,7 +146,7 @@ hc set frame_normal_opacity 100 # Unfocused frame opacity
 
 hc set frame_border_inner_width 0
 hc set always_show_frame on
-hc set frame_gap 6
+hc set frame_gap 8
 
 # Clients
 hc attr theme.padding_top 0 #Padding at the top of the windows
@@ -189,7 +187,7 @@ hc attr theme.floating.inner_width 15
 hc attr theme.floating.active.inner_color "#$color1"
 hc attr theme.floating.normal.inner_color "#$color5"
 
-hc set window_gap 2 #Gap between windows
+hc set window_gap 3 #Gap between windows
 hc set frame_padding -2 # Gapp between windows and frames
 hc set smart_window_surroundings off
 hc set smart_frame_surroundings on

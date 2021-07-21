@@ -4,6 +4,8 @@ source ./.xprofile
 
 #exec dwm
 export wm=dwm
+dwm-specific &
+
 while true; do
  ~/.local/dwm 2> /tmp/dwm.log 
     done

@@ -191,7 +191,7 @@ HLWM has 4 layouts, the layouts affects how the windows are arranged inside the 
 Though HLWM uses the term "tags", they're just normal virtual workspaces. You can asign any number of workspaces. I use the default behaviour, so I have 6 workspaces, shared between my two monitors, if I focus the workspaces on other monitor, then the workspaces are swaped (same behaviour of Xmonad and Qtile)
 
 #+begin_src bash
-  # Set the default layout to 2, that's "monocle" inside the container
+  hc set default_frame_layout horizontal
 
   tag_names=( 󰲠 󰲢 󰲤 󰲦 󰲨 󰲪 )
   tag_keys=( {1..6} 0 )
@@ -206,7 +206,6 @@ Though HLWM uses the term "tags", they're just normal virtual workspaces. You ca
       fi
   done
 
-  hc set default_frame_layout 3
 #+end_src
 
 * Themes
@@ -231,7 +230,7 @@ Herbstluftwm has a lot of configuration related to colors and styles, and can be
   hc attr theme.floating.reset 1
 
 # Frames
-hc set frame_border_active_color "#$color5" #Focused frame color
+hc set frame_border_active_color "#$back" #Focused frame color
 hc set frame_border_normal_color "#000000aa" #Unfocused frame color
 hc set frame_border_width 0  #border size
 
@@ -245,7 +244,7 @@ hc set frame_normal_opacity 100 # Unfocused frame opacity
 
 hc set frame_border_inner_width 0
 hc set always_show_frame on
-hc set frame_gap 6
+hc set frame_gap 8
 
 # Clients
 hc attr theme.padding_top 0 #Padding at the top of the windows
@@ -286,7 +285,7 @@ hc attr theme.floating.inner_width 15
 hc attr theme.floating.active.inner_color "#$color1"
 hc attr theme.floating.normal.inner_color "#$color5"
 
-hc set window_gap 2 #Gap between windows
+hc set window_gap 3 #Gap between windows
 hc set frame_padding -2 # Gapp between windows and frames
 hc set smart_window_surroundings off
 hc set smart_frame_surroundings on

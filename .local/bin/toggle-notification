@@ -1,9 +1,0 @@
-#! /bin/sh
-
-if [ -e /tmp/LOCK-NOTIFICATION ]; then
-    rm -r /tmp/LOCK-NOTIFICATION
-    notify-send "DUNST_COMMAND_RESUME"
-else
-    touch /tmp/LOCK-NOTIFICATION
-    notify-send "DUNST_COMMAND_PAUSE"
-fi

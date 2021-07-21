@@ -1,3 +1,0 @@
-#! /bin/sh
-
-convert -blur 10x10 $(sed '2q;d' ~/.config/nitrogen/bg-saved.cfg | cut -d "=" -f2) ~/BLUR.PNG

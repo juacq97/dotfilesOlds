@@ -1,0 +1,8 @@
+#! /bin/sh
+
+date
+
+case $BLOCK_BUTTON in
+    1) alacritty;;
+esac
+
