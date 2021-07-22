@@ -1,1 +1,0 @@
-Página de inicio basada en el trabajo de *kjaklinovic* (https://github.com/kjaklinovic/homepage)

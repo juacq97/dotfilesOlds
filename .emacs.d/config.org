@@ -979,23 +979,24 @@ Let's define some basic stuff first
 #+begin_src emacs-lisp
   (setq org-directory "/mnt/Data/ORG") ; The directory of your files
   (setq org-agenda-files '(
-                           "/mnt/data/Nextcloud/ORG/sync/TODO.org"))
-  (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
-
-  ;; by default the agenda takes the current buffer. With this it'll create its own buffer
-  (setq org-agenda-window-setup 'other-window)
-  (setq org-agenda-span 7) ; Only shows next 3 days
-  (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
-  (setq org-agenda-start-with-log-mode t)
-  (setq org-log-done 'time)
-  (setq org-log-into-drawer t)
-
-  ;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
-  (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
-  (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
-
-  ;; Activate hl-line-mode on agenda buffers
-  (add-hook 'org-agenda-mode-hook 'hl-line-mode)
+                           ("/mnt/data/Nextcloud/ORG/sync/TODO.org")
+                           ("/mnt/data/Nextcloud/ORG/escuela.org"))
+        (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
+        
+        ;; by default the agenda takes the current buffer. With this it'll create its own buffer
+        (setq org-agenda-window-setup 'other-window)
+        (setq org-agenda-span 7) ; Only shows next 3 days
+        (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
+        (setq org-agenda-start-with-log-mode t)
+        (setq org-log-done 'time)
+        (setq org-log-into-drawer t)
+        
+        ;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
+        (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+        (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+        
+        ;; Activate hl-line-mode on agenda buffers
+        (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 #+end_src
 
 Now, this is pure eye-candy
@@ -1040,7 +1041,7 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                     (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
                     ;(org-agenda-deadline-leaders '("" ""))
                     (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
-
+  
             (todo "NEXT" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "⭐ Siguientes\n")
@@ -1049,7 +1050,7 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%T %?-s")
                           (org-agenda-todo-keyword-format "")))
-
+  
             (todo "ESPERANDO" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "🕘 Esperando\n")
@@ -1058,8 +1059,8 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%T %?-s")
                           (org-agenda-todo-keyword-format "")))
-
-
+  
+  
             (todo "PROJ" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "✈ Proyectos\n")
@@ -1068,15 +1069,70 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%T %?-s")
                           (org-agenda-todo-keyword-format "")))
-
+  
             (todo "" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "☑ Tareas\n")
                           (org-agenda-remove-tags nil)
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%?-s")
+                          (org-agenda-todo-keyword-format "%-1s")))))
+  
+  
+  
+  
+          ("s" "Escuela"
+            ((agenda "EFEMERIDES" (
+                         (org-agenda-files '("/mnt/data/Nextcloud/ORG/efemerides.org"))
+                         (org-agenda-overriding-header " Efemerides\n")
+                         (org-agenda-skip-scheduled-if-done t)
+                         (org-agenda-skip-timestamp-if-done t)
+                         (org-agenda-skip-deadline-if-done t)
+                         (org-agenda-skip-deadline-prewarning-if-scheduled t)
+                         (org-agenda-start-day "+0d")
+                         (org-agenda-span 1)
+                         (org-agenda-prefix-format "%?5s")
+                         (org-agenda-repeating-timestamp-show-all t)
+                         ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
+                         (org-agenda-remove-tags t)
+                         (org-agenda-todo-keyword-format " ")
+                         (org-agenda-time)
+                         (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
+                                          ;(org-agenda-deadline-leaders '("" ""))
+                         (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
+  
+            (agenda "TRABAJO" (
+                          (org-agenda-files '("/mnt/data/Nextcloud/ORG/escuela.org"))
+                          (org-agenda-overriding-header "⭐ Trabajos en clase\n")
+                         (org-agenda-skip-scheduled-if-done t)
+                         (org-agenda-skip-timestamp-if-done t)
+                         (org-agenda-skip-deadline-if-done t)
+                         (org-agenda-skip-deadline-prewarning-if-scheduled t)
+                         (org-agenda-start-day "+0d")
+                         (org-agenda-span 5)
+                         (org-agenda-prefix-format "%T %?-s")
+                         (org-agenda-repeating-timestamp-show-all t)
+                         ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
+                         (org-agenda-remove-tags t)
+                         (org-agenda-todo-keyword-format " ")
+                         (org-agenda-time)
+                         (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
+                                          ;(org-agenda-deadline-leaders '("" ""))
+                         (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
+  
+            (tags "NOTA" (
+                          (org-agenda-files '("/mnt/data/Nextcloud/ORG/escuela.org"))
+                          (org-agenda-overriding-header "☑ Notas\n")
+                          (org-agenda-remove-tags t)
+                          (org-agenda-todo-ignore-scheduled 'future)
+                          (org-agenda-prefix-format "%?-s")
                           (org-agenda-todo-keyword-format "%-1s")))))))
+  
+  
+  
+  
 #+end_src
+
 
 Finally, this function it's needed to spawn a floating agenda with my Window Manger
 #+begin_src emacs-lisp
