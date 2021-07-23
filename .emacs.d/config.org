@@ -1,4 +1,4 @@
-#+TITLE: Emacs configuration
+#+title: Emacs configuration
  #+PROPERTY: header-args:emacs-lisp :tangle ~/.repos/dotfiles/.emacs.d/init.el
  
 * About this file
@@ -92,63 +92,62 @@ How you doing angrybacon?
 
 Here's some QOL configurations
 #+begin_src emacs-lisp
-     (show-paren-mode t) ; Highlight the matching parenthesis
-     (blink-cursor-mode 0) ; Disable the blinking
-     ;; Press y/n instead of the whole word
-     (defalias 'yes-or-no-p 'y-or-n-p)
-     ;; Scroll line by line. Cursor doesn't stays at the center of the screen. Can be laggy
-     (setq scroll-conservatively 100)
-     ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
-     (setq make-backup-files nil) 
-     (setq backup-directory-alist
-           `((".*" . ,"~/.emacs.d/backups/")))
-     (setq auto-save-file-name-transforms
-           `((".*" ,"~/.emacs.d/backups/")))
-     (setq auto-save-list-file-prefix nil)
-     (setq auto-save-default nil)
-
-     ;; This function allows to quicky open this file
-     ;; TODO: MOVE THIS TO ANOTHER PLACE
-     (defun config-visit ()
-       (interactive)
-       (find-file "~/.emacs.d/config.org"))
-     (global-set-key (kbd "C-c e") 'config-visit)
-
-    ;; Updates the config fiel with C-c r
-     (defun config-reload ()
-       (interactive)
-       ;(org-babel-load-file "~/.repos/dotfiles/.emacs.d/config.org"))
-       (load-file user-init-file))
-     (global-set-key (kbd "C-c r") 'config-reload)
-
-     (global-visual-line-mode 1) ; wrap lines to the size of the buffer
-
-     ;; Disables the ugly splash screen 
-     (setq inhibit-splash-screen t)
-     (setq initial-scratch-message nil) ; Disable the scratch mesage
-     (setq initial-major-mode (quote org-mode)) ; Change the mode of the scratch buffer
-
-     ;; With this, emacs will not ask if I want to edit the symlink every time
-     (setq vc-follow-symlinks nil)
-
-     ;; This is necessary on 27+ to write accents (needed to write spanish). They say it's a feature... not for me!
-     (require 'iso-transl)
-
-;; When a split is done, follow it.
-  (defun split-and-follow-horizontally ()
-    (interactive)
-    (split-window-below)
-    (balance-windows)
-    (other-window 1))
-  (global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
-
-  (defun split-and-follow-vertically ()
-    (interactive)
-    (split-window-right)
-    (balance-windows)
-    (other-window 1))
-  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
-
+       (show-paren-mode t) ; Highlight the matching parenthesis
+       (blink-cursor-mode 0) ; Disable the blinking
+       ;; Press y/n instead of the whole word
+       (defalias 'yes-or-no-p 'y-or-n-p)
+       ;; Scroll line by line. Cursor doesn't stays at the center of the screen. Can be laggy
+       (setq scroll-conservatively 100)
+       ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
+       (setq make-backup-files nil) 
+       (setq backup-directory-alist
+             `((".*" . ,"~/.emacs.d/backups/")))
+       (setq auto-save-file-name-transforms
+             `((".*" ,"~/.emacs.d/backups/")))
+       (setq auto-save-list-file-prefix nil)
+       (setq auto-save-default nil)
+  
+       ;; This function allows to quicky open this file
+       ;; TODO: MOVE THIS TO ANOTHER PLACE
+       (defun config-visit ()
+         (interactive)
+         (find-file "~/.emacs.d/config.org"))
+       (global-set-key (kbd "C-c e") 'config-visit)
+  
+      ;; Updates the config fiel with C-c r
+       (defun config-reload ()
+         (interactive)
+         (load-file user-init-file))
+       (global-set-key (kbd "C-c r") 'config-reload)
+  
+       (global-visual-line-mode 1) ; wrap lines to the size of the buffer
+  
+       ;; Disables the ugly splash screen 
+       (setq inhibit-splash-screen t)
+       (setq initial-scratch-message nil) ; Disable the scratch mesage
+       (setq initial-major-mode (quote org-mode)) ; Change the mode of the scratch buffer
+  
+       ;; With this, emacs will not ask if I want to edit the symlink every time
+       (setq vc-follow-symlinks nil)
+  
+       ;; This is necessary on 27+ to write accents (needed to write spanish). They say it's a feature... not for me!
+       (require 'iso-transl)
+  
+  ;; When a split is done, follow it.
+    (defun split-and-follow-horizontally ()
+      (interactive)
+      (split-window-below)
+      (balance-windows)
+      (other-window 1))
+    (global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
+  
+    (defun split-and-follow-vertically ()
+      (interactive)
+      (split-window-right)
+      (balance-windows)
+      (other-window 1))
+    (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+  
 #+end_src
 
 ** Fonts
@@ -269,15 +268,12 @@ Since ~Evil~ it's working now, this is a good moment to define some personal key
   (global-set-key (kbd "<f5>")  'ispell-word)
 #+end_src
 
-* Vertico
+* Selectrum
 #+begin_src emacs-lisp
-  (use-package vertico
+  (use-package selectrum
     :ensure t
-    :custom
-    (vertico-cycle t)
     :init
-    (setq vertico-resize t)
-    (vertico-mode))
+    (selectrum-mode +1))
   
   (use-package savehist
     :init
@@ -287,8 +283,10 @@ Since ~Evil~ it's working now, this is a good moment to define some personal key
     :init
     (setq completion-styles '(orderless)
           completion-category-defaults nil
-          completion-category-overrides '((file (styles partial-completion)))))
-  
+          completion-category-overrides '((file (styles partial-completion))))
+    (setq orderless-skip-highlighting (lambda () selectrum-is-active))
+    (setq selectrum-highlight-candidates-function #'orderless-highlight-matches))
+  ;;
   (use-package marginalia
     :after vertico
     :ensure t
@@ -296,7 +294,7 @@ Since ~Evil~ it's working now, this is a good moment to define some personal key
     (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
     :init
     (marginalia-mode))
-  
+  ;;
   (use-package consult
     :ensure t
     :bind (

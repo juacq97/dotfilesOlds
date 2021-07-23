@@ -1,6 +1,143 @@
-* Welcome to my dotfiles
+#+title: Welcome to my dotfiles
 
-I'm refactoring all this mess, so it's a little mess right now, but feel free to see and study everything, if you find something worth studying.
+[[file:screenshot.png][screenshot]]
 
-Testing ssh again. still ask.
-   
+This is a backup of my configuration files! Maybe (most probably not, but maybe) you'll find something neat here.
+
+Right now, and after a few years of using Tiling Window Managers [[https://juancastro.xyz/en/migrating-to-plasma.html][I'm using KDE Plasma 5]]! Yeah, weird, I know. I keep my configuration for a lot of programs here though. I'm using Arch Linux btw.
+
+This README is just the list of programs I'm using right now. Here's some links to the configs, I think, are the most interesting (not all of them are org files yet).
+
++ [[file:.emacs.d/config.org][Emacs configuration]]
++ [[file:.config/herbstluftwm/README.org][Herbstluftwm configuration]]
++ [[file:.config/polybar/config][Polybar configuration]]
++ [[file:.config/sway/config][Sway configuration]]
++ [[https://github.com/juacq97/dwm][Dwm configuration]]
+  
+* Plasma Desktop Environment
+
+Though it's possible to just install  the =plasma=  group and the =kde-applications= metapackage, that will get a lot of undesired applications, so I narrowed the list of applications I want to install.
+
+#+begin_src sh :tangle ~/.repos/dotfiles/plasma.pkgs
+  plasma-meta
+  dolphin
+  konsole
+  ark
+  dolphin-plugins
+  kcalc
+  kcolorchooser
+  kio-extras
+  spectacle
+  sddm-kcm
+  plasma-pass
+#+end_src
+
++ Plasma-meta: All the core packages for plasma. This includes some bloat, like the thunderbolt configuration, a firewall configuration and the discovery application, but I can live with it.
++ Dolphin: The default file manager for KDE. Most of the time I use dired, but sometimes a good graphical manager is useful
++ Konsole: The KDE terminal. I use Alacritty most of the time, but some KDE applications expect konsole
++ Ark: An archive program. Again, if I need to compress something from dolphin
++ Dolphin-plugins: Plugins for dolphin
++ Kcalc: A simple graphical calculator, I use this sometimes
++ Kcolorchooser: When I need to pick a color from the screen I normally use =gcolor2=, but let's use the Qt alternative better.
++ Kio-extras: Extra support for KIO
++ Spectacle: The KDE screenshot application
++ sddm-kcm: Adds sddm to the settings
++ Plasma-pass: An applet for the pass password manager.
+
+** Extensions
+I use a lot krunner extensions, Plasma themes and icon packs that are only available from the AUR:
+
+#+begin_src sh :tangle ~/.repos/dotfiles/plasma.pkgs
+  plasma5-applets-window-buttons
+  krunner-pass-git
+  plasma5-runners-symbols
+  lightly-qt
+  flattery-icon-theme-git
+  fluent-icon-theme-git
+#+end_src
+
+Some extensions and plasmoid are downloaded using the Plasma "get more" button.
+
+* Other applications
+I use a lot of other programs, most of them not part of KDE
+
+** Multimedia programs
+#+begin_src sh :tangle ~/.repos/dotfiles/misc.pkgs
+  mpv
+  sxiv
+  pqiv
+  gimp
+  krita
+  ffmpeg
+  playerctl
+  youtube-dl
+  #+end_src
+  
+** Office, documents and archives
+#+begin_src sh :tangle ~/.repos/dotfiles/misc.pkgs
+  libreoffice-still
+  libreoffice-still-es
+  zathura
+  zathura-pdf-mupdf
+  poppler
+  unzip
+  p7zip
+  unzip
+  zip
+  unrar
+  nextcloud-client
+  #+end_src
+  
+** Nerd stuff
+#+begin_src sh :tangle ~/.repos/dotfiles/misc.pkgs
+  htop
+  brightnessctl
+  pamixer
+  pass
+  pass-otp
+  passff-host
+  libnotify
+  wmctrl
+  xclip
+  rofi
+  alacritty
+  kdeconnect
+  zsh
+  zsh-theme-powerlevel10k
+  zsh-autosuggestions
+  zsh-completions
+  zsh-syntax-highlighting
+  #+end_src
+** Fonts
+#+begin_src sh :tangle ~/.repos/dotfiles/misc.pkgs
+  ttf-liberation
+  ttf-joypixels
+  ttf-opensans
+  ttf-fira-code
+  ttf-fira-sans
+  ttf-fira-mono
+  ttf-font-awesome
+ #+end_src
+
+* Standalone Window Managers
+If I return to stand alone window managers, then I'll need this applications:
+
+#+begin_src sh :tangle ~/.repos/dotfiles/wm.pkgs
+  dunst
+  sxhkd
+  nitrogen
+  clipmenu
+  redshift
+  lxappearance
+  picom
+  pavucontrol
+#+end_src
+
+* Why do you tangle those *.pkgs files?
+
+I'm glad you ask, those are simple text files with a list of programs I want in three categories:
++ plasma.pkgs: plasma packages
++ misc.pkgs: Miscelaneous packages that I'll install not matter what desktop environment I'm using
++ wm.pkgs: Packages I need only if I use an standalone window manager.
+
+  To install one of those lists just need to run the command ~sudo pacman -S $(cat <list>)~ where <list> is the file I want (the plasma.pkgs list needs to be installed with yay instead).

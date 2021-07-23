@@ -21,3 +21,6 @@ configuration.nix
 hardware-configuration.nix
 conky
 nixos
+plasma.pkgs
+misc.pkgs
+wm.pkgs
