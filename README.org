@@ -1,6 +1,6 @@
 #+title: Welcome to my dotfiles
 
-file:///screenshot.png
+[[screenshot.png]]
 
 This is a backup of my configuration files! Maybe (most probably not, but maybe) you'll find something neat here.
 
