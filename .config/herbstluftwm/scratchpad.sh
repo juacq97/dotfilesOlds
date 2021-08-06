@@ -12,7 +12,7 @@
 #
 # If a tag name is supplied, this is used instead of the scratchpad
 
-tag="${1:-scratchpad}"
+tag="${1:-}"
 hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
 
 mrect=( $(hc monitor_rect "" ) )

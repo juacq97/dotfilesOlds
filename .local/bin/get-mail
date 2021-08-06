@@ -1,0 +1,14 @@
+#!/bin/sh
+
+getNew=$(mu find flag:new)
+
+check=$(echo $getNew)
+echo $?
+if [ $? == 0 ]; then
+    newMail=$(echo "$getNew" | wc -l)
+    echo "$newMail"
+else
+    echo "0"
+fi
+
+    

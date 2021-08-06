@@ -281,14 +281,12 @@ Since ~Evil~ it's working now, this is a good moment to define some personal key
   
   (use-package orderless
     :init
-    (setq completion-styles '(orderless)
-          completion-category-defaults nil
-          completion-category-overrides '((file (styles partial-completion))))
+    (setq completion-styles '(orderless))
     (setq orderless-skip-highlighting (lambda () selectrum-is-active))
     (setq selectrum-highlight-candidates-function #'orderless-highlight-matches))
   ;;
   (use-package marginalia
-    :after vertico
+    :after selectrum
     :ensure t
     :custom
     (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
@@ -584,7 +582,7 @@ As I said before, the integration with external tools can be improved. This pack
                                   ("xlsx" . "libreoffice")
                                   ("odp" . "libreoffice")
                                   ;; Otros
-                                  ("pdf" . "zathura")
+                                  ("pdf" . "okular")
                                   )))
 #+end_src
 
@@ -784,28 +782,28 @@ It's possible to mix monospace fonts with variable-spaced fonts. To activate thi
 
 Now, let's make a more elegant style, without colors for title and with different sizes.
 #+begin_src emacs-lisp
-  ;;; Remove the word #+TITLE:
-  (setq org-hidden-keywords '(title))
-  ;; set basic title font
-  (set-face-attribute 'org-level-8 nil :weight 'bold :inherit 'default)
-  ;; Low levels are unimportant => no scaling
-  (set-face-attribute 'org-level-7 nil :inherit 'org-level-8)
-  (set-face-attribute 'org-level-6 nil :inherit 'org-level-8)
-  (set-face-attribute 'org-level-5 nil :inherit 'org-level-8)
-  (set-face-attribute 'org-level-4 nil :inherit 'org-level-8)
-  ;; Top ones get scaled the same as in LaTeX (\large, \Large, \LARGE)
-  (set-face-attribute 'org-level-3 nil :inherit 'org-level-8 :height 1.1) ;\large
-  (set-face-attribute 'org-level-2 nil :inherit 'org-level-8 :height 1.3) ;\Large
-  (set-face-attribute 'org-level-1 nil :inherit 'org-level-8 :height 1.5) ;\LARGE
-  ;; Only use the first 4 styles and do not cycle.
-  (setq org-cycle-level-faces nil)
-  (setq org-n-level-faces 4)
-  ;; Document Title, (\huge)
-  (set-face-attribute 'org-document-title nil
-		      :height 2.074
-		      :foreground 'unspecified
-		      :inherit 'org-level-8)
-) ;; <=== org-font-setup ends here
+    ;;; Remove the word #+TITLE:
+    (setq org-hidden-keywords '(title))
+    ;; set basic title font
+    (set-face-attribute 'org-level-8 nil :weight 'bold :inherit 'default)
+    ;; Low levels are unimportant => no scaling
+    (set-face-attribute 'org-level-7 nil :inherit 'org-level-8)
+    (set-face-attribute 'org-level-6 nil :inherit 'org-level-8)
+    (set-face-attribute 'org-level-5 nil :inherit 'org-level-8)
+    (set-face-attribute 'org-level-4 nil :inherit 'org-level-8)
+    ;; Top ones get scaled the same as in LaTeX (\large, \Large, \LARGE)
+    (set-face-attribute 'org-level-3 nil :inherit 'org-level-8 :height 1.1) ;\large
+    (set-face-attribute 'org-level-2 nil :inherit 'org-level-8 :height 1.3) ;\Large
+    (set-face-attribute 'org-level-1 nil :inherit 'org-level-8 :height 1.5) ;\LARGE
+    ;; Only use the first 4 styles and do not cycle.
+    (setq org-cycle-level-faces nil)
+    (setq org-n-level-faces 4)
+    ;; Document Title, (\huge)
+    (set-face-attribute 'org-document-title nil
+                        :height 2.074
+                        :foreground 'unspecified
+                        :inherit 'org-level-8)
+  ) ;; <=== org-font-setup ends here
 #+end_src
 ** org-mode configuration
 Here's some configuration I made to org-mode, the actual package.
@@ -938,7 +936,7 @@ Want to make a presentation with slides but don't want to use PowerPoint, beamer
     :ensure t
     :defer t
     :config
-    (setq org-tree-slide-header nil)
+    (setq org-tree-slide-header t)
     (setq org-tree-slide-slide-in-effect nil)
     )
 
@@ -978,23 +976,23 @@ Let's define some basic stuff first
   (setq org-directory "/mnt/Data/ORG") ; The directory of your files
   (setq org-agenda-files '(
                            ("/mnt/data/Nextcloud/ORG/sync/TODO.org")
-                           ("/mnt/data/Nextcloud/ORG/escuela.org"))
-        (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
-        
-        ;; by default the agenda takes the current buffer. With this it'll create its own buffer
-        (setq org-agenda-window-setup 'other-window)
-        (setq org-agenda-span 7) ; Only shows next 3 days
-        (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
-        (setq org-agenda-start-with-log-mode t)
-        (setq org-log-done 'time)
-        (setq org-log-into-drawer t)
-        
-        ;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
-        (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
-        (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
-        
-        ;; Activate hl-line-mode on agenda buffers
-        (add-hook 'org-agenda-mode-hook 'hl-line-mode)
+                           ("/mnt/data/Nextcloud/ORG/escuela.org")))
+  (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
+  
+  ;; by default the agenda takes the current buffer. With this it'll create its own buffer
+  (setq org-agenda-window-setup 'other-window)
+  (setq org-agenda-span 7) ; Only shows next 3 days
+  (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+  
+  ;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
+  (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+  (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+  
+  ;; Activate hl-line-mode on agenda buffers
+  (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 #+end_src
 
 Now, this is pure eye-candy
@@ -1377,6 +1375,15 @@ The Emacs shell! It works fine for simple tasks, and has an awesome integration 
 
     (mu4e t))
 
+#+end_src
+
+Notifications
+#+begin_src emacs-lisp
+  (use-package mu4e-alert
+    :ensure t
+    :after mu4e
+    :config
+    (mu4e-alert-set-default-style 'libnotify))
 #+end_src
 * Other formats, languages and programs
 ** Lua support

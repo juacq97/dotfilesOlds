@@ -16,7 +16,7 @@ window-manager () {
     kdeconnectd &
     redshift -l 24.14:-110.27 -m randr &
     flameshot &
-    sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
+#    sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
     dunst &
 }
 
@@ -33,4 +33,4 @@ xset r rate 250 50 &
 #fcitx5 -d &
 ###nextcloud &
 
-#window-manager # load the programs for window managers
+window-manager # load the programs for window managers

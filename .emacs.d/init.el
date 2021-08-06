@@ -196,42 +196,34 @@
 (global-set-key (kbd "C-c v") 'visual-line-mode)
 (global-set-key (kbd "<f5>")  'ispell-word)
 
-;;(use-package vertico
-;;  :ensure t
-;;  :custom
-;;  (vertico-cycle t)
-;;  :init
-;;  (setq vertico-resize t)
-;;  (vertico-mode))
+(use-package selectrum
+  :ensure t
+  :init
+  (selectrum-mode +1))
 
 (use-package savehist
   :init
   (savehist-mode))
 
-;;(use-package orderless
-;;  :init
-;;  (setq completion-styles '(orderless)
-;;        completion-category-defaults nil
-;;        completion-category-overrides '((file (styles partial-completion)))))
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless))
+  (setq orderless-skip-highlighting (lambda () selectrum-is-active))
+  (setq selectrum-highlight-candidates-function #'orderless-highlight-matches))
 ;;
-;;(use-package marginalia
-;;  :after vertico
-;;  :ensure t
-;;  :custom
-;;  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-;;  :init
-;;  (marginalia-mode))
+(use-package marginalia
+  :after selectrum
+  :ensure t
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
 ;;
 (use-package consult
   :ensure t
   :bind (
          ("C-s" . consult-line)
          ("C-x b" . consult-buffer)))
-
-(use-package selectrum
-  :ensure t
-  :init
-  (selectrum-mode +1))
 
 ;; (use-package ivy
 ;;   :ensure t
@@ -425,7 +417,7 @@
                                 ("xlsx" . "libreoffice")
                                 ("odp" . "libreoffice")
                                 ;; Otros
-                                ("pdf" . "zathura")
+                                ("pdf" . "okular")
                                 )))
 
 (use-package dired-hide-dotfiles
@@ -595,9 +587,9 @@
   (setq org-n-level-faces 4)
   ;; Document Title, (\huge)
   (set-face-attribute 'org-document-title nil
-		      :height 2.074
-		      :foreground 'unspecified
-		      :inherit 'org-level-8)
+                      :height 2.074
+                      :foreground 'unspecified
+                      :inherit 'org-level-8)
 ) ;; <=== org-font-setup ends here
 
 (defun my/org-mode-setup ()
@@ -708,7 +700,7 @@
   :ensure t
   :defer t
   :config
-  (setq org-tree-slide-header nil)
+  (setq org-tree-slide-header t)
   (setq org-tree-slide-slide-in-effect nil)
   )
 
@@ -740,23 +732,23 @@
 (setq org-directory "/mnt/Data/ORG") ; The directory of your files
 (setq org-agenda-files '(
                          ("/mnt/data/Nextcloud/ORG/sync/TODO.org")
-                         ("/mnt/data/Nextcloud/ORG/escuela.org"))
-      (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
+                         ("/mnt/data/Nextcloud/ORG/escuela.org")))
+(global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
 
-      ;; by default the agenda takes the current buffer. With this it'll create its own buffer
-      (setq org-agenda-window-setup 'other-window)
-      (setq org-agenda-span 7) ; Only shows next 3 days
-      (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
-      (setq org-agenda-start-with-log-mode t)
-      (setq org-log-done 'time)
-      (setq org-log-into-drawer t)
+;; by default the agenda takes the current buffer. With this it'll create its own buffer
+(setq org-agenda-window-setup 'other-window)
+(setq org-agenda-span 7) ; Only shows next 3 days
+(setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
+(setq org-agenda-start-with-log-mode t)
+(setq org-log-done 'time)
+(setq org-log-into-drawer t)
 
-      ;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
-      (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
-      (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
+(setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+(setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
 
-      ;; Activate hl-line-mode on agenda buffers
-      (add-hook 'org-agenda-mode-hook 'hl-line-mode)
+;; Activate hl-line-mode on agenda buffers
+(add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
 ;; Removes the ~======~ between blocks. It's ugly IMO
 (setq org-agenda-block-separator (string-to-char " "))
@@ -1074,6 +1066,12 @@
   (setq mu4e-compose-signature "Juan Adrián Castro Quintana")
 
   (mu4e t))
+
+(use-package mu4e-alert
+  :ensure t
+  :after mu4e
+  :config
+  (mu4e-alert-set-default-style 'libnotify))
 
 (use-package lua-mode
   :mode "\\.lua\\'"
