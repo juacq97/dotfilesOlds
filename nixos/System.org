@@ -1,0 +1,215 @@
+#+title: System configuration with Nix
+
+* Imports
+Import the hardware configuration
+#+begin_src nix
+  { config, pkgs, ... }:
+
+  {
+    nixpkgs.config.allowUnfree = true;
+    imports =
+      [ # Include the results of the hardware scan.
+        ./hardware-configuration.nix
+      ];
+#+end_src
+
+* System configuration
+
+** Boot loader
+I use grub and I have a bios system
+#+begin_src nix
+  boot.loader.grub = {
+    enable = true;
+    version = 2;
+    device = "/dev/sda"; # or "nodev" for efi only
+  # efiSupport = true;
+  # efiInstallAsRemovable = true;
+  };
+#+end_src
+
+** Network
+
+Network configuration, including network manager and the interfaces to use
+#+begin_src nix
+  networking = {
+    hostName = "t430-pc"; # Define your hostname.
+    networkmanager.enable = true;  # Enables wireless support via nm
+    useDHCP = false;
+    interfaces.enp0s25.useDHCP = true;
+    interfaces.wlp3s0.useDHCP = true;
+    firewall.enable = false; #disable firewall
+  };
+#+end_src
+
+** System
+
+Set your time zone.
+#+begin_src nix
+  time.timeZone = "America/Chihuahua";
+#+end_src
+
+Set spanish as the default languaje 
+#+begin_src nix
+  i18n.defaultLocale = "es_MX.UTF-8";
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "la-latin1";
+  };
+#+end_src
+
+Configure ibus for japanese input (and accents on some programs)
+#+begin_src nix
+  i18n.inputMethod = {
+    enabled = "ibus";
+    ibus.engines = with pkgs.ibus-engines; [ anthy mozc ];
+  };
+#+end_src
+
+* Graphical environment
+
+Enable the X11 windowing system.
+#+begin_src nix
+  services.xserver = {
+    enable = true;
+    layout = "latam"; # layout of keyboard
+    libinput.enable = false; # I use the trackpoint, so I don't want the trackpad
+    services.xserver.serverFlagsSection = 
+    ''
+    Option "StandbyTime" "30" 
+    Option "BlankTime" "30"
+    Option "SuspendTime" "40"
+    Option "OffTime""30"
+    '';
+#+end_src
+
+** Display Manager
+To login in the system. Alternative, it's possible to use =startx=
+#+begin_src nix
+      displayManager = {
+        lightdm.enable = true; 
+        #sddm.enable = true;
+        #gdm.enable = true;
+        startx.enable = false;
+      };
+
+#+end_src
+
+** Desktop Environment
+If I want a desktop environment in some moment, here I can enable it.
+#+begin_src nix
+    desktopManager = {
+      #xfce.enable = true;
+      #plasma5.enable = true;
+      #gnome.enable = true;
+    };
+
+#+end_src
+
+*** Gnome packages                                           
+If my mind change in any moment and I want to use GNOME, I don't want any of this packages.
+#+begin_src nix
+
+  #environment.gnome.excludePackages = with pkgs.gnome; [
+  #  cheese
+  #  eog
+  #  epiphany
+  #  gedit
+  #  gnome-contacts
+  #  gnome-logs
+  #  gnome-maps
+  #  gnome-music
+  #  gnome-photos
+  #  simple-scan
+  #  totem
+  #  yelp
+  #];
+
+** Window Manager
+I use tiling window managers. Since window manager are just that, a window manager, I need to use a lot of other programs to have a complete environment, and all the window managers use the same programs, so I can have many WM without any conflict.
+#+begin_src nix
+      windowManager = {
+        herbstluftwm.enable = true;
+        awesome.enable = true;
+        bspwm.enable = false;
+        exwm.enable = false;
+        openbox.enable = false;
+        i3.enable = false;
+        i3.package = "pkgs.i3-gaps";
+      };
+  };
+#+end_src
+
+* Services!
+
+#+begin_src nix
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable sound.
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
+
+  # Enable bluethooth
+  hardware.bluetooth.enable = true;
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
+
+  #gpg
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryFlavor = "gtk2";
+  };
+
+  #zsh
+  programs.zsh = {
+    enable = true; #add zsh as the shell
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+  };
+#+end_src
+
+* User management
+Now, configure the actual user
+#+begin_src nix
+   users.users.juan = {
+     isNormalUser = true;
+     home = "/home/juan";
+     shell = pkgs.zsh;
+     description = "Juan Adrián Castro Quintana";
+     extraGroups = [ "wheel" "networkmanager" "users" "video" ]; 
+   };
+#+end_src
+
+And set some packages I want/need system wide and I need just after the instalation.
+
+#+begin_src nix
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    emacs
+    git
+    stow
+    fish
+    zsh-powerlevel10k
+  ];
+
+  # steam needs to be istalled this way
+  programs.steam.enable = true;
+#+end_src
+
+* Closing
+The last curly bracket
+#+begin_src nix
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "21.05"; # Did you read the comment?
+
+}
+#+end_src

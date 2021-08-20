@@ -22,6 +22,9 @@ with (import <nixpkgs> {});
         latte-dock
         plasma5Packages.applet-window-buttons
         krunner-pass
+        krunner-symbols
+        kcolorchooser
+        ark
 			];
 		};
 
@@ -29,6 +32,7 @@ with (import <nixpkgs> {});
 			name = "gnome-ext";
  			paths = [
         gnome.gnome-tweak-tool
+	gnome-menus
 	];
 };
     
@@ -68,11 +72,15 @@ with (import <nixpkgs> {});
 		misc = pkgs.buildEnv {
 			name = "misc";
 			paths = [
+				kdeconnect
 				autorandr
 				flameshot
 				rofi
+				(firefox.override {extraNativeMessagingHosts = [ 
+					passff-host
+					]; })
+				pavucontrol
 				alacritty
-				kdeconnect
 				libreoffice-still
 				xfce.thunar
 				zathura
@@ -89,8 +97,10 @@ with (import <nixpkgs> {});
         playerctl
         pamixer
         unzip
+        p7zip
         brightnessctl
         nextcloud-client
+        binutils
 			];
 		};
     
@@ -104,6 +114,7 @@ with (import <nixpkgs> {});
 				material-design-icons
         fira-code
         fira
+        comfortaa
 			];
 		};
     
@@ -114,7 +125,12 @@ with (import <nixpkgs> {});
                  inherit (texlive)
                    scheme-medium
                    capt-of
-                   wrapfig;
+                   wrapfig
+                   collectbox
+                   beamerposter
+                   type1cm
+                   textpos
+                   adjustbox;
                })
              ];
     };

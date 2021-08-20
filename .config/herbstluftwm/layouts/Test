@@ -1,0 +1,9 @@
+herbstclient load '(split horizontal:0.5:0 (clients vertical:0 0x2c00002 0x1400261) (split horizontal:0.5:0 (clients vertical:0 0x2200003) (clients vertical:0 0x1a00087)))'
+herbstclient rule once class=Emacs instance=emacs tag=󰲠 title=emacs@t430-pc index=0 # 0x1400261
+herbstclient apply_tmp_rule -all class=Emacs instance=emacs tag=󰲠 title=emacs@t430-pc index=0 # 0x1400261
+herbstclient rule once class=Thunar instance=Thunar tag=󰲠 title=juan index=11 # 0x1a00087
+herbstclient apply_tmp_rule -all class=Thunar instance=Thunar tag=󰲠 title=juan index=11 # 0x1a00087
+herbstclient rule once class=Firefox instance=Navigator tag=󰲠 title=Mozilla Firefox index=10 # 0x2200003
+herbstclient apply_tmp_rule -all class=Firefox instance=Navigator tag=󰲠 title=Mozilla Firefox index=10 # 0x2200003
+herbstclient rule once class=Alacritty instance=Alacritty tag=󰲠 title=Alacritty index=0 # 0x2c00002
+herbstclient apply_tmp_rule -all class=Alacritty instance=Alacritty tag=󰲠 title=Alacritty index=0 # 0x2c00002

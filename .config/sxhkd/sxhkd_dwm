@@ -138,12 +138,12 @@ super + shift + u
 
 #Apagar
 XF86Launch1
-      ~/.local/bin/apagar
+      ~/.local/bin/dmenu-apagar
 #       clearine 
 
 #Apagar
 super + F12
-      ~/.local/bin/apagar
+      ~/.local/bin/dmenu-apagar
 #       clearine 
 
 # Clipboard
@@ -155,9 +155,9 @@ super + ctrl + alt + p
 
 # Monitores
 XF86Display
-      ~/.local/bin/monitores
-XF86Explorer
-      ~/.local/bin/monitores
+      ~/.local/bin/monitors-dmenu
+XF86Explorer		   
+      ~/.local/bin/monitors-dmenu
 
 # Pacman-dmenu
 super + alt + p

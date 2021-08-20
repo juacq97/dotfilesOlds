@@ -1,0 +1,56 @@
+# -*- mode: snippet -*-
+# name: Sesión 1 Mat. III
+# key: sesion1
+# --
+
+=== Organizadores curriculares
+// tag::org[]
+:bloque: ${1:El bloque}
+:contenido: ${2:El contenido}
+:eje: ${3:El ámbito o el eje temático}
+:tema: ${4:El tema}
+:apje: ${5:Aprendizaje esperado}
+:prev: ${6:Consideraciones previas}
+:intención: {$7:Intención didáctica}
+:comp: {$8:Competencias específicas}
+// end::org[]
+
+// tag::est[]
+** ${9:Estándares curriculares}
+// end::est[]
+
+=== Secuencia
+
+// tag::conprev[]
+- ${10:Conocimientos previos}
+// end::conprev[]
+
+*TIEMPOS:*
+// tag::tiempos[]
+:inicio: ${11:Minutos} min.
+:desarrollo: ${12:Minutos} min.
+:cierre: ${13:Minutos} min.
+// end::tiempos[]
+
+==== INICIO
+// tag::inicio[]
+- ${14:Actividades para el inicio}
+// end::inicio[]
+
+==== DESARROLLO
+// tag::desa[]
+- ${15:Actividades para el desarrollo}
+// end::desa[]
+
+==== CIERRE
+
+// tag::cierre[]
+- ${16:Actividades para el cierre}
+// end::cierre[]
+
+// tag::otros[]
+:inte: {$17:Inteligencias}
+:recursos: ${18:Recursos necesarios}
+:evidencia: ${19:Evidencias}
+:evaluacion: ${0:Actividad para evaluar}
+// end::otros[]

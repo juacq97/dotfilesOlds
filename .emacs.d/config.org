@@ -441,13 +441,14 @@ Add some extra text to the  =describe= buffers
   (use-package helpful
     :ensure t
     :custom
-    (counsel-describe-function-function #'helpful-callable)
-    (counsel-describe-variable-function #'helpful-variable)
+    (describe-function-function #'helpful-callable)
+    (describe-variable-function #'helpful-variable)
     :bind
-    ([remap describe-function] . counsel-describe-function)
+    ([remap describe-function] . helpful-function)
     ([remap describe-command] . helpful-command)
-    ([remap describe-variable] . counsel-describe-variable)
+    ([remap describe-variable] . helpful-variable)
     ([remap describe-key] . helpful-key))
+
 #+end_src
 
 ** Ripgrep
@@ -582,7 +583,7 @@ As I said before, the integration with external tools can be improved. This pack
                                   ("xlsx" . "libreoffice")
                                   ("odp" . "libreoffice")
                                   ;; Otros
-                                  ("pdf" . "okular")
+                                  ("pdf" . "zathura")
                                   )))
 #+end_src
 
@@ -808,76 +809,108 @@ Now, let's make a more elegant style, without colors for title and with differen
 ** org-mode configuration
 Here's some configuration I made to org-mode, the actual package.
 #+begin_src emacs-lisp
-  (defun my/org-mode-setup ()
-    (org-indent-mode)
-    (variable-pitch-mode 1)
-    (visual-line-mode 1))
+   (defun my/org-mode-setup ()
+     (org-indent-mode)
+     (variable-pitch-mode 1)
+     (visual-line-mode 1))
 
-    (use-package org
-      :ensure nil
-      :hook (
-             (org-mode . my/org-mode-setup)
-             (org-mode . my/org-font-setup))
+     (use-package org
+       :ensure nil
+       :hook (
+              (org-mode . my/org-mode-setup)
+              (org-mode . my/org-font-setup))
 
-      :config
-      ;;(add-hook 'org-mode-hook 'my/org-font-setup)
-      ;; Removes the ellipsis at the end and replaces it with a string
-      (setq org-ellipsis " ⤾")
+       :config
+       ;;(add-hook 'org-mode-hook 'my/org-font-setup)
+       ;; Removes the ellipsis at the end and replaces it with a string
+       (setq org-ellipsis " ⤾")
+
+       ;; Now you can put [[color:red][red text]] when export to html
+       (org-add-link-type
+         "color"
+         (lambda (path)
+           (message (concat "color "
+                            (progn (add-text-properties
+                                    0 (length path)
+                                    (list 'face `((t (:foreground ,path))))
+                                    path) path))))
+         (lambda (path desc format)
+           (cond
+            ((eq format 'html)
+             (format "<span style=\"color:%s;\">%s</span>" path desc))
+            ((eq format 'latex)
+             (format "{\\color{%s}%s}" path desc)))))
 
 
-      ;; If you have many subtask, when you mark it as DONE, the main task remain unchaged. With this function, if all the subtask are marked as DONE, the main task is marked as well.
-      (defun org-summary-todo (n-done n-not-done)
-        "Switch entry to DONE when all subentries are done, to TODO otherwise."
-        (let (org-log-done org-log-states)   ; turn off logging
-          (org-todo (if (= n-not-done 0) "DONE" "PROJ"))))
-      (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-      ;; This keybinding uses org-store-link to store a postition on a document, so you can link it on other document.
-      (global-set-key (kbd "C-c l") 'org-store-link)
 
-      ;; Change TODO states with SPC t. It uses evil-collection key-map.
-      ;;(evil-define-key 'normal org-mode-map
-      ;;  (kbd "SPC t") 'org-todo)
+       ;; If you have many subtask, when you mark it as DONE, the main task remain unchaged. With this function, if all the subtask are marked as DONE, the main task is marked as well.
+       (defun org-summary-todo (n-done n-not-done)
+         "Switch entry to DONE when all subentries are done, to TODO otherwise."
+         (let (org-log-done org-log-states)   ; turn off logging
+           (org-todo (if (= n-not-done 0) "DONE" "PROJ"))))
+       (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+       ;; This keybinding uses org-store-link to store a postition on a document, so you can link it on other document.
+       (global-set-key (kbd "C-c l") 'org-store-link)
 
-  ;; Activate org-beamer
-    (org-beamer-mode)
+       ;; Change TODO states with SPC t. It uses evil-collection key-map.
+       ;;(evil-define-key 'normal org-mode-map
+       ;;  (kbd "SPC t") 'org-todo)
 
-      ;; You can add blocks pressing C-, and then the corresponding key.
-    (require 'org-tempo)
-    (setq org-structure-template-alist
-       '(("el" . "src emacs-lisp")
-         ("a" . "export ascii")
-         ("c" . "center")
-         ("C" . "comment")
-         ("e" . "example")
-         ("E" . "export")
-         ("h" . "export html")
-         ("x" . "export latex")
-         ("q" . "quote")
-         ("s" . "src")
-         ("v" . "verse")))
+   ;; Activate org-beamer
+     (org-beamer-mode)
 
-  ;; NOTE: THE USE PACKAGE MACRO CONTINUES
+       ;; You can add blocks pressing C-, and then the corresponding key.
+     (require 'org-tempo)
+     (setq org-structure-template-alist
+        '(("el" . "src emacs-lisp")
+          ("a" . "export ascii")
+          ("c" . "center")
+          ("C" . "comment")
+          ("e" . "example")
+          ("E" . "export")
+          ("h" . "export html")
+          ("x" . "export latex")
+          ("q" . "quote")
+          ("s" . "src")
+          ("v" . "verse")))
+
+   ;; NOTE: THE USE PACKAGE MACRO CONTINUES
 #+end_src
 ** LaTeX
    LaTeX uses some templates to define classes. You can write your own classes. I have this, one used on my thesis, the other copied from the org-wiki because it looks nice.
+
+#+begin_src emacs-lisp
+
+;; https://github.com/philipphoman
+  (add-to-list 'org-latex-classes
+          '("mybeamerposter"
+            "\\documentclass[final]{beamer}
+             \\usepackage[orientation=portrait,size=letter]
+             \\usepackage[absolute,overlay]{textpos}
+                   \\usepackage[authoryear]{natbib}
+                   [NO-DEFAULT-PACKAGES]"))
+#+end_src
+   
 #+begin_src emacs-lisp
   (add-to-list 'org-latex-classes
-	'("koma-article"
-	  "\\documentclass{scrartcl}"
-	  ("\\section{%s}" . "\\section*{%s}")
-	  ("\\subsection{%s}" . "\\subsection*{%s}")
-	  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-	  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-	
-	'("doc-recepcional"
-	  "\\documentclass{report}"
-	  ("\\chapter{%s}" . "\\chapter*{%s}")
-	  ("\\section{%s}" . "\\section*{%s}")
-	  ("\\subsection{%s}" . "\\subsection*{%s}")
-	  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-	  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+        '("koma-article"
+          "\\documentclass{scrartcl}"
+          ("\\section{%s}" . "\\section*{%s}")
+          ("\\subsection{%s}" . "\\subsection*{%s}")
+          ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+          ("\\paragraph{%s}" . "\\paragraph*{%s}")
+          ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+
+        '("doc-recepcional"
+          "\\documentclass{report}"
+          ("\\chapter{%s}" . "\\chapter*{%s}")
+          ("\\section{%s}" . "\\section*{%s}")
+          ("\\subsection{%s}" . "\\subsection*{%s}")
+          ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+          ("\\paragraph{%s}" . "\\paragraph*{%s}")
+          ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+
   ) ;; <=== The use-package org ends here
 #+end_src
 ** Center buffers
@@ -973,10 +1006,10 @@ Org-mode is a TODO and scheduling format. So it has an integrated agenda. You ca
 
 Let's define some basic stuff first
 #+begin_src emacs-lisp
-  (setq org-directory "/mnt/Data/ORG") ; The directory of your files
-  (setq org-agenda-files '(
-                           ("/mnt/data/Nextcloud/ORG/sync/TODO.org")
-                           ("/mnt/data/Nextcloud/ORG/escuela.org")))
+ ;; (setq org-directory "/mnt/Data/ORG") ; The directory of your files
+ ;; (setq org-agenda-files '(
+ ;;                          ("/mnt/data/Nextcloud/ORG/sync/TODO.org")
+ ;;                          ("/mnt/data/Nextcloud/ORG/escuela.org")))
   (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
   
   ;; by default the agenda takes the current buffer. With this it'll create its own buffer
@@ -1037,7 +1070,7 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                     (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
                     ;(org-agenda-deadline-leaders '("" ""))
                     (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
-  
+
             (todo "NEXT" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "⭐ Siguientes\n")
@@ -1046,7 +1079,7 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%T %?-s")
                           (org-agenda-todo-keyword-format "")))
-  
+
             (todo "ESPERANDO" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "🕘 Esperando\n")
@@ -1055,8 +1088,8 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%T %?-s")
                           (org-agenda-todo-keyword-format "")))
-  
-  
+
+
             (todo "PROJ" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "✈ Proyectos\n")
@@ -1065,68 +1098,14 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%T %?-s")
                           (org-agenda-todo-keyword-format "")))
-  
+
             (todo "" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "☑ Tareas\n")
                           (org-agenda-remove-tags nil)
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%?-s")
-                          (org-agenda-todo-keyword-format "%-1s")))))
-  
-  
-  
-  
-          ("s" "Escuela"
-            ((agenda "EFEMERIDES" (
-                         (org-agenda-files '("/mnt/data/Nextcloud/ORG/efemerides.org"))
-                         (org-agenda-overriding-header " Efemerides\n")
-                         (org-agenda-skip-scheduled-if-done t)
-                         (org-agenda-skip-timestamp-if-done t)
-                         (org-agenda-skip-deadline-if-done t)
-                         (org-agenda-skip-deadline-prewarning-if-scheduled t)
-                         (org-agenda-start-day "+0d")
-                         (org-agenda-span 1)
-                         (org-agenda-prefix-format "%?5s")
-                         (org-agenda-repeating-timestamp-show-all t)
-                         ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
-                         (org-agenda-remove-tags t)
-                         (org-agenda-todo-keyword-format " ")
-                         (org-agenda-time)
-                         (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
-                                          ;(org-agenda-deadline-leaders '("" ""))
-                         (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
-  
-            (agenda "TRABAJO" (
-                          (org-agenda-files '("/mnt/data/Nextcloud/ORG/escuela.org"))
-                          (org-agenda-overriding-header "⭐ Trabajos en clase\n")
-                         (org-agenda-skip-scheduled-if-done t)
-                         (org-agenda-skip-timestamp-if-done t)
-                         (org-agenda-skip-deadline-if-done t)
-                         (org-agenda-skip-deadline-prewarning-if-scheduled t)
-                         (org-agenda-start-day "+0d")
-                         (org-agenda-span 5)
-                         (org-agenda-prefix-format "%T %?-s")
-                         (org-agenda-repeating-timestamp-show-all t)
-                         ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
-                         (org-agenda-remove-tags t)
-                         (org-agenda-todo-keyword-format " ")
-                         (org-agenda-time)
-                         (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
-                                          ;(org-agenda-deadline-leaders '("" ""))
-                         (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
-  
-            (tags "NOTA" (
-                          (org-agenda-files '("/mnt/data/Nextcloud/ORG/escuela.org"))
-                          (org-agenda-overriding-header "☑ Notas\n")
-                          (org-agenda-remove-tags t)
-                          (org-agenda-todo-ignore-scheduled 'future)
-                          (org-agenda-prefix-format "%?-s")
                           (org-agenda-todo-keyword-format "%-1s")))))))
-  
-  
-  
-  
 #+end_src
 
 
@@ -1294,6 +1273,15 @@ Now, lets put the configuration of org publish.
  ;       org-caldav-inbox "~/testing-caldav.org")
  ; (require 'org-caldav)
 #+end_src
+** Org reveal
+#+begin_src emacs-lisp
+  (use-package ox-reveal
+    :ensure t
+    :config
+    ;(setq org-re-reveal-center t)
+    (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
+#+end_src
+
 * Term
 ** Vterm
 Vterm is a real terminal emulator based on libvterm.
@@ -1515,6 +1503,11 @@ Take notes with org mode!
   ;;                           (org-noter--pretty-print-location location))))))))
   ;;  (with-eval-after-load 'pdf-annot
   ;;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+#+end_src
+* Nix
+#+begin_src emacs-lisp
+  (use-package nix-sandbox
+    :ensure t)
 #+end_src
 * Runtime Performance
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.

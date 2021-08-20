@@ -34,25 +34,33 @@
     keyMap = "la-latin1";
   };
 
+ # i18n.inputMethod = {
+ #   enabled = "ibus";
+ #   ibus.engines = with pkgs.ibus-engines; [ anthy mozc ];
+ # };
+
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.enablePlasmaBrowserIntegration = true;
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    #videoDrivers = [ "intel" ];
     desktopManager = {
       #xfce.enable = true;
-      #plasma5.enable = true;
+      plasma5.enable = true;
       #gnome.enable = true;
     };
 
       displayManager = {
         #lightdm.enable = true; 
-        #sddm.enable = true;
+        sddm.enable = true;
         #gdm.enable = true;
         startx.enable = false;
       };
 
       windowManager = {
         herbstluftwm.enable = true;
+	      awesome.enable = true;
         bspwm.enable = false;
         exwm.enable = false;
         openbox.enable = false;
@@ -96,15 +104,12 @@
   # Enable bluethooth
   hardware.bluetooth.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.zsh = {
     enable = true; #add zsh as the shell
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
   };
-
 
    users.users.juan = {
      isNormalUser = true;
@@ -118,24 +123,26 @@
   # $ nix search wget
    environment.systemPackages = with pkgs; [
      vim
-     neovim
      wget
-     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
      emacs
      git
      stow
      fish
-     pavucontrol
-     ffmpeg
+     zsh-powerlevel10k
+     linuxPackages.hid-nintendo
+     #linuxPackages.v4l2loopback
+     #linuxPackages_5_10.v4l2loopback
+     linuxPackages_5_10.akvcam
    ];
 
+programs.steam.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryFlavor = "gtk2";
+    pinentryFlavor = "qt";
   };
 
   # List services that you want to enable:

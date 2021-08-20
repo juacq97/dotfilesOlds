@@ -311,12 +311,12 @@
 (use-package helpful
   :ensure t
   :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
+  (describe-function-function #'helpful-callable)
+  (describe-variable-function #'helpful-variable)
   :bind
-  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-function] . helpful-function)
   ([remap describe-command] . helpful-command)
-  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-variable] . helpful-variable)
   ([remap describe-key] . helpful-key))
 
 (use-package rg
@@ -417,7 +417,7 @@
                                 ("xlsx" . "libreoffice")
                                 ("odp" . "libreoffice")
                                 ;; Otros
-                                ("pdf" . "okular")
+                                ("pdf" . "zathura")
                                 )))
 
 (use-package dired-hide-dotfiles
@@ -608,6 +608,23 @@
     ;; Removes the ellipsis at the end and replaces it with a string
     (setq org-ellipsis " ⤾")
 
+    ;; Now you can put [[color:red][red text]] when export to html
+    (org-add-link-type
+      "color"
+      (lambda (path)
+        (message (concat "color "
+                         (progn (add-text-properties
+                                 0 (length path)
+                                 (list 'face `((t (:foreground ,path))))
+                                 path) path))))
+      (lambda (path desc format)
+        (cond
+         ((eq format 'html)
+          (format "<span style=\"color:%s;\">%s</span>" path desc))
+         ((eq format 'latex)
+          (format "{\\color{%s}%s}" path desc)))))
+
+
 
     ;; If you have many subtask, when you mark it as DONE, the main task remain unchaged. With this function, if all the subtask are marked as DONE, the main task is marked as well.
     (defun org-summary-todo (n-done n-not-done)
@@ -642,23 +659,34 @@
 
 ;; NOTE: THE USE PACKAGE MACRO CONTINUES
 
+;; https://github.com/philipphoman
+  (add-to-list 'org-latex-classes
+          '("mybeamerposter"
+            "\\documentclass[final]{beamer}
+             \\usepackage[orientation=portrait,size=letter]
+             \\usepackage[absolute,overlay]{textpos}
+                   \\usepackage[authoryear]{natbib}
+                   [NO-DEFAULT-PACKAGES]"))
+
 (add-to-list 'org-latex-classes
       '("koma-article"
-	"\\documentclass{scrartcl}"
-	("\\section{%s}" . "\\section*{%s}")
-	("\\subsection{%s}" . "\\subsection*{%s}")
-	("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	("\\paragraph{%s}" . "\\paragraph*{%s}")
-	("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+        "\\documentclass{scrartcl}"
+        ("\\section{%s}" . "\\section*{%s}")
+        ("\\subsection{%s}" . "\\subsection*{%s}")
+        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+        ("\\paragraph{%s}" . "\\paragraph*{%s}")
+        ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
 
       '("doc-recepcional"
-	"\\documentclass{report}"
-	("\\chapter{%s}" . "\\chapter*{%s}")
-	("\\section{%s}" . "\\section*{%s}")
-	("\\subsection{%s}" . "\\subsection*{%s}")
-	("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-	("\\paragraph{%s}" . "\\paragraph*{%s}")
-	("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+        "\\documentclass{report}"
+        ("\\chapter{%s}" . "\\chapter*{%s}")
+        ("\\section{%s}" . "\\section*{%s}")
+        ("\\subsection{%s}" . "\\subsection*{%s}")
+        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+        ("\\paragraph{%s}" . "\\paragraph*{%s}")
+        ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+
 ) ;; <=== The use-package org ends here
 
 (defun my/org-mode-visual-fill ()
@@ -729,26 +757,26 @@
 		 (display-line-numbers-mode 1)
 		 (variable-pitch-mode -1)))))
 
-(setq org-directory "/mnt/Data/ORG") ; The directory of your files
-(setq org-agenda-files '(
-                         ("/mnt/data/Nextcloud/ORG/sync/TODO.org")
-                         ("/mnt/data/Nextcloud/ORG/escuela.org")))
-(global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
+;; (setq org-directory "/mnt/Data/ORG") ; The directory of your files
+;; (setq org-agenda-files '(
+;;                          ("/mnt/data/Nextcloud/ORG/sync/TODO.org")
+;;                          ("/mnt/data/Nextcloud/ORG/escuela.org")))
+ (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
 
-;; by default the agenda takes the current buffer. With this it'll create its own buffer
-(setq org-agenda-window-setup 'other-window)
-(setq org-agenda-span 7) ; Only shows next 3 days
-(setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
-(setq org-agenda-start-with-log-mode t)
-(setq org-log-done 'time)
-(setq org-log-into-drawer t)
+ ;; by default the agenda takes the current buffer. With this it'll create its own buffer
+ (setq org-agenda-window-setup 'other-window)
+ (setq org-agenda-span 7) ; Only shows next 3 days
+ (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
+ (setq org-agenda-start-with-log-mode t)
+ (setq org-log-done 'time)
+ (setq org-log-into-drawer t)
 
-;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
-(setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
-(setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+ ;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
+ (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+ (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
 
-;; Activate hl-line-mode on agenda buffers
-(add-hook 'org-agenda-mode-hook 'hl-line-mode)
+ ;; Activate hl-line-mode on agenda buffers
+ (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
 ;; Removes the ~======~ between blocks. It's ugly IMO
 (setq org-agenda-block-separator (string-to-char " "))
@@ -818,56 +846,6 @@
                         (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                         (org-agenda-overriding-header "☑ Tareas\n")
                         (org-agenda-remove-tags nil)
-                        (org-agenda-todo-ignore-scheduled 'future)
-                        (org-agenda-prefix-format "%?-s")
-                        (org-agenda-todo-keyword-format "%-1s")))))
-
-
-
-
-        ("s" "Escuela"
-          ((agenda "EFEMERIDES" (
-                       (org-agenda-files '("/mnt/data/Nextcloud/ORG/efemerides.org"))
-                       (org-agenda-overriding-header " Efemerides\n")
-                       (org-agenda-skip-scheduled-if-done t)
-                       (org-agenda-skip-timestamp-if-done t)
-                       (org-agenda-skip-deadline-if-done t)
-                       (org-agenda-skip-deadline-prewarning-if-scheduled t)
-                       (org-agenda-start-day "+0d")
-                       (org-agenda-span 1)
-                       (org-agenda-prefix-format "%?5s")
-                       (org-agenda-repeating-timestamp-show-all t)
-                       ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
-                       (org-agenda-remove-tags t)
-                       (org-agenda-todo-keyword-format " ")
-                       (org-agenda-time)
-                       (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
-                                        ;(org-agenda-deadline-leaders '("" ""))
-                       (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
-
-          (agenda "TRABAJO" (
-                        (org-agenda-files '("/mnt/data/Nextcloud/ORG/escuela.org"))
-                        (org-agenda-overriding-header "⭐ Trabajos en clase\n")
-                       (org-agenda-skip-scheduled-if-done t)
-                       (org-agenda-skip-timestamp-if-done t)
-                       (org-agenda-skip-deadline-if-done t)
-                       (org-agenda-skip-deadline-prewarning-if-scheduled t)
-                       (org-agenda-start-day "+0d")
-                       (org-agenda-span 5)
-                       (org-agenda-prefix-format "%T %?-s")
-                       (org-agenda-repeating-timestamp-show-all t)
-                       ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
-                       (org-agenda-remove-tags t)
-                       (org-agenda-todo-keyword-format " ")
-                       (org-agenda-time)
-                       (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
-                                        ;(org-agenda-deadline-leaders '("" ""))
-                       (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
-
-          (tags "NOTA" (
-                        (org-agenda-files '("/mnt/data/Nextcloud/ORG/escuela.org"))
-                        (org-agenda-overriding-header "☑ Notas\n")
-                        (org-agenda-remove-tags t)
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-prefix-format "%?-s")
                         (org-agenda-todo-keyword-format "%-1s")))))))
@@ -999,6 +977,12 @@
 ;       org-caldav-files '("~/ywy.org")
 ;       org-caldav-inbox "~/testing-caldav.org")
 ; (require 'org-caldav)
+
+(use-package ox-reveal
+  :ensure t
+  :config
+  ;(setq org-re-reveal-center t)
+  (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
 
 ;; (use-package vterm)
 
@@ -1169,6 +1153,9 @@
 ;;                           (org-noter--pretty-print-location location))))))))
 ;;  (with-eval-after-load 'pdf-annot
 ;;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+
+(use-package nix-sandbox
+  :ensure t)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))

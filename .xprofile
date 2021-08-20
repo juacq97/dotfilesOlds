@@ -13,10 +13,9 @@ window-manager () {
     picom --experimental-backends &
     xfce4-power-manager &
     clipmenud &
-    kdeconnectd &
+    #kdeconnectd &
     redshift -l 24.14:-110.27 -m randr &
-    flameshot &
-#    sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
+    sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
     dunst &
 }
 
@@ -30,7 +29,9 @@ dwm-specific () {
 emacs --daemon &
 xsetroot -cursor_name left_ptr &
 xset r rate 250 50 &
+~/.nix-profile/libexec/kdeconnectd &
+flameshot &
 #fcitx5 -d &
 ###nextcloud &
 
-window-manager # load the programs for window managers
+#window-manager # load the programs for window managers

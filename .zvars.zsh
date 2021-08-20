@@ -28,13 +28,12 @@ export WINIT_X11_SCALE_FACTOR=1 #No estoy sguro, pero ayuda a alacritty en multi
 export FZF_DEFAULT_COMMAND="find . "
 #
 #The next section is needed by ibus
-export GTK_IM_MODULE=fcitx5
-export XMODIFIERS=@im=fcitx5
-export QT_IM_MODULE=fcitx5
-GLFW_IM_MODULE=fcitx5
-INPUT_METHOD=fcitx5
-IMSETTINGS_MODULE=fcitx5
-QT_IM_MODULE=fcitx5
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+GLFW_IM_MODULE=ibus
+INPUT_METHOD=ibus
+IMSETTINGS_MODULE=ibus
 
 export NIXOS_CONFIG="$HOME/.repos/dotfiles/nixos/configuration.nix"
 # This is for zoom on wayland

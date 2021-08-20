@@ -1,0 +1,38 @@
+# -*- mode: snippet -*-
+# name: Sesión 2 en adelante Mat. III
+# key: sesion
+# --
+
+// tag::conprev[]
+- ${1:Conocimientos previos}
+// end::conprev[]
+
+*TIEMPOS:*
+// tag::tiempos[]
+:inicio: ${2:Minutos} min.
+:desarrollo: ${3:Minutos} min.
+:cierre: ${4:Minutos} min.
+// end::tiempos[]
+
+==== INICIO
+// tag::inicio[]
+- ${5:Actividades para el inicio}
+// end::inicio[]
+
+==== DESARROLLO
+// tag::desa[]
+- ${6:Actividades para el desarrollo}
+// end::desa[]
+
+==== CIERRE
+
+// tag::cierre[]
+- ${7:Actividades para el cierre}
+// end::cierre[]
+
+// tag::otros[]
+:inte: {$8:Inteligencias}
+:recursos: ${9:Recursos necesarios}
+:evidencia: ${10:Evidencias}
+:evaluacion: ${0:Actividad para evaluar}
+// end::otros[]

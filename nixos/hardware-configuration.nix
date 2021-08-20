@@ -8,29 +8,33 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "sr_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+ # boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel" "hid-nintendo" ];
   boot.extraModulePackages = [ ];
+  boot.extraModprobeConfig =
+    ''
+    options v4l2loopback nr_devices=2 exclusive_caps=1,1,1,1,1,1,1,1 video_nr=0,1 card_label=v4l2lo0,v4l2lo1
+    '';
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/dba8abe1-5829-4810-bbc2-ff0de5dfdb85";
+    { device = "/dev/disk/by-uuid/90166b28-99bd-433a-a065-2acdd8d64a74";
       fsType = "ext4";
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/e9701771-e11c-44ef-9eb0-85605cfe5178";
+    { device = "/dev/disk/by-uuid/dd275c05-1547-467d-8aff-b9f25923713d";
       fsType = "ext4";
     };
 
   fileSystems."/mnt/data" =
     { device = "/dev/disk/by-uuid/2ca94392-9695-4a84-a552-c97617791b01";
-      options = [ "rw" "users" ];
       fsType = "ext4";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/7b8f08d7-f2d2-44f8-b7c7-d341d8133a2b"; }
+    [ { device = "/dev/disk/by-uuid/4aac75f3-5155-48f0-bd79-3965c639133d"; }
     ];
 
 }
