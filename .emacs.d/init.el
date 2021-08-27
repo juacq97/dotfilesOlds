@@ -11,28 +11,29 @@
 ;  (setq comp-async-report-warnings-errors nil)
 
 (require 'package)
-    ;; Allows to install packages from melpa
-   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-			
-  
-;;(setq package-archives
-;;      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
-;;        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
-;;        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
+;; Allows to install packages from melpa
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
 
-    (package-initialize)
+  ;;(setq package-archives
+  ;;      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
+  ;;        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
+  ;;        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
 
-    (add-to-list 'load-path "~/.emacs.d/modes/")
-    (add-to-list 'load-path "~/.repos/nano-emacs")
-    ;; If not here, install use-package
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package))
 
-    ;; Automatically download all packages. To prevent this, add ~:ensure nil~
-    (setq use-package-always-ensure t)
-  ;;  (setq use-package-verbose t)
+      (package-initialize)
+
+      (add-to-list 'load-path "~/.emacs.d/modes/")
+      (add-to-list 'load-path "~/.repos/nano-emacs")
+      ;; If not here, install use-package
+      (unless (package-installed-p 'use-package)
+        (package-refresh-contents)
+        (package-install 'use-package))
+
+      ;; Automatically download all packages. To prevent this, add ~:ensure nil~
+      (setq use-package-always-ensure t)
+    ;;  (setq use-package-verbose t)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -659,18 +660,40 @@
 
 ;; NOTE: THE USE PACKAGE MACRO CONTINUES
 
-;; https://github.com/philipphoman
-  (add-to-list 'org-latex-classes
-          '("mybeamerposter"
-            "\\documentclass[final]{beamer}
-             \\usepackage[orientation=portrait,size=letter]
-             \\usepackage[absolute,overlay]{textpos}
-                   \\usepackage[authoryear]{natbib}
-                   [NO-DEFAULT-PACKAGES]"))
+(require 'ox-extra)
+  (ox-extras-activate '(ignore-headlines))
+
+(use-package ox-latex
+  :ensure nil
+  :config
+  (setq org-latex-pdf-process
+        '("pdflatex -interaction nonstopmode -output-directory %o %f"
+          "bibtex %b"
+          "pdflatex -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -interaction nonstopmode -output-directory %o %f"))
+  (setq org-latex-with-hyperref nil) ;; stop org adding hypersetup{author..} to latex export
+  ;; (setq org-latex-prefer-user-labels t)
+
+  ;; deleted unwanted file extensions after latexMK
+  (setq org-latex-logfiles-extensions
+        (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "xmpi" "run.xml" "bcf" "acn" "acr" "alg" "glg" "gls" "ist")))
+
+  (unless (boundp 'org-latex-classes)
+    (setq org-latex-classes nil)))
+
+  ;; https://github.com/philipphoman
+    (add-to-list 'org-latex-classes
+            '("mybeamerposter"
+              "\\documentclass[final]{beamer}
+               \\usepackage[orientation=portrait,size=letter]
+               \\usepackage[absolute,overlay]{textpos}
+                     \\usepackage[authoryear]{natbib}
+                     [NO-DEFAULT-PACKAGES]"))
 
 (add-to-list 'org-latex-classes
       '("koma-article"
         "\\documentclass{scrartcl}"
+        "\\usepackage[left=3cm,right=4.5cm,bottom=3cm,top=10cm]{geometry}"
         ("\\section{%s}" . "\\section*{%s}")
         ("\\subsection{%s}" . "\\subsection*{%s}")
         ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -933,40 +956,81 @@
   (require 'ox-gemini))
 
 (require 'ox-publish)
-(setq org-publish-project-alist
-      '(
-        ("http_website"
-         :base-directory "/mnt/data/www/source/"
-         :base-extension "org"
-         :publishing-directory "/mnt/data/www/site/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :exclude "GEM_.*"
-         :with-date t
-         :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css />"
-         :html-head-include-default-style nil
-         :with-toc nil
-         :html-postamble t
-         :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Made with Emacs 27 (Org-mode 9.4.4) <a rel=homepage href=https://juancastro.xyz>Home page </a></p> </footer>"))
-        :section-numbers nil
-         ;:html-postable nil
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t
-         )
-        ("gemini_capsule"
-         :base-directory "/mnt/data/www/source/"
-         :base-extension "org"
-         :publishing-directory "/mnt/data/www/capsule/"
-         :recursive t
-         :publishing-function org-gemini-publish-to-gemini
-         :exclude "index"
-         :with-date t
-         :with-toc nil
-         :section-numbers nil
-         ;:html-postable nil
-         :headline-levels 4             ; Just the default for this project.
-         ;:auto-preamble t
-         )))
+  (setq org-publish-project-alist
+        '(("http_website"
+           :base-directory "/mnt/data/www/source/en/"
+           :base-extension "org"
+           :publishing-directory "/mnt/data/www/site/en/"
+           :recursive t
+           :publishing-function org-html-publish-to-html
+           :exclude "GEM_.*"
+           :with-date t
+           :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css>"
+           :html-head-include-default-style nil
+           :with-toc nil
+           :html-postamble t
+           :html-preamble t
+           :html-preamble-format (("en" "<header>
+<div class=main>
+  <a href=https://juancastro.xyz><h1 class=site-title>Juan Castro</h1></a>
+</div>
+<nav>
+  <a href=https://juancastro.xyz>Home</a> 
+  <a href=https://juancastro.xyz/en/sitemap.html>All posts</a>
+  <a href=https://juancastro.xyz/en/about.html>About</a>
+</nav>
+</header>"))
+           :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Made with Emacs 27 (Org-mode 9.4.4) <a href=https://juancastro.xyz/es/index.html>Página en español</a></footer>"))
+          :section-numbers nil
+           :headline-levels 4             ; Just the default for this project.
+           :auto-sitemap t
+           :sitemap-title "All posts"
+           )
+
+        ("http_website_español"
+           :base-directory "/mnt/data/www/source/es/"
+           :base-extension "org"
+           :publishing-directory "/mnt/data/www/site/es/"
+           :recursive t
+           :publishing-function org-html-publish-to-html
+           :exclude "GEM_.*"
+           :with-date t
+           :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css>"
+           :html-head-include-default-style nil
+           :with-toc nil
+           :html-postamble t
+           :html-preamble t
+           :html-preamble-format (("en" "<header>
+<div class=main>
+  <a href=https://juancastro.xyz/es/index.html><h1 class=site-title>Juan Castro</h1></a>
+</div>
+<nav>
+  <a href=https://juancastro.xyz/es/index.html>Inicio</a> 
+  <a href=https://juancastro.xyz/es/sitemap.html>Publicaciones</a>
+  <a href=https://juancastro.xyz/es/acerca.html>Acerca</a>
+</nav>
+</header>"))
+           :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Hecho con Emacs 27 (Org-mode 9.4.4)<a href=https://juancastro.xyz>English site</a></footer>"))
+          :section-numbers nil
+           :headline-levels 4             ; Just the default for this project.
+           :auto-sitemap t
+           :sitemap-title "Todas las publicaciones"
+           )
+
+          ("gemini_capsule"
+           :base-directory "/mnt/data/www/source/"
+           :base-extension "org"
+           :publishing-directory "/mnt/data/www/capsule/"
+           :recursive t
+           :publishing-function org-gemini-publish-to-gemini
+           :exclude "index"
+           :with-date t
+           :with-toc nil
+           :section-numbers nil
+           ;:html-postable nil
+           :headline-levels 4             ; Just the default for this project.
+           ;:auto-preamble t
+           )))
 
 ; (add-to-list 'load-path "~/.repos/org-caldav")
 ; (setq org-icalendar-include-todo 'all
@@ -1159,3 +1223,22 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(doom-dracula))
+ '(custom-safe-themes
+   '("234dbb732ef054b109a9e5ee5b499632c63cc24f7c2383a849815dacc1727cb6" default))
+ '(package-selected-packages
+   '(elpher yasnippet writeroom-mode which-key use-package undo-tree switch-window selectrum rg rainbow-mode rainbow-delimiters projectile ox-reveal ox-pandoc ox-gemini org-tree-slide org-superstar org-plus-contrib org-appear orderless nix-sandbox mu4e-alert modus-vivendi-theme modus-operandi-theme markdown-mode marginalia magit luarocks lua-mode kdeconnect hide-mode-line helpful heaven-and-hell general gemini-mode fish-completion evil-org evil-ledger evil-collection eshell-toggle eshell-syntax-highlighting esh-autosuggest emojify easy-hugo doom-themes doom-modeline dired-subtree dired-single dired-open dired-hide-dotfiles consult calfw-org calfw all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-calendar-event ((t (:inherit (default)))))
+ '(org-agenda-calendar-sexp ((t (:inherit (default)))))
+ '(org-agenda-date-today ((t (:weight bold :height 130))))
+ '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))

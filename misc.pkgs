@@ -7,6 +7,9 @@ ffmpeg
 playerctl
 youtube-dl
 
+firefox
+emacs
+
 libreoffice-still
 libreoffice-still-es
 zathura
@@ -44,3 +47,4 @@ ttf-fira-code
 ttf-fira-sans
 ttf-fira-mono
 ttf-font-awesome
+

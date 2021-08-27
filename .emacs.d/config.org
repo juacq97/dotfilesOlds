@@ -24,29 +24,30 @@ Set the garbage collection to a better number for the load. Also, a message with
 ** Use-package
 ~use-package~ is a macro set to install and configure packages.
 #+begin_src emacs-lisp
-    (require 'package)
-    ;; Allows to install packages from melpa
-   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (require 'package)
+  ;; Allows to install packages from melpa
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 			
   
-;;(setq package-archives
-;;      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
-;;        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
-;;        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
+    ;;(setq package-archives
+    ;;      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
+    ;;        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
+    ;;        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
 
 
-    (package-initialize)
+        (package-initialize)
 
-    (add-to-list 'load-path "~/.emacs.d/modes/")
-    (add-to-list 'load-path "~/.repos/nano-emacs")
-    ;; If not here, install use-package
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package))
+        (add-to-list 'load-path "~/.emacs.d/modes/")
+        (add-to-list 'load-path "~/.repos/nano-emacs")
+        ;; If not here, install use-package
+        (unless (package-installed-p 'use-package)
+          (package-refresh-contents)
+          (package-install 'use-package))
 
-    ;; Automatically download all packages. To prevent this, add ~:ensure nil~
-    (setq use-package-always-ensure t)
-  ;;  (setq use-package-verbose t)
+        ;; Automatically download all packages. To prevent this, add ~:ensure nil~
+        (setq use-package-always-ensure t)
+      ;;  (setq use-package-verbose t)
 #+end_src
 * Basic configurations
 ** UI and QOL configurations
@@ -880,21 +881,42 @@ Here's some configuration I made to org-mode, the actual package.
    LaTeX uses some templates to define classes. You can write your own classes. I have this, one used on my thesis, the other copied from the org-wiki because it looks nice.
 
 #+begin_src emacs-lisp
+    (require 'ox-extra)
+    (ox-extras-activate '(ignore-headlines))
 
-;; https://github.com/philipphoman
-  (add-to-list 'org-latex-classes
-          '("mybeamerposter"
-            "\\documentclass[final]{beamer}
-             \\usepackage[orientation=portrait,size=letter]
-             \\usepackage[absolute,overlay]{textpos}
-                   \\usepackage[authoryear]{natbib}
-                   [NO-DEFAULT-PACKAGES]"))
+  (use-package ox-latex
+    :ensure nil
+    :config
+    (setq org-latex-pdf-process
+          '("pdflatex -interaction nonstopmode -output-directory %o %f"
+            "bibtex %b"
+            "pdflatex -interaction nonstopmode -output-directory %o %f"
+            "pdflatex -interaction nonstopmode -output-directory %o %f"))
+    (setq org-latex-with-hyperref nil) ;; stop org adding hypersetup{author..} to latex export
+    ;; (setq org-latex-prefer-user-labels t)
+  
+    ;; deleted unwanted file extensions after latexMK
+    (setq org-latex-logfiles-extensions
+          (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "xmpi" "run.xml" "bcf" "acn" "acr" "alg" "glg" "gls" "ist")))
+  
+    (unless (boundp 'org-latex-classes)
+      (setq org-latex-classes nil)))
+
+    ;; https://github.com/philipphoman
+      (add-to-list 'org-latex-classes
+              '("mybeamerposter"
+                "\\documentclass[final]{beamer}
+                 \\usepackage[orientation=portrait,size=letter]
+                 \\usepackage[absolute,overlay]{textpos}
+                       \\usepackage[authoryear]{natbib}
+                       [NO-DEFAULT-PACKAGES]"))
 #+end_src
    
 #+begin_src emacs-lisp
   (add-to-list 'org-latex-classes
         '("koma-article"
           "\\documentclass{scrartcl}"
+          "\\usepackage[left=3cm,right=4.5cm,bottom=3cm,top=10cm]{geometry}"
           ("\\section{%s}" . "\\section*{%s}")
           ("\\subsection{%s}" . "\\subsection*{%s}")
           ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
@@ -1223,41 +1245,82 @@ First I want the exporter for gemini
 
 Now, lets put the configuration of org publish.
 #+begin_src emacs-lisp
-  (require 'ox-publish)
-  (setq org-publish-project-alist
-        '(
-          ("http_website"
-           :base-directory "/mnt/data/www/source/"
-           :base-extension "org"
-           :publishing-directory "/mnt/data/www/site/"
-           :recursive t
-           :publishing-function org-html-publish-to-html
-           :exclude "GEM_.*"
-           :with-date t
-           :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css />"
-           :html-head-include-default-style nil
-           :with-toc nil
-           :html-postamble t
-           :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Made with Emacs 27 (Org-mode 9.4.4) <a rel=homepage href=https://juancastro.xyz>Home page </a></p> </footer>"))
-          :section-numbers nil
-           ;:html-postable nil
-           :headline-levels 4             ; Just the default for this project.
-           :auto-preamble t
-           )
-          ("gemini_capsule"
-           :base-directory "/mnt/data/www/source/"
-           :base-extension "org"
-           :publishing-directory "/mnt/data/www/capsule/"
-           :recursive t
-           :publishing-function org-gemini-publish-to-gemini
-           :exclude "index"
-           :with-date t
-           :with-toc nil
-           :section-numbers nil
-           ;:html-postable nil
-           :headline-levels 4             ; Just the default for this project.
-           ;:auto-preamble t
-           )))
+    (require 'ox-publish)
+    (setq org-publish-project-alist
+          '(("http_website"
+             :base-directory "/mnt/data/www/source/en/"
+             :base-extension "org"
+             :publishing-directory "/mnt/data/www/site/en/"
+             :recursive t
+             :publishing-function org-html-publish-to-html
+             :exclude "GEM_.*"
+             :with-date t
+             :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css>"
+             :html-head-include-default-style nil
+             :with-toc nil
+             :html-postamble t
+             :html-preamble t
+             :html-preamble-format (("en" "<header>
+  <div class=main>
+    <a href=https://juancastro.xyz><h1 class=site-title>Juan Castro</h1></a>
+  </div>
+  <nav>
+    <a href=https://juancastro.xyz>Home</a> 
+    <a href=https://juancastro.xyz/en/sitemap.html>All posts</a>
+    <a href=https://juancastro.xyz/en/about.html>About</a>
+  </nav>
+  </header>"))
+             :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Made with Emacs 27 (Org-mode 9.4.4) <a href=https://juancastro.xyz/es/index.html>Página en español</a></footer>"))
+            :section-numbers nil
+             :headline-levels 4             ; Just the default for this project.
+             :auto-sitemap t
+             :sitemap-title "All posts"
+             )
+  
+          ("http_website_español"
+             :base-directory "/mnt/data/www/source/es/"
+             :base-extension "org"
+             :publishing-directory "/mnt/data/www/site/es/"
+             :recursive t
+             :publishing-function org-html-publish-to-html
+             :exclude "GEM_.*"
+             :with-date t
+             :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css>"
+             :html-head-include-default-style nil
+             :with-toc nil
+             :html-postamble t
+             :html-preamble t
+             :html-preamble-format (("en" "<header>
+  <div class=main>
+    <a href=https://juancastro.xyz/es/index.html><h1 class=site-title>Juan Castro</h1></a>
+  </div>
+  <nav>
+    <a href=https://juancastro.xyz/es/index.html>Inicio</a> 
+    <a href=https://juancastro.xyz/es/sitemap.html>Publicaciones</a>
+    <a href=https://juancastro.xyz/es/acerca.html>Acerca</a>
+  </nav>
+  </header>"))
+             :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Hecho con Emacs 27 (Org-mode 9.4.4)<a href=https://juancastro.xyz>English site</a></footer>"))
+            :section-numbers nil
+             :headline-levels 4             ; Just the default for this project.
+             :auto-sitemap t
+             :sitemap-title "Todas las publicaciones"
+             )
+  
+            ("gemini_capsule"
+             :base-directory "/mnt/data/www/source/"
+             :base-extension "org"
+             :publishing-directory "/mnt/data/www/capsule/"
+             :recursive t
+             :publishing-function org-gemini-publish-to-gemini
+             :exclude "index"
+             :with-date t
+             :with-toc nil
+             :section-numbers nil
+             ;:html-postable nil
+             :headline-levels 4             ; Just the default for this project.
+             ;:auto-preamble t
+             )))
 #+end_src
 
 ** Org caldav

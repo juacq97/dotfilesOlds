@@ -1,0 +1,26 @@
+# -*- mode: snippet -*-
+# name: Aspectos curriculares de la materia de matemáticas 
+# key: curri
+# --
+
+** Aspectos curriculares                                            :ignore:
+#+ATTR_LATEX: :options [colback=gray!75!white,colframe=gray!75!white,coltitle=black!100!black,fonttitle=\bfseries \Large,halign title=center,title=${1:El contenido}]
+#+BEGIN_tcolorbox
++ *Bloque:* ${2:bloque}
++ *Campo formativo:* Pensamiento Matemático
++ *Eje temático:* ${3:El eje temático del contenido}
++ *Tema:* ${4:El tema}
++ *Aprendizaje esperado:* ${5:El aprendizaje esperado}
++ *Intención didáctica:* ${6:La intención didáctica}
++ *Estándares curriculares:*
+  - ${7:Estándar curricular}
++ *Competencias genéricas:*
+  - Resolver problemas de manera autónoma
+  - Comunicar información matemática
+  - Valida procedimientos y resultados
+  - Manejar técnicas eficientemente
++ *Competencias específicas:* ${8:Básicamente, lo que esperas del tema}
++ *Consideraciones previas:* ${9:Consideraciones previas}
+#+END_tcolorbox
+
+$0

@@ -1,4 +1,4 @@
-plasma-meta
+plasma
 dolphin
 konsole
 ark
@@ -7,9 +7,6 @@ kcalc
 kcolorchooser
 kio-extras
 sddm-kcm
-plasma-pass
 flameshot
 
-plasma5-applets-window-buttons
-krunner-pass-git
-lightly-qt
+

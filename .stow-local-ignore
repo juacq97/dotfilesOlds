@@ -22,5 +22,10 @@ hardware-configuration.nix
 conky
 nixos
 plasma.pkgs
+plasmaAur.pkgs
 misc.pkgs
 wm.pkgs
+plasmaCustomShortcuts
+plasmaKeyboardShortcuts.kksrc
+
+
