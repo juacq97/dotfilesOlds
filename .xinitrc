@@ -14,4 +14,4 @@ source ~/.xprofile
 #i3
 #exec stumpwm
 #exec emacs -mm --debug-init -l ~/.emacs.d/desktop.el
-exec awesome
+exec dwm

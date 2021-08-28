@@ -4,7 +4,6 @@ source $HOME/.zvars.zsh
 
 # Since I switch from DE to WM very often, I have a few functions to make the change easier
 
-window-manager () {
     # Here's the programs I need with every window manager
     export QT_QPA_PLATFORMTHEME="qt5ct"
     autorandr clone-largest &
@@ -17,15 +16,11 @@ window-manager () {
     redshift -l 24.14:-110.27 -m randr &
     sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
     dunst &
-}
 
-dwm-specific () {
     # If I want to use dwm, this is loaded with dwm only
     ~/.local/dwmblocks & 
     dwm-msg run_command xrdb &
-}
 
-# This is loaded always, either I use a DE or any WM.
 emacs --daemon &
 xsetroot -cursor_name left_ptr &
 xset r rate 250 50 &
@@ -34,4 +29,3 @@ flameshot &
 #fcitx5 -d &
 ###nextcloud &
 
-#window-manager # load the programs for window managers

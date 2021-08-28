@@ -9,6 +9,8 @@ launch() {
 }
 
 case "$1" in
-    1) alacritty;;
+    1) pavucontrol;;
     3) launch ;;
+    4) alacritty;;
+    5) alacritty;;
 esac

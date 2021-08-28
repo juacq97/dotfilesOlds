@@ -1,0 +1,5 @@
+#! /bin/sh
+
+fortune-es > /tmp/FORTUNE-TEXT
+
+cat /tmp/FORTUNE-TEXT
