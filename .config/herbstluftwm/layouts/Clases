@@ -1,0 +1,13 @@
+herbstclient load '(split horizontal:0.26:1 (clients vertical:0 0x240007f) (split horizontal:0.68:0 (clients horizontal:0 0x16031b9) (split vertical:0.5:0 (clients vertical:0 0x160342d) (clients vertical:0 0x2400034))))'
+herbstclient rule once class=Emacs instance=emacs tag=󰲢 index=10 # 0x16031b9
+herbstclient apply_tmp_rule --all class=Emacs instance=emacs tag=󰲢 index=10 # 0x16031b9
+herbstclient rule once class=Emacs instance=emacs tag=󰲢 title=horario index=110 # 0x160342d
+herbstclient apply_tmp_rule --all class=Emacs instance=emacs tag=󰲢 title=horario index=110 # 0x160342d
+herbstclient rule once class=zoom instance=zoom tag=󰲪 title=Zoom - Licensed Account floating=on # 0x240001e
+herbstclient apply_tmp_rule --all class=zoom instance=zoom tag=󰲪 title=Zoom - Licensed Account floating=on # 0x240001e
+herbstclient rule once class=zoom instance=zoom tag=󰲠 title=Zoom Meeting index= # 0x2400031
+herbstclient apply_tmp_rule --all class=zoom instance=zoom tag=󰲠 title=Zoom Meeting index= # 0x2400031
+herbstclient rule once class=zoom instance=zoom tag=󰲢 title=Zoom index=111 # 0x2400034
+herbstclient apply_tmp_rule --all class=zoom instance=zoom tag=󰲢 title=Zoom index=111 # 0x2400034
+herbstclient rule once class=zoom instance=zoom tag=󰲢 title=Participants (1) index=0 # 0x240007f
+herbstclient apply_tmp_rule --all class=zoom instance=zoom tag=󰲢 title=Participants (1) index=0 # 0x240007f

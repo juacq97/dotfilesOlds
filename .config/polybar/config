@@ -17,10 +17,10 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:background}
-background = #00000000
-;foreground = ${xrdb:foreground}
-foreground = #ffffff
+background = ${xrdb:background}
+;background = #00000000
+foreground = ${xrdb:foreground}
+;foreground = #ffffff
 color0 = ${xrdb:color0} 
 color1 = ${xrdb:color1} 
 color2 = ${xrdb:color2} 
@@ -33,10 +33,10 @@ color7 = ${xrdb:color7}
 [bar/panel]
 monitor	=
 width = 100%
-height = 25
+height = 24
 offset-x = 0%
 offset-y = 0%
-radius = 0.0
+radius = 3
 fixed-center = true
 locale = es_MX.UTF-8
 enable-ipc = true
@@ -44,10 +44,10 @@ enable-ipc = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 0
+line-size = 2
 line-color = #f00
 
-border-size = 0
+border-size = 2
 border-color = #00000000
 
 padding-left = 0
@@ -239,7 +239,7 @@ thermal-zone = 0
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp2_input
 
 ; Base temperature for where to start the ramp (in degrees celsius)
 ; Default: 0

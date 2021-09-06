@@ -18,8 +18,8 @@ source $HOME/.zvars.zsh
     dunst &
 
     # If I want to use dwm, this is loaded with dwm only
-    ~/.local/dwmblocks & 
-    dwm-msg run_command xrdb &
+#    ~/.local/dwmblocks & 
+#    dwm-msg run_command xrdb &
 
 emacs --daemon &
 xsetroot -cursor_name left_ptr &

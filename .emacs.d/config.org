@@ -621,6 +621,7 @@ This is needed to launch dired with a keybinding from my window manager
     (dired)
     (delete-other-windows))
 #+end_src
+
 * UI and appeareance stuff
 ** Doom-modeline
 The default modeline it's fine, but ugly and with a lot of useless information for me. I could customize it, but it's easier to just install ~doom-modeline~ the default modeline of ~doom-emacs~. Most of this is a copy-paste from the official README.
@@ -1092,7 +1093,7 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                     (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
                     ;(org-agenda-deadline-leaders '("" ""))
                     (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 1800 2000 2200) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
-
+  
             (todo "NEXT" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "⭐ Siguientes\n")
@@ -1101,7 +1102,7 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%T %?-s")
                           (org-agenda-todo-keyword-format "")))
-
+  
             (todo "ESPERANDO" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "🕘 Esperando\n")
@@ -1110,8 +1111,8 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%T %?-s")
                           (org-agenda-todo-keyword-format "")))
-
-
+  
+  
             (todo "PROJ" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "✈ Proyectos\n")
@@ -1120,14 +1121,34 @@ This is my own agenda. It has the modules I want, the way I want. To run it, pre
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%T %?-s")
                           (org-agenda-todo-keyword-format "")))
-
+  
             (todo "" (
                           (org-agenda-files '("/mnt/data/Nextcloud/ORG/sync/TODO.org"))
                           (org-agenda-overriding-header "☑ Tareas\n")
                           (org-agenda-remove-tags nil)
                           (org-agenda-todo-ignore-scheduled 'future)
                           (org-agenda-prefix-format "%?-s")
-                          (org-agenda-todo-keyword-format "%-1s")))))))
+                          (org-agenda-todo-keyword-format "%-1s")))))
+  
+          ("h" "Horario escolar"
+           ((agenda "" (
+                        (org-agenda-files '("/mnt/data/CIMB/horario.org"))
+                        (org-agenda-overriding-header "🗓 Horario\n")
+                        (org-agenda-skip-scheduled-if-done t)
+                        (org-agenda-skip-timestamp-if-done t)
+                        (org-agenda-skip-deadline-if-done t)
+                        (org-agenda-skip-deadline-prewarning-if-scheduled nil)
+                        (org-agenda-start-day "+0d")
+                        (org-agenda-span 1)
+                        (org-agenda-prefix-format "  %?-t %T %?5s")
+                        (org-agenda-repeating-timestamp-show-all t)
+                        ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
+                        (org-agenda-remove-tags t)
+                   (org-agenda-todo-keyword-format " ")
+                    (org-agenda-time)
+                    (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
+                    ;(org-agenda-deadline-leaders '("" ""))
+                    (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 ) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))))))
 #+end_src
 
 
@@ -1161,7 +1182,21 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
       (setq org-capture-templates
             '(
               ("i" "Inbox" entry
-               (file "/mnt/data/Nextcloud/Notas/inbox/Inbox.org"))))
+               (file "/mnt/data/Nextcloud/ORG/sync/Inbox.org"))
+              ("d" "Diario de clase")
+              ("d3" "Tercero")
+              ("d3a" "Bitácora de 3A" plain
+               (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
+                "**** %? :3A:\n")
+              ("d3b" "Bitácora de 3B" plain
+               (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
+                "**** %? :3B:\n")
+              ("d3c" "Bitácora de 3C" plain
+               (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
+                "**** %? :3C:\n")
+              ("d3d" "Bitácora de 3D" plain
+               (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
+                "**** %? :3D:\n")))
  #+end_src
    
  It's possible to call org-capture from anywhere using the Window Manager. To have a floating window, this snippet its needed
@@ -1345,6 +1380,21 @@ Now, lets put the configuration of org publish.
     (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
 #+end_src
 
+** Org roam
+
+#+begin_src emacs-lisp
+  (use-package org-roam
+    :ensure t
+    :init
+    (setq org-roam-v2-ack t)
+    :custom
+    (org-roam-directory "/mnt/data/Nextcloud/Notas/")
+    :bind (("C-c n l" . org-roam-buffer-toggle)
+           ("C-c n f" . org-roam-node-find)
+           ("C-c n i" . org-roam-node-insert))
+    :config
+    (org-roam-setup))
+#+end_src
 * Term
 ** Vterm
 Vterm is a real terminal emulator based on libvterm.

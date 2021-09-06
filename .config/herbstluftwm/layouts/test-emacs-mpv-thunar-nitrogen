@@ -1,0 +1,9 @@
+herbstclient load '(split horizontal:0.5:0 (clients vertical:0 0x16000aa 0x1e00002) (split vertical:0.5:1 (clients horizontal:0 0x1a00007) (clients horizontal:0 0x1c00003)))'
+herbstclient rule once class=Emacs instance=emacs tag=󰲠 title=emacs@t430-pc index=0 # 0x16000aa
+herbstclient apply_tmp_rule --all class=Emacs instance=emacs tag=󰲠 title=emacs@t430-pc index=0 # 0x16000aa
+herbstclient rule once class=Thunar tag=󰲠 index=10 # 0x1a00007
+herbstclient apply_tmp_rule --all class=Thunar tag=󰲠 index=10 # 0x1a00007
+herbstclient rule once class=Nitrogen instance=nitrogen tag=󰲠 title=Nitrogen index=11 # 0x1c00003
+herbstclient apply_tmp_rule --all class=Nitrogen instance=nitrogen tag=󰲠 title=Nitrogen index=11 # 0x1c00003
+herbstclient rule once class=mpv instance=gl tag=󰲠 title=No file - mpv index=0 # 0x1e00002
+herbstclient apply_tmp_rule --all class=mpv instance=gl tag=󰲠 title=No file - mpv index=0 # 0x1e00002

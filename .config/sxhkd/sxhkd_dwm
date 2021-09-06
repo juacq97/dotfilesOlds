@@ -122,6 +122,12 @@ super + shift + r
 # .Local/Bin
 ##########################
 
+super + Tab
+      ~/.repos/hlwm-save-tree/hlwm-save-tree load
+
+super + control + Tab
+      ~/.repos/hlwm-save-tree/hlwm-save-tree load
+
 super + b
       window-list bring
 

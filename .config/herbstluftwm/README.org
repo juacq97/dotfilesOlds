@@ -160,7 +160,6 @@ HLWM has 4 layouts, the layouts affects how the windows are arranged inside the 
   hc keybind $Mod-r rotate
 
   hc keybind $Mod-t cycle_layout +1 horizontal vertical #change direction of clients
-  hc keybind $Mod-Tab cycle_layout +1 horizontal vertical
   hc keybind $Mod-g set_layout grid #change direction of clients
 
 #+end_src
@@ -182,10 +181,6 @@ HLWM has 4 layouts, the layouts affects how the windows are arranged inside the 
   # move client to othe MONITOR
   hc keybind $Mod-Shift-comma shift_to_monitor +1
   hc keybind $Mod-Shift-period shift_to_monitor -1
-
-
-  hc keybind $Mod-Shift-Tab   cycle_all -1
-
 #+end_src
 * Tags
 Though HLWM uses the term "tags", they're just normal virtual workspaces. You can asign any number of workspaces. I use the default behaviour, so I have 6 workspaces, shared between my two monitors, if I focus the workspaces on other monitor, then the workspaces are swaped (same behaviour of Xmonad and Qtile)
@@ -193,7 +188,7 @@ Though HLWM uses the term "tags", they're just normal virtual workspaces. You ca
 #+begin_src bash
   hc set default_frame_layout horizontal
 
-  tag_names=( 󰲠 󰲢 󰲤 󰲦 󰲨 󰲪 )
+  tag_names=( 󰣇 󰈚 󰈹 󰅬 󰸳 󰎄 )
   tag_keys=( {1..6} 0 )
 
   hc rename default "${tag_names[0]}" || true
@@ -244,7 +239,7 @@ hc set frame_normal_opacity 100 # Unfocused frame opacity
 
 hc set frame_border_inner_width 0
 hc set always_show_frame on
-hc set frame_gap 8
+hc set frame_gap 6
 
 # Clients
 hc attr theme.padding_top 0 #Padding at the top of the windows
@@ -286,7 +281,7 @@ hc attr theme.floating.active.inner_color "#$color1"
 hc attr theme.floating.normal.inner_color "#$color5"
 
 hc set window_gap 2 #Gap between windows
-hc set frame_padding -2 # Gapp between windows and frames
+hc set frame_padding 0 # Gapp between windows and frames
 hc set smart_window_surroundings off
 hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0

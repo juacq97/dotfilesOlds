@@ -2,11 +2,21 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-capture-last-stored"
- (filename . "/mnt/data/Nextcloud/Notas/inbox/inbox.org")
- (front-context-string . "* Comida para pe")
- (rear-context-string . "\n* \n* \n* \n* \n* \n")
- (position . 27))
+(("planeaciones"
+ (filename . "/mnt/data/CIMB/planeaciones/")
+ (front-context-string . "30agos-10sep.pdf")
+ (rear-context-string . "9K ago 24 11:47 ")
+ (position . 113))
+("CIMB"
+ (filename . "/mnt/data/CIMB/")
+ (front-context-string . "cte/\n  drwxr-xr-")
+ (rear-context-string . "0K ago 17 23:21 ")
+ (position . 141))
+("org-capture-last-stored"
+ (filename . "/mnt/data/Nextcloud/ORG/sync/Inbox.org")
+ (front-context-string . "* buy toner for ")
+ (rear-context-string . "@colegioimb.com\n")
+ (position . 66))
 (".repos"
  (filename . "~/.repos/")
  (front-context-string . "dotfiles/\n  drwx")
@@ -27,16 +37,6 @@
  (front-context-string . "Descargas/\n  drw")
  (rear-context-string . "0K jun 17 11:17 ")
  (position . 98))
-("PLANEACIONES"
- (filename . "/mnt/data/Drive/CIMB/PLANEACIONES/")
- (front-context-string . "2021/\n  drwxr-xr")
- (rear-context-string . "0K jun 12 23:31 ")
- (position . 162))
-("CIMB"
- (filename . "/mnt/data/Drive/CIMB/")
- (front-context-string . "ABRIL/\n  drwxr-x")
- (rear-context-string . "0K may 14 00:26 ")
- (position . 108))
 ("data"
  (filename . "/mnt/data/")
  (front-context-string . "CUADERNILLOS REG")

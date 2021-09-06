@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Set some variables
+dir=~/.config/herbstluftwm/layouts
+
 SAVE () {
     name=$(echo "" | dmenu -p "Enter layout name")
     echo "$name"
@@ -7,7 +10,7 @@ SAVE () {
 
     # Saving layout
     layout=$(herbstclient dump)
-    echo "herbstclient load '$layout'" > ~/.config/herbstluftwm/layouts/$name
+    echo "herbstclient load '$layout'" > "$dir/$name"
 
     # Saving windows configurations
     for id in $(herbstclient foreach C clients. echo C|grep -oE '0x[0-9a-fA-F]*') ; do
@@ -26,15 +29,15 @@ SAVE () {
 		"index=$(herbstclient get_attr ${client}.parent_frame.index)"
             )
 	fi
-	echo herbstclient rule once "${rule[@]}" "# $id" >> ~/.config/herbstluftwm/layouts/$name
-	echo herbstclient apply_tmp_rule -all "${rule[@]}" "# $id" >> ~/.config/herbstluftwm/layouts/$name
+	echo herbstclient rule once "${rule[@]}" "# $id" >> "$dir/$name"
+	echo herbstclient apply_tmp_rule --all "${rule[@]}" "# $id" >> "$dir/$name"
     done
 }
 
 LOAD () {
-    sel=$(ls ~/.config/herbstluftwm/layouts | dmenu -p "Chose a layout" -i -l 10)
+    sel=$(ls "$dir" | dmenu -p "Chose a layout" -i -l 10)
     if [[ $sel == "" ]]; then exit 0; fi
-    cat ~/.config/herbstluftwm/layouts/$sel | sh
+    cat "$dir/$sel" | sh
 }
 
 case $1 in

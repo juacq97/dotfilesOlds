@@ -6,7 +6,7 @@
 
 # user is already defined
 
-os='Artix Linux'
+os='arch btw'
 kernel="$(uname -r)"
 uptime="$(uptime -p | sed -e 's/up //;s/ hours,/h/;s/ minutes/m/')"
 packages="$(pacman -Q | wc -l)"

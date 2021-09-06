@@ -871,7 +871,27 @@
                         (org-agenda-remove-tags nil)
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-prefix-format "%?-s")
-                        (org-agenda-todo-keyword-format "%-1s")))))))
+                        (org-agenda-todo-keyword-format "%-1s")))))
+
+        ("h" "Horario escolar"
+         ((agenda "" (
+                      (org-agenda-files '("/mnt/data/CIMB/horario.org"))
+                      (org-agenda-overriding-header "🗓 Horario\n")
+                      (org-agenda-skip-scheduled-if-done t)
+                      (org-agenda-skip-timestamp-if-done t)
+                      (org-agenda-skip-deadline-if-done t)
+                      (org-agenda-skip-deadline-prewarning-if-scheduled nil)
+                      (org-agenda-start-day "+0d")
+                      (org-agenda-span 1)
+                      (org-agenda-prefix-format "  %?-t %T %?5s")
+                      (org-agenda-repeating-timestamp-show-all t)
+                      ;;(concat "  %-3i  %-15b %t%s" org-agenda-hidden-separator)
+                      (org-agenda-remove-tags t)
+                 (org-agenda-todo-keyword-format " ")
+                  (org-agenda-time)
+                  (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ahora")
+                  ;(org-agenda-deadline-leaders '("" ""))
+                  (org-agenda-time-grid (quote ((today require-timed) (800 1000 1200 1400 1600 ) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))))))
 
 (defun agenda-frame ()
   (interactive)
@@ -892,7 +912,21 @@
    (setq org-capture-templates
          '(
            ("i" "Inbox" entry
-            (file "/mnt/data/Nextcloud/Notas/inbox/Inbox.org"))))
+            (file "/mnt/data/Nextcloud/ORG/sync/Inbox.org"))
+           ("d" "Diario de clase")
+           ("d3" "Tercero")
+           ("d3a" "Bitácora de 3A" plain
+            (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
+             "**** %? :3A:\n")
+           ("d3b" "Bitácora de 3B" plain
+            (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
+             "**** %? :3B:\n")
+           ("d3c" "Bitácora de 3C" plain
+            (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
+             "**** %? :3C:\n")
+           ("d3d" "Bitácora de 3D" plain
+            (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
+             "**** %? :3D:\n")))
 
 ;; Org capture flotante
 (defadvice org-capture-finalize
@@ -1047,6 +1081,18 @@
   :config
   ;(setq org-re-reveal-center t)
   (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
+
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "/mnt/data/Nextcloud/Notas/")
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert))
+  :config
+  (org-roam-setup))
 
 ;; (use-package vterm)
 
@@ -1223,22 +1269,3 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-dracula))
- '(custom-safe-themes
-   '("234dbb732ef054b109a9e5ee5b499632c63cc24f7c2383a849815dacc1727cb6" default))
- '(package-selected-packages
-   '(elpher yasnippet writeroom-mode which-key use-package undo-tree switch-window selectrum rg rainbow-mode rainbow-delimiters projectile ox-reveal ox-pandoc ox-gemini org-tree-slide org-superstar org-plus-contrib org-appear orderless nix-sandbox mu4e-alert modus-vivendi-theme modus-operandi-theme markdown-mode marginalia magit luarocks lua-mode kdeconnect hide-mode-line helpful heaven-and-hell general gemini-mode fish-completion evil-org evil-ledger evil-collection eshell-toggle eshell-syntax-highlighting esh-autosuggest emojify easy-hugo doom-themes doom-modeline dired-subtree dired-single dired-open dired-hide-dotfiles consult calfw-org calfw all-the-icons-dired)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-calendar-event ((t (:inherit (default)))))
- '(org-agenda-calendar-sexp ((t (:inherit (default)))))
- '(org-agenda-date-today ((t (:weight bold :height 130))))
- '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))
