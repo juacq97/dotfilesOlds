@@ -122,6 +122,9 @@ super + shift + r
 # .Local/Bin
 ##########################
 
+super + c
+      emacsclient -c -F '(quote (name . "capture") (width  . 80) (height . 30) (left . 250) (top . 20))' -n -e "(capture-frame)"
+
 super + Tab
       ~/.repos/hlwm-save-tree/hlwm-save-tree load
 

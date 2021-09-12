@@ -13,10 +13,10 @@
  (rear-context-string . "0K ago 17 23:21 ")
  (position . 141))
 ("org-capture-last-stored"
- (filename . "/mnt/data/Nextcloud/ORG/sync/Inbox.org")
- (front-context-string . "* buy toner for ")
- (rear-context-string . "@colegioimb.com\n")
- (position . 66))
+ (filename . "/mnt/data/Nextcloud/ORG/journal.org")
+ (front-context-string . "**** dfkasdjflka")
+ (rear-context-string . "021-09-06 lunes\n")
+ (position . 395))
 (".repos"
  (filename . "~/.repos/")
  (front-context-string . "dotfiles/\n  drwx")

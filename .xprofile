@@ -6,13 +6,13 @@ source $HOME/.zvars.zsh
 
     # Here's the programs I need with every window manager
     export QT_QPA_PLATFORMTHEME="qt5ct"
-    autorandr clone-largest &
+#    autorandr clone-largest &
     nitrogen --restore &
     xrdb  ~/.Xresources &
     picom --experimental-backends &
     xfce4-power-manager &
     clipmenud &
-    #kdeconnectd &
+    kdeconnectd &
     redshift -l 24.14:-110.27 -m randr &
     sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
     dunst &

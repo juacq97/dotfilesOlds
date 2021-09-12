@@ -914,17 +914,17 @@
            ("i" "Inbox" entry
             (file "/mnt/data/Nextcloud/ORG/sync/Inbox.org"))
            ("d" "Diario de clase")
-           ("d3" "Tercero")
-           ("d3a" "Bitácora de 3A" plain
+           ("de" "Tercero")
+           ("dea" "Bitácora de 3A" plain
             (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
              "**** %? :3A:\n")
-           ("d3b" "Bitácora de 3B" plain
+           ("deb" "Bitácora de 3B" plain
             (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
              "**** %? :3B:\n")
-           ("d3c" "Bitácora de 3C" plain
+           ("dec" "Bitácora de 3C" plain
             (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
              "**** %? :3C:\n")
-           ("d3d" "Bitácora de 3D" plain
+           ("ded" "Bitácora de 3D" plain
             (file+olp+datetree "/mnt/data/Nextcloud/ORG/journal.org")
              "**** %? :3D:\n")))
 

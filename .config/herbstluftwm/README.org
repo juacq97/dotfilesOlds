@@ -308,6 +308,7 @@ Rules for certain windows.
   hc rule class=zoom floating=on
   hc rule class=Connman-gtk floating=on
   hc rule instance=calendar.txt floating=on
+  hc rule class=Emacs title=capture floating=on 
   hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
   hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
   hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
