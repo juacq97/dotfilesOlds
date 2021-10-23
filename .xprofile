@@ -5,17 +5,20 @@ source $HOME/.zvars.zsh
 # Since I switch from DE to WM very often, I have a few functions to make the change easier
 
     # Here's the programs I need with every window manager
-    export QT_QPA_PLATFORMTHEME="qt5ct"
+#    export QT_QPA_PLATFORMTHEME="qt5ct"
 #    autorandr clone-largest &
-    nitrogen --restore &
-    xrdb  ~/.Xresources &
-    picom --experimental-backends &
-    xfce4-power-manager &
-    clipmenud &
-    kdeconnectd &
-    redshift -l 24.14:-110.27 -m randr &
-    sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
-    dunst &
+#    nitrogen --restore &
+#    xrdb  ~/.Xresources &
+#    picom --experimental-backends &
+#    xfce4-power-manager &
+#    clipmenud &
+#    /usr/lib/kdeconnectd &
+#    redshift -l 24.14:-110.27 -m randr &
+#    sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
+#    dunst &
+#    /usr/lib/xfce4/notifyd/xfce4-notifyd &
+#    xfce4-panel -d &
+    nm-applet &
 
     # If I want to use dwm, this is loaded with dwm only
 #    ~/.local/dwmblocks & 
@@ -24,8 +27,8 @@ source $HOME/.zvars.zsh
 emacs --daemon &
 xsetroot -cursor_name left_ptr &
 xset r rate 250 50 &
-~/.nix-profile/libexec/kdeconnectd &
+touchpad disable &
+#~/.nix-profile/libexec/kdeconnectd &
 flameshot &
 #fcitx5 -d &
 ###nextcloud &
-

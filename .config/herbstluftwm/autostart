@@ -100,6 +100,7 @@ hc keybind $Mod-Shift-period shift_to_monitor -1
 hc set default_frame_layout horizontal
 
 tag_names=( 󰣇 󰈚 󰈹 󰅬 󰸳 󰎄 )
+#tag_names=( 1 2 3 4 5 6 )
 tag_keys=( {1..6} 0 )
 
 hc rename default "${tag_names[0]}" || true
@@ -162,7 +163,7 @@ hc attr theme.active.inner_color "#$color1"
 hc attr theme.normal.inner_color "#4b5263"
 
 # Color for the outer frame (3 color4s,too much)
-hc attr theme.outer_width 3
+hc attr theme.outer_width 0
 hc attr theme.active.outer_color "#$color1"
 hc attr theme.normal.outer_color "#$back"
 
@@ -172,14 +173,14 @@ hc attr theme.floating.normal.color "#$color5"
 hc attr theme.floating.normal.title_color "#$color5"
 hc attr theme.floating.active.title_color "#$color1"
 
-hc attr theme.floating.outer_width 3
+hc attr theme.floating.outer_width 1
 hc attr theme.floating.normal.outer_color "#$color5"
-hc attr theme.floating.title_height 15
-hc attr theme.floating.border.width 3
+hc attr theme.floating.title_height 0
+hc attr theme.floating.border.width 1
 hc attr theme.background_color "#$back"
 
 # Color for the inner frame
-hc attr theme.floating.inner_width 15
+hc attr theme.floating.inner_width 0
 hc attr theme.floating.active.inner_color "#$color1"
 hc attr theme.floating.normal.inner_color "#$color5"
 
@@ -211,8 +212,7 @@ hc rule class=Emacs title=capture floating=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
+
 
 hc set tree_style '╾│ ├└╼─┐'
 # unlock, just to be sure
@@ -224,4 +224,4 @@ hc unlock
 hc detect_monitors
 
 # find the panel
-polybar -r panel
+#polybar -r panel

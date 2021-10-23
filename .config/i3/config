@@ -28,6 +28,11 @@ gaps outer 5
 
 # Colors definitions. 
 # Class		          t_b       bg        fg     split    border
+#client.focused		 #454C5A  #454C5A  #fafafa  #e4436f  #282C34
+#client.focused_inactive	 #6C6F93  #6C6F93  #888888  #E0BEAE  #6C6F93
+#client.unfocused	 #32353F  #32353F  #6C6F93  #2E303E  #282C34
+#client.urgent		 #E5C07B  #E5C07B  #ffffff  #E5C07B  #E5C07B
+
 client.focused		 #E4436F  #E4436F  #282C34  #E5C07B  #E4436F
 client.focused_inactive	 #61AFEF  #61AFEF  #282C34  #E0BEAE  #61AFEF
 client.unfocused	 #6C6F93  #6C6F93  #282C34  #2E303E  #6C6F93
@@ -38,7 +43,8 @@ client.urgent		 #E5C07B  #E5C07B  #282C34  #E5C07B  #E5C07B
 ###############
 #No more xinitrc 
 
-exec polybar panel -r &
+#exec polybar panel -r &
+#exec sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 #exec_always xrdb  ~/.Xresources &
 #exec /usr/lib/kdeconnectd
 #exec_always mako 
@@ -68,12 +74,12 @@ set $m2 LVDS-1
 
 # Set ws 1 to 6 to monitor 1, and ws 7-9 to ws 2. 
 # This behaviour is similar to the one I used to use with bspwm. 
-workspace 1 output $m1
-workspace 2 output $m1
-workspace 3 output $m1
-workspace 4 output $m1
-workspace 5 output $m2
-workspace 6 output $m2
+#workspace 1 output $m1
+#workspace 2 output $m1
+#workspace 3 output $m1
+#workspace 4 output $m1
+#workspace 5 output $m2
+#workspace 6 output $m2
 
 #########
 # Basics
@@ -95,19 +101,21 @@ bindsym $mod+Control+r reload
 # i3 keybindings
 ###################
 
+# This has been assified
+
 # Move your focus around
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
 
-bindsym $mod+p focus prev
-
 # Move the focused window with the same, but add Shift
+
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
+
 
 # Switch to workspace
 bindsym $mod+1 workspace number 1
@@ -157,11 +165,13 @@ bindsym $mod+F11 fullscreen
 bindsym $mod+s floating toggle
 
 # Swap focus between the tiling area and the floating area
-bindsym $mod+Control+j focus mode_toggle
-bindsym $mod+Control+k focus mode_toggle
+#bindsym $mod+Control+j focus mode_toggle
+#bindsym $mod+Control+k focus mode_toggle
 
 # Move focus to the parent container
 bindsym $mod+Tab focus parent
+bindsym $mod+Shift+Tab focus child
+
 
 # Scratchpad
 # Move the currently focused window to the scratchpad
@@ -179,7 +189,6 @@ bindsym $mod+Mod1+$left resize shrink width 20px
 bindsym $mod+Mod1+$down resize grow height 20px
 bindsym $mod+Mod1+$up resize shrink height 20px
 bindsym $mod+Mod1+$right resize grow width 20px
-# Include keybindings. This is a separated file
 
 #########
 # Rules

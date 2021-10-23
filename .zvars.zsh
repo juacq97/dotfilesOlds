@@ -38,3 +38,9 @@ IMSETTINGS_MODULE=ibus
 export NIXOS_CONFIG="$HOME/.repos/dotfiles/nixos/configuration.nix"
 # This is for zoom on wayland
 #XDG_CURRENT_DESKTOP=gnome
+#export XDG_CURRENT_DESKTOP=sway
+#export XDG_SESSION_TYPE=wayland
+#export MOZ_ENABLE_WAYLAND=1
+#
+#export XKB_DEFAULT_LAYOUT=latam
+#export GTK_USE_PORTAL=1

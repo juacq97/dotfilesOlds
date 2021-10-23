@@ -43,7 +43,8 @@ super + shift + Return
 # App menu
 super + space
 #     ~/.local/bin/dmenu_run_history -h 24 -i
-      rofi -show drun -theme style7
+#      rofi -show drun -theme style7
+	xfce4-popup-whiskermenu
 
 #super + r
 ##    ~/.local/bin/dmenu_run_history -h 24 -i -l 15
@@ -125,11 +126,11 @@ super + shift + r
 super + c
       emacsclient -c -F '(quote (name . "capture") (width  . 80) (height . 30) (left . 250) (top . 20))' -n -e "(capture-frame)"
 
-super + Tab
-      ~/.repos/hlwm-save-tree/hlwm-save-tree load
-
-super + control + Tab
-      ~/.repos/hlwm-save-tree/hlwm-save-tree load
+# super + Tab
+#       ~/.repos/hlwm-save-tree/hlwm-save-tree load
+# 
+# super + control + Tab
+#       ~/.repos/hlwm-save-tree/hlwm-save-tree load
 
 super + b
       window-list bring
@@ -164,9 +165,11 @@ super + ctrl + alt + p
 
 # Monitores
 XF86Display
-      ~/.local/bin/monitors-dmenu
+  #    ~/.local/bin/monitors-dmenu
+  xfce4-display-settings --minimal
 XF86Explorer		   
-      ~/.local/bin/monitors-dmenu
+#      ~/.local/bin/monitors-dmenu
+  xfce4-display-settings --minimal
 
 # Pacman-dmenu
 super + alt + p

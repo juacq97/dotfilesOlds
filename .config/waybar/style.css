@@ -1,4 +1,4 @@
-@define-color background #282a36;
+@define-color background #21222c;
 @define-color foreground #f8f8f2;
 @define-color cursorColor #f8f8f2;
 @define-color color0 #000000;
@@ -36,6 +36,11 @@
 @define-color color13 #C678DD;
 @define-color color14 #56B6C2;
 @define-color color15 #ABB2BF;
+
+* {
+    font-size:12px;
+    min-height: 0;
+}
 
 #workspaces {
     margin: 3px;

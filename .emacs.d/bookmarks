@@ -1,12 +1,12 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("planeaciones"
- (filename . "/mnt/data/CIMB/planeaciones/")
- (front-context-string . "30agos-10sep.pdf")
- (rear-context-string . "9K ago 24 11:47 ")
- (position . 113))
+(("planeacion.org"
+ (filename . "/mnt/data/CIMB/planeaciones/planeacion.org")
+ (front-context-string . "* 9.1.5         ")
+ (rear-context-string . "}\n#+END_EXPORT\n\n")
+ (position . 54371))
 ("CIMB"
  (filename . "/mnt/data/CIMB/")
  (front-context-string . "cte/\n  drwxr-xr-")
@@ -14,9 +14,9 @@
  (position . 141))
 ("org-capture-last-stored"
  (filename . "/mnt/data/Nextcloud/ORG/journal.org")
- (front-context-string . "**** dfkasdjflka")
- (rear-context-string . "021-09-06 lunes\n")
- (position . 395))
+ (front-context-string . "**** Itzahi sale")
+ (rear-context-string . "1-09-24 viernes\n")
+ (position . 494))
 (".repos"
  (filename . "~/.repos/")
  (front-context-string . "dotfiles/\n  drwx")

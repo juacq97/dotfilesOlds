@@ -7,8 +7,8 @@
                                  (float-time
                                   (time-subtract after-init-time before-init-time)))
                          gcs-done)))
-;(setq comp-deferred-compilation t)
-;  (setq comp-async-report-warnings-errors nil)
+(setq comp-deferred-compilation t)
+  (setq comp-async-report-warnings-errors nil)
 
 (require 'package)
 ;; Allows to install packages from melpa
@@ -40,7 +40,6 @@
 (menu-bar-mode -1)
 (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
 (column-number-mode 1) ; The modeline shows the column number at the end
-(setq frame-resize-pixelwise t)
 
 (setq  cursor-in-non-selected-windows nil     ; Hide the cursor in inactive windows
        select-enable-clipboard t              ; Merge system's and Emacs' clipboard
@@ -63,65 +62,74 @@
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-(show-paren-mode t) ; Highlight the matching parenthesis
-     (blink-cursor-mode 0) ; Disable the blinking
-     ;; Press y/n instead of the whole word
-     (defalias 'yes-or-no-p 'y-or-n-p)
-     ;; Scroll line by line. Cursor doesn't stays at the center of the screen. Can be laggy
-     (setq scroll-conservatively 100)
-     ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
-     (setq make-backup-files nil) 
-     (setq backup-directory-alist
-           `((".*" . ,"~/.emacs.d/backups/")))
-     (setq auto-save-file-name-transforms
-           `((".*" ,"~/.emacs.d/backups/")))
-     (setq auto-save-list-file-prefix nil)
-     (setq auto-save-default nil)
+(use-package paren
+  :ensure nil
+  :config
+  (set-face-attribute 'show-paren-match-expression nil :inherit nil :weight 'semibold :background "#2d384a")
+  (setq show-paren-delay 0)
+  (setq show-paren-style 'expression)
+  (setq show-paren-when-point-in-periphery t)
+  (setq show-paren-when-point-inside-paren nil)
+  (show-paren-mode t)) ; Highlight the matching parenthesis
 
-     ;; This function allows to quicky open this file
-     ;; TODO: MOVE THIS TO ANOTHER PLACE
-     (defun config-visit ()
-       (interactive)
-       (find-file "~/.emacs.d/config.org"))
-     (global-set-key (kbd "C-c e") 'config-visit)
+(blink-cursor-mode 0) ; Disable the blinking
+;; Press y/n instead of the whole word
+(defalias 'yes-or-no-p 'y-or-n-p)
+;; Scroll line by line. Cursor doesn't stays at the center of the screen. Can be laggy
+(setq scroll-conservatively 100)
+;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
+(setq make-backup-files nil) 
+(setq backup-directory-alist
+      `((".*" . ,"~/.emacs.d/backups/")))
+(setq auto-save-file-name-transforms
+      `((".*" ,"~/.emacs.d/backups/")))
+(setq auto-save-list-file-prefix nil)
+(setq auto-save-default nil)
 
-    ;; Updates the config fiel with C-c r
-     (defun config-reload ()
-       (interactive)
-       (load-file user-init-file))
-     (global-set-key (kbd "C-c r") 'config-reload)
+;; This function allows to quicky open this file
+;; TODO: MOVE THIS TO ANOTHER PLACE
+(defun config-visit ()
+  (interactive)
+  (find-file "~/.emacs.d/config.org"))
+(global-set-key (kbd "C-c e") 'config-visit)
 
-     (global-visual-line-mode 1) ; wrap lines to the size of the buffer
+;; Updates the config fiel with C-c r
+(defun config-reload ()
+  (interactive)
+  (load-file user-init-file))
+(global-set-key (kbd "C-c r") 'config-reload)
 
-     ;; Disables the ugly splash screen 
-     (setq inhibit-splash-screen t)
-     (setq initial-scratch-message nil) ; Disable the scratch mesage
-     (setq initial-major-mode (quote org-mode)) ; Change the mode of the scratch buffer
+(global-visual-line-mode 1) ; wrap lines to the size of the buffer
 
-     ;; With this, emacs will not ask if I want to edit the symlink every time
-     (setq vc-follow-symlinks nil)
+;; Disables the ugly splash screen 
+(setq inhibit-splash-screen t)
+(setq initial-scratch-message nil) ; Disable the scratch mesage
+(setq initial-major-mode (quote org-mode)) ; Change the mode of the scratch buffer
 
-     ;; This is necessary on 27+ to write accents (needed to write spanish). They say it's a feature... not for me!
-     (require 'iso-transl)
+;; With this, emacs will not ask if I want to edit the symlink every time
+(setq vc-follow-symlinks nil)
+
+;; This is necessary on 27+ to write accents (needed to write spanish). They say it's a feature... not for me!
+(require 'iso-transl)
 
 ;; When a split is done, follow it.
-  (defun split-and-follow-horizontally ()
-    (interactive)
-    (split-window-below)
-    (balance-windows)
-    (other-window 1))
-  (global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
+(defun split-and-follow-horizontally ()
+  (interactive)
+  (split-window-below)
+  (balance-windows)
+  (other-window 1))
+(global-set-key (kbd "C-c i") 'split-and-follow-horizontally)
 
-  (defun split-and-follow-vertically ()
-    (interactive)
-    (split-window-right)
-    (balance-windows)
-    (other-window 1))
-  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+(defun split-and-follow-vertically ()
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+(global-set-key (kbd "C-c o") 'split-and-follow-vertically)
 
-(set-face-attribute 'default nil :family "Fira Code" :height 102)
-(set-face-attribute 'fixed-pitch nil :family "Fira Code")
-(set-face-attribute 'variable-pitch nil :family "Open Sans")
+(set-face-attribute 'default nil :family "Fira Code" :height 100 :weight 'semibold)
+(set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 100 :weight 'semibold)
+(set-face-attribute 'variable-pitch nil :family "Fira Sans" :height 102 :weight 'light)
 
 (use-package emojify
   :config
@@ -226,45 +234,6 @@
          ("C-s" . consult-line)
          ("C-x b" . consult-buffer)))
 
-;; (use-package ivy
-;;   :ensure t
-;;   :config
-;;   (setq ivy-use-virtual-buffers t
-;;         ivy-count-format "%d/%d ")
-;;   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-;;       			  (t . ivy--regex-fuzzy)))
-;;   (setq ivy-extra-directories nil)
-;;   (ivy-mode 1))
-
-;; (use-package ivy-rich 
-;;   :ensure t
-;;   :config
-;;   (ivy-rich-mode 1))
-
-;;(use-package ivy-prescient
-;;  :ensure t
-;;  :config
-;;  (prescient-persist-mode 1)
-;;  (ivy-prescient-mode 1))
-
-;; (use-package counsel
-;;   :ensure t
-;;   :custom
-;;   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-;;   :bind (
-;;          ("M-x" . counsel-M-x)
-;;          ("C-x C-f" . counsel-find-file)
-;;          ("C-x b" . counsel-switch-buffer))
-
-;;   :config
-;;   (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
-;;   (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
-;;   (counsel-mode 1))
-
-;; (use-package swiper
-;;   :ensure t
-;;   :bind (("C-s" . swiper)))
-
 (use-package which-key
   :defer 0
   :ensure t
@@ -280,14 +249,8 @@
 (use-package rainbow-mode
   :defer t
   :ensure t
-  :config
+  :init 
   (rainbow-mode 1))
-
-;(use-package smartparens
-;  :hook (prog-mode . smartparents-mode)
-;  :ensure t
-;  :config
-;  (smartparens-mode t))
 
 (use-package rainbow-delimiters
   :ensure t
@@ -298,14 +261,8 @@
   :config
   (yas-global-mode))
 
-(use-package projectile
-    :bind (("C-c p" . projectile-find-file) ("C-c P" . projectile-switch-projects))
-  :ensure t
-:config (setq projectile-project-search-path '("~/.repos" "/mnt/Data/Drive/CIMB/PLANEACIONES")))
-
 (use-package company
   :ensure t
-  :defer t
   :config
   (global-company-mode 1))
 
@@ -320,50 +277,11 @@
   ([remap describe-variable] . helpful-variable)
   ([remap describe-key] . helpful-key))
 
-(use-package rg
-  :defer 0
-  :ensure t)
-
 (use-package writeroom-mode
-    :ensure t
-    :bind ("<f6>" . writeroom-mode))
-
-(use-package switch-window
-  :bind ("C-x o" . switch-window)
+  :ensure t
+  :bind ("<f6>" . writeroom-mode)
   :config
-  (setq switch-window-shortcut-style 'qwerty)
-  (setq switch-window-minibuffer-shortcut ?z))
-
-;;  (use-package elfeed
-;;    :config
-;;    (setq elfeed-search-filter "@4-months-ago +unread")
-;;    (setq elfeed-show-unique-buffers t))
-
-;;  (use-package elfeed-org
-;;    :config
-;;    (elfeed-org)
-;;    (setq rmh-elfeed-org-files (list "~/.repos/dotfiles/.emacs.d/feeds.org")))
-
-;;    (use-package elfeed-protocol
-;;      :config
-;;      (setq elfeed-use-curl t)
-;;      (elfeed-set-timeout 36000)
-;;      (setq elfeed-curl-extra-arguments '("--insecure")) ;necessary for https without a trust certificate
-;;      ;; setup extra protocol feeds
-;;
-;;      (defadvice elfeed (after configure-elfeed-feeds activate)
-;;        "Make elfeed-org autotags rules works with elfeed-protocol."
-;;        (setq elfeed-protocol-tags elfeed-feeds)
-;;        (setq elfeed-feeds '(
-;;                             ;; format 6, for password in pass(1), using password-store.el
-;;                             ("owncloud+https://admin@cloud.juancastro.xyz"
-;;                              :password (password-store-get "nextcloud/admin")
-;;                              :autotags elfeed-protocol-tags))))
-;;
-;;        ;; use autotags
-;;
-;;        ;; enable elfeed-protocol
-;;        (elfeed-protocol-enable))
+  (setq writeroom-fullscreen-effect 'maximize-window))
 
 (use-package dired
       :ensure nil ; it's a built-in package
@@ -503,61 +421,16 @@
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
 
-(use-package modus-vivendi-theme
-  :ensure t)
-(use-package modus-operandi-theme
-  :ensure t
-  :config
-  (setq modus-operandi-theme-slanted-constructs t)
-  (setq modus-operandi-theme-syntax 'alt-syntax))
-
-;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-;; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
-
-;;  (use-package fortune-cookie
-;;    :ensure t
-;;    :custom
-;;    (fortune-dir "/usr/share/fortunes"))
-;;
-;;  (use-package dashboard
-;;    :ensure t
-;;    :config
-;;    (dashboard-setup-startup-hook)
-;;    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-;;    (setq dashboard-banner-logo-title "Welcome to Emacs")
-;;    (setq dashboard-startup-banner 'logo)
-;;    (setq dashboard-show-shortcuts nil)
-;;    (setq dashboard-set-init-info nil)
-;;    (setq dashboard-footer-messages nil)
-;;    (setq dashboard-banner-logo-title nil)
-;;    (setq dashboard-items '(
-;;                            (bookmarks . 5)
-;;                            (projects . 5)
-;;                            (agenda . 5)))
-;;    (setq dashboard-center-content t)
-;;    (setq dashboard-page-separator "\n\n")
-;;    (setq dashboard-set-heading-icons t)
-;;    (setq dashboard-set-file-icons t))
-
 (use-package all-the-icons
-     :ensure t)
+  :ensure t)
 
-   ;; Icons for dired
-   (use-package all-the-icons-dired
-     :ensure t
-     :hook (dired-mode . (lambda ()
-                           (interactive)
-                           (unless (file-remote-p default-directory)
-                             (all-the-icons-dired-mode)))))
- ;; (use-package all-the-icons-ivy
- ;; :init (add-hook 'after-init-hook 'all-the-icons-ivy-setup))
-
-   ;; Icons for ivy
-;;   (use-package all-the-icons-ivy-rich
-;;     :ensure t
-;;     :after ivy-rich
-;;     :config
-;;     (all-the-icons-ivy-rich-mode 1))
+;; Icons for dired
+(use-package all-the-icons-dired
+  :ensure t
+  :hook (dired-mode . (lambda ()
+                        (interactive)
+                        (unless (file-remote-p default-directory)
+                          (all-the-icons-dired-mode)))))
 
 (defun my/org-font-setup ()
   (require 'org-faces) 
@@ -581,14 +454,14 @@
   (set-face-attribute 'org-level-4 nil :inherit 'org-level-8)
   ;; Top ones get scaled the same as in LaTeX (\large, \Large, \LARGE)
   (set-face-attribute 'org-level-3 nil :inherit 'org-level-8 :height 1.1) ;\large
-  (set-face-attribute 'org-level-2 nil :inherit 'org-level-8 :height 1.3) ;\Large
-  (set-face-attribute 'org-level-1 nil :inherit 'org-level-8 :height 1.5) ;\LARGE
+  (set-face-attribute 'org-level-2 nil :inherit 'org-level-8 :height 1.2) ;\Large
+  (set-face-attribute 'org-level-1 nil :inherit 'org-level-8 :height 1.3) ;\LARGE
   ;; Only use the first 4 styles and do not cycle.
   (setq org-cycle-level-faces nil)
   (setq org-n-level-faces 4)
   ;; Document Title, (\huge)
   (set-face-attribute 'org-document-title nil
-                      :height 2.074
+                      :height 1.3
                       :foreground 'unspecified
                       :inherit 'org-level-8)
 ) ;; <=== org-font-setup ends here
@@ -600,10 +473,8 @@
 
   (use-package org
     :ensure nil
-    :hook (
-           (org-mode . my/org-mode-setup)
+    :hook ((org-mode . my/org-mode-setup)
            (org-mode . my/org-font-setup))
-
     :config
     ;;(add-hook 'org-mode-hook 'my/org-font-setup)
     ;; Removes the ellipsis at the end and replaces it with a string
@@ -625,8 +496,6 @@
          ((eq format 'latex)
           (format "{\\color{%s}%s}" path desc)))))
 
-
-
     ;; If you have many subtask, when you mark it as DONE, the main task remain unchaged. With this function, if all the subtask are marked as DONE, the main task is marked as well.
     (defun org-summary-todo (n-done n-not-done)
       "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -640,8 +509,6 @@
     ;;(evil-define-key 'normal org-mode-map
     ;;  (kbd "SPC t") 'org-todo)
 
-;; Activate org-beamer
-  (org-beamer-mode)
 
     ;; You can add blocks pressing C-, and then the corresponding key.
   (require 'org-tempo)
@@ -661,7 +528,7 @@
 ;; NOTE: THE USE PACKAGE MACRO CONTINUES
 
 (require 'ox-extra)
-  (ox-extras-activate '(ignore-headlines))
+(ox-extras-activate '(ignore-headlines))
 
 (use-package ox-latex
   :ensure nil
@@ -681,15 +548,6 @@
   (unless (boundp 'org-latex-classes)
     (setq org-latex-classes nil)))
 
-  ;; https://github.com/philipphoman
-    (add-to-list 'org-latex-classes
-            '("mybeamerposter"
-              "\\documentclass[final]{beamer}
-               \\usepackage[orientation=portrait,size=letter]
-               \\usepackage[absolute,overlay]{textpos}
-                     \\usepackage[authoryear]{natbib}
-                     [NO-DEFAULT-PACKAGES]"))
-
 (add-to-list 'org-latex-classes
       '("koma-article"
         "\\documentclass{scrartcl}"
@@ -700,14 +558,13 @@
         ("\\paragraph{%s}" . "\\paragraph*{%s}")
         ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
 
-      '("doc-recepcional"
-        "\\documentclass{report}"
-        ("\\chapter{%s}" . "\\chapter*{%s}")
-        ("\\section{%s}" . "\\section*{%s}")
-        ("\\subsection{%s}" . "\\subsection*{%s}")
-        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-        ("\\paragraph{%s}" . "\\paragraph*{%s}")
-        ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  ;; https://github.com/philipphoman
+      '("mybeamerposter"
+        "\\documentclass[final]{beamer}
+                 \\usepackage[orientation=portrait,size=letter]
+                 \\usepackage[absolute,overlay]{textpos}
+                       \\usepackage[authoryear]{natbib}
+                       [NO-DEFAULT-PACKAGES]"))
 
 
 ) ;; <=== The use-package org ends here
@@ -727,6 +584,8 @@
 (use-package ox-pandoc
   :after org
   :ensure t)
+;; Activate org-beamer
+  (org-beamer-mode 1)
 
 (use-package org-superstar
    :ensure t
@@ -982,7 +841,6 @@
   (setq org-appear-autoemphasis t)
   (setq org-appear-autolinks t)
   (setq org-appear-autosubmarkers t)
-
   :hook (org-mode . org-appear-mode))
 
 (use-package ox-gemini
@@ -1066,35 +924,17 @@
            ;:auto-preamble t
            )))
 
-; (add-to-list 'load-path "~/.repos/org-caldav")
-; (setq org-icalendar-include-todo 'all
-;       org-caldav-sync-todo t
-;       org-icalendar-categories '(local-tags)
-;       org-caldav-url "https://cloud.juancastro.xyz/remote.php/dav/calendars/admin/"
-;       org-caldav-calendar-id "prueba"
-;       org-caldav-files '("~/ywy.org")
-;       org-caldav-inbox "~/testing-caldav.org")
-; (require 'org-caldav)
-
 (use-package ox-reveal
   :ensure t
   :config
   ;(setq org-re-reveal-center t)
   (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
 
-(use-package org-roam
-  :ensure t
-  :init
-  (setq org-roam-v2-ack t)
-  :custom
-  (org-roam-directory "/mnt/data/Nextcloud/Notas/")
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert))
-  :config
-  (org-roam-setup))
+(use-package vterm)
 
-;; (use-package vterm)
+(use-package vterm-toggle
+  :ensure t
+  :bind ("<f4>" . vterm-toggle-cd))
 
 (use-package fish-completion
      :after esh-mode
@@ -1110,13 +950,6 @@
  (use-package esh-autosuggest
  :ensure t
    :hook (eshell-mode . esh-autosuggest-mode))
-
-   (use-package eshell-toggle
-   :ensure t
-   :bind ("<f4>" . eshell-toggle)
-   :custom
-   (eshell-toggle-size-fraction 3)
-   (eshell-toggle-run-command nil))
 
 (use-package eshell
   :ensure nil
@@ -1183,18 +1016,6 @@
   :init (setq markdown-command "multimarkdown"))
 (setq markdown-command "/usr/bin/pandoc")
 
-(use-package easy-hugo
-  :ensure t
-  :commands easy-hugo
-  :init 
-  ;;; Main blog. you can have more if you want
-  (setq easy-hugo-basedir "/mnt/Data/Blog/")
-  (setq easy-hugo-postdir "content/posts/")
-  :config
-  (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
-  (setq easy-hugo-default-ext ".org")
-  (setq easy-hugo-org-header t))
-
 (use-package ledger-mode
   :ensure t
   :mode "\\.lgr\\'"
@@ -1214,55 +1035,7 @@
   (setq kdeconnect-devices "7843123afa92d0a8")
   (setq kdeconnect-active-device "7843123afa92d0a8"))
 
-; (use-package pinentry
-;   :init
-;   (pinentry-start))
-
 (use-package gemini-mode)
-
-;  (use-package pdf-tools
-;    :ensure t)
-
-;;(use-package org-noter
-;;  :config
-;;  ;; Your org-noter config ........
-;;  (require 'org-noter-pdftools))
-;;
-;;(use-package org-pdftools
-;;  :hook (org-mode . org-pdftools-setup-link))
-;;
-;;(use-package org-noter-pdftools
-;;  :after org-noter
-;;  :config
-;;  ;; Add a function to ensure precise note is inserted
-;;  (defun org-noter-pdftools-insert-precise-note (&optional toggle-no-questions)
-;;    (interactive "P")
-;;    (org-noter--with-valid-session
-;;     (let ((org-noter-insert-note-no-questions (if toggle-no-questions
-;;                                                   (not org-noter-insert-note-no-questions)
-;;                                                 org-noter-insert-note-no-questions))
-;;           (org-pdftools-use-isearch-link t)
-;;           (org-pdftools-use-freestyle-annot t))
-;;       (org-noter-insert-note (org-noter--get-precise-info)))))
-;;
-;;  ;; fix https://github.com/weirdNox/org-noter/pull/93/commits/f8349ae7575e599f375de1be6be2d0d5de4e6cbf
-;;  (defun org-noter-set-start-location (&optional arg)
-;;    "When opening a session with this document, go to the current location.
-;;With a prefix ARG, remove start location."
-;;    (interactive "P")
-;;    (org-noter--with-valid-session
-;;     (let ((inhibit-read-only t)
-;;           (ast (org-noter--parse-root))
-;;           (location (org-noter--doc-approx-location (when (called-interactively-p 'any) 'interactive))))
-;;       (with-current-buffer (org-noter--session-notes-buffer session)
-;;         (org-with-wide-buffer
-;;          (goto-char (org-element-property :begin ast))
-;;          (if arg
-;;              (org-entry-delete nil org-noter-property-note-location)
-;;            (org-entry-put nil org-noter-property-note-location
-;;                           (org-noter--pretty-print-location location))))))))
-;;  (with-eval-after-load 'pdf-annot
-;;    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 
 (use-package nix-sandbox
   :ensure t)

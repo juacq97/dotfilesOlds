@@ -4,8 +4,6 @@ source $HOME/.zvars.zsh
 # Run the graphical environment when not using a display manager.
  if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
      exec startx
-   #  sway
-   #  exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) sway
  fi
 
 # Fetch when terminal appears
@@ -22,11 +20,11 @@ ufetch-noascii
  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # plugins=(
 #     git
-# )
+
 
 # Basic auto/tab complete:
 autoload -U compinit
-zstyle ':completion:*' menu selet
+zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zmodload zsh/complist
 compinit
@@ -138,3 +136,4 @@ vterm_printf(){
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export LEDGER_FILE=/mnt/data/Nextcloud/vidaPersonal/finanzas/2021.ledger
