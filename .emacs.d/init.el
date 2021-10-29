@@ -24,8 +24,7 @@
 
       (package-initialize)
 
-      (add-to-list 'load-path "~/.emacs.d/modes/")
-      (add-to-list 'load-path "~/.repos/nano-emacs")
+      (add-to-list 'load-path "~/.emacs.d/external/")
       ;; If not here, install use-package
       (unless (package-installed-p 'use-package)
         (package-refresh-contents)
@@ -281,7 +280,7 @@
   :ensure t
   :bind ("<f6>" . writeroom-mode)
   :config
-  (setq writeroom-fullscreen-effect 'maximize-window))
+  (setq writeroom-fullscreen-effect 'fullboth))
 
 (use-package dired
       :ensure nil ; it's a built-in package
@@ -336,7 +335,7 @@
                                 ("xlsx" . "libreoffice")
                                 ("odp" . "libreoffice")
                                 ;; Otros
-                                ("pdf" . "zathura")
+                                ("pdf" . "okular")
                                 )))
 
 (use-package dired-hide-dotfiles
@@ -479,7 +478,7 @@
     ;;(add-hook 'org-mode-hook 'my/org-font-setup)
     ;; Removes the ellipsis at the end and replaces it with a string
     (setq org-ellipsis " ⤾")
-
+    (add-to-list 'org-file-apps '("\\.pdf" . "okular %s"))
     ;; Now you can put [[color:red][red text]] when export to html
     (org-add-link-type
       "color"
@@ -588,23 +587,25 @@
   (org-beamer-mode 1)
 
 (use-package org-superstar
-   :ensure t
-   :config
-   (setq superstar-special-todo-items t))
+       :ensure t
+       :config
+       (setq superstar-special-todo-items t))
 
- (defun my/org-enable-prettify ()
-   (setq prettify-symbols-alist
-         '(("DROP" . ?✖)
-           ("EMISION" . ?✒)
-           ("FINALIZADO" . ?✔)
-           ("LIKE" . ?❤)))
-   (prettify-symbols-mode 1))
- (add-hook 'org-mode-hook 'my/org-enable-prettify)
+     (defun my/org-enable-prettify ()
+       (setq prettify-symbols-alist
+             '(("DROP" . ?✖)
+               ("EMISION" . ?✒)
+               ("FINALIZADO" . ?✔)
+               ("LIKE" . ?❤)))
+       (prettify-symbols-mode 1))
+     (add-hook 'org-mode-hook 'my/org-enable-prettify)
+;;
+    ;; This hook enables org-superstar 
+     (add-hook 'org-mode-hook
+               (lambda ()
+                 (org-superstar-mode 1)))
 
-;; This hook enables org-superstar 
- (add-hook 'org-mode-hook
-           (lambda ()
-             (org-superstar-mode 1)))
+
 
 (use-package org-tree-slide
   :ensure t

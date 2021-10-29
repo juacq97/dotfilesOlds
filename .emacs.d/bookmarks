@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("planeacion.org"
+(("Referencias.org"
+ (filename . "/mnt/data/Nextcloud/ORG/Referencias.org")
+ (front-context-string . "#+TITLE:Referenc")
+ (rear-context-string)
+ (position . 1))
+("planeacion.org"
  (filename . "/mnt/data/CIMB/planeaciones/planeacion.org")
  (front-context-string . "* 9.1.5         ")
  (rear-context-string . "}\n#+END_EXPORT\n\n")

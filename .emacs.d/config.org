@@ -38,8 +38,7 @@ Set the garbage collection to a better number for the load. Also, a message with
 
         (package-initialize)
 
-        (add-to-list 'load-path "~/.emacs.d/modes/")
-        (add-to-list 'load-path "~/.repos/nano-emacs")
+        (add-to-list 'load-path "~/.emacs.d/external/")
         ;; If not here, install use-package
         (unless (package-installed-p 'use-package)
           (package-refresh-contents)
@@ -390,7 +389,7 @@ Add some extra text to the  =describe= buffers
      :ensure t
      :bind ("<f6>" . writeroom-mode)
      :config
-     (setq writeroom-fullscreen-effect 'maximize-window))
+     (setq writeroom-fullscreen-effect 'fullboth))
  #+end_src 
  
 * Dired
@@ -460,7 +459,7 @@ As I said before, the integration with external tools can be improved. This pack
                                   ("xlsx" . "libreoffice")
                                   ("odp" . "libreoffice")
                                   ;; Otros
-                                  ("pdf" . "zathura")
+                                  ("pdf" . "okular")
                                   )))
 #+end_src
 
@@ -497,7 +496,6 @@ This is needed to launch dired with a keybinding from my window manager
     (dired)
     (delete-other-windows))
 #+end_src
-
 
 * UI and appeareance stuff
 ** Doom-modeline
@@ -646,7 +644,7 @@ Here's some configuration I made to org-mode, the actual package.
       ;;(add-hook 'org-mode-hook 'my/org-font-setup)
       ;; Removes the ellipsis at the end and replaces it with a string
       (setq org-ellipsis " ⤾")
-  
+      (add-to-list 'org-file-apps '("\\.pdf" . "okular %s"))
       ;; Now you can put [[color:red][red text]] when export to html
       (org-add-link-type
         "color"
@@ -787,13 +785,16 @@ It replaces the stars for bullets and unicode glyphs. It looks nice and it's eas
                ("LIKE" . ?❤)))
        (prettify-symbols-mode 1))
      (add-hook 'org-mode-hook 'my/org-enable-prettify)
-
+;;
     ;; This hook enables org-superstar 
      (add-hook 'org-mode-hook
                (lambda ()
                  (org-superstar-mode 1)))
 #+end_src
 
+** Org bars
+#+begin_src emacs-lisp
+#+end_src
 ** Org-tree-slide
 Want to make a presentation with slides but don't want to use PowerPoint, beamer or some ridiculous web-based slides? Just use Emacs and org-mode to show your slides. The slides are, basically, narrowed org buffers, so they're editable and you can use the complete power of org-mode and Emacs.
 #+begin_src emacs-lisp
