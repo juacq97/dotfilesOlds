@@ -11,7 +11,8 @@ source ~/.xprofile
 #   done
 #exec qtile startxinit
 #openbox
-exec i3
+#exec i3
+exec cinnamon-session
 #exec stumpwm
 #exec emacs -mm --debug-init -l ~/.emacs.d/desktop.el
 #exec dwm

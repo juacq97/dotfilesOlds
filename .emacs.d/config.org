@@ -674,6 +674,8 @@ Here's some configuration I made to org-mode, the actual package.
       ;;(evil-define-key 'normal org-mode-map
       ;;  (kbd "SPC t") 'org-todo)
   
+  ;; Activate org-beamer
+    (org-beamer-mode)
   
       ;; You can add blocks pressing C-, and then the corresponding key.
     (require 'org-tempo)
@@ -766,8 +768,6 @@ Though org-mode has a long range of formats, we can add more.
   (use-package ox-pandoc
     :after org
     :ensure t)
-  ;; Activate org-beamer
-    (org-beamer-mode 1)
 #+end_src
 ** Superstar
 It replaces the stars for bullets and unicode glyphs. It looks nice and it's easier to read. Also, changes some TODO keywords.
@@ -1187,7 +1187,7 @@ Vterm is a real terminal emulator based on libvterm.
 #+begin_src emacs-lisp
   (use-package vterm-toggle
     :ensure t
-    :bind ("<f4>" . vterm-toggle-cd))
+    :bind ("C-<f4>" . vterm-toggle-cd)) 
 #+end_src
 ** Eshell
 The Emacs shell! It works fine for simple tasks, and has an awesome integration with emacs itself. If I need some complex CLI or TUI programs I just use alacritty.
