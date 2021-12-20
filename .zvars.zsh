@@ -42,5 +42,5 @@ export NIXOS_CONFIG="$HOME/.repos/dotfiles/nixos/configuration.nix"
 #export XDG_SESSION_TYPE=wayland
 #export MOZ_ENABLE_WAYLAND=1
 #
-#export XKB_DEFAULT_LAYOUT=latam
+export XKB_DEFAULT_LAYOUT=latam
 #export GTK_USE_PORTAL=1

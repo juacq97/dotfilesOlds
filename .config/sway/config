@@ -145,6 +145,8 @@ include keys.conf
 #########
 # Wayland native apps uses app_id instead of class
 
+for_window [app_id=^.*] floating enable
+for_window [class=^.*] floating enable
 for_window [app_id="(?i)mpv"] floating enable
 for_window [class="(?i)sxiv"] floating enable
 for_window [class="qt5ct"] floating enable

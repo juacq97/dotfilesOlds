@@ -28,23 +28,14 @@ super + F7
     toggle-colorscheme
 
 #Terminal
-super + Return
-#      st 
-#	emacsclient -c -F '(quote (name . "eshell"))' -e "(eshell)"
-	emacsclient -ca ""
-	
-super + control + Return
-    alacritty
-
 super + shift + Return
-	emacsclient -c -F '(quote (name . "eshell"))' -e "(eshell)"
-
+    alacritty
 
 # App menu
 super + space
 #     ~/.local/bin/dmenu_run_history -h 24 -i
-#      rofi -show drun -theme style7
-	xfce4-popup-whiskermenu
+      rofi -show drun -theme style7
+#	xfce4-popup-whiskermenu
 
 #super + r
 ##    ~/.local/bin/dmenu_run_history -h 24 -i -l 15

@@ -63,12 +63,12 @@ c0="${reset}${blue}"                # first color
 ## OUTPUT
 
 cat <<EOF
-${lc}      os${ic} ~ ${os}${reset}
-${lc}      sh ${ic}~ ${shell}${reset}
-${lc}      up ${ic}~ ${uptime}${reset}
-${lc}      wm ${ic}~ ${ui}${reset}
-${lc}    pkgs ${ic}~ ${packages}${reset}
-${lc}  kernel ${ic}~ ${kernel}${reset}
+${lc}       﫭 ${ic}~ ${os}${reset}
+${lc}        ${ic} ~ ${shell}${reset}
+${lc}        ${ic} ~ ${uptime}${reset}
+${lc}        ${ic} ~ ${ui}${reset}
+${lc}        ${ic} ~ ${packages}${reset}
+${lc}        ${ic} ~ ${kernel}${reset}
 
 ${lc}$f
 EOF

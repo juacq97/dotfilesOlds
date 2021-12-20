@@ -1,5 +1,5 @@
 #+title: Emacs configuration
- #+PROPERTY: header-args:emacs-lisp :tangle ~/.repos/dotfiles/.emacs.d/init.el
+#+PROPERTY: header-args:emacs-lisp :tangle ~/.repos/dotfiles/.emacs.d/init.el
  
 * About this file
 This is my own Emacs configuration. I started to use emacs about 3 years ago, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even don''t understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. Shutouts to [[https://github.com/daviwil][David Wilson]],  [[https://cestlaz.github.io/][Mike Zamansky]], [[https://protesilaos.com/][Protesilaos Stavrou]] and specially, to [[https://www.youtube.com/channel/UCDEtZ7AKmwS0_GNJog01D2g][Uncle Dave]], because is thanks to his videos I started to use and finally configure Emacs for the first time, that rainy day in september 2018.

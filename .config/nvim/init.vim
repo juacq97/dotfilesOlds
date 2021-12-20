@@ -23,6 +23,7 @@ let mapleader ="\ "			" Leader como espacio
 """""""""""""""""""
 call plug#begin()
 Plug 'junegunn/goyo.vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'chrisbra/Colorizer'
 Plug 'Junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
@@ -69,8 +70,8 @@ set conceallevel=2
 
 """ Temas """""
 let g:grubvox_italic = 1
-let g:grubvox_contrast_dark = 'hard'
-colorscheme dracula
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
 "Conceal no se ve bien con este tema, con este comando se arregla OwO
 highlight Conceal guifg=White guibg=color0
 let g:one_allow_italics = 1 

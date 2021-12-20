@@ -20,8 +20,8 @@ focus_wrapping workspace
 focus_follows_mouse no
 
 # Gaps!!
-gaps inner 5
-gaps outer 5
+#gaps inner 5
+#gaps outer 5
 
 # If I want to use the colors from my colorscheme (check toggle-colorscheme)
 #include Wcolors

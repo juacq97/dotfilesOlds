@@ -2,9 +2,9 @@
 source $HOME/.zvars.zsh
 
 # Run the graphical environment when not using a display manager.
- if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-     exec startx
- fi
+# if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+#     exec startx
+# fi
 
 # Fetch when terminal appears
 ufetch-noascii
