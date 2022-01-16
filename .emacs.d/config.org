@@ -29,7 +29,7 @@ Set the garbage collection to a better number for the load. Also, a message with
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 			
-  
+ 
     ;;(setq package-archives
     ;;      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
     ;;        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
@@ -52,11 +52,17 @@ Set the garbage collection to a better number for the load. Also, a message with
 ** UI and QOL configurations
 This include a lot of configurations so Emacs doesn't look like a very ugly notepad. 
 #+begin_src emacs-lisp
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-  (menu-bar-mode -1)
-  (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
-  (column-number-mode 1) ; The modeline shows the column number at the end
+  (require 'frame)
+  (defun set-cursor-hook (frame)
+    (modify-frame-parameters
+     frame (list (cons 'cursor-color "#ffffff"))))
+
+  (add-hook 'after-make-frame-functions 'set-cursor-hook)
+    (tool-bar-mode -1)
+    (scroll-bar-mode -1)
+    (menu-bar-mode -1)
+    (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
+    (column-number-mode 1) ; The modeline shows the column number at the end
   #+end_src
   
 #+begin_src emacs-lisp
@@ -540,21 +546,22 @@ The default modeline it's fine, but ugly and with a lot of useless information f
 ** Heaven and Hell
 This packages allow to quicky change between two themes. The recommended setup, a light and a dark theme.
 #+begin_src emacs-lisp
-  (use-package heaven-and-hell
-    :ensure t
-    :init
-    (setq heaven-and-hell-theme-type 'dark)
-    (setq heaven-and-hell-load-theme-no-confirm t)
-    (setq heaven-and-hell-themes
-	  '((light . doom-one-light)
-	    (dark . doom-dracula)))
-    :hook (after-init . heaven-and-hell-init-hook)
-    :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
-	   ("<f7>" . heaven-and-hell-toggle-theme)))
+  ;;(use-package heaven-and-hell
+  ;;  :ensure t
+  ;;  :init
+  ;;  (setq heaven-and-hell-theme-type 'dark)
+  ;;  (setq heaven-and-hell-load-theme-no-confirm t)
+  ;;  (setq heaven-and-hell-themes
+  ;;        '((light . modus-vivendi)
+  ;;          (dark . modus-operandi)))
+  ;;  :hook (after-init . heaven-and-hell-init-hook)
+  ;;  :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
+  ;;         ("<f7>" . heaven-and-hell-toggle-theme)))
+
 #+end_src
 
 ** Themes
-  Emacs has a lot of themes available on internet. It's possible to set one with ~(load-theme)~. Check the ~heaven&hell~ package below.
+  Emacs has a lot of themes available on internet. It's possible to set one with ~(load-theme)~. Check the ~heaven&hell~ package below. 
 *** Doom-themes
 A collection of themes designated for ~doom-emacs~.
 #+begin_src emacs-lisp
@@ -567,6 +574,60 @@ A collection of themes designated for ~doom-emacs~.
     (doom-themes-neotree-config)
     (doom-themes-treemacs-config)
     (doom-themes-org-config))
+#+end_src
+
+*** Modus themes
+
+Per theme configuration
+#+begin_src emacs-lisp
+  (defun my-demo-modus-vivendi ()
+    (modus-themes-with-colors
+      (custom-set-faces
+       `(org-block ((,class :background ,"#303030")))
+       `(org-block-end-line ((,class :background ,"#303030")))
+       `(hl-line ((,class :background ,"#303030")))
+       `(show-paren-match-expression ((,class :background ,"#191a1b")))
+       `(org-block-begin-line ((,class :background ,"#303030"))))))
+
+  (defun my-demo-modus-operandi ()
+    (modus-themes-with-colors
+      (custom-set-faces
+       `(org-block ((,class :background ,"#d8d8d8")))
+       `(org-block-end-line ((,class :background ,"#d8d8d8")))
+       `(hl-line ((,class :background ,"#d8d8d8")))
+       `(show-paren-match-expression ((,class :background ,"#e4e4e4")))
+       `(org-block-begin-line ((,class :background ,"#d8d8d8"))))))
+
+  (defun load-vivendi ()
+    (interactive)
+    (load-theme 'modus-vivendi t)
+    (my-demo-modus-vivendi))
+
+  (defun load-operandi ()
+    (interactive)
+    (load-theme 'modus-operandi t)
+    (my-demo-modus-operandi))
+
+  (defun my-demo-modus-themes-toggle ()
+  (interactive)
+  (if (eq (car custom-enabled-themes) 'modus-operandi)
+      (load-vivendi)
+    (load-operandi)))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package modus-themes
+    :ensure t
+    :config
+    (setq modus-themes-org-blocks 'gray-background)
+    (setq modus-themes-subtle-line-numbers t)
+    (setq modus-themes-vivendi-color-overrides
+          '((bg-main . "#282828"))))
+#+end_src
+
+#+begin_src emacs-lisp
+  (load-vivendi)
+  (global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle) 
 #+end_src
 
 ** All the icons
@@ -675,7 +736,7 @@ Here's some configuration I made to org-mode, the actual package.
       ;;  (kbd "SPC t") 'org-todo)
   
   ;; Activate org-beamer
-    (org-beamer-mode)
+   ; (org-beamer-mode)
   
       ;; You can add blocks pressing C-, and then the corresponding key.
     (require 'org-tempo)
@@ -698,10 +759,10 @@ Here's some configuration I made to org-mode, the actual package.
    LaTeX uses some templates to define classes. You can write your own classes. I have this, one used on my thesis, the other copied from the org-wiki because it looks nice.
 
 #+begin_src emacs-lisp
-  
+
   (require 'ox-extra)
   (ox-extras-activate '(ignore-headlines))
-  
+
   (use-package ox-latex
     :ensure nil
     :config
@@ -712,14 +773,14 @@ Here's some configuration I made to org-mode, the actual package.
             "pdflatex -interaction nonstopmode -output-directory %o %f"))
     (setq org-latex-with-hyperref nil) ;; stop org adding hypersetup{author..} to latex export
     ;; (setq org-latex-prefer-user-labels t)
-  
+
     ;; deleted unwanted file extensions after latexMK
     (setq org-latex-logfiles-extensions
           (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "xmpi" "run.xml" "bcf" "acn" "acr" "alg" "glg" "gls" "ist")))
-  
+
     (unless (boundp 'org-latex-classes)
       (setq org-latex-classes nil)))
-  
+
 #+end_src
    
 #+begin_src emacs-lisp
@@ -1059,7 +1120,7 @@ Finally, this function it's needed to spawn a floating agenda with my Window Man
       (let ((org-confirm-babel-evaluate nil))
 	(org-babel-tangle))))
 
-  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config))) 
 #+end_src
 
 ** Org appear
@@ -1176,45 +1237,6 @@ Now, lets put the configuration of org publish.
     (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
 #+end_src
 
-* Term
-** Vterm
-Vterm is a real terminal emulator based on libvterm.
-
-#+begin_src emacs-lisp
- (use-package vterm)
-#+end_src
-
-#+begin_src emacs-lisp
-  (use-package vterm-toggle
-    :ensure t
-    :bind ("C-<f4>" . vterm-toggle-cd)) 
-#+end_src
-** Eshell
-The Emacs shell! It works fine for simple tasks, and has an awesome integration with emacs itself. If I need some complex CLI or TUI programs I just use alacritty.
-#+begin_src emacs-lisp
-  (use-package fish-completion
-       :after esh-mode
-       :ensure t
-     :hook (eshell-mode . fish-completion-mode))
-
-     (use-package eshell-syntax-highlighting
-     :ensure t
-     :after esh-mode
-     :config
-     (eshell-syntax-highlighting-global-mode +1))
-
-   (use-package esh-autosuggest
-   :ensure t
-     :hook (eshell-mode . esh-autosuggest-mode))
-
-  (use-package eshell
-    :ensure nil
-    :config
-    (setq eshell-banner-message (concat (shell-command-to-string "fortune-es") "\n\n")))
-
-
-#+end_src
-
 * mu4e
 #+begin_src emacs-lisp
   (use-package mu4e
@@ -1309,6 +1331,13 @@ Ledger it's a program to keep track of your expenses. It's very unix-y, it reads
   
 #+end_src
 
+** Beancount
+
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/packages/")
+  (require 'beancount)
+  (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
+#+end_src
 ** Kdeconnect
 A =kdeconnect= client inside emacs. I want to integrate it with dired.
 #+begin_src emacs-lisp
@@ -1323,11 +1352,6 @@ A =kdeconnect= client inside emacs. I want to integrate it with dired.
 A better web.. Adds colorscheme for gmi files
 #+begin_src emacs-lisp
   (use-package gemini-mode)
-#+end_src
-* Nix
-#+begin_src emacs-lisp
-  (use-package nix-sandbox
-    :ensure t)
 #+end_src
 * Runtime Performance
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.

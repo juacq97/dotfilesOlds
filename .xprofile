@@ -28,6 +28,6 @@ xsetroot -cursor_name left_ptr &
 xset r rate 250 50 &
 touchpad disable &
 #~/.nix-profile/libexec/kdeconnectd &
-flameshot &
+#flameshot &
 #fcitx5 -d &
 ###nextcloud &

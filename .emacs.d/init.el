@@ -34,11 +34,17 @@
       (setq use-package-always-ensure t)
     ;;  (setq use-package-verbose t)
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
-(column-number-mode 1) ; The modeline shows the column number at the end
+(require 'frame)
+(defun set-cursor-hook (frame)
+  (modify-frame-parameters
+   frame (list (cons 'cursor-color "#ffffff"))))
+
+(add-hook 'after-make-frame-functions 'set-cursor-hook)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1)
+  (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
+  (column-number-mode 1) ; The modeline shows the column number at the end
 
 (setq  cursor-in-non-selected-windows nil     ; Hide the cursor in inactive windows
        select-enable-clipboard t              ; Merge system's and Emacs' clipboard
@@ -398,17 +404,17 @@
     (setq doom-modeline-irc-stylize 'identity))
 (doom-modeline-mode 1)
 
-(use-package heaven-and-hell
-  :ensure t
-  :init
-  (setq heaven-and-hell-theme-type 'dark)
-  (setq heaven-and-hell-load-theme-no-confirm t)
-  (setq heaven-and-hell-themes
-	'((light . doom-one-light)
-	  (dark . doom-dracula)))
-  :hook (after-init . heaven-and-hell-init-hook)
-  :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
-	 ("<f7>" . heaven-and-hell-toggle-theme)))
+;;(use-package heaven-and-hell
+;;  :ensure t
+;;  :init
+;;  (setq heaven-and-hell-theme-type 'dark)
+;;  (setq heaven-and-hell-load-theme-no-confirm t)
+;;  (setq heaven-and-hell-themes
+;;        '((light . modus-vivendi)
+;;          (dark . modus-operandi)))
+;;  :hook (after-init . heaven-and-hell-init-hook)
+;;  :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
+;;         ("<f7>" . heaven-and-hell-toggle-theme)))
 
 (use-package doom-themes
   :ensure t
@@ -419,6 +425,51 @@
   (doom-themes-neotree-config)
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
+
+(defun my-demo-modus-vivendi ()
+  (modus-themes-with-colors
+    (custom-set-faces
+     `(org-block ((,class :background ,"#303030")))
+     `(org-block-end-line ((,class :background ,"#303030")))
+     `(hl-line ((,class :background ,"#303030")))
+     `(show-paren-match-expression ((,class :background ,"#191a1b")))
+     `(org-block-begin-line ((,class :background ,"#303030"))))))
+
+(defun my-demo-modus-operandi ()
+  (modus-themes-with-colors
+    (custom-set-faces
+     `(org-block ((,class :background ,"#d8d8d8")))
+     `(org-block-end-line ((,class :background ,"#d8d8d8")))
+     `(hl-line ((,class :background ,"#d8d8d8")))
+     `(show-paren-match-expression ((,class :background ,"#e4e4e4")))
+     `(org-block-begin-line ((,class :background ,"#d8d8d8"))))))
+
+(defun load-vivendi ()
+  (interactive)
+  (load-theme 'modus-vivendi t)
+  (my-demo-modus-vivendi))
+
+(defun load-operandi ()
+  (interactive)
+  (load-theme 'modus-operandi t)
+  (my-demo-modus-operandi))
+
+(defun my-demo-modus-themes-toggle ()
+(interactive)
+(if (eq (car custom-enabled-themes) 'modus-operandi)
+    (load-vivendi)
+  (load-operandi)))
+
+(use-package modus-themes
+  :ensure t
+  :config
+  (setq modus-themes-org-blocks 'gray-background)
+  (setq modus-themes-subtle-line-numbers t)
+  (setq modus-themes-vivendi-color-overrides
+        '((bg-main . "#282828"))))
+
+(load-vivendi)
+(global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle)
 
 (use-package all-the-icons
   :ensure t)
@@ -508,6 +559,8 @@
     ;;(evil-define-key 'normal org-mode-map
     ;;  (kbd "SPC t") 'org-todo)
 
+;; Activate org-beamer
+ ; (org-beamer-mode)
 
     ;; You can add blocks pressing C-, and then the corresponding key.
   (require 'org-tempo)
@@ -583,8 +636,6 @@
 (use-package ox-pandoc
   :after org
   :ensure t)
-;; Activate org-beamer
-  (org-beamer-mode 1)
 
 (use-package org-superstar
        :ensure t
@@ -931,32 +982,6 @@
   ;(setq org-re-reveal-center t)
   (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
 
-(use-package vterm)
-
-(use-package vterm-toggle
-  :ensure t
-  :bind ("<f4>" . vterm-toggle-cd))
-
-(use-package fish-completion
-     :after esh-mode
-     :ensure t
-   :hook (eshell-mode . fish-completion-mode))
-
-   (use-package eshell-syntax-highlighting
-   :ensure t
-   :after esh-mode
-   :config
-   (eshell-syntax-highlighting-global-mode +1))
-
- (use-package esh-autosuggest
- :ensure t
-   :hook (eshell-mode . esh-autosuggest-mode))
-
-(use-package eshell
-  :ensure nil
-  :config
-  (setq eshell-banner-message (concat (shell-command-to-string "fortune-es") "\n\n")))
-
 (use-package mu4e
   :ensure nil
   :load-path "/usr/share/emacs/site-lisp/mu4e/"
@@ -1030,6 +1055,10 @@
   :hook
   (ledger-mode . evil-ledger-mode))
 
+(add-to-list 'load-path "~/.emacs.d/packages/")
+(require 'beancount)
+(add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
+
 (use-package kdeconnect
   :ensure t
   :config
@@ -1037,9 +1066,6 @@
   (setq kdeconnect-active-device "7843123afa92d0a8"))
 
 (use-package gemini-mode)
-
-(use-package nix-sandbox
-  :ensure t)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
