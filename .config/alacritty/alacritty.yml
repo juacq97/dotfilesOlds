@@ -565,10 +565,10 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *one-dark
+colors: *dracula
 
 # Background opacity
-background_opacity: 1
+window.opacity: 1
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"

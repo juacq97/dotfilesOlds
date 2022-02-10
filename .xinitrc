@@ -15,4 +15,5 @@ source ~/.xprofile
 #exec stumpwm
 #exec emacs -mm --debug-init -l ~/.emacs.d/desktop.el
 #exec dwm
+#exec fvwm3
 exec herbstluftwm

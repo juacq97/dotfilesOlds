@@ -70,8 +70,7 @@ set conceallevel=2
 
 """ Temas """""
 let g:grubvox_italic = 1
-let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
+colorscheme 
 "Conceal no se ve bien con este tema, con este comando se arregla OwO
 highlight Conceal guifg=White guibg=color0
 let g:one_allow_italics = 1 

@@ -5,8 +5,7 @@
 
 ** Sesión $1
 
-#+LATEX: \begin{tcolorbox}[breakable,skin=enhanced,colback=back1!75!white,colframe=back1!75!white,valign=center,segmentation style={black,solid,opacity=0.2,line width=1pt}]
-
+{{{latexSesion}}}
 *Inicio ($2 min)*
 + $5
 
@@ -18,20 +17,11 @@
 
 *** Evaluación et. al.                                             :ignore:
 
-#+BEGIN_EXPORT latex
-\tcblower
-\begin{tcbraster}[raster columns=2,raster equal height,size=small,colframe=back2!75!white,colback=back2!75!white,colbacktitle=red!50!white,valign=center]
-\begin{tcolorbox}
-#+END_EXPORT
 
+{{{latexEvaluacion}}}
 + *Conocimientos previos:* ${8:Lo que se necesita saber para esta sesión}
  
 + *Recursos:* ${9:Recursos necesarios, en caso de haber alguno}
-
-#+BEGIN_EXPORT latex
-\end{tcolorbox}
-\begin{tcolorbox}
-#+END_EXPORT
 
 + *Inteligencias:* Lógico-matemática, ${10}
  
@@ -39,8 +29,4 @@
 
 + *Evaluación:* ${12:¿Qué se evaluará y como?}
 
-#+BEGIN_EXPORT latex
-\end{tcolorbox}
-\end{tcbraster}
-\end{tcolorbox}
-#+END_EXPORT
+{{{finalSesion}}}

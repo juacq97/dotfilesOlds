@@ -1,0 +1,5 @@
+herbstclient load '(split horizontal:0.7994:0 (clients max:0 0x2000002) (clients max:0 0x3e00002))'
+herbstclient rule once class=Alacritty instance=Alacritty tag=󰨇 title=Alacritty index=0 # 0x2000002
+herbstclient apply_tmp_rule --all class=Alacritty instance=Alacritty tag=󰨇 title=Alacritty index=0 # 0x2000002
+herbstclient rule once class=Alacritty instance=Alacritty tag=󰨇 title=Alacritty index=1 # 0x3e00002
+herbstclient apply_tmp_rule --all class=Alacritty instance=Alacritty tag=󰨇 title=Alacritty index=1 # 0x3e00002

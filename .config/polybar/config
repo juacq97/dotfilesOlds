@@ -17,9 +17,9 @@
 ;==========================================================
 
 [colors]
-background = ${xrdb:background}
+background = #22212C
 ;background = #00000000
-foreground = ${xrdb:foreground}
+foreground =#ffffff
 ;foreground = #ffffff
 color0 = ${xrdb:color0} 
 color1 = ${xrdb:color1} 
@@ -31,12 +31,12 @@ color6 = ${xrdb:color6}
 color7 = ${xrdb:color7} 
 
 [bar/panel]
-monitor	=
+monitor	= 
 width = 100%
 height = 24
 offset-x = 0%
-offset-y = 0%
-radius = 3
+offset-y = -10%
+radius = 0
 fixed-center = true
 locale = es_MX.UTF-8
 enable-ipc = true
@@ -45,10 +45,10 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 2
-line-color = #f00
+line-color = #BD93F9
 
-border-size = 2
-border-color = #00000000
+border-size = 0
+border-color = ${colors.foreground}
 
 padding-left = 0
 padding-right = 0
@@ -56,23 +56,92 @@ padding-right = 0
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Open Sans:semibold:size=10:antialias=true;1
-font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;2
+font-0 = Cantarell:pixelsize=10:antialias=true
+font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;1
 font-2 = Weather Icons:size=12;3
 
-modules-left = hlwm title
+modules-left = i3 hlwm q3term title
 modules-center = date
-modules-right = spotify term temperature sep pulseaudio battery network
+modules-right = spotify term temperature sep pulseaudio battery network sep menu-apps
 tray-position = none
+tray-padding = 2
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+[module/i3]
+type = internal/i3
+
+; Only show workspaces defined on the same output as the bar
+pin-workspaces = false
+strip-wsnumbers = true
+index-sort = true
+enable-click = true
+enable-scroll = false
+wrapping-scroll = false
+reverse-scroll = false
+fuzzy-match = true
+
+; ws-icon-[0-9]+ = <label>;<icon>
+; NOTE: The <label> needs to match the name of the i3 workspace
+; Neither <label> nor <icon> can contain a semicolon (;)
+ws-icon-0 = 1;♚
+ws-icon-1 = 2;♛
+ws-icon-2 = 3;♜
+ws-icon-3 = 4;♝
+ws-icon-4 = 5;♞
+ws-icon-default = ♟
+; Available tags:
+;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
+;   <label-mode> (default)
+format = <label-state> <label-mode>
+
+; Available tokens:
+;   %mode%
+; Default: %mode%
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-background = #e60053
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon% %name%
+label-focused = %index%
+label-focused-foreground = #ffffff
+label-focused-background = #3f3f3f
+label-focused-underline = #fba922
+label-focused-padding = 4
+
+label-unfocused = %index%
+label-unfocused-padding = 4
+
+; Escritorio en el otro monitor
+label-visible = %index%
+label-visible-underline = #555555
+label-visible-background = #282828
+label-visible-padding = 4
+
+label-urgent = %index%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-padding = 4
+
+; Separator in between workspaces
+label-separator =
+label-separator-padding = 2
+label-separator-foreground = #ffb52a
 
 [module/hlwm]
 type = custom/script
 exec = ~/.config/polybar/scripts/info-hlwm-workspaces.sh
 tail = true
 
+[module/q3term]
+type = custom/text
+click-left = ~/.config/herbstluftwm/scratch.sh 󱐀
+content = "  󰁊"
 
 [module/title]
 type = internal/xwindow
@@ -129,6 +198,52 @@ format-foreground =
 label = "%{A3:emacsclient -c -F '(quote (name . "agenda") (width  . 80) (height . 45) (left . 250) (top . 60))' -n -e "(agenda-frame)":} %date%, %time% %{A}"
 label-font = 3
 label-foreground = 
+
+
+[module/menu-apps]
+type = custom/menu
+
+; If true, <label-toggle> will be to the left of the menu items (default).
+; If false, it will be on the right of all the items.
+expand-right = false
+
+; "menu-LEVEL-N" has the same properties as "label-NAME" with
+; the additional "exec" property
+;
+; Commands will be executed using "/bin/sh -c $COMMAND"
+
+menu-0-0 = 󰐥
+menu-0-0-exec = #menu-apps.open.1
+menu-0-1 = 󰜉
+menu-0-1-exec = #menu-apps.open.2
+menu-0-2 = 󰤄
+menu-0-2-exec = #menu-apps.open.3
+
+
+menu-1-0 = Apagar
+menu-1-0-exec = systemctl poweroff
+
+menu-2-0 = Reiniciar
+menu-2-0-exec = systemctl reboot
+
+menu-3-0 = Suspender
+menu-3-0-exec = systemctl suspend
+
+; Available tags:
+;   <label-toggle> (default) - gets replaced with <label-(open|close)>
+;   <menu> (default)
+; If expand-right is true, the default will be "<label-toggle><menu>" and the
+; other way around otherwise.
+; Note that if you use <label-toggle> you must also include
+; the definition for <label-open>
+; format = <label-toggle><menu>
+
+label-open = "󰁒 "
+label-close = "󰜺 "
+
+; Optional item separator
+; Default: none
+label-separator = "   "
 
 
 [module/battery]
@@ -252,7 +367,7 @@ warn-temperature = 85
 
 [module/network]
 type = internal/network
-interface = wlp3s0
+interface = wlan0
 interval = 15.0
 format-connected = <ramp-signal> 
 format-disconnected = <label-disconnected>

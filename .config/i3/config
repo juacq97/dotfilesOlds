@@ -11,14 +11,16 @@
 # This is what I change the most: appearance and functionality stuff
 
 # Default border to 3px and without title bars
-default_border pixel 3
+default_border pixel 2
+hide_edge_borders smart
 
 # Focus never goes outside the workspace
 focus_wrapping workspace
 
 # Focus only on click
-focus_follows_mouse no
+focus_follows_mouse yes
 
+font pango:Cantarell 10
 # Gaps!!
 #gaps inner 5
 #gaps outer 5
@@ -27,15 +29,15 @@ focus_follows_mouse no
 #include Wcolors
 
 # Colors definitions. 
-# Class		          t_b       bg        fg     split    border
+# Class		        tag_border  bg        fg     split    border
 #client.focused		 #454C5A  #454C5A  #fafafa  #e4436f  #282C34
-#client.focused_inactive	 #6C6F93  #6C6F93  #888888  #E0BEAE  #6C6F93
+#client.focused_inactive #6C6F93  #6C6F93  #888888  #E0BEAE  #6C6F93
 #client.unfocused	 #32353F  #32353F  #6C6F93  #2E303E  #282C34
 #client.urgent		 #E5C07B  #E5C07B  #ffffff  #E5C07B  #E5C07B
 
-client.focused		 #E4436F  #E4436F  #282C34  #E5C07B  #E4436F
-client.focused_inactive	 #61AFEF  #61AFEF  #282C34  #E0BEAE  #61AFEF
-client.unfocused	 #6C6F93  #6C6F93  #282C34  #2E303E  #6C6F93
+client.focused		 #EBDBB2  #ebdbb2  #282828  #61Afef  #ebdbb2
+client.focused_inactive	 #1d2021  #1d2021  #ffffff  #1d2021  #504945
+client.unfocused	 #ebdbb2  #1d2021  #ffffff  #1d2021  #282828
 client.urgent		 #E5C07B  #E5C07B  #282C34  #E5C07B  #E5C07B
 
 ###############
@@ -43,7 +45,10 @@ client.urgent		 #E5C07B  #E5C07B  #282C34  #E5C07B  #E5C07B
 ###############
 #No more xinitrc 
 
-#exec polybar panel -r &
+exec polybar panel -r &
+exec picom & 
+exec_always nitrogen --restore &
+exec_always autorandr -c &
 #exec sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 #exec_always xrdb  ~/.Xresources &
 #exec /usr/lib/kdeconnectd
@@ -67,6 +72,102 @@ floating_modifier Mod4
 # App launcher
 set $m1 DP-2
 set $m2 LVDS-1 
+
+## i3ass
+################
+
+# toggle floating state            |     i3viswiz
+# -----------------------------------------------
+bindsym $mod+Shift+space      exec --no-startup-id i3fyra --float
+# making a floating window tiled with the keybinding
+# above will automatically enable the i3fyra layout
+# on the active workspace.
+
+# splitsizes in the i3fyra layout
+# -----------------------------------------------
+set $layout 'AB=-350 AC=220 BD=252'
+
+# by executing below command with i3 the layout
+# will be configured before it is created
+exec --no-startup-id i3fyra --layout $layout
+
+# use this keybinding to restore the layout
+bindsym $mod+p exec --no-startup-id i3fyra --layout $layout         
+
+# change focus                     |     i3viswiz
+# -----------------------------------------------
+bindsym $mod+$left            exec --no-startup-id i3viswiz left
+bindsym $mod+$down            exec --no-startup-id i3viswiz down
+bindsym $mod+$up              exec --no-startup-id i3viswiz up
+bindsym $mod+$right           exec --no-startup-id i3viswiz right
+
+# focus within a group (flip tabs) |       i3flip
+# -----------------------------------------------
+bindsym $mod+Control+j              exec --no-startup-id i3flip next
+bindsym $mod+Control+k        exec --no-startup-id i3flip perv
+
+# move within a group             | i3flip --move
+# -----------------------------------------------
+bindsym $mod+w                exec --no-startup-id i3flip --move next
+bindsym $mod+q                exec --no-startup-id i3flip --move perv
+
+# move a window                   | i3Kornhe move
+# -----------------------------------------------
+bindsym $mod+Shift+$left      exec --no-startup-id i3Kornhe move --speed 0 left
+bindsym $mod+Shift+$down      exec --no-startup-id i3Kornhe move --speed 0 down
+bindsym $mod+Shift+$up        exec --no-startup-id i3Kornhe move --speed 0 up
+bindsym $mod+Shift+$right     exec --no-startup-id i3Kornhe move --speed 0 right
+
+# resize a window                 | i3Kornhe size
+# -----------------------------------------------
+bindsym $mod+Control+Shift+$left    exec --no-startup-id i3Kornhe size --speed 30 left
+bindsym $mod+Control+Shift+$down    exec --no-startup-id i3Kornhe size --speed 30 down
+bindsym $mod+Control+Shift+$up      exec --no-startup-id i3Kornhe size --speed 30 up
+bindsym $mod+Control+Shift+$right   exec --no-startup-id i3Kornhe size --speed 30 right
+
+# "sizemode" is needed for i3Kornhe to work. It is
+# entered automatically if the window is floating
+# and i3Kornhe move/size is executed
+mode "sizemode" {
+
+  bindsym $left               exec --no-startup-id i3Kornhe --speed 30 left
+  bindsym $down               exec --no-startup-id i3Kornhe --speed 30 down
+  bindsym $up                 exec --no-startup-id i3Kornhe --speed 30 up
+  bindsym $right              exec --no-startup-id i3Kornhe --speed 30 right
+
+  bindsym Shift+$left         exec --no-startup-id i3Kornhe --speed 5 left
+  bindsym Shift+$down         exec --no-startup-id i3Kornhe --speed 5 down
+  bindsym Shift+$up           exec --no-startup-id i3Kornhe --speed 5 up
+  bindsym Shift+$right        exec --no-startup-id i3Kornhe --speed 5 right
+
+  bindsym $mod+Control+$left  exec --no-startup-id i3Kornhe size left
+  bindsym $mod+Control+$down  exec --no-startup-id i3Kornhe size down
+  bindsym $mod+Control+$up    exec --no-startup-id i3Kornhe size up
+  bindsym $mod+Control+$right exec --no-startup-id i3Kornhe size right
+
+  bindsym m exec --no-startup-id i3Kornhe move --speed 0 left
+
+  bindsym 1 exec --no-startup-id i3Kornhe 1
+  bindsym 2 exec --no-startup-id i3Kornhe 2
+  bindsym 3 exec --no-startup-id i3Kornhe 3
+  bindsym 4 exec --no-startup-id i3Kornhe 4
+  bindsym 5 exec --no-startup-id i3Kornhe 5
+  bindsym 6 exec --no-startup-id i3Kornhe 6
+  bindsym 7 exec --no-startup-id i3Kornhe 7
+  bindsym 8 exec --no-startup-id i3Kornhe 8
+  bindsym 9 exec --no-startup-id i3Kornhe 9
+
+  bindsym Escape exec --no-startup-id i3Kornhe x
+}
+
+
+# combine all layout in $mod+e , frees up $mod+w
+# (used for: i3flip --move next)
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle splith splitv tabbed stacking
+
+
 
 #############
 # Workspaces
@@ -103,27 +204,25 @@ bindsym $mod+Control+r reload
 
 # This has been assified
 
-# Move your focus around
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-
-# Move the focused window with the same, but add Shift
-
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+## Move your focus around
+#bindsym $mod+$left focus left
+#bindsym $mod+$down focus down
+#bindsym $mod+$up focus up
+#bindsym $mod+$right focus right
+#
+## Move the focused window with the same, but add Shift
+#
+#bindsym $mod+Shift+$left move left
+#bindsym $mod+Shift+$down move down
+#bindsym $mod+Shift+$up move up
+#bindsym $mod+Shift+$right move right
 
 
 # Switch to workspace
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
+bindsym $mod+1 workspace 1:  1 
+bindsym $mod+2 workspace 2:  2 
+bindsym $mod+3 workspace 3:  3 
+bindsym $mod+4 workspace 4:  4 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
@@ -169,8 +268,8 @@ bindsym $mod+s floating toggle
 #bindsym $mod+Control+k focus mode_toggle
 
 # Move focus to the parent container
-bindsym $mod+Tab focus parent
-bindsym $mod+Shift+Tab focus child
+#bindsym $mod+Tab focus parent
+#bindsym $mod+Shift+Tab focus child
 
 
 # Scratchpad

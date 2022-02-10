@@ -33,9 +33,9 @@ super + shift + Return
 
 # App menu
 super + space
-#     ~/.local/bin/dmenu_run_history -h 24 -i
+###     ~/.local/bin/dmenu_run_history -h 24 -i
       rofi -show drun -theme style7
-#	xfce4-popup-whiskermenu
+###	xfce4-popup-whiskermenu
 
 #super + r
 ##    ~/.local/bin/dmenu_run_history -h 24 -i -l 15
@@ -58,7 +58,7 @@ super + shift + f
       pcmanfm
 
 #Emacsclient
-super + e
+super + control + Return
       emacsclient -c
 #	st -e nvim
 

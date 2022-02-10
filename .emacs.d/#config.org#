@@ -52,17 +52,11 @@ Set the garbage collection to a better number for the load. Also, a message with
 ** UI and QOL configurations
 This include a lot of configurations so Emacs doesn't look like a very ugly notepad. 
 #+begin_src emacs-lisp
-  (require 'frame)
-  (defun set-cursor-hook (frame)
-    (modify-frame-parameters
-     frame (list (cons 'cursor-color "#ffffff"))))
-
-  (add-hook 'after-make-frame-functions 'set-cursor-hook)
-    (tool-bar-mode -1)
-    (scroll-bar-mode -1)
-    (menu-bar-mode -1)
-    (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
-    (column-number-mode 1) ; The modeline shows the column number at the end
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1)
+  (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
+  (column-number-mode 1) ; The modeline shows the column number at the end
   #+end_src
   
 #+begin_src emacs-lisp
@@ -465,7 +459,7 @@ As I said before, the integration with external tools can be improved. This pack
                                   ("xlsx" . "libreoffice")
                                   ("odp" . "libreoffice")
                                   ;; Otros
-                                  ("pdf" . "zathura")
+                                  ("pdf" . "okular")
                                   )))
 #+end_src
 
@@ -495,12 +489,11 @@ This is an interesting package. It adds a tree layout to dired, so I can navigat
 						 (revert-buffer)))))
 #+end_src
 
-
 This is needed to launch dired with a keybinding from my window manager
 #+begin_src emacs-lisp
   (defun dired-frame ()
     (interactive)
-    (dirvish-dired)
+    (dired)
     (delete-other-windows))
 #+end_src
 
@@ -553,12 +546,11 @@ This packages allow to quicky change between two themes. The recommended setup, 
     (setq heaven-and-hell-theme-type 'dark)
     (setq heaven-and-hell-load-theme-no-confirm t)
     (setq heaven-and-hell-themes
-          '((light . doom-one-light)
-            (dark . doom-dracula)))
+	  '((light . modus-vivendi)
+	    (dark . modus-operandi)))
     :hook (after-init . heaven-and-hell-init-hook)
     :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
-           ("<f7>" . heaven-and-hell-toggle-theme)))
-
+	   ("<f7>" . heaven-and-hell-toggle-theme)))
 #+end_src
 
 ** Themes
@@ -570,69 +562,40 @@ A collection of themes designated for ~doom-emacs~.
     :ensure t
     :config
     (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-          doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (setq doom-gruvbox-dark-variant "hard")
-
+	  doom-themes-enable-italic t) ; if nil, italics is universally disabled
     (doom-themes-visual-bell-config)
     (doom-themes-neotree-config)
     (doom-themes-treemacs-config)
     (doom-themes-org-config))
-
-(set-face-attribute 'mode-line nil :background "#282828")
 #+end_src
 
 *** Modus themes
-
-Per theme configuration
-#+begin_src emacs-lisp
-  (defun my-demo-modus-vivendi ()
-    (modus-themes-with-colors
-      (custom-set-faces
-       `(org-block ((,class :background ,"#303030")))
-       `(org-block-end-line ((,class :background ,"#303030")))
-       `(hl-line ((,class :background ,"#303030")))
-       `(show-paren-match-expression ((,class :background ,"#191a1b")))
-       `(org-block-begin-line ((,class :background ,"#303030"))))))
-
-  (defun my-demo-modus-operandi ()
-    (modus-themes-with-colors
-      (custom-set-faces
-       `(org-block ((,class :background ,"#d8d8d8")))
-       `(org-block-end-line ((,class :background ,"#d8d8d8")))
-       `(hl-line ((,class :background ,"#d8d8d8")))
-       `(show-paren-match-expression ((,class :background ,"#e4e4e4")))
-       `(org-block-begin-line ((,class :background ,"#d8d8d8"))))))
-
-  (defun load-vivendi ()
-    (interactive)
-    (load-theme 'modus-vivendi t)
-    (my-demo-modus-vivendi))
-
-  (defun load-operandi ()
-    (interactive)
-    (load-theme 'modus-operandi t)
-    (my-demo-modus-operandi))
-
-  (defun my-demo-modus-themes-toggle ()
-  (interactive)
-  (if (eq (car custom-enabled-themes) 'modus-operandi)
-      (load-vivendi)
-    (load-operandi)))
-#+end_src
-
 #+begin_src emacs-lisp
   (use-package modus-themes
     :ensure t
     :config
-    (setq modus-themes-org-blocks 'gray-background)
-    (setq modus-themes-subtle-line-numbers t)
+
+    (setq modus-themes-org-blocks 'nil)
     (setq modus-themes-vivendi-color-overrides
-          '((bg-main . "#282828"))))
+          '((bg-main . "#2c2c2c"))))
+
 #+end_src
 
 #+begin_src emacs-lisp
-;;  (load-vivendi)
-;;  (global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle) 
+  (defun my-demo-modus-vivendi ()
+    (interactive)
+    (modus-themes-with-colors
+      (custom-set-faces
+       `(line-number ((,class :background ,bg-main)))
+       `(org-block ((,class :background ,"#303030")))
+       `(org-block-end-line ((,class :background ,"#303030")))
+       `(org-block-begin-line ((,class :background ,"#303030"))))
+      (modus-themes-load-vivendi)))
+
+  (defun my-demo-modus-operandi ()
+    (interactive)
+    (setq modus-themes-operandi-color-overrides nil)
+      (modus-themes-load-operandi))
 #+end_src
 
 ** All the icons
@@ -765,28 +728,28 @@ Here's some configuration I made to org-mode, the actual package.
 
 #+begin_src emacs-lisp
 
-    (require 'ox-extra)
-    (ox-extras-activate '(ignore-headlines))
+  (use-package org-plus-contrib
+    :ensure t)
+  (require 'ox-extra)
+  (ox-extras-activate '(ignore-headlines))
 
-    (setq org-format-latex-header "\\documentclass{article} \\usepackage[usenames]{color} \\usepackage[default]{cantarell} \\pagestyle{empty} \\setlength{\\textwidth}{\\paperwidth} \\addtolength{\\textwidth}{-3cm} \\setlength{\\oddsidemargin}{1.5cm} \\addtolength{\\oddsidemargin}{-2.54cm} \\setlength{\\evensidemargin}{\\oddsidemargin} \\setlength{\\textheight}{\\paperheight} \\addtolength{\\textheight}{-\\headheight} \\addtolength{\\textheight}{-\\headsep} \\addtolength{\\textheight}{-\\footskip} \\addtolength{\\textheight}{-3cm} \\setlength{\\topmargin}{1.5cm} \\addtolength{\\topmargin}{-2.54cm}")
+  (use-package ox-latex
+    :ensure nil
+    :config
+    (setq org-latex-pdf-process
+          '("pdflatex -interaction nonstopmode -output-directory %o %f"
+            "bibtex %b"
+            "pdflatex -interaction nonstopmode -output-directory %o %f"
+            "pdflatex -interaction nonstopmode -output-directory %o %f"))
+    (setq org-latex-with-hyperref nil) ;; stop org adding hypersetup{author..} to latex export
+    ;; (setq org-latex-prefer-user-labels t)
 
-    (use-package ox-latex
-      :ensure nil
-      :config
-      (setq org-latex-pdf-process
-            '("pdflatex -interaction nonstopmode -output-directory %o %f"
-              "bibtex %b"
-              "pdflatex -interaction nonstopmode -output-directory %o %f"
-              "pdflatex -interaction nonstopmode -output-directory %o %f"))
-      (setq org-latex-with-hyperref nil) ;; stop org adding hypersetup{author..} to latex export
-      ;; (setq org-latex-prefer-user-labels t)
+    ;; deleted unwanted file extensions after latexMK
+    (setq org-latex-logfiles-extensions
+          (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "xmpi" "run.xml" "bcf" "acn" "acr" "alg" "glg" "gls" "ist")))
 
-      ;; deleted unwanted file extensions after latexMK
-      (setq org-latex-logfiles-extensions
-            (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "xmpi" "run.xml" "bcf" "acn" "acr" "alg" "glg" "gls" "ist")))
-
-      (unless (boundp 'org-latex-classes)
-        (setq org-latex-classes nil)))
+    (unless (boundp 'org-latex-classes)
+      (setq org-latex-classes nil)))
 
 #+end_src
    
@@ -840,26 +803,29 @@ Though org-mode has a long range of formats, we can add more.
 ** Superstar
 It replaces the stars for bullets and unicode glyphs. It looks nice and it's easier to read. Also, changes some TODO keywords.
 #+begin_src emacs-lisp
-  (use-package org-superstar
-    :ensure t
-    :config
-    (setq superstar-special-todo-items t))
+     (use-package org-superstar
+       :ensure t
+       :config
+       (setq superstar-special-todo-items t))
 
-  (defun my/org-enable-prettify ()
-    (setq prettify-symbols-alist
-          '(("DROP" . ?✖)
-            ("EMISION" . ?✒)
-            ("FINALIZADO" . ?✔)
-            ("LIKE" . ?❤)))
-    (prettify-symbols-mode 1))
-  (add-hook 'org-mode-hook 'my/org-enable-prettify)
-  ;;
-  ;; This hook enables org-superstar 
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (org-superstar-mode 1)))
+     (defun my/org-enable-prettify ()
+       (setq prettify-symbols-alist
+             '(("DROP" . ?✖)
+               ("EMISION" . ?✒)
+               ("FINALIZADO" . ?✔)
+               ("LIKE" . ?❤)))
+       (prettify-symbols-mode 1))
+     (add-hook 'org-mode-hook 'my/org-enable-prettify)
+;;
+    ;; This hook enables org-superstar 
+     (add-hook 'org-mode-hook
+               (lambda ()
+                 (org-superstar-mode 1)))
 #+end_src
 
+** Org bars
+#+begin_src emacs-lisp
+#+end_src
 ** Org-tree-slide
 Want to make a presentation with slides but don't want to use PowerPoint, beamer or some ridiculous web-based slides? Just use Emacs and org-mode to show your slides. The slides are, basically, narrowed org buffers, so they're editable and you can use the complete power of org-mode and Emacs.
 #+begin_src emacs-lisp
@@ -904,26 +870,26 @@ Org-mode is a TODO and scheduling format. So it has an integrated agenda. You ca
 
 Let's define some basic stuff first
 #+begin_src emacs-lisp
-  ;; (setq org-directory "/mnt/Data/ORG") ; The directory of your files
-  ;; (setq org-agenda-files '(
-  ;;                          ("/mnt/data/Nextcloud/ORG/sync/TODO.org")
-  ;;                          ("/mnt/data/Nextcloud/ORG/escuela.org")))
-   (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
-
-   ;; by default the agenda takes the current buffer. With this it'll create its own buffer
-   (setq org-agenda-window-setup 'other-window)
-   (setq org-agenda-span 7) ; Only shows next 3 days
-   (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
-   (setq org-agenda-start-with-log-mode t)
-   (setq org-log-done 'time)
-   (setq org-log-into-drawer t)
-
-   ;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
-   (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
-   (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
-
-   ;; Activate hl-line-mode on agenda buffers
-   (add-hook 'org-agenda-mode-hook 'hl-line-mode)
+ ;; (setq org-directory "/mnt/Data/ORG") ; The directory of your files
+ ;; (setq org-agenda-files '(
+ ;;                          ("/mnt/data/Nextcloud/ORG/sync/TODO.org")
+ ;;                          ("/mnt/data/Nextcloud/ORG/escuela.org")))
+  (global-set-key (kbd "C-c a") 'org-agenda) ; Keybinding to open the agenda buffer
+  
+  ;; by default the agenda takes the current buffer. With this it'll create its own buffer
+  (setq org-agenda-window-setup 'other-window)
+  (setq org-agenda-span 7) ; Only shows next 3 days
+  (setq org-agenda-start-on-weekday nil) ;;Agenda start on monday
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+  
+  ;; Since I speak spanish as my mother language, I want the days and months in spanish. Without this it'll remain on english.
+  (setq calendar-day-name-array ["domingo" "lunes" "martes" "miércoles" "jueves" "viernes" "sábado"])
+  (setq calendar-month-name-array ["enero" "febrero" "marzo" "abril" "mayo" "junio" "julio" "agosto" "septiembre" "octubre" "noviembre" "diciembre"])
+  
+  ;; Activate hl-line-mode on agenda buffers
+  (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 #+end_src
 
 Now, this is pure eye-candy
@@ -1136,7 +1102,6 @@ This package hides the emphasis characters. Similar to the =conceal= feature of 
     (setq org-hide-emphasis-markers t)
     (setq org-pretty-entities t)
     (setq org-link-descriptive t)
-    (setq org-appear-autoentities t)
     (setq org-appear-autoemphasis t)
     (setq org-appear-autolinks t)
     (setq org-appear-autosubmarkers t)
@@ -1336,13 +1301,6 @@ Ledger it's a program to keep track of your expenses. It's very unix-y, it reads
   
 #+end_src
 
-** Beancount
-
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/packages/")
-  (require 'beancount)
-  (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
-#+end_src
 ** Kdeconnect
 A =kdeconnect= client inside emacs. I want to integrate it with dired.
 #+begin_src emacs-lisp

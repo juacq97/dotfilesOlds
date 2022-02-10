@@ -2,32 +2,38 @@
 
 source $HOME/.zvars.zsh
 
-# Since I switch from DE to WM very often, I have a few functions to make the change easier
+####################
+# With standalone WM
+####################
+export QT_QPA_PLATFORMTHEME="qt5ct"
+xfce4-power-manager &
+clipmenud &
+/usr/lib/kdeconnectd &
+redshift -l 24.14:-110.27 -m randr &
+sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
+dunst &
+ulauncher --hide-window --no-window-shadow &
+flameshot &
+nextcloud &
+nitrogen --restore &
+picom & 
+#/usr/lib/xfce4/notifyd/xfce4-notifyd &
+# xfce4-panel -d &
+# nm-applet &
 
-    # Here's the programs I need with every window manager
-#    export QT_QPA_PLATFORMTHEME="qt5ct"
-#    autorandr clone-largest &
-#    nitrogen --restore &
-#    xrdb  ~/.Xresources &
-#    xfce4-power-manager &
-#    clipmenud &
-#    /usr/lib/kdeconnectd &
-#    redshift -l 24.14:-110.27 -m randr &
-#    sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
-#    dunst &
-#    #    /usr/lib/xfce4/notifyd/xfce4-notifyd &
-#    xfce4-panel -d &
-#    nm-applet &
+####################
+# With DWM
+####################
+# ~/.local/dwmblocks & 
+# dwm-msg run_command xrdb &
 
-    # If I want to use dwm, this is loaded with dwm only
-#    ~/.local/dwmblocks & 
-#    dwm-msg run_command xrdb &
-
-#emacs --daemon &
+####################
+# With any WM or DE
+####################
+emacs --daemon &
 xsetroot -cursor_name left_ptr &
 xset r rate 250 50 &
 touchpad disable &
+xrdb  ~/.Xresources &
 #~/.nix-profile/libexec/kdeconnectd &
-#flameshot &
 #fcitx5 -d &
-###nextcloud &

@@ -9,19 +9,19 @@ herbstclient --idle "tag_*" 2>/dev/null | {
             for i in "${tags[@]}" ; do
                 # Read the prefix from each tag and render them according to that prefix
                 case ${i:1:2} in
-		    '󰣇') #tag 1
+		    '1') #tag 1
 			color=#FF5555
 			echo "%{F$color}" ;;
 
-		    '󰈚') #tag 2
+		    '2') #tag 2
 			color=#50FA7B
 			echo "%{F$color}";;
 
-		    '󰈹') #tag 3
+		    '3') #tag 3
 			color=#BD93F9
 			echo "%{F$color}";;
 
-		    '󰅬') #tag 4
+		    '4') #tag 4
 			color=#FF79C6
 			echo "%{F$color}";;
 		    
@@ -52,7 +52,7 @@ herbstclient --idle "tag_*" 2>/dev/null | {
                         # TODO Add your formatting tags for workspaces with the urgent hint
                         ;;
                     '-')
-			echo "%{o#ffffff}%{+o}"
+			echo "%{o#828282}%{+o}"
                         # - the tag is viewed on a monitor that is not focused
                         # TODO Add your formatting tags for visible but not focused workspaces
                         ;;

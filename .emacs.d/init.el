@@ -341,7 +341,7 @@
                                 ("xlsx" . "libreoffice")
                                 ("odp" . "libreoffice")
                                 ;; Otros
-                                ("pdf" . "okular")
+                                ("pdf" . "zathura")
                                 )))
 
 (use-package dired-hide-dotfiles
@@ -365,7 +365,7 @@
 
 (defun dired-frame ()
   (interactive)
-  (dired)
+  (dirvish-dired)
   (delete-other-windows))
 
 (use-package doom-modeline
@@ -404,27 +404,31 @@
     (setq doom-modeline-irc-stylize 'identity))
 (doom-modeline-mode 1)
 
-;;(use-package heaven-and-hell
-;;  :ensure t
-;;  :init
-;;  (setq heaven-and-hell-theme-type 'dark)
-;;  (setq heaven-and-hell-load-theme-no-confirm t)
-;;  (setq heaven-and-hell-themes
-;;        '((light . modus-vivendi)
-;;          (dark . modus-operandi)))
-;;  :hook (after-init . heaven-and-hell-init-hook)
-;;  :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
-;;         ("<f7>" . heaven-and-hell-toggle-theme)))
+(use-package heaven-and-hell
+  :ensure t
+  :init
+  (setq heaven-and-hell-theme-type 'dark)
+  (setq heaven-and-hell-load-theme-no-confirm t)
+  (setq heaven-and-hell-themes
+        '((light . doom-one-light)
+          (dark . doom-dracula)))
+  :hook (after-init . heaven-and-hell-init-hook)
+  :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
+         ("<f7>" . heaven-and-hell-toggle-theme)))
 
 (use-package doom-themes
-  :ensure t
-  :config
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-	doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (doom-themes-visual-bell-config)
-  (doom-themes-neotree-config)
-  (doom-themes-treemacs-config)
-  (doom-themes-org-config))
+    :ensure t
+    :config
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+          doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    (setq doom-gruvbox-dark-variant "hard")
+
+    (doom-themes-visual-bell-config)
+    (doom-themes-neotree-config)
+    (doom-themes-treemacs-config)
+    (doom-themes-org-config))
+
+(set-face-attribute 'mode-line nil :background "#282828")
 
 (defun my-demo-modus-vivendi ()
   (modus-themes-with-colors
@@ -468,8 +472,8 @@
   (setq modus-themes-vivendi-color-overrides
         '((bg-main . "#282828"))))
 
-(load-vivendi)
-(global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle)
+;;  (load-vivendi)
+;;  (global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle)
 
 (use-package all-the-icons
   :ensure t)
@@ -582,6 +586,8 @@
 (require 'ox-extra)
 (ox-extras-activate '(ignore-headlines))
 
+(setq org-format-latex-header "\\documentclass{article} \\usepackage[usenames]{color} \\usepackage[default]{cantarell} \\pagestyle{empty} \\setlength{\\textwidth}{\\paperwidth} \\addtolength{\\textwidth}{-3cm} \\setlength{\\oddsidemargin}{1.5cm} \\addtolength{\\oddsidemargin}{-2.54cm} \\setlength{\\evensidemargin}{\\oddsidemargin} \\setlength{\\textheight}{\\paperheight} \\addtolength{\\textheight}{-\\headheight} \\addtolength{\\textheight}{-\\headsep} \\addtolength{\\textheight}{-\\footskip} \\addtolength{\\textheight}{-3cm} \\setlength{\\topmargin}{1.5cm} \\addtolength{\\topmargin}{-2.54cm}")
+
 (use-package ox-latex
   :ensure nil
   :config
@@ -638,25 +644,23 @@
   :ensure t)
 
 (use-package org-superstar
-       :ensure t
-       :config
-       (setq superstar-special-todo-items t))
+  :ensure t
+  :config
+  (setq superstar-special-todo-items t))
 
-     (defun my/org-enable-prettify ()
-       (setq prettify-symbols-alist
-             '(("DROP" . ?✖)
-               ("EMISION" . ?✒)
-               ("FINALIZADO" . ?✔)
-               ("LIKE" . ?❤)))
-       (prettify-symbols-mode 1))
-     (add-hook 'org-mode-hook 'my/org-enable-prettify)
+(defun my/org-enable-prettify ()
+  (setq prettify-symbols-alist
+        '(("DROP" . ?✖)
+          ("EMISION" . ?✒)
+          ("FINALIZADO" . ?✔)
+          ("LIKE" . ?❤)))
+  (prettify-symbols-mode 1))
+(add-hook 'org-mode-hook 'my/org-enable-prettify)
 ;;
-    ;; This hook enables org-superstar 
-     (add-hook 'org-mode-hook
-               (lambda ()
-                 (org-superstar-mode 1)))
-
-
+;; This hook enables org-superstar 
+(add-hook 'org-mode-hook
+          (lambda ()
+            (org-superstar-mode 1)))
 
 (use-package org-tree-slide
   :ensure t
@@ -890,6 +894,7 @@
   (setq org-hide-emphasis-markers t)
   (setq org-pretty-entities t)
   (setq org-link-descriptive t)
+  (setq org-appear-autoentities t)
   (setq org-appear-autoemphasis t)
   (setq org-appear-autolinks t)
   (setq org-appear-autosubmarkers t)
@@ -1069,3 +1074,20 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(doom-dracula))
+ '(custom-safe-themes
+   '("c5ded9320a346146bbc2ead692f0c63be512747963257f18cc8518c5254b7bf5" default)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-calendar-event ((t (:inherit (default)))))
+ '(org-agenda-calendar-sexp ((t (:inherit (default)))))
+ '(org-agenda-date-today ((t (:weight bold :height 130))))
+ '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))

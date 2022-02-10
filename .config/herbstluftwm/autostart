@@ -10,6 +10,7 @@ xsetroot -cursor_name left_ptr
 # remove all existing keybindings
 hc keyunbind --all
 Mod=Mod4   
+hc set focus_follows_mouse true
 
 hc keybind $Mod-Control-r reload
 hc keybind $Mod-Shift-q close_or_remove
@@ -17,7 +18,8 @@ hc keybind $Mod-Control-q remove #remove frame, merge client with the next frame
 
 # basic movement in tiling and floating mode
 hc keybind $Mod-Control-m spawn ~/.config/herbstluftwm/maximize.sh
-hc keybind $Mod-z spawn ~/.config/herbstluftwm/scratchpad.sh
+hc keybind $Mod-z spawn ~/.config/herbstluftwm/scratch.sh "󱐀"
+hc keybind $Mod-Shift-z move "󱐀"
 
 # focusing clients inside the container
 hc keybind $Mod-h  focus left
@@ -47,7 +49,7 @@ hc keybind $Mod-Control-j cycle +1
 hc keybind $Mod-Control-k cycle -1
 
 # splitting frames
-hc keybind $Mod-i  chain , cycle_layout +1 horizontal vertical , split bottom  0.5 , focus -e down 
+hc keybind $Mod-i  chain , split bottom  0.5 , focus -e down 
 hc keybind $Mod-o  chain , split right   0.5 , focus -e right
 hc keybind $Mod-Control-i  chain , split top  0.5 , focus -e up
 hc keybind $Mod-Control-o  chain , split left   0.5 , focus -e left
@@ -93,15 +95,17 @@ hc mousebind $Mod-Button3 resize
 hc keybind $Mod-comma   cycle_monitor +1
 hc keybind $Mod-period  cycle_monitor -1
 
+
 # move client to othe MONITOR
 hc keybind $Mod-Shift-comma shift_to_monitor +1
 hc keybind $Mod-Shift-period shift_to_monitor -1
 
 hc set default_frame_layout horizontal
 
-tag_names=( 1 2 3 )
+#tag_names=( 1 2 3 4 5 )
+tag_names=( "󰣇" "󰨇" "󰹑" "󰦊" "󱐀" )
 #tag_names=( 1 2 3 4 5 6 )
-tag_keys=( {1..3} 0 )
+tag_keys=( {1..5} 0 )
 
 hc rename default "${tag_names[0]}" || true
 for i in "${!tag_names[@]}" ; do
@@ -113,37 +117,35 @@ for i in "${!tag_names[@]}" ; do
     fi
 done
 
-# Takes colors from Xresources because why not
-  back=$(xrdb -query | grep background | cut -f2- -d'#')
-  border=$(xrdb -query | grep cursorColor | cut -f2- -d'#')
-  color0=$(xrdb -query | grep color0 | cut -f2- -d'#')
-  color1=$(xrdb -query | grep color1: | cut -f2- -d'#')
-  color2=$(xrdb -query | grep color2 | cut -f2- -d'#')
-  color3=$(xrdb -query | grep color3 | cut -f2- -d'#')
-  color4=$(xrdb -query | grep color4 | cut -f2- -d'#')
-  color5=$(xrdb -query | grep color5 | cut -f2- -d'#')
-  color6=$(xrdb -query | grep color6 | cut -f2- -d'#')
-  color7=$(xrdb -query | grep color7 | cut -f2- -d'#')
 
-  hc attr theme.tiling.reset 1
-  hc attr theme.floating.reset 1
+hc attr theme.tiling.reset 1
+hc attr theme.floating.reset 1
+
+# Declare some colors
+
+active=458588
+activeAlt=ebdbb2
+inactive=22212C
+inactiveAlt=689d6a
+background=282a36
+foreground=ffffff
 
 # Frames
-hc set frame_border_active_color "#$color1" #Focused frame color
-hc set frame_border_normal_color "#0000004D" #Unfocused frame color
+hc set frame_border_active_color "#$background" #Focused frame color
+hc set frame_border_normal_color "#$background" #Unfocused frame color
 hc set frame_border_width 1  #border size
 
 hc set frame_bg_active_color "#00000000" #Fill of focused frame
-hc set frame_bg_normal_color "#00000000" #Fill of unfocused frame (needs always show frame)
+hc set frame_bg_normal_color "#00000066" #Fill of unfocused frame (needs always show frame)
 hc set frame_bg_transparent off #Removes the filler color of frame
-hc set frame_transparent_width 0 # What part of the filler color should remain?
+hc set frame_transparent_width 2 # What part of the filler color should remain?
 
 hc set frame_active_opacity 100 #Focused frame opacity
 hc set frame_normal_opacity 100 # Unfocused frame opacity
 
 hc set frame_border_inner_width 0
 hc set always_show_frame on
-hc set frame_gap 6
+hc set frame_gap 5
 
 # Clients
 hc attr theme.padding_top 0 #Padding at the top of the windows
@@ -151,42 +153,55 @@ hc attr theme.padding_right 0 #Padding
 hc attr theme.padding_left 0 #Padding 
 hc attr theme.padding_bottom 0 #Padding 
 
-hc attr theme.border_width 3 # WIndows border  s
-hc attr theme.active.color "#$back" #Window border color
-hc attr theme.normal.color "#$back" # Window border color unfocused
+# WIndow and tabs color/border
+hc attr theme.border_width 1 # WIndows border  s
+hc attr theme.active.color "#$background" #Window border color
+hc attr theme.normal.color "#$inactive" # Window border color unfocused
 hc attr theme.urgent.color orange
 
 # Window Title
-hc attr theme.title_height 17
-hc attr theme.padding_top 3
+hc attr theme.title_height 15
+hc attr theme.title_depth 3
+hc attr theme.title_align center
+hc attr theme.title_when multiple_tabs
+hc attr theme.floating.title_when always
+hc attr theme.padding_top 2
 
-hc attr theme.tiling.title_height 20
-hc attr theme.active.color "#$color1"
-hc attr theme.active.title_color "#$back"
-hc attr theme.normal.color "#$back"
-hc attr theme.normal.title_color "#$color7"
+hc attr theme.tiling.title_height 15
+hc attr theme.active.color "#$background"
+hc attr theme.active.title_color "#$foreground"
+hc attr theme.normal.color "#$background"
+hc attr theme.normal.title_color "#$foreground"
 
-hc attr theme.floating.active.color "#$back"
-hc attr theme.floating.normal.color "#$color5"
-hc attr theme.floating.normal.title_color "#$color5"
-hc attr theme.floating.active.title_color "#$color1"
+# TABS
+hc attr theme.tab_color "#$inactive"
+
+
 
 # Color for the inner frame.
-hc attr theme.inner_width 3
+hc attr theme.inner_width 0
 hc attr theme.normal.inner_width 0
-hc attr theme.active.inner_color "#$color1"
-hc attr theme.normal.inner_color "#$color7"
+hc attr theme.active.inner_color "#ff0000"
+hc attr theme.normal.inner_color "#000000"
 
 # Color for the outer frame (This is seen with tabs)
 hc attr theme.outer_width 1
-hc attr theme.active.outer_color "#$color1"
-hc attr theme.normal.outer_color "#$color7"
+hc attr theme.active.outer_color "#$activeAlt"
+hc attr theme.normal.outer_color "#$inactive"
 
 # Colors for floating 
+
+hc attr theme.floating.title_height 15
+hc attr theme.floating.title_depth 3
 hc attr theme.floating.outer_width 1
-hc attr theme.floating.normal.outer_color "#$color5"
-hc attr theme.floating.border.width 1
-hc attr theme.background_color "#$back"
+hc attr theme.floating.normal.outer_color "#$inactive"
+hc attr theme.floating.border.width 0
+hc attr theme.background_color "#$background"
+
+hc attr theme.floating.active.color "#$background"
+hc attr theme.floating.normal.color "#$inactive"
+hc attr theme.floating.normal.title_color "#$foreground"
+hc attr theme.floating.active.title_color "#$foreground"
 
 # Color for the inner frame
 hc attr theme.floating.inner_width 0
@@ -206,7 +221,8 @@ hc unrule -F
 hc rule focus=on # normally focus new clients
 hc rule floatplacement=center
 hc rule class=Pqiv floating=on
-hc rule class=conky manage=off
+hc rule class=Ulauncher floating=on focus=on
+hc rule class=conky floating=on
 hc rule class=Steam floating=on
 hc rule class=mpv floating=on
 hc rule class=Lxappareance floating=on
@@ -218,6 +234,17 @@ hc rule class=zoom floating=on
 hc rule class=Connman-gtk floating=on
 hc rule instance=calendar.txt floating=on
 hc rule class=Emacs title=capture floating=on 
+
+##### ZOOM
+hc rule class=zoom title~"Chat.*" tag=󰨇 floating=off index=1
+hc rule class=zoom title~"Participants.*" tag=󰨇 floating=off index=1
+hc rule class=zoom title="Zoom Meeting" tag=󰨇 floating=off index=0
+hc rule class=zoom title="Zoom" tag=󰨇 floating=off index=0
+hc rule class=zoom title="Zoom - Free Account" tag=󱐀 floating=off
+hc rule class=zoom title="Zoom Cloud Meetings" tag=󱐀 floating=off
+
+
+
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
@@ -232,5 +259,9 @@ hc unlock
 # or simply:
 hc detect_monitors
 
-# find the panel
-#polybar -r panel
+# Restart picom if needed
+autorandr --change
+killall picom ; picom &
+nitrogen --restore &
+# find the panel and restart it if needed
+killall polybar ; polybar -r panel &

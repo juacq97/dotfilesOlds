@@ -4,7 +4,7 @@
 # --
 
 ** Aspectos curriculares                                            :ignore:
-#+ATTR_LATEX: :options [colback=gray!75!white,colframe=gray!75!white,coltitle=black!100!black,fonttitle=\bfseries \Large,halign title=center,title=${1:El contenido}]
+{{{latexCurri("${1:Titulo de la secuencia")}}}
 #+BEGIN_tcolorbox
 + *Bloque:* ${2:bloque}
 + *Campo formativo:* Pensamiento Matemático
