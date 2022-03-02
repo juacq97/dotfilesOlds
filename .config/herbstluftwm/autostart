@@ -103,7 +103,7 @@ hc keybind $Mod-Shift-period shift_to_monitor -1
 hc set default_frame_layout horizontal
 
 #tag_names=( 1 2 3 4 5 )
-tag_names=( "󰣇" "󰨇" "󰹑" "󰦊" "󱐀" )
+tag_names=( "󰣇" "󰨇" "󰹑" "󱐀" )
 #tag_names=( 1 2 3 4 5 6 )
 tag_keys=( {1..5} 0 )
 
@@ -123,17 +123,19 @@ hc attr theme.floating.reset 1
 
 # Declare some colors
 
-active=458588
+active=8E5EBC
 activeAlt=ebdbb2
 inactive=22212C
-inactiveAlt=689d6a
+inactiveAlt=6272A4
 background=282a36
 foreground=ffffff
 
+hc set title_font = DejaVu 10
+
 # Frames
-hc set frame_border_active_color "#$background" #Focused frame color
+hc set frame_border_active_color "#$active" #Focused frame color
 hc set frame_border_normal_color "#$background" #Unfocused frame color
-hc set frame_border_width 1  #border size
+hc set frame_border_width 0  #border size
 
 hc set frame_bg_active_color "#00000000" #Fill of focused frame
 hc set frame_bg_normal_color "#00000066" #Fill of unfocused frame (needs always show frame)
@@ -154,27 +156,28 @@ hc attr theme.padding_left 0 #Padding
 hc attr theme.padding_bottom 0 #Padding 
 
 # WIndow and tabs color/border
-hc attr theme.border_width 1 # WIndows border  s
+hc attr theme.border_width 0 # WIndows border  s
 hc attr theme.active.color "#$background" #Window border color
 hc attr theme.normal.color "#$inactive" # Window border color unfocused
 hc attr theme.urgent.color orange
 
 # Window Title
 hc attr theme.title_height 15
-hc attr theme.title_depth 3
+hc attr theme.title_depth 5
 hc attr theme.title_align center
 hc attr theme.title_when multiple_tabs
 hc attr theme.floating.title_when always
-hc attr theme.padding_top 2
+hc attr theme.padding_top 3
 
 hc attr theme.tiling.title_height 15
-hc attr theme.active.color "#$background"
+hc attr theme.active.color "#$active"
 hc attr theme.active.title_color "#$foreground"
 hc attr theme.normal.color "#$background"
 hc attr theme.normal.title_color "#$foreground"
 
 # TABS
 hc attr theme.tab_color "#$inactive"
+hc attr theme.tab_title_color "#$inactiveAlt"
 
 
 
@@ -185,7 +188,7 @@ hc attr theme.active.inner_color "#ff0000"
 hc attr theme.normal.inner_color "#000000"
 
 # Color for the outer frame (This is seen with tabs)
-hc attr theme.outer_width 1
+hc attr theme.outer_width 0
 hc attr theme.active.outer_color "#$activeAlt"
 hc attr theme.normal.outer_color "#$inactive"
 
@@ -193,14 +196,15 @@ hc attr theme.normal.outer_color "#$inactive"
 
 hc attr theme.floating.title_height 15
 hc attr theme.floating.title_depth 3
-hc attr theme.floating.outer_width 1
-hc attr theme.floating.normal.outer_color "#$inactive"
+hc attr theme.floating.outer_width 0
+hc attr theme.floating.normal.outer_color "#$background"
+hc attr theme.floating.active.outer_color "#$background"
 hc attr theme.floating.border.width 0
 hc attr theme.background_color "#$background"
 
-hc attr theme.floating.active.color "#$background"
+hc attr theme.floating.active.color "#$active"
 hc attr theme.floating.normal.color "#$inactive"
-hc attr theme.floating.normal.title_color "#$foreground"
+hc attr theme.floating.normal.title_color "#$inactive"
 hc attr theme.floating.active.title_color "#$foreground"
 
 # Color for the inner frame
@@ -211,7 +215,7 @@ hc attr theme.floating.normal.inner_color "#$color5"
 hc set window_gap 0 #Gap between windows
 hc set frame_padding 0 # Gapp between windows and frames
 hc set smart_window_surroundings off
-hc set smart_frame_surroundings on
+hc set smart_frame_surroundings off
 hc set mouse_recenter_gap 0
 hc set hide_covered_windows off
 
@@ -257,10 +261,11 @@ hc unlock
 # do multi monitor setup here, e.g.:
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
-hc detect_monitors
 
 # Restart picom if needed
 autorandr --change
+hc detect_monitors
+
 killall picom ; picom &
 nitrogen --restore &
 # find the panel and restart it if needed

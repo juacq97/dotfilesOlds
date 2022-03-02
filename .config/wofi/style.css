@@ -1,53 +1,79 @@
+@define-color background #282a36;
+@define-color foreground #f8f8f2;
+@define-color cursorColor #f8f8f2;
+@define-color accent #8E5EBC;
+@define-color color0 #14141b;
+@define-color color1 #FF5555;
+@define-color color2 #50FA7B;
+@define-color color3 #F1FA8C;
+@define-color color4 #BD93F9;
+@define-color color5 #FF79C6;
+@define-color color6 #8BE9FD;
+@define-color color7 #BFBFBF;
+@define-color color8 #4D4D4D;
+@define-color color9 #FF6E67;
+@define-color color10 #5AF78E;
+@define-color color11 #F4F99D;
+@define-color color12 #CAA9FA;
+@define-color color13 #FF92D0;
+@define-color color14 #9AEDFE;
+@define-color color15 #E6E6E6;
+
+
 window {
-    margin: 5px;
-    background-color: #1C1E27;
+    margin: 0px;
+    background-color: @background;
     border-style: solid;
-    border-color: white;
-    border-width: 0px 0px 0px 0px;
-    border-radius: 20px;
+    border-color: rgba(0, 0, 0, 0.3);
+    border-width: 2px;
+    border-radius: 4px;
+    font-family: Cantarell;
+    font-size: 10pt;
+    font-weight: bold;
 }
 
 #input {
-    padding: 5px;
+    padding: 7px;
     margin: 0px;
-    background-color: #1C1E27;
-    color: #CACACC;
-    border: 0px 0px 0px 0px;
-    border-radius: 10px 10px 0px 0px;
-    border-color: #1C1E27;
+    background-color: @accent;
+    border-color: @color0;
+    border: 1;
+    color: @foreground;
+    border-width: 2px;
+    border-radius: 4px 4px 0px 0px;
+    border-color: @background;
 }
 
 #inner-box {
-    margin: 5px;
+    margin: 0px;
     border-width: 0px;
-    background-color: #1C1E27;
+    background-color: @background;
 }
 
 #outer-box {
-    padding: 5px;
+    padding: 0px;
     border-style: solid;
     border-color: blue;
     border-width: 0px 0px 0px 0px;
     border-radius: 10px;
-    background-color: #1C1E27;
 }
 
 #scroll {
     margin: 5px;
     border: 0px solid orange;
-    background-color: #1C1E27;
+    background-color: @background;
 }
 
 #text {
     margin: 5px;
     padding: 5px;
     border-radius: 13px;
-    color: #CACACC;
+    color: @foreground;
 } 
 
 
 #entry:selected {
-    background-color: #E4436F;
+    background-color: @color0;
     border-radius: 13px;
     margin: 5px;
     padding: 5px;

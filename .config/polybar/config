@@ -35,8 +35,8 @@ monitor	=
 width = 100%
 height = 24
 offset-x = 0%
-offset-y = -10%
-radius = 0
+offset-y = 0%
+radius = 5
 fixed-center = true
 locale = es_MX.UTF-8
 enable-ipc = true
@@ -47,8 +47,12 @@ foreground = ${colors.foreground}
 line-size = 2
 line-color = #BD93F9
 
-border-size = 0
-border-color = ${colors.foreground}
+border-size = 4
+border-left = 4
+border-right = 4
+border-top = 4
+border-bottom = 0
+border-color = #00000000
 
 padding-left = 0
 padding-right = 0
@@ -56,13 +60,13 @@ padding-right = 0
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Cantarell:pixelsize=10:antialias=true
-font-1 = MaterialDesignIcons:pixelsize=11:antialias=true;1
+font-0 = Cantarell:bold:pixelsize=10:antialias=true
+font-1 = MaterialDesignIcons:bold:pixelsize=11:antialias=true;1
 font-2 = Weather Icons:size=12;3
 
-modules-left = i3 hlwm q3term title
-modules-center = date
-modules-right = spotify term temperature sep pulseaudio battery network sep menu-apps
+modules-left = sep menu-apps spotify
+modules-center = hlwm q3term
+modules-right =  date sep term temperature sep sep pulseaudio battery network sep
 tray-position = none
 tray-padding = 2
 cursor-click = pointer
@@ -205,7 +209,7 @@ type = custom/menu
 
 ; If true, <label-toggle> will be to the left of the menu items (default).
 ; If false, it will be on the right of all the items.
-expand-right = false
+expand-right = true
 
 ; "menu-LEVEL-N" has the same properties as "label-NAME" with
 ; the additional "exec" property
@@ -238,8 +242,8 @@ menu-3-0-exec = systemctl suspend
 ; the definition for <label-open>
 ; format = <label-toggle><menu>
 
-label-open = "󰁒 "
-label-close = "󰜺 "
+label-open = " 󰇘 "
+label-close = " 󰜺 "
 
 ; Optional item separator
 ; Default: none
@@ -269,9 +273,9 @@ label-charging-foreground = ${colors.foreground}
 label-discharging-foreground = ${colors.foreground}
 label-full-foreground = ${colors.foreground}
 
-label-charging =  %percentage%%
+label-charging = %percentage%%
 label-discharging = %percentage%%
-label-full = "100%"
+label-full = %percentage%%
 
 ; Only applies if <ramp-capacity> is used
 ramp-capacity-0=󰁺
@@ -419,7 +423,7 @@ screenchange-reload = true
 compositing-background = screen
 compositing-foreground = source
 ;compositing-border = over
-pseudo-transparency = true
+pseudo-transparency = false
 
 [global/wm]
 margin-top = 0

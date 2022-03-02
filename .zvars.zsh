@@ -10,17 +10,14 @@ export DARK_THEME="dracula"
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket #necesario para nvim --remote
 #export QT_QPA_PLATFORMTHEME="qt5ct" # Necesario para apps qt
-#export WM=herbstluftwm # Necesario para ufetch
 export LANG=es_MX.UTF-8
-#export EDITOR="nvim"
+export EDITOR="nvim"
 #export VISUAL="nvim"
 export TERMINAL="alacritty"
 export PAGER=less
-#export ZSH="$HOME/.oh-my-zsh"
 export OPENER="mimeopen"
 [ -r "$HOME/.local/bin/lesspipe.sh" ] && export LESSOPEN="| $HOME/.local/bin/lesspipe.sh %s"
 export LESS='-Ri ' #Esto es para poder ver el contenido de archivos comprimidos
-#export $(dbus-launch) #Variable para dbus
 export WINIT_X11_SCALE_FACTOR=1 #No estoy sguro, pero ayuda a alacritty en multiples monitores
 . ~/.config/lf/LF_ICONS #íconos para lf
 . ~/.local/bin/nwrap
@@ -36,11 +33,13 @@ INPUT_METHOD=ibus
 IMSETTINGS_MODULE=ibus
 
 export NIXOS_CONFIG="$HOME/.repos/dotfiles/nixos/configuration.nix"
+
 # This is for zoom on wayland
 #XDG_CURRENT_DESKTOP=gnome
 #export XDG_CURRENT_DESKTOP=sway
-    #export XDG_SESSION_TYPE=wayland
+#export XDG_SESSION_TYPE=wayland
 #export MOZ_ENABLE_WAYLAND=1
+#export GTK_USE_PORTAL=0
 #
 export XKB_DEFAULT_LAYOUT=latam
 #export GTK_USE_PORTAL=1

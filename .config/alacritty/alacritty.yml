@@ -1,4 +1,6 @@
 window:
+
+
   dimensions:
     columns: 80
     lines: 0
@@ -41,6 +43,7 @@ schemes:
   nord: &nord
     primary:
       background: '#2e3440'
+
       foreground: '#d8dee9'
       dim_foreground: '#a5abb6'
     cursor:
@@ -87,9 +90,33 @@ schemes:
       cyan: '#6d96a5'
       white: '#aeb3bb'
 
+  shuttle: &shuttle
+    primary:
+      background: '#dedcdf'
+      foreground: '#4b4b4b'
+    normal:
+      black: '#3b4252'
+      red: '#bf616a'
+      green: '#a3be8c'
+      yellow: '#ebcb8b'
+      blue: '#81a1c1'
+      magenta: '#b48ead'
+      cyan: '#88c0d0'
+      white: '#e5e9f0'
+    bright:
+      black: '#3b4252'
+      red: '#bf616a'
+      green: '#a3be8c'
+      yellow: '#ebcb8b'
+      blue: '#81a1c1'
+      magenta: '#b48ead'
+      cyan: '#88c0d0'
+      white: '#e5e9f0'
+    
+
   one-light: &one-light
     primary:
-      background: '#fafafa'
+      background: '#D8D8D8'
       foreground: '#383a42'
     cursor:
       text:       CellBackground
@@ -565,7 +592,7 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *dracula
+colors: *shuttle
 
 # Background opacity
 window.opacity: 1

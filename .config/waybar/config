@@ -1,75 +1,84 @@
 {
     "position": "top", 
     "height": 25, 
-
+    
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-left": ["custom/swaynagPower", "sway/mode", "sway/workspaces#icons", "custom/scratchpad_indicator"],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "battery", "network"],
-
+    "modules-right": ["custom/media", "pulseaudio", "battery", "network", "custom/notification"],
+    
     // Modules configuration
-     "sway/workspaces#icons": {
-         "disable-scroll": true,
-         "format": "{name}:{icon}",
-         "format-icons": {
-             "1": "󰣇",
-             "2": "󰞷",
-             "3": "󰌽",
-             "4": "󰷈",
-             "5": "󰅶",
-             "6": "󰽰",
-             "7": "󰍹",
-             "8": "󰍹",
-             "9": "󰍹",
-             "urgent": "",
-             "focused": "f",
-             "default": "d",
-	     "persistent": "p"
-         }
-     },
-
+    "sway/workspaces#icons": {
+        "disable-scroll": true,
+	"all-outputs": true,
+        "format": "{icon}",
+	"persistent_workspaces": {
+	    "1": [],
+	    "2": [],
+	    "3": [],
+	    "4": [],
+	    "5": [],
+	},
+        "format-icons": {
+            "1": "󰣇",
+            "2": "󰞷",
+            "3": "󰌽",
+            "4": "󰷈",
+            "5": "󰅶",
+            "6": "󰽰",
+            "7": "󰍹",
+            "8": "󰍹",
+            "9": "󰍹",
+            "urgent": "",
+            "focused": "f",
+            "default": "d",
+	    "persistent": "p"
+        }
+    },
+    
     "sway/workspaces": {
-         "disable-scroll": true,
-         "format": "{icon}",
-	 "current-only": false,
-         "format-icons": {
-             "urgent": "",
-             "focused": "󰑊",
-	     "persistent": "󰻃",
-             "default": "󰧞"
+        "disable-scroll": true,
+        "format": "{icon}",
+	"current-only": false,
+        "format-icons": {
+            "urgent": "",
+            "focused": "󰑊",
+	    "persistent": "󰻃",
+            "default": "󰧞"
 	}
-     },
-
+    },
+    
     "sway/mode": {
         "format": "<span font_weight=\"bold\">{}</span>"
     },
     "sway/window": {
 	"max-length": 25
-	},
-
-
+    },
+    
+    
     "clock": {
-	"format": "󰥔 {:%b %e, %R}",
+	"format": "󰥔  {:%b %e, %R}",
         "tooltip" : false,
-        "format-alt": "󰥔{:%e de %B de %Y, %H:%M}",
+        "format-alt": "󰥔 {:%e de %B de %Y, %H:%M}",
 	"on-click-right": "launch_calendar"
     },
-
+    
     "battery": {
         "states": {
             // "good": 95,
-            "warning": 30,
+            "warning": 50,
             "critical": 15
         },
-        "format": "{icon} {capacity}%",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "󰂄 {capacity}%",
+        "format": "{icon}",
+        "format-charging": "󰂅",
+        "format-plugged": "󰂄",
         "format-alt": "{time} {icon}",
+	"tooltip-format": "{capacity}",
         // "format-good": "", // An empty format will hide the module
         "format-full": "󰁹 {capacity}%",
         "format-icons": [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
-
+    
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{icon}",
@@ -80,11 +89,49 @@
 	"format-icons": [ "󰤟", "󰤢", "󰤥", "󰤨" ],
         "on-click-right": "if [ $(pgrep connman-gtk) ]; then pkill connman-gtk; else connman-gtk; fi"
     },
+    
+    "custom/media": {
+	"format": " 󰓇  {}",
+	"escape": true,
+	"max-length": 40,
+	"exec": "playerctl metadata --format '{{ title }} - {{ artist }}'"
+    },
+    
+    "custom/notification": {
+	"tooltip": false,
+	"format": "{icon}",
+	"format-icons": {
+	    "notification": "󱅫",
+	    "none": "󰂚",
+	    "dnd-notification": "󱏩",
+	    "dnd-none": "󰂛"
+	},
+	"return-type": "json",
+	"exec-if": "which swaync-client",
+	"exec": "swaync-client -swb",
+	"on-click": "swaync-client -t -sw",
+	"on-click-right": "swaync-client -d -sw",
+	"escape": true
+    },
 
+    "custom/scratchpad_indicator": {
+	"interval": 3,
+	"exec": "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length | select(. >= 1)'",
+	"format": "{} 󰖲",
+	"on-click": "swaymsg 'scratchpad show'",
+	"on-click-right": "swaymsg 'move scratchpad'"
+    },
+    
+    "custom/swaynagPower": {
+	"on-click": "~/.local/bin/swaynagPower",
+	"format": " 󰇘 "
+    },
+    
     "pulseaudio": {
-        "format": "{icon} {volume}%",
+        "format": "{icon}",
         "format-muted": "󰖁 {volume}%",
         "format-bluetooth": "{icon} {volume}%",
+	"tooltip": true,
         "format-bluetooth-muted": "󰖁  {volume}%",
         "format-icons": {
             "headphone": ["󰕿", "󰖀", "󰕾"],

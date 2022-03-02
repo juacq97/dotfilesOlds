@@ -6,15 +6,15 @@ layer=top
 anchor=top-right
 width=300
 height=100
-margin=10
+margin=3
 padding=5
-border-radius=5
-border-size=3
+border-radius=0
+border-size=2
 padding=5
 font=Futura Bk BT 10
 default-timeout=5000
 
 # Colors
-background-color=#*.background:	bg
-text-color=#*.foreground:	fg
-border-color=#526eff
+background-color=#D8D8D8
+text-color=#505050
+border-color=#778899

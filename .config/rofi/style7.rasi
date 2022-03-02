@@ -17,6 +17,8 @@ configuration {
     	fullscreen:          false;
 	hide-scrollbar:      true;
 	sidebar-mode: 	     false;
+	background:	     transparent;
+	hover-select:	     true;
 }
 
 @import "colors.rasi"
@@ -82,6 +84,11 @@ mainbox {
     padding:           0%;
 }
 
+element, element-text, element-icon {
+  cursor: pointer;
+}
+
+
 element {
     background-color:  @background;
     text-color:        @foreground;
@@ -96,16 +103,13 @@ element-icon {
 }
 
 element-text {
-    expand:             true;
     horizontal-align:   0;
-    vertical-align:     0.5;
-    margin:             0% 0.25% 0% 0.25%;
 }
 
 element selected {
     background-color:  @color5;
     text-color:        #fafafa;
-	border:	       0% 0% 0% 0%;
+    border:	       0% 0% 0% 0%;
     border-radius:     12px;
     border-color:      @background;
 }

@@ -42,6 +42,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'jsit/toast.vim'
 Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 call plug#end()
 
  set nocompatible
@@ -70,7 +71,13 @@ set conceallevel=2
 
 """ Temas """""
 let g:grubvox_italic = 1
-colorscheme 
+
+lua << EOF
+local catppuccin = require("catppuccin")
+catppuccin.setup(transparent_background = true)
+EOF
+
+colorscheme catppuccin
 "Conceal no se ve bien con este tema, con este comando se arregla OwO
 highlight Conceal guifg=White guibg=color0
 let g:one_allow_italics = 1 

@@ -9,23 +9,23 @@ herbstclient --idle "tag_*" 2>/dev/null | {
             for i in "${tags[@]}" ; do
                 # Read the prefix from each tag and render them according to that prefix
                 case ${i:1:2} in
-		    '1') #tag 1
+		    '󰣇') #tag 1
 			color=#FF5555
 			echo "%{F$color}" ;;
 
-		    '2') #tag 2
+		    '󰨇') #tag 2
 			color=#50FA7B
 			echo "%{F$color}";;
 
-		    '3') #tag 3
+		    '󰹑') #tag 3
 			color=#BD93F9
 			echo "%{F$color}";;
 
-		    '4') #tag 4
+		    '󰦊') #tag 4
 			color=#FF79C6
 			echo "%{F$color}";;
 		    
-		    '󰸳') #tag 5
+		    '󱐀') #tag 5
 			color=#8BE9FD
 			echo "%{F$color}";;
 

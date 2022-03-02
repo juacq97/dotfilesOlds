@@ -5,18 +5,18 @@ source $HOME/.zvars.zsh
 ####################
 # With standalone WM
 ####################
-export QT_QPA_PLATFORMTHEME="qt5ct"
-xfce4-power-manager &
-clipmenud &
-/usr/lib/kdeconnectd &
-redshift -l 24.14:-110.27 -m randr &
-sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
-dunst &
-ulauncher --hide-window --no-window-shadow &
-flameshot &
-nextcloud &
-nitrogen --restore &
-picom & 
+#export QT_QPA_PLATFORMTHEME="qt5ct"
+#xfce4-power-manager &
+#clipmenud &
+#/usr/lib/kdeconnectd &
+##redshift -l 24.14:-110.27 -m randr &
+#sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
+#dunst &
+#ulauncher --hide-window --no-window-shadow &
+#flameshot &
+#nextcloud &
+#nitrogen --restore &
+#picom & 
 #/usr/lib/xfce4/notifyd/xfce4-notifyd &
 # xfce4-panel -d &
 # nm-applet &

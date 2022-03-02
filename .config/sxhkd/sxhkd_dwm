@@ -34,7 +34,7 @@ super + shift + Return
 # App menu
 super + space
 ###     ~/.local/bin/dmenu_run_history -h 24 -i
-      rofi -show drun -theme style7
+      rofi -show drun -theme applications -hover-select
 ###	xfce4-popup-whiskermenu
 
 #super + r
@@ -149,9 +149,9 @@ super + F12
 
 # Clipboard
 super + ctrl + p
-      clipmenu
+      clipmenu -theme clipboard -hover-select
 
-super + ctrl + alt + p
+super + ctrl + shift + p
       passmenu2
 
 # Monitores

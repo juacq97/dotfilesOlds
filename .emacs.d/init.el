@@ -228,7 +228,7 @@
 (use-package marginalia
   :after selectrum
   :ensure t
-  :custom
+  :custoj
   (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   :init
   (marginalia-mode))
@@ -410,25 +410,23 @@
   (setq heaven-and-hell-theme-type 'dark)
   (setq heaven-and-hell-load-theme-no-confirm t)
   (setq heaven-and-hell-themes
-        '((light . doom-one-light)
-          (dark . doom-dracula)))
+        '((light . modus-operandi)
+          (dark . modus-vivendi)))
   :hook (after-init . heaven-and-hell-init-hook)
   :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
          ("<f7>" . heaven-and-hell-toggle-theme)))
 
 (use-package doom-themes
-    :ensure t
-    :config
-    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-          doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (setq doom-gruvbox-dark-variant "hard")
+  :ensure t
+  :config
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (setq doom-gruvbox-dark-variant "hard")
 
-    (doom-themes-visual-bell-config)
-    (doom-themes-neotree-config)
-    (doom-themes-treemacs-config)
-    (doom-themes-org-config))
-
-(set-face-attribute 'mode-line nil :background "#282828")
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
 
 (defun my-demo-modus-vivendi ()
   (modus-themes-with-colors
@@ -470,7 +468,9 @@
   (setq modus-themes-org-blocks 'gray-background)
   (setq modus-themes-subtle-line-numbers t)
   (setq modus-themes-vivendi-color-overrides
-        '((bg-main . "#282828"))))
+        '((bg-main . "#282828")))
+  (setq modus-themes-operandi-color-overrides
+        '((bg-main . "#D8D8D8"))))
 
 ;;  (load-vivendi)
 ;;  (global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle)
@@ -1079,9 +1079,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-dracula))
+ '(custom-enabled-themes '(modus-vivendi))
  '(custom-safe-themes
-   '("c5ded9320a346146bbc2ead692f0c63be512747963257f18cc8518c5254b7bf5" default)))
+   '("74a50f18c8c88eac44dc73d7a4c0bbe1f3e72ff5971aac38fcf354ddad0d4733" default)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

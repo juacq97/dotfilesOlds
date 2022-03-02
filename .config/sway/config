@@ -12,27 +12,44 @@
 # This is what I change the most: appearance and functionality stuff
 
 # Default border to 3px and without title bars
-default_border pixel 3
+default_border pixel 2
+default_floating_border normal 2
 
+titlebar_border_thickness 2
+titlebar_padding 2 2
+
+font Cantarell bold 10
+title_align center
 # Focus never goes outside the workspace
-focus_wrapping workspace
+focus_wrapping force
 
 # Focus only on click
-focus_follows_mouse no
+focus_follows_mouse yes
+
+output * bg /mnt/data/WALLPAPERS/v32x1rlhbsa81.png fill
 
 # Gaps!!
-gaps inner 5
-gaps outer 5
+gaps inner 2
+gaps outer 7
 
 # If I want to use the colors from my colorscheme (check toggle-colorscheme)
 #include Wcolors
 
+set $activeAlt #232627
+set $active  #f00000
+set $cursor #778899
+set $inactive #505050
+set $inactiveAlt #6272A4
+set $background #D8D8D8
+set $foreground #505050
+
 # Colors definitions. 
-# Class		          t_b       bg        fg     split    border
-client.focused		 #526eff  #526eff  #282C34  #E5C07B  #526eff
-client.focused_inactive	 #A3B2FF  #A3B2FF  #282C34  #E0BEAE  #A3B2FF
-client.unfocused	 #6C6F93  #6C6F93  #282C34  #2E303E  #6C6F93
-client.urgent		 #E5C07B  #E5C07B  #282C34  #E5C07B  #E5C07B
+# Class		          tab_border    bg           fg          split    border
+client.focused		 $cursor   $cursor  $background  $active  $activeAlt
+client.focused_inactive	 $activeAlt    $activeAlt   $background  $active  $inactive
+client.focused_tab_title $activeAlt   $active     $foreground  $active  $activeAlt
+client.unfocused	 $activeAlt  $background $foreground  $active      $background
+client.urgent		 #E5C07B      #E5C07B     $foreground  #E5C07B      #E5C07B
 
 ###############
 # Autostart
@@ -41,13 +58,18 @@ client.urgent		 #E5C07B  #E5C07B  #282C34  #E5C07B  #E5C07B
 
 exec_always xrdb  ~/.Xresources &
 exec /usr/lib/kdeconnectd &
-exec_always mako & 
+exec emacs --daemon &
+exec nextcloud &
 #exec ibus-daemon -drx &
 #exec fcitx5 &
 #exec pcloud &
 exec waybar &
 exec gammastep &
 exec wl-paste -t text --watch clipman store & 
+exec swayrd &
+exec mako &
+exec export QT_QPA_PLATFORMTHEME=qt5ct &
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK &
 
 ################
 # Variables
@@ -71,8 +93,8 @@ set $menu rofi -show drun -theme style7
 # This used to be managed by X11, xrandr, xorg.d, etc.
 
 # Wallpaper
-include background
-output * bg $bg fill
+#include background
+#output * bg $bg fill
 
 # Screen configuration. This will need tweak to support HDMI and VGA, but I don't need it rn
 # External monitor to right
@@ -114,17 +136,6 @@ input "type:keyboard" {
 # Workspaces
 #############
 
-# Set ws 1 to 6 to monitor 1, and ws 7-9 to ws 2. 
-# This behaviour is similar to the one I used to use with bspwm. 
-workspace 1 output $m1
-workspace 2 output $m1
-workspace 3 output $m1
-workspace 4 output $m1
-workspace 5 output $m1
-workspace 6 output $m1
-workspace 7 output $m2
-workspace 8 output $m2
-workspace 9 output $m2
 
 # Menu to turn off the pc. Replaces the old but cool dmenu script. Not compositor agnostic tho
 set $poweroff ¿Desea salir? [A]pagar [S]uspender [R]einiciar [C]errar sesión
@@ -145,9 +156,10 @@ include keys.conf
 #########
 # Wayland native apps uses app_id instead of class
 
-for_window [app_id=^.*] floating enable
-for_window [class=^.*] floating enable
+for_window [floating=true] border normal 2
+##for_window [class=^.*] floating enable
 for_window [app_id="(?i)mpv"] floating enable
+for_window [app_id="(?i)ulauncher"] border none
 for_window [class="(?i)sxiv"] floating enable
 for_window [class="qt5ct"] floating enable
 for_window [class="kruler"] floating enable

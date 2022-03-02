@@ -1,14 +1,15 @@
 # Load variables, including path. I decided to keep it on a separate file
 source $HOME/.zvars.zsh
+#source /etc/X11/xinit/xinitrc
 
 # Run the graphical environment when not using a display manager.
  if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-     exec startx
+     #exec startx
+     exec sway
  fi
 
 # Fetch when terminal appears
 ufetch-noascii
-#ufetch-nixos
 
 # Enable Powerlevel10k instant prompt.
  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -18,9 +19,6 @@ ufetch-noascii
 #Themes
 #source ~/.repos/powerlevel10k/powerlevel10k.zsh-theme
  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-# plugins=(
-#     git
-
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -65,29 +63,9 @@ alias r="cd ~/.repos"
 alias ncmd="nnn -dcE"
 alias todo="todotxt"
 alias n="ncmd"
-alias ref.adoc="nvim /mnt/Data/TODO/REF.adoc"
-alias semana="remind -@c+1 ~/docs/DOSIFICACIONES/HORARIO.rem"
 
 # NIXOS
 alias nix-install="nix-env -f '<nixpkgs>' -Ai"
-
-### cd on quit para nnn ###
-#NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-#nnn(){
-#nnn "$@"
-#    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-#        echo "nnn is already running"
-#        return
-#    fi
-#
-#    if [ -f "$NNN_TMPFILE" ]; then
-#            . "$NNN_TMPFILE"
-#            rm -f "$NNN_TMPFILE" > /dev/null
-#    fi
-#}
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Historial de zsh
 HISTFILE=~/.cache/zsh/history
@@ -136,5 +114,4 @@ vterm_printf(){
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export LEDGER_FILE=/mnt/data/Nextcloud/vidaPersonal/finanzas/2021.ledger
 

@@ -303,7 +303,7 @@ Selectrum is my completion framework of choice, very light and faster than ivy
   (use-package marginalia
     :after selectrum
     :ensure t
-    :custom
+    :custoj
     (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
     :init
     (marginalia-mode))
@@ -553,8 +553,8 @@ This packages allow to quicky change between two themes. The recommended setup, 
     (setq heaven-and-hell-theme-type 'dark)
     (setq heaven-and-hell-load-theme-no-confirm t)
     (setq heaven-and-hell-themes
-          '((light . doom-one-light)
-            (dark . doom-dracula)))
+          '((light . modus-operandi)
+            (dark . modus-vivendi)))
     :hook (after-init . heaven-and-hell-init-hook)
     :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
            ("<f7>" . heaven-and-hell-toggle-theme)))
@@ -578,7 +578,6 @@ A collection of themes designated for ~doom-emacs~.
     (doom-themes-treemacs-config)
     (doom-themes-org-config))
 
-(set-face-attribute 'mode-line nil :background "#282828")
 #+end_src
 
 *** Modus themes
@@ -627,7 +626,9 @@ Per theme configuration
     (setq modus-themes-org-blocks 'gray-background)
     (setq modus-themes-subtle-line-numbers t)
     (setq modus-themes-vivendi-color-overrides
-          '((bg-main . "#282828"))))
+          '((bg-main . "#282828")))
+    (setq modus-themes-operandi-color-overrides
+          '((bg-main . "#D8D8D8"))))
 #+end_src
 
 #+begin_src emacs-lisp

@@ -24,7 +24,8 @@ while [ "$DONE" -eq 0 ] ; do
   if [ "$LEVEL" -ne 0 ] ; then
     password_files=(".." "${password_files[@]}") 
   fi
-  entry=$(printf '%s\n' "${password_files[@]}" | dmenu "$@" -l 15)
+  #entry=$(printf '%s\n' "${password_files[@]}" | dmenu "$@" -l 15)
+  entry=$(printf '%s\n' "${password_files[@]}" | rofi -dmenu "$@" -theme pass -hover-select)
   
   echo "entry: $entry"
   if [ -z "$entry" ] ; then
