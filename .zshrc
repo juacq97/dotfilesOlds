@@ -3,7 +3,7 @@ source $HOME/.zvars.zsh
 #source /etc/X11/xinit/xinitrc
 
 # Run the graphical environment when not using a display manager.
- if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
      #exec startx
      exec sway
  fi

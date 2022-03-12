@@ -172,7 +172,7 @@ Fonts are a ~face~. You can set different faces. I define three kind of fonts *h
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil :family "Fira Code" :height 100 :weight 'semibold)
   (set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 100 :weight 'semibold)
-  (set-face-attribute 'variable-pitch nil :family "Fira Sans" :height 102 :weight 'light)
+  (set-face-attribute 'variable-pitch nil :family "Fira Sans" :height 102 :weight 'medium)
 #+end_src
 
 ** Emojis
@@ -303,7 +303,7 @@ Selectrum is my completion framework of choice, very light and faster than ivy
   (use-package marginalia
     :after selectrum
     :ensure t
-    :custoj
+    :custom
     (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
     :init
     (marginalia-mode))
@@ -547,17 +547,17 @@ The default modeline it's fine, but ugly and with a lot of useless information f
 ** Heaven and Hell
 This packages allow to quicky change between two themes. The recommended setup, a light and a dark theme.
 #+begin_src emacs-lisp
-  (use-package heaven-and-hell
-    :ensure t
-    :init
-    (setq heaven-and-hell-theme-type 'dark)
-    (setq heaven-and-hell-load-theme-no-confirm t)
-    (setq heaven-and-hell-themes
-          '((light . modus-operandi)
-            (dark . modus-vivendi)))
-    :hook (after-init . heaven-and-hell-init-hook)
-    :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
-           ("<f7>" . heaven-and-hell-toggle-theme)))
+          (use-package heaven-and-hell
+            :ensure t
+            :init
+            (setq heaven-and-hell-theme-type 'light)
+            (setq heaven-and-hell-load-theme-no-confirm t)
+            (setq heaven-and-hell-themes
+                  '((light . doom-gruvbox-light)
+                    (dark . doom-gruvbox)))
+            :hook (after-init . heaven-and-hell-init-hook)
+            :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
+                   ("<f7>" . heaven-and-hell-toggle-theme)))
 
 #+end_src
 
@@ -596,11 +596,15 @@ Per theme configuration
   (defun my-demo-modus-operandi ()
     (modus-themes-with-colors
       (custom-set-faces
-       `(org-block ((,class :background ,"#d8d8d8")))
-       `(org-block-end-line ((,class :background ,"#d8d8d8")))
-       `(hl-line ((,class :background ,"#d8d8d8")))
+       `(org-block ((,class :background ,"#cec3bd" :foreground ,"#3A3A3A")))
+       `(cursor ((,class :background ,"#6C605A")))
+       `(default ((,class :foreground ,"#3A3A3A")))
+       `(selectrum-current-candidate ((,class :background ,"#cec3bd")))
+       `(mode-line ((,class :background ,"#cec3bd")))
+       `(org-block-end-line ((,class :background ,"#cec3bd")))
+       `(hl-line ((,class :background ,"#cec3bd")))
        `(show-paren-match-expression ((,class :background ,"#e4e4e4")))
-       `(org-block-begin-line ((,class :background ,"#d8d8d8"))))))
+       `(org-block-begin-line ((,class :background ,"#cec3bd"))))))
 
   (defun load-vivendi ()
     (interactive)
@@ -628,7 +632,7 @@ Per theme configuration
     (setq modus-themes-vivendi-color-overrides
           '((bg-main . "#282828")))
     (setq modus-themes-operandi-color-overrides
-          '((bg-main . "#D8D8D8"))))
+          '((bg-main . "#dad3d0"))))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -1156,7 +1160,9 @@ First I want the exporter for gemini
 
 Now, lets put the configuration of org publish.
 #+begin_src emacs-lisp
-    (require 'ox-publish)
+  (require 'ox-publish)
+  (require 'ox-rss)
+
     (setq org-publish-project-alist
           '(("http_website"
              :base-directory "/mnt/data/www/source/en/"
@@ -1187,7 +1193,7 @@ Now, lets put the configuration of org publish.
              :auto-sitemap t
              :sitemap-title "All posts"
              )
-  
+
           ("http_website_español"
              :base-directory "/mnt/data/www/source/es/"
              :base-extension "org"
@@ -1217,7 +1223,16 @@ Now, lets put the configuration of org publish.
              :auto-sitemap t
              :sitemap-title "Todas las publicaciones"
              )
-  
+          ("blog-rss"
+           :base-directory "/mnt/data/www/source/"
+           :base-extension "org"
+           :recursive t
+           :publishing-directory "mnt/data/www/site/rss"
+           :publishing-function org-rss-publish-to-rss
+           :html-link-home "https://juancastro.xyz/"
+           :html-link-use-abs-url t
+           :title "Test rss")
+
             ("gemini_capsule"
              :base-directory "/mnt/data/www/source/"
              :base-extension "org"
@@ -1340,9 +1355,9 @@ Ledger it's a program to keep track of your expenses. It's very unix-y, it reads
 ** Beancount
 
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/packages/")
-  (require 'beancount)
-  (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
+ ; (add-to-list 'load-path "~/.emacs.d/packages/")
+ ; (require 'beancount)
+ ; (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
 #+end_src
 ** Kdeconnect
 A =kdeconnect= client inside emacs. I want to integrate it with dired.

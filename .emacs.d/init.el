@@ -134,7 +134,7 @@
 
 (set-face-attribute 'default nil :family "Fira Code" :height 100 :weight 'semibold)
 (set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 100 :weight 'semibold)
-(set-face-attribute 'variable-pitch nil :family "Fira Sans" :height 102 :weight 'light)
+(set-face-attribute 'variable-pitch nil :family "Fira Sans" :height 102 :weight 'medium)
 
 (use-package emojify
   :config
@@ -228,7 +228,7 @@
 (use-package marginalia
   :after selectrum
   :ensure t
-  :custoj
+  :custom
   (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   :init
   (marginalia-mode))
@@ -407,11 +407,11 @@
 (use-package heaven-and-hell
   :ensure t
   :init
-  (setq heaven-and-hell-theme-type 'dark)
+  (setq heaven-and-hell-theme-type 'light)
   (setq heaven-and-hell-load-theme-no-confirm t)
   (setq heaven-and-hell-themes
-        '((light . modus-operandi)
-          (dark . modus-vivendi)))
+        '((light . doom-gruvbox-light)
+          (dark . doom-gruvbox)))
   :hook (after-init . heaven-and-hell-init-hook)
   :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
          ("<f7>" . heaven-and-hell-toggle-theme)))
@@ -440,11 +440,15 @@
 (defun my-demo-modus-operandi ()
   (modus-themes-with-colors
     (custom-set-faces
-     `(org-block ((,class :background ,"#d8d8d8")))
-     `(org-block-end-line ((,class :background ,"#d8d8d8")))
-     `(hl-line ((,class :background ,"#d8d8d8")))
+     `(org-block ((,class :background ,"#cec3bd" :foreground ,"#3A3A3A")))
+     `(cursor ((,class :background ,"#6C605A")))
+     `(default ((,class :foreground ,"#3A3A3A")))
+     `(selectrum-current-candidate ((,class :background ,"#cec3bd")))
+     `(mode-line ((,class :background ,"#cec3bd")))
+     `(org-block-end-line ((,class :background ,"#cec3bd")))
+     `(hl-line ((,class :background ,"#cec3bd")))
      `(show-paren-match-expression ((,class :background ,"#e4e4e4")))
-     `(org-block-begin-line ((,class :background ,"#d8d8d8"))))))
+     `(org-block-begin-line ((,class :background ,"#cec3bd"))))))
 
 (defun load-vivendi ()
   (interactive)
@@ -470,7 +474,7 @@
   (setq modus-themes-vivendi-color-overrides
         '((bg-main . "#282828")))
   (setq modus-themes-operandi-color-overrides
-        '((bg-main . "#D8D8D8"))))
+        '((bg-main . "#dad3d0"))))
 
 ;;  (load-vivendi)
 ;;  (global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle)
@@ -905,6 +909,8 @@
   (require 'ox-gemini))
 
 (require 'ox-publish)
+(require 'ox-rss)
+
   (setq org-publish-project-alist
         '(("http_website"
            :base-directory "/mnt/data/www/source/en/"
@@ -965,6 +971,15 @@
            :auto-sitemap t
            :sitemap-title "Todas las publicaciones"
            )
+        ("blog-rss"
+         :base-directory "/mnt/data/www/source/"
+         :base-extension "org"
+         :recursive t
+         :publishing-directory "mnt/data/www/site/rss"
+         :publishing-function org-rss-publish-to-rss
+         :html-link-home "https://juancastro.xyz/"
+         :html-link-use-abs-url t
+         :title "Test rss")
 
           ("gemini_capsule"
            :base-directory "/mnt/data/www/source/"
@@ -1060,9 +1075,9 @@
   :hook
   (ledger-mode . evil-ledger-mode))
 
-(add-to-list 'load-path "~/.emacs.d/packages/")
-(require 'beancount)
-(add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
+; (add-to-list 'load-path "~/.emacs.d/packages/")
+; (require 'beancount)
+; (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
 
 (use-package kdeconnect
   :ensure t
@@ -1079,9 +1094,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(modus-vivendi))
+ '(custom-enabled-themes '(doom-gruvbox-light))
  '(custom-safe-themes
-   '("74a50f18c8c88eac44dc73d7a4c0bbe1f3e72ff5971aac38fcf354ddad0d4733" default)))
+   '("c4063322b5011829f7fdd7509979b5823e8eea2abf1fe5572ec4b7af1dd78519" default)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

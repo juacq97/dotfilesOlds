@@ -1,17 +1,16 @@
 * {
     font:                           "Cantarell bold 10";
-      background: #282A36;
-      foreground: #f8f8f2;
-      black: #24262C;
-      red: #ff5555;
-      green: #50fa7b;
-      yellow: #f1fa8c;
-      blue: #bd93f9;
-      magenta: #ff79c6;
-      cyan: #8be9fd;
-      white: #bfbfbf;
-      topbar: #8E5EBC;
-      cursor: #22212C;
+    background:  #3f3f3f;
+    foreground:  #dcdccc;
+    cursor:      #7cb8bb;
+    color0:      #383838;
+    color1:      #dca3a3;
+    color2:      #5f7f5f;
+    color3:      #e0cf9f;
+    color4:      #7cb8bb;
+    color5:      #dc8cc3;
+    color6:      #93e0e3;
+    color7:      #dcdccc;
 
 
     background-color: transparent;
@@ -27,7 +26,7 @@ window {
   fullscreen:       false;
   padding:          0em;
   background-color: @background;
-  border-radius:    7;
+  border-radius:    1;
   border: 2px;
   border-color: @cursor;
 }
@@ -42,7 +41,7 @@ prompt {
 
 entry {
 	placeholder:         "Search password";
-	placeholder-color:   @foreground;
+	placeholder-color:   @background;
 	expand:              true;
 	padding:             1.5%;
 	border-radius:	     0px;
@@ -82,7 +81,7 @@ element {
 }
 
 element selected {
-  background-color: @cursor;
+  background-color: @color0;
 }
 
 element-icon {

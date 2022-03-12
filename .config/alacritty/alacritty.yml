@@ -90,6 +90,20 @@ schemes:
       cyan: '#6d96a5'
       white: '#aeb3bb'
 
+  blossom: &blossom
+    primary:
+      background: "#ede6e3"
+      foreground: "#685c56"
+    normal:
+      black:   "#ede6e3"
+      red:     "#3A3A3A"
+      green:   "#637A8A"
+      yellow:  "#AA8F7C"
+      blue:    "#8B8F7E"
+      magenta: "#877979"
+      cyan:    "#937F74"
+      white:   "#685c56"
+
   shuttle: &shuttle
     primary:
       background: '#dedcdf'
@@ -492,6 +506,39 @@ schemes:
       cyan:    '0x00538b'
       white:   '0x000000'
 
+  zenburn: &zenburn
+  # Default colors
+    primary:
+      background: '0x3f3f3f'
+      foreground: '0xdcdccc'
+    
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x383838'
+      cursor: '0xdcdccc'
+    
+    # Normal colors
+    normal:
+      black:   '#383838'
+      red:     '#dca3a3'
+      green:   '#5f7f5f'
+      yellow:  '#e0cf9f'
+      blue:    '#7cb8bb'
+      magenta: '#dc8cc3'
+      cyan:    '#93e0e3'
+      white:   '#dcdccc'
+    
+    # Bright colors
+    bright:
+      black:   '#6f6f6f'
+      red:     '#dca3a3'
+      green:   '#5f7f5f'
+      yellow:  '#e0cf9f'
+      blue:    '#7cb8bb'
+      magenta: '#dc8cc3'
+      cyan:    '#93e0e3'
+      white:   '#ffffff'
+
   Horizon: &horizon
     primary:
       background: '#1C1E27'
@@ -592,7 +639,7 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *shuttle
+colors: *zenburn
 
 # Background opacity
 window.opacity: 1

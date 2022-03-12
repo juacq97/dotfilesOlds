@@ -1,27 +1,20 @@
 #!/bin/sh
 
-var=$(echo -e "Apagar\nSuspender\nReiniciar\nSalir\nCancelar" | dmenu -i -h 27 -p "¿Desea salir?") 
+var=$(echo -e "󰐥 Apagar\n󰤄 Suspender\n󰜉 Reiniciar\n󰈆 Salir\nCancelar" | rofi -theme power -dmenu ) 
+
 
 case $var in
-    'Apagar') 
-#       rm /tmp/bspwm-startup.lock
+    '󰐥 Apagar') 
 	systemctl poweroff;;
-#	sudo poweroff;;
 	
-    'Suspender')
+    '󰤄 Suspender')
     systemctl suspend;;
-#	sudo zzz;;
 
-    'Reiniciar')
-#	rm /tmp/bspwm-startup.lock
+    '󰜉 Reiniciar')
 	systemctl reboot;;
-#	sudo reboot;;
 
-    'Salir')
-#	rm /tmp/bspwm-startup.lock
-#	bspc quit;;
-#	pkill xinit;;
-	pkill herbstluftwm;;
+    '󰈆 Salir')
+	pkill sway;;
     
 	'Cancelar')
 	    exit 0;;

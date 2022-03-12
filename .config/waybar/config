@@ -12,13 +12,13 @@
         "disable-scroll": true,
 	"all-outputs": true,
         "format": "{icon}",
-	"persistent_workspaces": {
-	    "1": [],
-	    "2": [],
-	    "3": [],
-	    "4": [],
-	    "5": [],
-	},
+/*	"persistent_workspaces": {
+*	    "1": [],
+*	    "2": [],
+*	    "3": [],
+*	    "4": [],
+*	    "5": [],
+	}, */
         "format-icons": {
             "1": "󰣇",
             "2": "󰞷",
@@ -75,7 +75,7 @@
         "format-alt": "{time} {icon}",
 	"tooltip-format": "{capacity}",
         // "format-good": "", // An empty format will hide the module
-        "format-full": "󰁹 {capacity}%",
+        "format-full": "󰁹",
         "format-icons": [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     
@@ -92,6 +92,7 @@
     
     "custom/media": {
 	"format": " 󰓇  {}",
+	"interval": 10,
 	"escape": true,
 	"max-length": 40,
 	"exec": "playerctl metadata --format '{{ title }} - {{ artist }}'"
@@ -113,7 +114,7 @@
 	"on-click-right": "swaync-client -d -sw",
 	"escape": true
     },
-
+    
     "custom/scratchpad_indicator": {
 	"interval": 3,
 	"exec": "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length | select(. >= 1)'",
@@ -123,7 +124,7 @@
     },
     
     "custom/swaynagPower": {
-	"on-click": "~/.local/bin/swaynagPower",
+	"on-click": "~/.local/bin/dmenu-apagar",
 	"format": " 󰇘 "
     },
     
@@ -141,4 +142,4 @@
         "on-click": "pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle",
         "on-click-right": "if [ $(pgrep pavucontrol) ]; then pkill pavucontrol; else pavucontrol; fi"
     }
-}
+   }

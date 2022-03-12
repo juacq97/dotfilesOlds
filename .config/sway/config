@@ -12,13 +12,13 @@
 # This is what I change the most: appearance and functionality stuff
 
 # Default border to 3px and without title bars
-default_border pixel 2
+default_border normal 2
 default_floating_border normal 2
 
-titlebar_border_thickness 2
-titlebar_padding 2 2
+titlebar_border_thickness 1
+titlebar_padding 3 3
 
-font Cantarell bold 10
+font pango: Cantarell bold 10
 title_align center
 # Focus never goes outside the workspace
 focus_wrapping force
@@ -26,29 +26,27 @@ focus_wrapping force
 # Focus only on click
 focus_follows_mouse yes
 
-output * bg /mnt/data/WALLPAPERS/v32x1rlhbsa81.png fill
+output * bg "/mnt/data/WALLPAPERS/9iw3b93ypcl71.jpg" fill
 
 # Gaps!!
-gaps inner 2
+gaps inner 0
 gaps outer 7
 
-# If I want to use the colors from my colorscheme (check toggle-colorscheme)
-#include Wcolors
-
-set $activeAlt #232627
-set $active  #f00000
-set $cursor #778899
-set $inactive #505050
-set $inactiveAlt #6272A4
-set $background #D8D8D8
-set $foreground #505050
+# Colors
+set $active  #7cb8bb
+set $activeAlt #cec3bd
+set $cursor #dc8cc3
+set $inactive #383838
+set $inactiveAlt #5f7f5f
+set $background #3f3f3f
+set $foreground #dcdccc
 
 # Colors definitions. 
 # Class		          tab_border    bg           fg          split    border
-client.focused		 $cursor   $cursor  $background  $active  $activeAlt
-client.focused_inactive	 $activeAlt    $activeAlt   $background  $active  $inactive
-client.focused_tab_title $activeAlt   $active     $foreground  $active  $activeAlt
-client.unfocused	 $activeAlt  $background $foreground  $active      $background
+client.focused		 $active     $active     $background  $cursor   $active
+client.focused_inactive	 $inactive   $inactive   $foreground  $inactive $inactive
+client.focused_tab_title $activeAlt  $active     $foreground  $active   $activeAlt
+client.unfocused	 $inactive   $background $foreground  $inactive $background
 client.urgent		 #E5C07B      #E5C07B     $foreground  #E5C07B      #E5C07B
 
 ###############
@@ -60,9 +58,6 @@ exec_always xrdb  ~/.Xresources &
 exec /usr/lib/kdeconnectd &
 exec emacs --daemon &
 exec nextcloud &
-#exec ibus-daemon -drx &
-#exec fcitx5 &
-#exec pcloud &
 exec waybar &
 exec gammastep &
 exec wl-paste -t text --watch clipman store & 
@@ -70,6 +65,15 @@ exec swayrd &
 exec mako &
 exec export QT_QPA_PLATFORMTHEME=qt5ct &
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK &
+
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'oomox-zenburn'
+    gsettings set $gnome-schema icon-theme 'Papirus Dark'
+#    gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
+    gsettings set $gnome-schema font-name 'Fira Sans'
+}
 
 ################
 # Variables
@@ -103,6 +107,8 @@ output LVDS-1 resolution 1600x900 position 1600,0
 output DP-2 resolution 1600x900
 # Focus the external monitor
 focus output DP-2
+
+input type:touchpad events disabled
 
 #Clamshell: what to do when laptop lid is closed
 set $laptop LVDS-1

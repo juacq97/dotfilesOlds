@@ -1,6 +1,5 @@
 
 /*Dracula colors OwO */
-
 /*
 *@define-color background  #21222c;
 *@define-color foreground  #f8f8f2;
@@ -23,17 +22,17 @@
 *@define-color color15     #E6E6E6;
 */
 
-@define-color foreground  #505050;
-@define-color background  #D8D8D8;
-@define-color cursorColor #778899;
-@define-color color0 #5C6370;
-@define-color color1 #E06C75;
-@define-color color2 #98C379;
-@define-color color3 #E5C07B;
-@define-color color4 #61AFEF;
-@define-color color5 #C678DD;
-@define-color color6 #56B6C2;
-@define-color color7 #F0F0F0;
+@define-color background  #3f3f3f;
+@define-color foreground  #dcdccc;
+@define-color cursorColor #353535;
+@define-color color0      #383838;
+@define-color color1      #dca3a3;
+@define-color color2      #5f7f5f;
+@define-color color3      #e0cf9f;
+@define-color color4      #7cb8bb;
+@define-color color5      #dc8cc3;
+@define-color color6      #93e0e3;
+@define-color color7      #dcdccc;
 
 * {
     font-family: Cantarell;
@@ -42,47 +41,51 @@
     min-height: 0;
 }
 
+window#waybar {
+    background-color: @background;
+    color: @foreground;
+}
+
 #workspaces {
     margin: 3px;
-    background-color: @color7;
+    background-color: @cursorColor;
     border-radius: 4px;
     padding: 0px 5px 0px 5px;
+    color: @color0;
 }
 
 #workspaces button {
     padding: 0px 5px 0px 5px;
     margin: 0px 0px 0px 0px;
     min-width: 0;
-    background-color: transparent;
+    color: @foreground;
 }
-
 
 #workspaces button:hover {
     padding: 0px 5px 0px 5px;
 }
 
 #workspaces button.focused {
-    color: @cursorColor;
     padding: 0 0px;
     margin: 0px;
     padding: 0px 5px 0px 5px;
+    background-color: @cursorColor;
 }
 
 #workspaces button.persistent {
-    color: #64677B;
+    color: @background;
     padding: 0px 5px 0px 5px;
     margin: 0px;
+    background-color: @cursorColor;
 }
 
 #workspaces button.visible {
     color: @color6;
     padding: 0px 5px 0px 5px;
     margin: 0px;
+    background-color: @cursorColor;
 }
 
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-}
 
 #workspaces.focus button.focused {
     color: @background;
@@ -95,27 +98,32 @@
 
 #workspaces button#sway-workspace-1.focused {
     color: @color1;
+    background-color: @cursorColor;
 }
 
 #workspaces button#sway-workspace-2.focused {
     color: @color2;
+    background-color: @cursorColor;
 }
 
 #workspaces button#sway-workspace-3.focused {
     color: @color3;
+    background-color: @cursorColor;
 }
 
 #workspaces button#sway-workspace-4.focused {
     color: @color4;
+    background-color: @cursorColor;
 }
 
 #workspaces button#sway-workspace-5.focused {
     color: @color5;
+    background-color: @cursorColor;
 }
 
 #mode {
     background-color: @color1;
-    color: @background;
+    color: @foreground;
     border-radius: 10px;
     margin: 3px 0 3px 0;
     padding: 0 5px;
@@ -131,28 +139,32 @@
 #clock {
     margin: 3px;
     padding: 0 10px;
-    background-color: @background;
-    border-radius: 10px 10px 10px 10px;
+    background-color: @cursorColor;
+    color: @foreground;
+    border-radius: 4px 4px 4px 4px;
 }
 
 #pulseaudio, #battery, #network {
     padding: 0 10px;
     margin: 3px 0px 3px 0px;
     background-color: @background;
+    color: @foreground;
 }
 
 #pulseaudio {
     border-radius: 4px 0px 0px 4px;
-    background-color: @color7;
+    background-color: @cursorColor;
 }
 
 #battery {
     border-radius: 0px 0px 0px 0px;
-    background-color: @color7;
+    background-color: @cursorColor;
 }
 #network {
-    border-radius: 0px 0px 0px 0px;
-    background-color: @color7;
+    border-radius: 0px 4px 4px 0px;
+    padding: 0px 10px;
+    margin: 3px 3px 3px 0px;
+    background-color: @cursorColor;
 }
 
 
@@ -193,10 +205,4 @@ label:focus {
     padding: 0px 5px 0px 5px;
 }
 
-#custom-notification {
-    border-radius: 0px 4px 4px 0px;
-    margin: 3px 3px 3px 0;
-    background-color: @color7;
-    padding: 0 10px;
-}
 			

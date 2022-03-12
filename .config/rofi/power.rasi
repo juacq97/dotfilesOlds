@@ -45,7 +45,7 @@ prompt {
 }
 
 entry {
-	placeholder:         "Search apps";
+	placeholder:         "¿Salir?";
 	placeholder-color:   @background;
 	color: @background;
 	expand:              true;
