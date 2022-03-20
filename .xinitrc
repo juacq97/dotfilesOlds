@@ -16,4 +16,4 @@ source ~/.xprofile
 #exec emacs -mm --debug-init -l ~/.emacs.d/desktop.el
 #exec dwm
 #exec fvwm3
-#exec herbstluftwm
+exec herbstluftwm

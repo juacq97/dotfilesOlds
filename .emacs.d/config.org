@@ -52,17 +52,17 @@ Set the garbage collection to a better number for the load. Also, a message with
 ** UI and QOL configurations
 This include a lot of configurations so Emacs doesn't look like a very ugly notepad. 
 #+begin_src emacs-lisp
-  (require 'frame)
-  (defun set-cursor-hook (frame)
-    (modify-frame-parameters
-     frame (list (cons 'cursor-color "#ffffff"))))
+    (require 'frame)
+  ;;  (defun set-cursor-hook (frame)
+  ;;    (modify-frame-parameters
+  ;;     frame (list (cons 'cursor-color "#ffffff"))))
 
-  (add-hook 'after-make-frame-functions 'set-cursor-hook)
-    (tool-bar-mode -1)
-    (scroll-bar-mode -1)
-    (menu-bar-mode -1)
-    (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
-    (column-number-mode 1) ; The modeline shows the column number at the end
+  ;; (add-hook 'after-make-frame-functions 'set-cursor-hook)
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1)
+      (menu-bar-mode -1)
+      (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
+      (column-number-mode 1) ; The modeline shows the column number at the end
   #+end_src
   
 #+begin_src emacs-lisp
@@ -170,8 +170,8 @@ Fonts are a ~face~. You can set different faces. I define three kind of fonts *h
 - fixed-pitch: The monospace font
 - Variable-pitch: The "normal" font
 #+begin_src emacs-lisp
-  (set-face-attribute 'default nil :family "Fira Code" :height 100 :weight 'semibold)
-  (set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 100 :weight 'semibold)
+  (set-face-attribute 'default nil :family "FiraCode Nerd Font" :height 100 :weight 'semibold)
+  (set-face-attribute 'fixed-pitch nil :family "FiraCode Nerd Font" :height 100 :weight 'semibold)
   (set-face-attribute 'variable-pitch nil :family "Fira Sans" :height 102 :weight 'medium)
 #+end_src
 

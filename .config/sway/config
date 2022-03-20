@@ -33,14 +33,7 @@ gaps inner 0
 gaps outer 7
 
 # Colors
-set $active  #7cb8bb
-set $activeAlt #cec3bd
-set $cursor #dc8cc3
-set $inactive #383838
-set $inactiveAlt #5f7f5f
-set $background #3f3f3f
-set $foreground #dcdccc
-
+include ~/.config/colors/swayColors.conf
 # Colors definitions. 
 # Class		          tab_border    bg           fg          split    border
 client.focused		 $active     $active     $background  $cursor   $active
@@ -68,8 +61,7 @@ exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSO
 
 set $gnome-schema org.gnome.desktop.interface
 
-exec_always {
-    gsettings set $gnome-schema gtk-theme 'oomox-zenburn'
+exec {
     gsettings set $gnome-schema icon-theme 'Papirus Dark'
 #    gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
     gsettings set $gnome-schema font-name 'Fira Sans'

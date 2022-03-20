@@ -35,16 +35,16 @@
     ;;  (setq use-package-verbose t)
 
 (require 'frame)
-(defun set-cursor-hook (frame)
-  (modify-frame-parameters
-   frame (list (cons 'cursor-color "#ffffff"))))
+;;  (defun set-cursor-hook (frame)
+;;    (modify-frame-parameters
+;;     frame (list (cons 'cursor-color "#ffffff"))))
 
-(add-hook 'after-make-frame-functions 'set-cursor-hook)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-  (menu-bar-mode -1)
-  (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
-  (column-number-mode 1) ; The modeline shows the column number at the end
+;; (add-hook 'after-make-frame-functions 'set-cursor-hook)
+    (tool-bar-mode -1)
+    (scroll-bar-mode -1)
+    (menu-bar-mode -1)
+    (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
+    (column-number-mode 1) ; The modeline shows the column number at the end
 
 (setq  cursor-in-non-selected-windows nil     ; Hide the cursor in inactive windows
        select-enable-clipboard t              ; Merge system's and Emacs' clipboard
@@ -132,8 +132,8 @@
   (other-window 1))
 (global-set-key (kbd "C-c o") 'split-and-follow-vertically)
 
-(set-face-attribute 'default nil :family "Fira Code" :height 100 :weight 'semibold)
-(set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 100 :weight 'semibold)
+(set-face-attribute 'default nil :family "FiraCode Nerd Font" :height 100 :weight 'semibold)
+(set-face-attribute 'fixed-pitch nil :family "FiraCode Nerd Font" :height 100 :weight 'semibold)
 (set-face-attribute 'variable-pitch nil :family "Fira Sans" :height 102 :weight 'medium)
 
 (use-package emojify
@@ -1094,9 +1094,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-gruvbox-light))
- '(custom-safe-themes
-   '("c4063322b5011829f7fdd7509979b5823e8eea2abf1fe5572ec4b7af1dd78519" default)))
+ '(custom-enabled-themes '(doom-gruvbox))
+ '(package-selected-packages
+   '(i3wm-config-mode yasnippet writeroom-mode which-key use-package undo-tree selectrum rainbow-mode rainbow-delimiters ox-reveal ox-pandoc ox-gemini org-tree-slide org-superstar org-plus-contrib org-appear orderless mu4e-alert modus-themes markdown-mode marginalia magit luarocks lua-mode kdeconnect hide-mode-line helpful heaven-and-hell general gemini-mode evil-org evil-ledger evil-collection emojify doom-themes doom-modeline dired-subtree dired-single dired-open dired-hide-dotfiles consult company calfw-org calfw all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

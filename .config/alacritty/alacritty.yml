@@ -639,7 +639,7 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *zenburn
+colors: *gruvbox
 
 # Background opacity
 window.opacity: 1

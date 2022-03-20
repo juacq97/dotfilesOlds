@@ -22,17 +22,22 @@
 *@define-color color15     #E6E6E6;
 */
 
-@define-color background  #3f3f3f;
-@define-color foreground  #dcdccc;
-@define-color cursorColor #353535;
-@define-color color0      #383838;
-@define-color color1      #dca3a3;
-@define-color color2      #5f7f5f;
-@define-color color3      #e0cf9f;
-@define-color color4      #7cb8bb;
-@define-color color5      #dc8cc3;
-@define-color color6      #93e0e3;
-@define-color color7      #dcdccc;
+/* Asuming the waybar config is on ~/.config/waybar*/
+
+@import "../colors/colors.css";
+/*
+*@define-color background  #1d2021;
+*@define-color foreground  #fbf2c7;
+*@define-color cursorColor #282828;
+*@define-color color0      #1d2021;
+*@define-color color1      #cc241d;
+*@define-color color2      #98971a;
+*@define-color color3      #d79921;
+*@define-color color4      #458588;
+*@define-color color5      #b16286;
+*@define-color color6      #689d6a;
+*@define-color color7      #a89984;
+*/
 
 * {
     font-family: Cantarell;
@@ -48,77 +53,26 @@ window#waybar {
 
 #workspaces {
     margin: 3px;
-    background-color: @cursorColor;
-    border-radius: 4px;
     padding: 0px 5px 0px 5px;
     color: @color0;
 }
 
+/*unfocused*/
 #workspaces button {
     padding: 0px 5px 0px 5px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px 1px 0px 1px;
+    background-color: @cursorColor;
     min-width: 0;
+    border-radius: 7;
     color: @foreground;
 }
 
-#workspaces button:hover {
-    padding: 0px 5px 0px 5px;
-}
-
-#workspaces button.focused {
-    padding: 0 0px;
-    margin: 0px;
-    padding: 0px 5px 0px 5px;
-    background-color: @cursorColor;
-}
-
-#workspaces button.persistent {
-    color: @background;
-    padding: 0px 5px 0px 5px;
-    margin: 0px;
-    background-color: @cursorColor;
-}
-
+/* focused workspace */
 #workspaces button.visible {
-    color: @color6;
-    padding: 0px 5px 0px 5px;
-    margin: 0px;
-    background-color: @cursorColor;
-}
-
-
-#workspaces.focus button.focused {
     color: @background;
-    padding: 0px 5px 0px 5px;
-    margin: 0px;
-    text-decoration: underline;
-    border-radius: 7px;
-    background-color: @cursorColor;
-}
-
-#workspaces button#sway-workspace-1.focused {
-    color: @color1;
-    background-color: @cursorColor;
-}
-
-#workspaces button#sway-workspace-2.focused {
-    color: @color2;
-    background-color: @cursorColor;
-}
-
-#workspaces button#sway-workspace-3.focused {
-    color: @color3;
-    background-color: @cursorColor;
-}
-
-#workspaces button#sway-workspace-4.focused {
-    color: @color4;
-    background-color: @cursorColor;
-}
-
-#workspaces button#sway-workspace-5.focused {
-    color: @color5;
-    background-color: @cursorColor;
+    padding: 0px 7px 0px 7px;
+    margin: 0px 5px 0px 5px;
+    background-color: @color4;
 }
 
 #mode {
@@ -141,7 +95,7 @@ window#waybar {
     padding: 0 10px;
     background-color: @cursorColor;
     color: @foreground;
-    border-radius: 4px 4px 4px 4px;
+    border-radius: 7;
 }
 
 #pulseaudio, #battery, #network {
@@ -152,7 +106,7 @@ window#waybar {
 }
 
 #pulseaudio {
-    border-radius: 4px 0px 0px 4px;
+    border-radius: 7px 0px 0px 7px;
     background-color: @cursorColor;
 }
 
@@ -161,7 +115,7 @@ window#waybar {
     background-color: @cursorColor;
 }
 #network {
-    border-radius: 0px 4px 4px 0px;
+    border-radius: 0px 7px 7px 0px;
     padding: 0px 10px;
     margin: 3px 3px 3px 0px;
     background-color: @cursorColor;
@@ -202,7 +156,12 @@ label:focus {
 
 
 #custom-media {
+    color: @background;
+    background-color: #1ed760;
+    border-radius: 7;
     padding: 0px 5px 0px 5px;
+    margin: 3px;
 }
+
 
 			

@@ -9,12 +9,18 @@ height=100
 margin=3
 padding=5
 border-radius=0
-border-size=2
+border-size=3
 padding=5
 font=Futura Bk BT 10
 default-timeout=5000
 
 # Colors
-background-color=#3f3f3f
-text-color=#dcdccc
-border-color=#7cb8bb
+[mode=default]
+background-color=#1d2021
+text-color=#fbf2c7
+border-color=#458588
+
+[mode=lightMode]
+background-color=#fbf2c7
+text-color=#1d2021
+border-color=#458588

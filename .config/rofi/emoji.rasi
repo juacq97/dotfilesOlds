@@ -1,19 +1,6 @@
+@import "~/.config/colors/colors.rasi"
+
 * {
-    font:                           "Cantarell bold 10";
-      background: #282A36;
-      foreground: #f8f8f2;
-      black: #24262C;
-      red: #ff5555;
-      green: #50fa7b;
-      yellow: #f1fa8c;
-      blue: #bd93f9;
-      magenta: #ff79c6;
-      cyan: #8be9fd;
-      white: #bfbfbf;
-      topbar: #8E5EBC;
-      cursor: #22212C;
-
-
     background-color: transparent;
     text-color:       @foreground;
     padding:          0px;

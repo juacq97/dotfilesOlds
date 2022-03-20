@@ -1,0 +1,14 @@
+* {
+    font:                           "Cantarell bold 10";
+    background:   #fbf2c7;
+    foreground:   #1d2021;
+    cursor:       #458588;
+    color0:       #a89984;
+    color1:       #cc241d;
+    color2:       #98971a;
+    color3:       #d79921;
+    color4:       #458588;
+    color5:       #b16286;
+    color6:       #689d6a;
+    color7:       #282828;
+}
