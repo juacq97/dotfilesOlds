@@ -1,0 +1,29 @@
+#! /bin/sh
+
+theme="$(gsettings get org.gnome.desktop.interface gtk-theme)"
+echo $theme
+
+unlink ~/.config/colors/colors.css
+unlink ~/.config/colors/colors.rasi
+unlink ~/.config/colors/swayColors.conf
+
+emacsclient -n -e "(heaven-and-hell-toggle-theme)"
+
+if [[ $theme == *"Light"* ]]; then
+    gsettings set org.gnome.desktop.interface gtk-theme 'oomox-gruvbox'
+    ln -s ~/.config/colors/darkMode.rasi ~/.config/colors/colors.rasi
+    ln -s ~/.config/colors/darkMode.css ~/.config/colors/colors.css
+    ln -s ~/.config/colors/swayDark.conf ~/.config/colors/swayColors.conf
+    makoctl set-mode default
+    notify-send -a "Sway workspace" -i "com.github.themix_project.Oomox" "Dark mode activated"
+else
+    gsettings set org.gnome.desktop.interface gtk-theme 'oomox-gruvboxLight'
+    ln -s ~/.config/colors/lightMode.rasi ~/.config/colors/colors.rasi
+    ln -s ~/.config/colors/lightMode.css ~/.config/colors/colors.css
+    ln -s ~/.config/colors/swayLight.conf ~/.config/colors/swayColors.conf
+    makoctl set-mode lightMode
+    notify-send -a "Sway workspace" -i "com.github.themix_project.Oomox" "Light mode activated"
+fi
+
+sway reload &
+killall -SIGUSR2 waybar &

@@ -1,3 +1,0 @@
-#! /bin/sh
-
-emacsclient -c -F '(quote (name . "horario"))' -n -e '(org-agenda nil "h") (delete-other-windows)'

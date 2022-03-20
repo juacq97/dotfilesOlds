@@ -1,0 +1,48 @@
+#! /bin/sh
+
+# Volume
+mute=$(pamixer --get-mute)
+if [[ $mute == "true" ]]; then
+    volIcon="󰝟"
+else
+    volIcon="󰕾"
+fi
+volume="$volIcon Abrir configuración de volumen ($(pamixer --get-volume)%)"
+
+
+#Network
+network="󰤨 $(nmcli -t -f NAME c show --active)"
+
+#Battery
+batCapacity=$(cat /sys/class/power_supply/BAT0/capacity)
+if [[ $batCapacity > 100 ]]; then
+battery="󰁹 100%"
+else
+battery="󰁹 $batCapacity%"
+fi
+
+#Sep
+sep="--------------"
+
+# More menus
+clipboard="󱉫 Clipboard"
+passwords="󰌾 Passwords"
+emojis="😀 Emoji selector"
+
+#clipboard=$(clipman pick --tool rofi -T'-theme clipboard')
+#passwords=$(passmenu2)
+#emojis=$(dmenuunicode)
+
+# Todo junto
+sel=$(echo -e "$volume\n$network\n$battery\n$sep\n$passwords\n$clipboard\n$emojis" | rofi -dmenu)
+
+case $sel in
+    "$volume") pavucontrol;;
+    "$network") alacritty -e nmtui;;
+    "$clipboard") clipman pick --tool rofi -T'-theme clipboard';;
+    "$passwords") passmenu2;;
+    "$emojis") dmenuunicode;;
+    *) exit 0
+esac
+
+
