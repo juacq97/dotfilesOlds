@@ -37,46 +37,7 @@ font:
 
 draw_bold_text_with_bright_colors: true
 
-# Background opacity
-window.opacity: 1
 
-#selection:
-  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-
-  # When set to `true`, selected text will be copied to the primary clipboard.
-  #save_to_clipboard: false
-
-cursor:
-  # Cursor style
-  #
-  # Values for `style`:
-  #   - ▇ Block
-  #   - _ Underline
-  #   - | Beam
-  style: Block
-  unfocused_hollow: true
-
-live_config_reload: true
-
-mouse:
-  #double_click: { threshold: 300 }
-  #triple_click: { threshold: 300 }
-
-  hide_when_typing: true
-
-
-key_bindings:
-  # (Windows, Linux, and BSD only)
-  - {key: V, mods: Control|Shift, action: Paste}
-  - {key: C, mods: Control|Shift, action: Copy}
-  - {key: Key0, mods: Control, action: ResetFontSize}
-  - {key: Plus, mods: Control, action: IncreaseFontSize}
-  - {key: Minus, mods: Control, action: DecreaseFontSize}
-  - {key: K, mods: Control|Shift, action: ScrollLineUp, mode: ~Alt}
-  - {key: J, mods: Control|Shift, action: ScrollLineDown, mode: ~Alt}
-  - {key: U, mods: Control|Alt, action: ScrollPageUp, mode: ~Alt}
-  - {key: D, mods: Control|Shift, action: ScrollPageDown, mode: ~Alt}
-  - {key: Return, mods: Control, action: SpawnNewInstance}
 schemes:
   nord: &nord
     primary:
@@ -602,37 +563,6 @@ schemes:
       cyan:    '#00A5AF'
       white:   '#CACACC'
 
-  gruvboxLight: &gruvboxLight
-    # Default colors
-    primary:
-      # hard contrast: background = '#f9f5d7'
-      background: '#fbf1c7'
-      # soft contrast: background = '#f2e5bc'
-      foreground: '#3c3836'
-
-    # Normal colors
-    normal:
-      black:   '#fbf1c7'
-      red:     '#cc241d'
-      green:   '#98971a'
-      yellow:  '#d79921'
-      blue:    '#458588'
-      magenta: '#b16286'
-      cyan:    '#689d6a'
-      white:   '#7c6f64'
-
-    # Bright colors
-    bright:
-      black:   '#928374'
-      red:     '#9d0006'
-      green:   '#79740e'
-      yellow:  '#b57614'
-      blue:    '#076678'
-      magenta: '#8f3f71'
-      cyan:    '#427b58'
-      white:   '#3c3836'
-
-
   gruvbox: &gruvbox
   # Default colors
     primary:
@@ -708,4 +638,47 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *gruvboxLight
+colors: *gruvbox
+
+
+
+# Background opacity
+window.opacity: 1
+
+#selection:
+  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  #save_to_clipboard: false
+
+cursor:
+  # Cursor style
+  #
+  # Values for `style`:
+  #   - ▇ Block
+  #   - _ Underline
+  #   - | Beam
+  style: Block
+  unfocused_hollow: true
+
+live_config_reload: true
+
+mouse:
+  #double_click: { threshold: 300 }
+  #triple_click: { threshold: 300 }
+
+  hide_when_typing: true
+
+
+key_bindings:
+  # (Windows, Linux, and BSD only)
+  - {key: V, mods: Control|Shift, action: Paste}
+  - {key: C, mods: Control|Shift, action: Copy}
+  - {key: Key0, mods: Control, action: ResetFontSize}
+  - {key: Plus, mods: Control, action: IncreaseFontSize}
+  - {key: Minus, mods: Control, action: DecreaseFontSize}
+  - {key: K, mods: Control|Shift, action: ScrollLineUp, mode: ~Alt}
+  - {key: J, mods: Control|Shift, action: ScrollLineDown, mode: ~Alt}
+  - {key: U, mods: Control|Alt, action: ScrollPageUp, mode: ~Alt}
+  - {key: D, mods: Control|Shift, action: ScrollPageDown, mode: ~Alt}
+  - {key: Return, mods: Control, action: SpawnNewInstance}

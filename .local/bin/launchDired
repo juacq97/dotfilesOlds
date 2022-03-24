@@ -1,0 +1,3 @@
+#! /bin/sh
+
+emacsclient -c -F '(quote (name . "dired"))' -n -e "(dired nil)"

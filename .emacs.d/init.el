@@ -1096,7 +1096,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(doom-gruvbox))
  '(package-selected-packages
-   '(i3wm-config-mode yasnippet writeroom-mode which-key use-package undo-tree selectrum rainbow-mode rainbow-delimiters ox-reveal ox-pandoc ox-gemini org-tree-slide org-superstar org-plus-contrib org-appear orderless mu4e-alert modus-themes markdown-mode marginalia magit luarocks lua-mode kdeconnect hide-mode-line helpful heaven-and-hell general gemini-mode evil-org evil-ledger evil-collection emojify doom-themes doom-modeline dired-subtree dired-single dired-open dired-hide-dotfiles consult company calfw-org calfw all-the-icons-dired)))
+   '(smithers yaml-mode yasnippet writeroom-mode which-key use-package undo-tree selectrum rainbow-mode rainbow-delimiters ox-reveal ox-pandoc ox-gemini org-tree-slide org-superstar org-plus-contrib org-appear orderless mu4e-alert modus-themes markdown-mode marginalia magit luarocks lua-mode kdeconnect i3wm-config-mode hide-mode-line helpful heaven-and-hell general gemini-mode evil-org evil-ledger evil-collection emojify doom-themes doom-modeline dired-subtree dired-single dired-open dired-hide-dotfiles consult company calfw-org calfw all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

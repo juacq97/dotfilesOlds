@@ -10,17 +10,22 @@ unlink ~/.config/colors/swayColors.conf
 emacsclient -n -e "(heaven-and-hell-toggle-theme)"
 
 if [[ $theme == *"Light"* ]]; then
+    # Set dark theme
     gsettings set org.gnome.desktop.interface gtk-theme 'oomox-gruvbox'
     ln -s ~/.config/colors/darkMode.rasi ~/.config/colors/colors.rasi
     ln -s ~/.config/colors/darkMode.css ~/.config/colors/colors.css
     ln -s ~/.config/colors/swayDark.conf ~/.config/colors/swayColors.conf
+    cat ~/.config/alacritty/skel.yaml ~/.config/alacritty/colors.yaml ~/.config/colors/alacrittyDark.yaml > ~/.config/alacritty/alacritty.yml
     makoctl set-mode default
     notify-send -a "Sway workspace" -i "com.github.themix_project.Oomox" "Dark mode activated"
+
+
 else
     gsettings set org.gnome.desktop.interface gtk-theme 'oomox-gruvboxLight'
     ln -s ~/.config/colors/lightMode.rasi ~/.config/colors/colors.rasi
     ln -s ~/.config/colors/lightMode.css ~/.config/colors/colors.css
     ln -s ~/.config/colors/swayLight.conf ~/.config/colors/swayColors.conf
+    cat ~/.config/alacritty/skel.yaml ~/.config/alacritty/colors.yaml ~/.config/colors/alacrittyLight.yaml > ~/.config/alacritty/alacritty.yml
     makoctl set-mode lightMode
     notify-send -a "Sway workspace" -i "com.github.themix_project.Oomox" "Light mode activated"
 fi

@@ -1,18 +1,21 @@
-@import "colors.rasi"
+@import "~/.config/colors/colors.rasi"
+
 * {
     background-color: transparent;
     text-color:       @foreground;
     padding:          0px;
     margin:           0px;
-    width: 	      40%;
-    height: 	      40%;
+    width: 	      20%;
+    height: 	      52%;
 }
 
 window {
+    location:  northeast;
+    achor: west;
   fullscreen:       false;
   padding:          0em;
   background-color: @background;
-  border-radius:    1;
+  border-radius:    7;
   border: 2px;
   border-color: @cursor;
 }

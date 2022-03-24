@@ -1,4 +1,5 @@
 
+
 /*Dracula colors OwO */
 /*
 *@define-color background  #21222c;
@@ -53,13 +54,13 @@ window#waybar {
 
 #workspaces {
     margin: 3px;
-    padding: 0px 5px 0px 5px;
+    padding: 0px 5px 0px 0px;
     color: @color0;
 }
 
 /*unfocused*/
 #workspaces button {
-    padding: 0px 5px 0px 5px;
+    padding: 0px 5px 0px 0px;
     margin: 0px 1px 0px 1px;
     background-color: @cursorColor;
     min-width: 0;
@@ -105,10 +106,19 @@ window#waybar {
     color: @foreground;
 }
 
+#custom-toggleTheme {
+    border-radius: 10px;
+    padding: 3px 5px 3px 5px;
+    margin: 3px 5px 3px 5px;
+    background-color: @cursorColor;
+}
+
 #pulseaudio {
+
     border-radius: 7px 0px 0px 7px;
     background-color: @cursorColor;
 }
+
 
 #battery {
     border-radius: 0px 0px 0px 0px;
@@ -163,5 +173,7 @@ label:focus {
     margin: 3px;
 }
 
-
-			
+#custom-swaynagPower {
+    color: #0F94D2;
+    padding: 5px;
+}

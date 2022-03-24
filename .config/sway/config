@@ -12,10 +12,10 @@
 # This is what I change the most: appearance and functionality stuff
 
 # Default border to 3px and without title bars
-default_border normal 2
-default_floating_border normal 2
+default_border pixel 3
+default_floating_border normal 3
 
-titlebar_border_thickness 1
+titlebar_border_thickness 3
 titlebar_padding 3 3
 
 font pango: Cantarell bold 10
@@ -26,11 +26,11 @@ focus_wrapping force
 # Focus only on click
 focus_follows_mouse yes
 
-output * bg "/mnt/data/WALLPAPERS/9iw3b93ypcl71.jpg" fill
+output * bg "/mnt/data/WALLPAPERS/1587480469978.png" fill
 
 # Gaps!!
 gaps inner 0
-gaps outer 7
+gaps outer 0
 
 # Colors
 include ~/.config/colors/swayColors.conf
@@ -39,7 +39,7 @@ include ~/.config/colors/swayColors.conf
 client.focused		 $active     $active     $background  $cursor   $active
 client.focused_inactive	 $inactive   $inactive   $foreground  $inactive $inactive
 client.focused_tab_title $activeAlt  $active     $foreground  $active   $activeAlt
-client.unfocused	 $inactive   $background $foreground  $inactive $background
+client.unfocused	 $inactive   $background $foreground  $inactive $inactive
 client.urgent		 #E5C07B      #E5C07B     $foreground  #E5C07B      #E5C07B
 
 ###############
@@ -50,6 +50,7 @@ client.urgent		 #E5C07B      #E5C07B     $foreground  #E5C07B      #E5C07B
 exec_always xrdb  ~/.Xresources &
 exec /usr/lib/kdeconnectd &
 exec emacs --daemon &
+exec workstyle &
 exec nextcloud &
 exec waybar &
 exec gammastep &
@@ -60,7 +61,6 @@ exec export QT_QPA_PLATFORMTHEME=qt5ct &
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK &
 
 set $gnome-schema org.gnome.desktop.interface
-
 exec {
     gsettings set $gnome-schema icon-theme 'Papirus Dark'
 #    gsettings set $gnome-schema cursor-theme 'Your cursor Theme'

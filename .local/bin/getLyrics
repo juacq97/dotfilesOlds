@@ -1,0 +1,3 @@
+#! /bin/sh
+
+sptlrx --current "bold,#458588" --before "faint,italic"

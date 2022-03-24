@@ -5,7 +5,7 @@
     // Choose the order of the modules
     "modules-left": ["custom/swaynagPower", "sway/mode", "sway/workspaces", "custom/scratchpad_indicator"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/media", "pulseaudio", "battery", "network", "custom/notification"],
+    "modules-right": ["custom/media", "custom/toggleTheme", "pulseaudio", "battery", "network", "custom/notification"],
     
     // Modules configuration
     "sway/workspaces#icons": {
@@ -38,7 +38,7 @@
     
     "sway/workspaces": {
         "disable-scroll": true,
-        "format": "{icon}",
+        "format": " {icon}",
 	"current-only": false,
     },
     
@@ -68,6 +68,7 @@
         "format-plugged": "󰂄",
         "format-alt": "{time} {icon}",
 	"tooltip-format": "{capacity}",
+        "on-click": "if [[ $(pgrep rofi) ]]; then killall rofi; else ~/.local/bin/powermenu; fi",
         // "format-good": "", // An empty format will hide the module
         "format-full": "󰁹",
         "format-icons": [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
@@ -79,16 +80,16 @@
         "format-ethernet": "",
         "format-linked": "",
         "format-disconnected": "󰤭",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+	"tooltip-format": "{essid} ({signalStrength}%)",
 	"format-icons": [ "󰤟", "󰤢", "󰤥", "󰤨" ],
-        "on-click-right": "if [ $(pgrep connman-gtk) ]; then pkill connman-gtk; else connman-gtk; fi"
+        "on-click": "if [[ $(pgrep rofi) ]]; then killall rofi; else ~/.local/bin/powermenu; fi",
     },
     
     "custom/media": {
 	"format": " 󰓇  {}",
 	"interval": 10,
 	"escape": true,
-	"max-length": 40,
+	"max-length": 80,
 	"exec": "playerctl metadata --format '{{ title }} - {{ artist }}'"
     },
     
@@ -118,9 +119,15 @@
     },
     
     "custom/swaynagPower": {
-	"on-click": "~/.local/bin/dmenu-apagar",
-	"format": " 󰇘 "
+	"on-click": "if [[ $(pgrep rofi) ]]; then killall rofi; else rofi -show drun -theme applications -hover-select; fi",
+	"format": " 󰣇"
     },
+
+    "custom/toggleTheme" : {
+	"on-click": "~/.local/bin/toggleSwayColorscheme",
+	"format": "󰔎",
+    },
+
     
     "pulseaudio": {
         "format": "{icon}",
@@ -133,7 +140,8 @@
 	    "headset": "󰋎",
             "default": ["󰕿", "󰖀", "󰕾"]
         },
-        "on-click": "pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle",
+        "on-click": "if [[ $(pgrep rofi) ]]; then killall rofi; else ~/.local/bin/powermenu; fi",
+        "on-middle-click": "pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle",
         "on-click-right": "if [ $(pgrep pavucontrol) ]; then pkill pavucontrol; else pavucontrol; fi"
     }
 }

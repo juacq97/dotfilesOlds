@@ -6,7 +6,7 @@
     padding:          0px;
     margin:           0px;
     width: 	      20%;
-    height: 	      35%;
+    height: 	      52%;
 }
 
 
@@ -29,31 +29,13 @@ prompt {
        enabled: false;
 }
 
-entry {
-	placeholder:         "¿Salir?";
-	placeholder-color:   @background;
-	color: @background;
-	expand:              true;
-	padding:             1.5%;
-	border-radius:	     0px;
-       border: 0px;
-       margin: 0px;
-    background-color:        @topbar;
-}
-
 inputbar {
-	children: 	     [prompt, entry ];
-	expand:              false;
-	border-radius:       0px;
-       margin: 0px;
-       border: 0px;
-    background-color:        @cursor;
-	padding:             0px 0px 0px 0px;
+    enabled: false;
 }
 
 listview {
   columns:      1;
-  lines:	      10;
+  lines:	      8;
   cycle:        true;
   dynamic:      true;
   layout:       vertical;
@@ -72,7 +54,7 @@ element {
 }
 
 element selected {
-  background-color: @color0;
+  background-color: @cursor;
 }
 
 element-icon {

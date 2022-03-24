@@ -1,4 +1,4 @@
-@import "colors.rasi"
+@import "~/.config/colors/colors.rasi"
 
 * {
     background-color: transparent;

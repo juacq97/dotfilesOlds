@@ -11,7 +11,8 @@ volume="$volIcon Abrir configuración de volumen ($(pamixer --get-volume)%)"
 
 
 #Network
-network="󰤨 $(nmcli -t -f NAME c show --active)"
+#network="󰤨 $(nmcli -t -f NAME c show --active)"
+network="󰤨 Abrir configuración de red"
 
 #Battery
 batCapacity=$(cat /sys/class/power_supply/BAT0/capacity)
@@ -25,16 +26,17 @@ fi
 sep="--------------"
 
 # More menus
-clipboard="󱉫 Clipboard"
-passwords="󰌾 Passwords"
-emojis="😀 Emoji selector"
+clipboard="󱉫 Portapapeles"
+passwords="󰌾 Contraseñas"
+emojis="😀 Elegir emoji"
+poweroff="󰐥 Cerrar sesión"
 
 #clipboard=$(clipman pick --tool rofi -T'-theme clipboard')
 #passwords=$(passmenu2)
 #emojis=$(dmenuunicode)
 
 # Todo junto
-sel=$(echo -e "$volume\n$network\n$battery\n$sep\n$passwords\n$clipboard\n$emojis" | rofi -dmenu)
+sel=$(echo -e "$volume\n$network\n$battery\n$sep\n$passwords\n$clipboard\n$emojis\n$sep\n$poweroff" | rofi -dmenu -theme powermenu)
 
 case $sel in
     "$volume") pavucontrol;;
@@ -42,6 +44,7 @@ case $sel in
     "$clipboard") clipman pick --tool rofi -T'-theme clipboard';;
     "$passwords") passmenu2;;
     "$emojis") dmenuunicode;;
+    "$poweroff") logoutMenu;;
     *) exit 0
 esac
 
