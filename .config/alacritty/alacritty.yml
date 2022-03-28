@@ -708,4 +708,4 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *gruvboxLight
+colors: *gruvbox

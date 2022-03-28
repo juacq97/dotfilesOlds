@@ -29,8 +29,10 @@ focus_follows_mouse yes
 output * bg "/mnt/data/WALLPAPERS/1587480469978.png" fill
 
 # Gaps!!
-gaps inner 0
+gaps inner 0  
 gaps outer 0
+
+hide_edge_borders --i3 smart
 
 # Colors
 include ~/.config/colors/swayColors.conf

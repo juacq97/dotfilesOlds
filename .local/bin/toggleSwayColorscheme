@@ -19,7 +19,6 @@ if [[ $theme == *"Light"* ]]; then
     makoctl set-mode default
     notify-send -a "Sway workspace" -i "com.github.themix_project.Oomox" "Dark mode activated"
 
-
 else
     gsettings set org.gnome.desktop.interface gtk-theme 'oomox-gruvboxLight'
     ln -s ~/.config/colors/lightMode.rasi ~/.config/colors/colors.rasi
@@ -31,4 +30,4 @@ else
 fi
 
 sway reload &
-killall -SIGUSR2 waybar &
+killall waybar ; waybar &
