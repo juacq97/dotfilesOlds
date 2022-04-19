@@ -42,8 +42,8 @@ export KEYTIMEOUT=1
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
- source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
- source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept #Completa con C-space
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd) #Completa con el ultimo comando que se uso despues del ultimo comando.
 
@@ -115,3 +115,4 @@ vterm_printf(){
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+source ~/powerlevel10k/powerlevel10k.zsh-theme

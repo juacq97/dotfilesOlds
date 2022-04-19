@@ -37,7 +37,7 @@ export NIXOS_CONFIG="$HOME/.repos/dotfiles/nixos/configuration.nix"
 #XDG_CURRENT_DESKTOP=gnome
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=wayland
-export QT_QPA_PLATFORMTHEME="qt5ct" # Necesario para apps qt
+#export QT_QPA_PLATFORMTHEME="qt5ct" # Necesario para apps qt
 export MOZ_ENABLE_WAYLAND=1
 export GTK_USE_PORTAL=0
 
