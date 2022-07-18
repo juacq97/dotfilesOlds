@@ -6,4 +6,5 @@ mpd.conf
 .config/spicetify/Backups
 .config/spicetify/Extracted
 .config/spicetify/CustomApps
+.config/nvim/undodir
 

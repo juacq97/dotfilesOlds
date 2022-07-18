@@ -643,7 +643,7 @@ colors: *gruvbox
 
 
 # Background opacity
-window.opacity: 1
+window.opacity: 0.7
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
