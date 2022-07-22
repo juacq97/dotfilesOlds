@@ -17,12 +17,12 @@
 
 #Terminal
 super + Return
-      st 
+      st
 
 # App menu
 super + space
 #     ~/.local/bin/dmenu_run_history -h 24 -i
-      rofi -show drun -theme apps 
+      rofi -show drun -theme apps
 
 ## Firefox
 super + F2
@@ -49,7 +49,7 @@ super + e
 
 super + shift + e
       emacsclient -ne '(new-frame)'
-      
+
 super + a
 #      emacsclient -c -F '(quote (name . "agenda") (width  . 100) (height . 35) (left . 250) (top . 60))' -n -e "(agenda-frame)"
        st -e calcurse
@@ -78,9 +78,9 @@ super + F4
 #Screenshots
 Print
 	flameshot gui
-super + shift + Print	
+super + shift + Print
       flameshot gui -d 2000
-super + Print	
+super + Print
       flameshot full -c
 
 ##Audio
@@ -129,7 +129,7 @@ super + shift + o
 #     compton --config ~/.config/compton.conf
      picom --config ~/.config/compton.conf
 
-# Reiniciar sxhdk 
+# Reiniciar sxhdk
 super + shift + r
       pkill -USR1 -x sxhkd
 
@@ -161,7 +161,7 @@ super + shift + p
 #super + F12
 XF86Launch1
       ~/.local/bin/apagar
-#       clearine 
+#       clearine
 
 # Clipboard
 super + ctrl + p
@@ -237,7 +237,7 @@ super + {_,shift + }{j,k}
       bspc node -{f,s} {next,prev}.local
 
 #Cambiar de escritorio
-super + ctrl + {h,l}		
+super + ctrl + {h,l}
       bspc desktop -f {prev,next}.local
 super + ctrl + {Left,Right}
       bspc desktop -f {prev,next}.local
@@ -246,16 +246,16 @@ super + ctrl + {Left,Right}
 super + b
       bspc desktop -f last
 
-#Enfocar o enviar a un escritorio 
+#Enfocar o enviar a un escritorio
 super + {_,shift + }{1-9,0}
       bspc {desktop -f,node -d} '^{1-9,10}' --follow
-super + ctrl {1-9,0} 	  
+super + ctrl {1-9,0}
       bspc node -d '^{1-9,10}'
 
 # Inrercambiar con el escritorio dado
 super + ctrl + alt {1-9,0}
       bspc desktop -s '^{1-9,10}'
-      
+
 
 
 #Rotar la interfaz

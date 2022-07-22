@@ -1,0 +1,21 @@
+#! /bin/sh
+
+templateDir="$(xdg-user-dir TEMPLATES)/latex"
+
+getList() {
+    ls $templateDir | cut -d. -f1
+}
+
+makepdf() {
+fileType=$(xdg-mime query filetype $2 | cut -d '/' -f2)
+
+outputName=$(echo $2 | cut -d. -f1)
+
+pandoc -H "$templateDir/$1.tex" $2 -o $outputName.pdf
+}
+
+if [[ "$1" = "list" ]]; then
+    getList
+    else
+    makepdf
+fi
