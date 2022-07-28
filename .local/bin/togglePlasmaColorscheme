@@ -5,13 +5,13 @@ currentTheme="$(plasma-apply-colorscheme --list-schemes | grep "actual" | cut -d
 if [[ "$currentTheme" == " * Breeze " ]]; then
         plasma-apply-colorscheme GruvboxColorsHard
         sed -i "s/Light mode.profile/Dark mode.profile/" ~/.config/konsolerc
-        setwallpaper "/mnt/data/WALLPAPERS/yc1kbsj51s681.png"
+#        setwallpaper "/mnt/data/WALLPAPERS/yc1kbsj51s681.png"
 #        notify-send -a "Plasma workspace" -i "com.github.themix_project.Oomox" "Dark mode activated"
 
     else
         plasma-apply-colorscheme Breeze
          sed -i "s/Dark mode.profile/Light mode.profile/" ~/.config/konsolerc
-         setwallpaper "/mnt/data/WALLPAPERS/l0c4s9fcn1991.jpg"
+#         setwallpaper "/mnt/data/WALLPAPERS/l0c4s9fcn1991.jpg"
 
 #        notify-send -a "Plasma workspace" -i "com.github.themix_project.Oomox" "Light mode activated"
 fi
