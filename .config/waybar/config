@@ -3,7 +3,7 @@
     "height": 25, 
     
     // Choose the order of the modules
-    "modules-left": ["custom/swaynagPower", "sway/mode", "sway/workspaces", "custom/scratchpad_indicator"],
+    "modules-left": ["custom/swaynagPower", "wlr/workspaces"],
     "modules-center": ["clock"],
     "modules-right": ["custom/media", "custom/toggleTheme", "pulseaudio", "battery", "network", "custom/notification"],
     
@@ -126,6 +126,24 @@
     "custom/toggleTheme" : {
 	"on-click": "~/.local/bin/toggleSwayColorscheme",
 	"format": "󰔎",
+    },
+
+    "wlr/workspaces": {
+      "format": "{name}",
+      "on-click": "activate",
+      "sort-by-name": false,
+      "sort-by-coordinates": true,
+      "all-outputs": false,
+      "format-icons": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "urgent": "",
+        "active": "",
+        "default": ""
+      }
     },
 
     

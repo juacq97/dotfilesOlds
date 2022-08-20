@@ -25,7 +25,7 @@ while [ "$DONE" -eq 0 ] ; do
     password_files=(".." "${password_files[@]}") 
   fi
   #entry=$(printf '%s\n' "${password_files[@]}" | dmenu "$@" -l 15)
-  entry=$(printf '%s\n' "${password_files[@]}" | rofi -dmenu "$@" -theme pass -hover-select)
+  entry=$(printf '%s\n' "${password_files[@]}" | rofi -dmenu "$@" -theme emoji -hover-select)
   
   echo "entry: $entry"
   if [ -z "$entry" ] ; then

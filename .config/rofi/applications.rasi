@@ -6,9 +6,9 @@
     padding:          0px;
     margin:           0px;
     width: 	      40%;
-    height: 	      40%;
-  border-color:     @cursor;
-  border-width: 2px;
+    height: 	      43%;
+    border-color:     @cursor;
+    border-width: 2px;
     
 }
 
@@ -18,14 +18,15 @@ window {
   fullscreen:       false;
   padding:          0em;
   background-color: @background;
-  border-radius:    1;
-  border: 2px;
+  border-radius:    4;
+  border: 4px;
   border-color: @cursor;
   
 }
 
 mainbox {
   padding:  0px;
+
 }
 
 prompt {
@@ -38,10 +39,8 @@ entry {
 	color: @background;
 	expand:              true;
 	padding:             1.5%;
-	border-radius:	     0px;
-       border: 0px;
        margin: 0px;
-    background-color:        @topbar;
+    background-color:        @cursor;
 }
 
 inputbar {
@@ -56,6 +55,9 @@ inputbar {
 
 listview {
   columns:      1;
+
+       border: 4px;
+  border-color: @background;
   lines:	      10;
   cycle:        true;
   dynamic:      true;

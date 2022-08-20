@@ -2,8 +2,6 @@
 #+PROPERTY: header-args:emacs-lisp :tangle ~/.repos/dotfiles/.emacs.d/init.el
  
 * About this file
-This is my own Emacs configuration. I started to use emacs about 3 years ago, and I can't remember how many times I have re-written this file. This is the first time I try to write it entirely in english, so expect typos. I'm not a lisp master, I even don''t understand a lot of this file entirely, so maybe there's a lot better way to do some things. A lot of code was copied from internet and I can't remember where now. Shutouts to [[https://github.com/daviwil][David Wilson]],  [[https://cestlaz.github.io/][Mike Zamansky]], [[https://protesilaos.com/][Protesilaos Stavrou]] and specially, to [[https://www.youtube.com/channel/UCDEtZ7AKmwS0_GNJog01D2g][Uncle Dave]], because is thanks to his videos I started to use and finally configure Emacs for the first time, that rainy day in september 2018.
-
 This is an ~org-mode~ file, so you can read it directly from emacs.
 
 * Startup 
@@ -29,15 +27,11 @@ Set the garbage collection to a better number for the load. Also, a message with
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 			
- 
     ;;(setq package-archives
     ;;      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
     ;;        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
     ;;        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
-
-
         (package-initialize)
-
         (add-to-list 'load-path "~/.emacs.d/external/")
         ;; If not here, install use-package
         (unless (package-installed-p 'use-package)
@@ -73,95 +67,92 @@ This include a lot of configurations so Emacs doesn't look like a very ugly note
   
   This enables the line numbers at the left. It adds some customization to look fine even with variable-pitch fonts.
   #+begin_src emacs-lisp
-    (global-display-line-numbers-mode)
-    (setq display-line-numbers-type 'relative)
+        (global-display-line-numbers-mode)
+        (setq display-line-numbers-type 'relative)
 
-    (set-face-attribute 'line-number nil :inherit nil)
-    (set-face-attribute 'line-number-current-line nil :inherit nil)
+        (set-face-attribute 'line-number nil :inherit nil)
+        (set-face-attribute 'line-number-current-line nil :inherit nil)
 
-    ;; Disable line numbers for some modes
-    (dolist (mode '(org-mode-hook
-                    org-agenda-mode-hook
-                    term-mode-hook
-                    vterm-mode-hook
-                    shell-mode-hook
-                    treemacs-mode-hook
-                    elpher-mode-hook
-                    eshell-mode-hook))
-      (add-hook mode (lambda () (display-line-numbers-mode 0))))
+        ;; Disable line numbers for some modes
+        (dolist (mode '(org-mode-hook
+                        org-agenda-mode-hook
+                        term-mode-hook
+                        vterm-mode-hook
+                        shell-mode-hook
+                        treemacs-mode-hook
+                        elpher-mode-hook
+                        eshell-mode-hook))
+          (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
-
+( kdjfkjasdklfjadk fklasd jfkaj )
 Configure the match-paren feature to highlight the entire expression
 #+begin_src emacs-lisp
   (use-package paren
     :ensure nil
     :config
-    (set-face-attribute 'show-paren-match-expression nil :inherit nil :weight 'semibold :background "#2d384a")
+    (set-face-attribute 'show-paren-match-expression nil :inherit nil :weight 'semibold :background "snow4")
     (setq show-paren-delay 0)
     (setq show-paren-style 'expression)
     (setq show-paren-when-point-in-periphery t)
     (setq show-paren-when-point-inside-paren nil)
     (show-paren-mode t)) ; Highlight the matching parenthesis
-  
   #+end_src
   
-More QOL features  
+More QOL features
   #+begin_src emacs-lisp
-  (blink-cursor-mode 0) ; Disable the blinking
-  ;; Press y/n instead of the whole word
-  (defalias 'yes-or-no-p 'y-or-n-p)
-  ;; Scroll line by line. Cursor doesn't stays at the center of the screen. Can be laggy
-  (setq scroll-conservatively 100)
-  ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
-  (setq make-backup-files nil) 
-  (setq backup-directory-alist
-        `((".*" . ,"~/.emacs.d/backups/")))
-  (setq auto-save-file-name-transforms
-        `((".*" ,"~/.emacs.d/backups/")))
-  (setq auto-save-list-file-prefix nil)
-  (setq auto-save-default nil)
-  
-  ;; This function allows to quicky open this file
-  ;; TODO: MOVE THIS TO ANOTHER PLACE
-  (defun config-visit ()
-    (interactive)
-    (find-file "~/.emacs.d/config.org"))
-  (global-set-key (kbd "C-c e") 'config-visit)
-  
-  ;; Updates the config fiel with C-c r
-  (defun config-reload ()
-    (interactive)
-    (load-file user-init-file))
-  (global-set-key (kbd "C-c r") 'config-reload)
-  
-  (global-visual-line-mode 1) ; wrap lines to the size of the buffer
-  
-  ;; Disables the ugly splash screen 
-  (setq inhibit-splash-screen t)
-  (setq initial-scratch-message nil) ; Disable the scratch mesage
-  (setq initial-major-mode (quote org-mode)) ; Change the mode of the scratch buffer
-  
-  ;; With this, emacs will not ask if I want to edit the symlink every time
-  (setq vc-follow-symlinks nil)
-  
-  ;; This is necessary on 27+ to write accents (needed to write spanish). They say it's a feature... not for me!
-  (require 'iso-transl)
-  
-  ;; When a split is done, follow it.
-  (defun split-and-follow-horizontally ()
-    (interactive)
-    (split-window-below)
-    (balance-windows)
-    (other-window 1))
-  (global-set-key (kbd "C-c i") 'split-and-follow-horizontally)
-  
-  (defun split-and-follow-vertically ()
-    (interactive)
-    (split-window-right)
-    (balance-windows)
-    (other-window 1))
-  (global-set-key (kbd "C-c o") 'split-and-follow-vertically)
-  
+    (blink-cursor-mode 1) ; Disable the blinking
+    ;; Press y/n instead of the whole word
+    (defalias 'yes-or-no-p 'y-or-n-p)
+    ;; Scroll line by line. Cursor doesn't stays at the center of the screen. Can be laggy
+    (setq scroll-conservatively 100)
+    ;; Disable backups. I'm not sure I want this disabled, but opening files it's veeeery slow
+    (setq make-backup-files nil) 
+    (setq backup-directory-alist
+          `((".*" . ,"~/.emacs.d/backups/")))
+    (setq auto-save-file-name-transforms
+          `((".*" ,"~/.emacs.d/backups/")))
+    (setq auto-save-list-file-prefix nil)
+    (setq auto-save-default nil)
+    
+    (defun config-visit ()
+      (interactive)
+      (find-file "~/.emacs.d/config.org"))
+    (global-set-key (kbd "C-c e") 'config-visit)
+
+    ;; Updates the config fiel with C-c r
+    (defun config-reload ()
+      (interactive)
+      (load-file user-init-file))
+    (global-set-key (kbd "C-c r") 'config-reload)
+
+    (global-visual-line-mode 1) ; wrap lines to the size of the buffer
+
+    ;; Disables the ugly splash screen 
+    (setq inhibit-splash-screen t)
+    (setq initial-scratch-message nil) ; Disable the scratch mesage
+    (setq initial-major-mode (quote org-mode)) ; Change the mode of the scratch buffer
+
+    ;; With this, emacs will not ask if I want to edit the symlink every time
+    (setq vc-follow-symlinks nil)
+
+    ;; This is necessary on 27+ to write accents (needed to write spanish). They say it's a feature... not for me!
+    (require 'iso-transl)
+
+    ;; When a split is done, follow it.
+    (defun split-and-follow-horizontally ()
+      (interactive)
+      (split-window-below)
+      (balance-windows)
+      (other-window 1))
+    (global-set-key (kbd "C-c i") 'split-and-follow-horizontally)
+
+    (defun split-and-follow-vertically ()
+      (interactive)
+      (split-window-right)
+      (balance-windows)
+      (other-window 1))
+    (global-set-key (kbd "C-c o") 'split-and-follow-vertically)
+
 #+end_src
 
 ** Fonts
@@ -544,23 +535,6 @@ The default modeline it's fine, but ugly and with a lot of useless information f
       (setq doom-modeline-irc-stylize 'identity))
   (doom-modeline-mode 1)    
 #+end_src
-** Heaven and Hell
-This packages allow to quicky change between two themes. The recommended setup, a light and a dark theme.
-#+begin_src emacs-lisp
-          (use-package heaven-and-hell
-            :ensure t
-            :init
-            (setq heaven-and-hell-theme-type 'light)
-            (setq heaven-and-hell-load-theme-no-confirm t)
-            (setq heaven-and-hell-themes
-                  '((light . doom-gruvbox-light)
-                    (dark . doom-gruvbox)))
-            :hook (after-init . heaven-and-hell-init-hook)
-            :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
-                   ("<f7>" . heaven-and-hell-toggle-theme)))
-
-#+end_src
-
 ** Themes
   Emacs has a lot of themes available on internet. It's possible to set one with ~(load-theme)~. Check the ~heaven&hell~ package below. 
 *** Doom-themes
@@ -587,24 +561,30 @@ Per theme configuration
   (defun my-demo-modus-vivendi ()
     (modus-themes-with-colors
       (custom-set-faces
-       `(org-block ((,class :background ,"#303030")))
-       `(org-block-end-line ((,class :background ,"#303030")))
-       `(hl-line ((,class :background ,"#303030")))
+       `(default ((,class :background ,"#303030")))
+       `(fringe ((,class :background ,"#303030")))
+       `(cursor ((,class :background ,"#6C605A")))
+       `(hl-line ((,class :background ,"#262626")))
        `(show-paren-match-expression ((,class :background ,"#191a1b")))
-       `(org-block-begin-line ((,class :background ,"#303030"))))))
+       `(selectrum-current-candidate ((,class :background ,"#191a1b")))
+       `(mode-line ((,class :background ,"#262626")))
+       `(org-block ((,class :background ,"#262626")))
+       `(org-block-end-line ((,class :background ,"#262626")))
+       `(org-block-begin-line ((,class :background ,"#262626"))))))
 
   (defun my-demo-modus-operandi ()
     (modus-themes-with-colors
       (custom-set-faces
-       `(org-block ((,class :background ,"#cec3bd" :foreground ,"#3A3A3A")))
+       `(default ((,class :background ,"#ebebeb")))
+       `(fringe ((,class :background ,"#ebebeb")))
        `(cursor ((,class :background ,"#6C605A")))
-       `(default ((,class :foreground ,"#3A3A3A")))
-       `(selectrum-current-candidate ((,class :background ,"#cec3bd")))
-       `(mode-line ((,class :background ,"#cec3bd")))
-       `(org-block-end-line ((,class :background ,"#cec3bd")))
-       `(hl-line ((,class :background ,"#cec3bd")))
+       `(hl-line ((,class :background ,"#d4d4d4")))
        `(show-paren-match-expression ((,class :background ,"#e4e4e4")))
-       `(org-block-begin-line ((,class :background ,"#cec3bd"))))))
+       `(selectrum-current-candidate ((,class :background ,"#D4D4D4")))
+       `(mode-line ((,class :background ,"#fcfcfc")))
+       `(org-block ((,class :background ,"#d4d4d4" :foreground ,"#3A3A3A")))
+       `(org-block-end-line ((,class :background ,"#D4D4D4")))
+       `(org-block-begin-line ((,class :background ,"#D4D4D4"))))))
 
   (defun load-vivendi ()
     (interactive)
@@ -621,6 +601,7 @@ Per theme configuration
   (if (eq (car custom-enabled-themes) 'modus-operandi)
       (load-vivendi)
     (load-operandi)))
+
 #+end_src
 
 #+begin_src emacs-lisp
@@ -630,16 +611,80 @@ Per theme configuration
     (setq modus-themes-org-blocks 'gray-background)
     (setq modus-themes-subtle-line-numbers t)
     (setq modus-themes-vivendi-color-overrides
-          '((bg-main . "#282828")))
+          '((bg-main . "#303030")))
     (setq modus-themes-operandi-color-overrides
-          '((bg-main . "#dad3d0"))))
+          '((bg-main . "#ebebeb"))))
 #+end_src
 
 #+begin_src emacs-lisp
 ;;  (load-vivendi)
-;;  (global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle) 
+  (global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle) 
 #+end_src
 
+** Heaven and Hell
+This packages allow to quicky change between two themes. The recommended setup, a light and a dark theme.
+#+begin_src emacs-lisp
+;          (use-package heaven-and-hell
+;            :ensure t
+;            :init
+;            (setq heaven-and-hell-theme-type 'light)
+;            (setq heaven-and-hell-load-theme-no-confirm t)
+;            (setq heaven-and-hell-themes
+;                  '((light . modus-operandi)
+;                    (dark . modus-vivendi)))
+;            :hook (after-init . heaven-and-hell-init-hook)
+;            :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
+;                   ("<f7>" . heaven-and-hell-toggle-theme)))
+
+#+end_src
+
+** GNOME integration
+What the hell?
+
+#+begin_src emacs-lisp
+ ;; (use-package dbus
+ ;;   :demand t
+ ;;   :init
+ ;;   (defun theme-switcher (value)
+ ;;      (pcase value
+ ;;           ;; No Preference
+ ;;       (0 (shell-command "gsettings set org.gnome.desktop.interface gtk-theme \"adw-gtk3\"")
+ ;;          (load-operandi))
+ ;;            ;; Prefers dark
+ ;;        (1 (shell-command "gsettings set org.gnome.desktop.interface gtk-theme \"adw-gtk3-dark\"")
+ ;;          (load-vivendi))
+ ;;            ;; Prefers light. Not currently used by Gnome
+ ;;        (2 (shell-command "gsettings set org.gnome.desktop.interface gtk-theme \"adw-gtk3\"")
+ ;;          (load-operandi))
+ ;;            (_ (message "Invalid key value"))))
+
+ ;;   (defun handler (value)
+ ;;     (theme-switcher (car (car value))))
+
+ ;;   (defun signal-handler (namespace key value)
+ ;;     (if (and
+ ;;          (string-equal namespace "org.freedesktop.appearance")
+ ;;          (string-equal key "color-scheme"))
+ ;;         (theme-switcher (car value))))
+ ;;   :config
+ ;;   (dbus-call-method-asynchronously
+ ;;    :session
+ ;;    "org.freedesktop.portal.Desktop"
+ ;;    "/org/freedesktop/portal/desktop"
+ ;;    "org.freedesktop.portal.Settings"
+ ;;    "Read"
+ ;;    #'handler
+ ;;    "org.freedesktop.appearance"
+ ;;    "color-scheme")
+
+ ;;   (dbus-register-signal
+ ;;    :session
+ ;;    "org.freedesktop.portal.Desktop"
+ ;;    "/org/freedesktop/portal/desktop"
+ ;;    "org.freedesktop.portal.Settings"
+ ;;    "SettingChanged"
+ ;;    #'signal-handler))
+#+end_src
 ** All the icons
 Cool icons! It adds icons to ~doom-modeline~, ~dired~ and ~ivy~. Remember to run ~all-the-icons-install-font~ to actually see the icons. 
 #+begin_src emacs-lisp
@@ -715,7 +760,7 @@ Here's some configuration I made to org-mode, the actual package.
       ;;(add-hook 'org-mode-hook 'my/org-font-setup)
       ;; Removes the ellipsis at the end and replaces it with a string
       (setq org-ellipsis " ⤾")
-      (add-to-list 'org-file-apps '("\\.pdf" . "okular %s"))
+      (add-to-list 'org-file-apps '("\\.pdf" . "evince %s"))
       ;; Now you can put [[color:red][red text]] when export to html
       (org-add-link-type
         "color"
@@ -741,12 +786,8 @@ Here's some configuration I made to org-mode, the actual package.
       ;; This keybinding uses org-store-link to store a postition on a document, so you can link it on other document.
       (global-set-key (kbd "C-c l") 'org-store-link)
   
-      ;; Change TODO states with SPC t. It uses evil-collection key-map.
-      ;;(evil-define-key 'normal org-mode-map
-      ;;  (kbd "SPC t") 'org-todo)
-  
   ;; Activate org-beamer
-   ; (org-beamer-mode)
+  (org-beamer-mode)
   
       ;; You can add blocks pressing C-, and then the corresponding key.
     (require 'org-tempo)
@@ -805,7 +846,7 @@ Here's some configuration I made to org-mode, the actual package.
           ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
           ("\\paragraph{%s}" . "\\paragraph*{%s}")
           ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-  
+
     ;; https://github.com/philipphoman
         '("mybeamerposter"
           "\\documentclass[final]{beamer}
@@ -813,8 +854,8 @@ Here's some configuration I made to org-mode, the actual package.
                    \\usepackage[absolute,overlay]{textpos}
                          \\usepackage[authoryear]{natbib}
                          [NO-DEFAULT-PACKAGES]"))
-  
-  
+
+
   ) ;; <=== The use-package org ends here
 #+end_src
 ** Center buffers
@@ -1148,107 +1189,6 @@ This package hides the emphasis characters. Similar to the =conceal= feature of 
     :hook (org-mode . org-appear-mode))
 
 #+end_src
-** Org publish
-Who needs a static web generator with emacs? Write your web page or project on org mode and export it to a complete web site, and in my case, a gemini capsule too. Just run =org-publish-all= or  =org-publish-project=.
-
-First I want the exporter for gemini
-#+begin_src emacs-lisp
-  (use-package ox-gemini
-    :config
-    (require 'ox-gemini))
-#+end_src
-
-Now, lets put the configuration of org publish.
-#+begin_src emacs-lisp
-  (require 'ox-publish)
-  (require 'ox-rss)
-
-    (setq org-publish-project-alist
-          '(("http_website"
-             :base-directory "/mnt/data/www/source/en/"
-             :base-extension "org"
-             :publishing-directory "/mnt/data/www/site/en/"
-             :recursive t
-             :publishing-function org-html-publish-to-html
-             :exclude "GEM_.*"
-             :with-date t
-             :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css>"
-             :html-head-include-default-style nil
-             :with-toc nil
-             :html-postamble t
-             :html-preamble t
-             :html-preamble-format (("en" "<header>
-  <div class=main>
-    <a href=https://juancastro.xyz><h1 class=site-title>Juan Castro</h1></a>
-  </div>
-  <nav>
-    <a href=https://juancastro.xyz>Home</a> 
-    <a href=https://juancastro.xyz/en/sitemap.html>All posts</a>
-    <a href=https://juancastro.xyz/en/about.html>About</a>
-  </nav>
-  </header>"))
-             :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Made with Emacs 27 (Org-mode 9.4.4) <a href=https://juancastro.xyz/es/index.html>Página en español</a></footer>"))
-            :section-numbers nil
-             :headline-levels 4             ; Just the default for this project.
-             :auto-sitemap t
-             :sitemap-title "All posts"
-             )
-
-          ("http_website_español"
-             :base-directory "/mnt/data/www/source/es/"
-             :base-extension "org"
-             :publishing-directory "/mnt/data/www/site/es/"
-             :recursive t
-             :publishing-function org-html-publish-to-html
-             :exclude "GEM_.*"
-             :with-date t
-             :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css>"
-             :html-head-include-default-style nil
-             :with-toc nil
-             :html-postamble t
-             :html-preamble t
-             :html-preamble-format (("en" "<header>
-  <div class=main>
-    <a href=https://juancastro.xyz/es/index.html><h1 class=site-title>Juan Castro</h1></a>
-  </div>
-  <nav>
-    <a href=https://juancastro.xyz/es/index.html>Inicio</a> 
-    <a href=https://juancastro.xyz/es/sitemap.html>Publicaciones</a>
-    <a href=https://juancastro.xyz/es/acerca.html>Acerca</a>
-  </nav>
-  </header>"))
-             :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Hecho con Emacs 27 (Org-mode 9.4.4)<a href=https://juancastro.xyz>English site</a></footer>"))
-            :section-numbers nil
-             :headline-levels 4             ; Just the default for this project.
-             :auto-sitemap t
-             :sitemap-title "Todas las publicaciones"
-             )
-          ("blog-rss"
-           :base-directory "/mnt/data/www/source/"
-           :base-extension "org"
-           :recursive t
-           :publishing-directory "mnt/data/www/site/rss"
-           :publishing-function org-rss-publish-to-rss
-           :html-link-home "https://juancastro.xyz/"
-           :html-link-use-abs-url t
-           :title "Test rss")
-
-            ("gemini_capsule"
-             :base-directory "/mnt/data/www/source/"
-             :base-extension "org"
-             :publishing-directory "/mnt/data/www/capsule/"
-             :recursive t
-             :publishing-function org-gemini-publish-to-gemini
-             :exclude "index"
-             :with-date t
-             :with-toc nil
-             :section-numbers nil
-             ;:html-postable nil
-             :headline-levels 4             ; Just the default for this project.
-             ;:auto-preamble t
-             )))
-#+end_src
-
 ** Org reveal
 #+begin_src emacs-lisp
   (use-package ox-reveal
@@ -1258,56 +1198,6 @@ Now, lets put the configuration of org publish.
     (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
 #+end_src
 
-* mu4e
-#+begin_src emacs-lisp
-  (use-package mu4e
-    :ensure nil
-    :load-path "/usr/share/emacs/site-lisp/mu4e/"
-    :defer 20 ; Wait until 20 seconds after startup
-    :config
-
-    ;; This is set to 't' to avoid mail syncing issues when using mbsync
-    (setq mu4e-change-filenames-when-moving t)
-
-    ;; Refresh mail using isync every 10 minutes
-    (setq mu4e-update-interval (* 10 60))
-    (setq mu4e-get-mail-command "mbsync -a")
-    (setq mu4e-maildir "/mnt/data/.mail/juancastro.xyz")
-
-    (setq mu4e-drafts-folder "/Drafts")
-    (setq mu4e-sent-folder   "/Sent")
-    (setq mu4e-refile-folder "/All Mail")
-    (setq mu4e-trash-folder  "/Trash")
-
-    (setq mu4e-maildir-shortcuts
-          '((:maildir "/Inbox"     :key ?i)
-            (:maildir "/Sent"      :key ?s)
-            (:maildir "/Trash"     :key ?t)
-            (:maildir "/Drafts"    :key ?d)
-            (:maildir "/All Mail"  :key ?a)))
-
-    (setq smtpmail-smtp-server "mail.juancastro.xyz"
-          smtpmail-smtp-service 587
-          smtpmail-stream-type  'starttls)
-
-    (setq message-send-mail-function 'smtpmail-send-it)
-    (setq mu4e-compose-format-flowed t)
-    (setq user-mail-address "juan@juancastro.xyz")
-    (setq user-full-name "Juan Adrián Castro Quintana")
-    (setq mu4e-compose-signature "Juan Adrián Castro Quintana")
-
-    (mu4e t))
-
-#+end_src
-
-Notifications
-#+begin_src emacs-lisp
-  (use-package mu4e-alert
-    :ensure t
-    :after mu4e
-    :config
-    (mu4e-alert-set-default-style 'libnotify))
-#+end_src
 * Other formats, languages and programs
 ** Lua support
 I don't code too much LUA, but it's good to have, at least, color syntax.

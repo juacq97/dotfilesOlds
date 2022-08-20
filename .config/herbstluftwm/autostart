@@ -6,6 +6,7 @@ hc() {
 hc emit_hook reload
 xsetroot -solid '#5A8E3A'
 xsetroot -cursor_name left_ptr
+sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
 
 # remove all existing keybindings
 hc keyunbind --all

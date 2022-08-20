@@ -40,8 +40,8 @@ sel=$(echo -e "$volume\n$network\n$battery\n$sep\n$passwords\n$clipboard\n$emoji
 
 case $sel in
     "$volume") pavucontrol;;
-    "$network") alacritty -e nmtui;;
-    "$clipboard") clipman pick --tool rofi -T'-theme clipboard';;
+    "$network") networkmanager_dmenu;;
+    "$clipboard") clipman pick --tool rofi -T'-theme emoji';;
     "$passwords") passmenu2;;
     "$emojis") dmenuunicode;;
     "$poweroff") logoutMenu;;

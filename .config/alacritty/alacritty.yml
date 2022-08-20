@@ -38,7 +38,7 @@ font:
 draw_bold_text_with_bright_colors: true
 
 # Background opacity
-window.opacity: 0.5
+window.opacity: 1
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
@@ -708,4 +708,3 @@ schemes:
       white: '#e6e6d1'
   indexed_colors: []
 
-colors: *gruvbox

@@ -50,6 +50,21 @@ call plug#end()
       filetype plugin indent on
     endif
 
+""""""""""""""
+"Neovide stuff
+""""""""""""""
+
+if exists("g:neovide")
+    let g:neovide_refresh_rate=60
+    let g:neovide_transparency=1
+    let g:neovide_scroll_animation_lenght = 0.3
+    let g:neovide_cursor_animation_length=0.05
+    let g:neovide_cursor_antialiasing=v:true
+    let g:neovide_cursor_vfx_mode = "wireframe"
+
+    set guifont=Fira_Code:h10
+endif
+
 
 """""""""""""""""""
 " UI
@@ -72,12 +87,7 @@ set conceallevel=2
 """ Temas """""
 let g:grubvox_italic = 1
 
-lua << EOF
-local catppuccin = require("catppuccin")
-catppuccin.setup(transparent_background = true)
-EOF
-
-colorscheme catppuccin
+colorscheme gruvbox
 "Conceal no se ve bien con este tema, con este comando se arregla OwO
 highlight Conceal guifg=White guibg=color0
 let g:one_allow_italics = 1 

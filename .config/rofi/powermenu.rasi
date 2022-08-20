@@ -16,8 +16,8 @@ window {
   fullscreen:       false;
   padding:          0em;
   background-color: @background;
-  border-radius:    7;
-  border: 2px;
+  border-radius:    0 0 0 2;
+  border: 0 0 4px 4px;
   border-color: @cursor;
 }
 

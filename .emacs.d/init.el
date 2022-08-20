@@ -15,15 +15,11 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
-
   ;;(setq package-archives
   ;;      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
   ;;        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
   ;;        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
-
-
       (package-initialize)
-
       (add-to-list 'load-path "~/.emacs.d/external/")
       ;; If not here, install use-package
       (unless (package-installed-p 'use-package)
@@ -70,14 +66,14 @@
 (use-package paren
   :ensure nil
   :config
-  (set-face-attribute 'show-paren-match-expression nil :inherit nil :weight 'semibold :background "#2d384a")
+  (set-face-attribute 'show-paren-match-expression nil :inherit nil :weight 'semibold :background "snow4")
   (setq show-paren-delay 0)
   (setq show-paren-style 'expression)
   (setq show-paren-when-point-in-periphery t)
   (setq show-paren-when-point-inside-paren nil)
   (show-paren-mode t)) ; Highlight the matching parenthesis
 
-(blink-cursor-mode 0) ; Disable the blinking
+(blink-cursor-mode 1) ; Disable the blinking
 ;; Press y/n instead of the whole word
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;; Scroll line by line. Cursor doesn't stays at the center of the screen. Can be laggy
@@ -91,8 +87,6 @@
 (setq auto-save-list-file-prefix nil)
 (setq auto-save-default nil)
 
-;; This function allows to quicky open this file
-;; TODO: MOVE THIS TO ANOTHER PLACE
 (defun config-visit ()
   (interactive)
   (find-file "~/.emacs.d/config.org"))
@@ -404,18 +398,6 @@
     (setq doom-modeline-irc-stylize 'identity))
 (doom-modeline-mode 1)
 
-(use-package heaven-and-hell
-  :ensure t
-  :init
-  (setq heaven-and-hell-theme-type 'light)
-  (setq heaven-and-hell-load-theme-no-confirm t)
-  (setq heaven-and-hell-themes
-        '((light . doom-gruvbox-light)
-          (dark . doom-gruvbox)))
-  :hook (after-init . heaven-and-hell-init-hook)
-  :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
-         ("<f7>" . heaven-and-hell-toggle-theme)))
-
 (use-package doom-themes
   :ensure t
   :config
@@ -431,24 +413,30 @@
 (defun my-demo-modus-vivendi ()
   (modus-themes-with-colors
     (custom-set-faces
-     `(org-block ((,class :background ,"#303030")))
-     `(org-block-end-line ((,class :background ,"#303030")))
-     `(hl-line ((,class :background ,"#303030")))
+     `(default ((,class :background ,"#303030")))
+     `(fringe ((,class :background ,"#303030")))
+     `(cursor ((,class :background ,"#6C605A")))
+     `(hl-line ((,class :background ,"#262626")))
      `(show-paren-match-expression ((,class :background ,"#191a1b")))
-     `(org-block-begin-line ((,class :background ,"#303030"))))))
+     `(selectrum-current-candidate ((,class :background ,"#191a1b")))
+     `(mode-line ((,class :background ,"#262626")))
+     `(org-block ((,class :background ,"#262626")))
+     `(org-block-end-line ((,class :background ,"#262626")))
+     `(org-block-begin-line ((,class :background ,"#262626"))))))
 
 (defun my-demo-modus-operandi ()
   (modus-themes-with-colors
     (custom-set-faces
-     `(org-block ((,class :background ,"#cec3bd" :foreground ,"#3A3A3A")))
+     `(default ((,class :background ,"#ebebeb")))
+     `(fringe ((,class :background ,"#ebebeb")))
      `(cursor ((,class :background ,"#6C605A")))
-     `(default ((,class :foreground ,"#3A3A3A")))
-     `(selectrum-current-candidate ((,class :background ,"#cec3bd")))
-     `(mode-line ((,class :background ,"#cec3bd")))
-     `(org-block-end-line ((,class :background ,"#cec3bd")))
-     `(hl-line ((,class :background ,"#cec3bd")))
+     `(hl-line ((,class :background ,"#d4d4d4")))
      `(show-paren-match-expression ((,class :background ,"#e4e4e4")))
-     `(org-block-begin-line ((,class :background ,"#cec3bd"))))))
+     `(selectrum-current-candidate ((,class :background ,"#D4D4D4")))
+     `(mode-line ((,class :background ,"#fcfcfc")))
+     `(org-block ((,class :background ,"#d4d4d4" :foreground ,"#3A3A3A")))
+     `(org-block-end-line ((,class :background ,"#D4D4D4")))
+     `(org-block-begin-line ((,class :background ,"#D4D4D4"))))))
 
 (defun load-vivendi ()
   (interactive)
@@ -472,12 +460,67 @@
   (setq modus-themes-org-blocks 'gray-background)
   (setq modus-themes-subtle-line-numbers t)
   (setq modus-themes-vivendi-color-overrides
-        '((bg-main . "#282828")))
+        '((bg-main . "#303030")))
   (setq modus-themes-operandi-color-overrides
-        '((bg-main . "#dad3d0"))))
+        '((bg-main . "#ebebeb"))))
 
 ;;  (load-vivendi)
-;;  (global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle)
+  (global-set-key (kbd "<f7>") 'my-demo-modus-themes-toggle)
+
+;          (use-package heaven-and-hell
+;            :ensure t
+;            :init
+;            (setq heaven-and-hell-theme-type 'light)
+;            (setq heaven-and-hell-load-theme-no-confirm t)
+;            (setq heaven-and-hell-themes
+;                  '((light . modus-operandi)
+;                    (dark . modus-vivendi)))
+;            :hook (after-init . heaven-and-hell-init-hook)
+;            :bind (("C-c <f7>" . heaven-and-hell-load-default-theme)
+;                   ("<f7>" . heaven-and-hell-toggle-theme)))
+
+;; (use-package dbus
+;;   :demand t
+;;   :init
+;;   (defun theme-switcher (value)
+;;      (pcase value
+;;           ;; No Preference
+;;       (0 (shell-command "gsettings set org.gnome.desktop.interface gtk-theme \"adw-gtk3\"")
+;;          (load-operandi))
+;;            ;; Prefers dark
+;;        (1 (shell-command "gsettings set org.gnome.desktop.interface gtk-theme \"adw-gtk3-dark\"")
+;;          (load-vivendi))
+;;            ;; Prefers light. Not currently used by Gnome
+;;        (2 (shell-command "gsettings set org.gnome.desktop.interface gtk-theme \"adw-gtk3\"")
+;;          (load-operandi))
+;;            (_ (message "Invalid key value"))))
+
+;;   (defun handler (value)
+;;     (theme-switcher (car (car value))))
+
+;;   (defun signal-handler (namespace key value)
+;;     (if (and
+;;          (string-equal namespace "org.freedesktop.appearance")
+;;          (string-equal key "color-scheme"))
+;;         (theme-switcher (car value))))
+;;   :config
+;;   (dbus-call-method-asynchronously
+;;    :session
+;;    "org.freedesktop.portal.Desktop"
+;;    "/org/freedesktop/portal/desktop"
+;;    "org.freedesktop.portal.Settings"
+;;    "Read"
+;;    #'handler
+;;    "org.freedesktop.appearance"
+;;    "color-scheme")
+
+;;   (dbus-register-signal
+;;    :session
+;;    "org.freedesktop.portal.Desktop"
+;;    "/org/freedesktop/portal/desktop"
+;;    "org.freedesktop.portal.Settings"
+;;    "SettingChanged"
+;;    #'signal-handler))
 
 (use-package all-the-icons
   :ensure t)
@@ -537,7 +580,7 @@
     ;;(add-hook 'org-mode-hook 'my/org-font-setup)
     ;; Removes the ellipsis at the end and replaces it with a string
     (setq org-ellipsis " ⤾")
-    (add-to-list 'org-file-apps '("\\.pdf" . "okular %s"))
+    (add-to-list 'org-file-apps '("\\.pdf" . "evince %s"))
     ;; Now you can put [[color:red][red text]] when export to html
     (org-add-link-type
       "color"
@@ -563,12 +606,8 @@
     ;; This keybinding uses org-store-link to store a postition on a document, so you can link it on other document.
     (global-set-key (kbd "C-c l") 'org-store-link)
 
-    ;; Change TODO states with SPC t. It uses evil-collection key-map.
-    ;;(evil-define-key 'normal org-mode-map
-    ;;  (kbd "SPC t") 'org-todo)
-
 ;; Activate org-beamer
- ; (org-beamer-mode)
+(org-beamer-mode)
 
     ;; You can add blocks pressing C-, and then the corresponding key.
   (require 'org-tempo)
@@ -904,147 +943,11 @@
   (setq org-appear-autosubmarkers t)
   :hook (org-mode . org-appear-mode))
 
-(use-package ox-gemini
-  :config
-  (require 'ox-gemini))
-
-(require 'ox-publish)
-(require 'ox-rss)
-
-  (setq org-publish-project-alist
-        '(("http_website"
-           :base-directory "/mnt/data/www/source/en/"
-           :base-extension "org"
-           :publishing-directory "/mnt/data/www/site/en/"
-           :recursive t
-           :publishing-function org-html-publish-to-html
-           :exclude "GEM_.*"
-           :with-date t
-           :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css>"
-           :html-head-include-default-style nil
-           :with-toc nil
-           :html-postamble t
-           :html-preamble t
-           :html-preamble-format (("en" "<header>
-<div class=main>
-  <a href=https://juancastro.xyz><h1 class=site-title>Juan Castro</h1></a>
-</div>
-<nav>
-  <a href=https://juancastro.xyz>Home</a> 
-  <a href=https://juancastro.xyz/en/sitemap.html>All posts</a>
-  <a href=https://juancastro.xyz/en/about.html>About</a>
-</nav>
-</header>"))
-           :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Made with Emacs 27 (Org-mode 9.4.4) <a href=https://juancastro.xyz/es/index.html>Página en español</a></footer>"))
-          :section-numbers nil
-           :headline-levels 4             ; Just the default for this project.
-           :auto-sitemap t
-           :sitemap-title "All posts"
-           )
-
-        ("http_website_español"
-           :base-directory "/mnt/data/www/source/es/"
-           :base-extension "org"
-           :publishing-directory "/mnt/data/www/site/es/"
-           :recursive t
-           :publishing-function org-html-publish-to-html
-           :exclude "GEM_.*"
-           :with-date t
-           :html-head "<link rel=stylesheet type=text/css href=https://juancastro.xyz/assets/style.css>"
-           :html-head-include-default-style nil
-           :with-toc nil
-           :html-postamble t
-           :html-preamble t
-           :html-preamble-format (("en" "<header>
-<div class=main>
-  <a href=https://juancastro.xyz/es/index.html><h1 class=site-title>Juan Castro</h1></a>
-</div>
-<nav>
-  <a href=https://juancastro.xyz/es/index.html>Inicio</a> 
-  <a href=https://juancastro.xyz/es/sitemap.html>Publicaciones</a>
-  <a href=https://juancastro.xyz/es/acerca.html>Acerca</a>
-</nav>
-</header>"))
-           :html-postamble-format (("en" "<footer id=footer class=footer> <p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>CC-BY-SA</a> Juan Castro | Hecho con Emacs 27 (Org-mode 9.4.4)<a href=https://juancastro.xyz>English site</a></footer>"))
-          :section-numbers nil
-           :headline-levels 4             ; Just the default for this project.
-           :auto-sitemap t
-           :sitemap-title "Todas las publicaciones"
-           )
-        ("blog-rss"
-         :base-directory "/mnt/data/www/source/"
-         :base-extension "org"
-         :recursive t
-         :publishing-directory "mnt/data/www/site/rss"
-         :publishing-function org-rss-publish-to-rss
-         :html-link-home "https://juancastro.xyz/"
-         :html-link-use-abs-url t
-         :title "Test rss")
-
-          ("gemini_capsule"
-           :base-directory "/mnt/data/www/source/"
-           :base-extension "org"
-           :publishing-directory "/mnt/data/www/capsule/"
-           :recursive t
-           :publishing-function org-gemini-publish-to-gemini
-           :exclude "index"
-           :with-date t
-           :with-toc nil
-           :section-numbers nil
-           ;:html-postable nil
-           :headline-levels 4             ; Just the default for this project.
-           ;:auto-preamble t
-           )))
-
 (use-package ox-reveal
   :ensure t
   :config
   ;(setq org-re-reveal-center t)
   (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
-
-(use-package mu4e
-  :ensure nil
-  :load-path "/usr/share/emacs/site-lisp/mu4e/"
-  :defer 20 ; Wait until 20 seconds after startup
-  :config
-
-  ;; This is set to 't' to avoid mail syncing issues when using mbsync
-  (setq mu4e-change-filenames-when-moving t)
-
-  ;; Refresh mail using isync every 10 minutes
-  (setq mu4e-update-interval (* 10 60))
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq mu4e-maildir "/mnt/data/.mail/juancastro.xyz")
-
-  (setq mu4e-drafts-folder "/Drafts")
-  (setq mu4e-sent-folder   "/Sent")
-  (setq mu4e-refile-folder "/All Mail")
-  (setq mu4e-trash-folder  "/Trash")
-
-  (setq mu4e-maildir-shortcuts
-        '((:maildir "/Inbox"     :key ?i)
-          (:maildir "/Sent"      :key ?s)
-          (:maildir "/Trash"     :key ?t)
-          (:maildir "/Drafts"    :key ?d)
-          (:maildir "/All Mail"  :key ?a)))
-
-  (setq smtpmail-smtp-server "mail.juancastro.xyz"
-        smtpmail-smtp-service 587
-        smtpmail-stream-type  'starttls)
-
-  (setq message-send-mail-function 'smtpmail-send-it)
-  (setq mu4e-compose-format-flowed t)
-  (setq user-mail-address "juan@juancastro.xyz")
-  (setq user-full-name "Juan Adrián Castro Quintana")
-  (setq mu4e-compose-signature "Juan Adrián Castro Quintana")
-
-  (mu4e t))
-
-(use-package mu4e-alert
-  :ensure t
-  :after mu4e
-  :config
-  (mu4e-alert-set-default-style 'libnotify))
 
 (use-package lua-mode
   :mode "\\.lua\\'"
@@ -1089,20 +992,3 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-gruvbox))
- '(package-selected-packages
-   '(smithers yaml-mode yasnippet writeroom-mode which-key use-package undo-tree selectrum rainbow-mode rainbow-delimiters ox-reveal ox-pandoc ox-gemini org-tree-slide org-superstar org-plus-contrib org-appear orderless mu4e-alert modus-themes markdown-mode marginalia magit luarocks lua-mode kdeconnect i3wm-config-mode hide-mode-line helpful heaven-and-hell general gemini-mode evil-org evil-ledger evil-collection emojify doom-themes doom-modeline dired-subtree dired-single dired-open dired-hide-dotfiles consult company calfw-org calfw all-the-icons-dired)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-calendar-event ((t (:inherit (default)))))
- '(org-agenda-calendar-sexp ((t (:inherit (default)))))
- '(org-agenda-date-today ((t (:weight bold :height 130))))
- '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))
