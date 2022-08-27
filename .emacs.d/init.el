@@ -992,3 +992,19 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(gemini-mode kdeconnect evil-ledger ledger-mode markdown-mode luarocks lua-mode ox-reveal org-appear calfw-org calfw hide-mode-line org-tree-slide org-superstar ox-pandoc all-the-icons-dired all-the-icons modus-themes doom-themes doom-modeline dired-subtree dired-hide-dotfiles dired-open dired-single writeroom-mode helpful company yasnippet rainbow-delimiters rainbow-mode magit which-key consult marginalia orderless selectrum general evil-org evil-collection evil undo-tree emojify use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-calendar-event ((t (:inherit (default)))))
+ '(org-agenda-calendar-sexp ((t (:inherit (default)))))
+ '(org-agenda-date-today ((t (:weight bold :height 130))))
+ '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))

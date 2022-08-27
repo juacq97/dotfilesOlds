@@ -1,22 +1,6 @@
 (undo-tree-save-format-version . 1)
-"2ef00d590417522fae3e91281a52e28ee4c509e8"
-[nil nil nil nil (25323 18009 783907 57000) 0 nil]
-([nil nil ((37109 . 37609) (#("
-" 0 1 (fontified nil)) . -37109) (37028 . 37110) (#(" " 0 1 (fontified nil)) . 37028) (36762 . 37029) (t 25323 17964 222010 779000)) nil (25323 18009 783899 772000) 0 nil])
-([nil current ((37179 . 37675) (#("(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-calendar-event ((t (:inherit (default)))))
- '(org-agenda-calendar-sexp ((t (:inherit (default)))))
- '(org-agenda-date-today ((t (:weight bold :height 130))))
- '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))" 0 496 (fontified nil)) . -37179) (37176 . 37178) (#("
-" 0 1 (fontified nil)) . -37176) (37028 . 37177) (#(" " 0 1 (fontified nil)) . 37028) (36762 . 37029) (#("(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '(\"5a611788d47c1deec31494eb2bb864fde402b32b139fe461312589a9f28835db\" default)))" 0 349 (fontified nil)) . -36762) (t 25323 18009 818677 533000)) nil (25323 18016 962976 775000) 0 nil])
+"7e730443abe047bb901ecaceb0013b4f422eb3b1"
+[nil nil nil nil (25346 26081 603381 257000) 0 nil]
+([nil current ((37693 . 38193) (#("
+" 0 1 (fontified nil)) . -37693) (37190 . 37694) (#(" " 0 1 (fontified nil)) . 37190) (36917 . 37191) (t 25345 21062 248862 481000)) nil (25346 26081 603375 494000) 0 nil])
 nil

@@ -6,10 +6,10 @@
 
 # user is already defined
 
-os='arch btw'
+os='Fedora'
 kernel="$(uname -r)"
 uptime="$(uptime -p | sed -e 's/up //;s/ hours,/h/;s/ minutes/m/')"
-packages="$(pacman -Q | wc -l)"
+#packages="$(dnf list installed | sed '1d' | wc -l))"
 shell="$(basename "$SHELL")"
 
 ## UI DETECTION
@@ -53,7 +53,7 @@ if [ -x "$(command -v tput)" ]; then
 	cyan="$(tput setaf 6)"
 	reset="$(tput sgr0)"
 fi
-
+#${lc}        ${ic} ~ ${packages}${reset}
 # you can change these
 lc="${reset}${bold}${red}"         # labels
 nc="${reset}${bold}${red}"         # user and hostname
@@ -67,7 +67,6 @@ ${lc}       﫭 ${ic}~ ${os}${reset}
 ${lc}        ${ic} ~ ${shell}${reset}
 ${lc}        ${ic} ~ ${uptime}${reset}
 ${lc}        ${ic} ~ ${ui}${reset}
-${lc}        ${ic} ~ ${packages}${reset}
 ${lc}        ${ic} ~ ${kernel}${reset}
 
 ${lc}$f
