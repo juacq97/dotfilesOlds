@@ -21,6 +21,7 @@
   ;;        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
       (package-initialize)
       (add-to-list 'load-path "~/.emacs.d/external/")
+
       ;; If not here, install use-package
       (unless (package-installed-p 'use-package)
         (package-refresh-contents)
@@ -141,29 +142,27 @@
 
 (use-package evil
   :ensure t
-  :init
-  ;; This variable has issues with some commands, example, ~vi~ to append text at the beggining of the lines.
-  (setq evil-want-keybinding nil)
   :custom
-  ;; This variable needs to be setted by ~customize-group RET evil~. That's why use :custom instead of (setq).
-  ;; this is needed to the undo feature
+  ;;; This variable needs to be setted by ~customize-group RET evil~. That's why use :custom instead of (setq).
+  ;;; this is needed to the undo feature
   (evil-undo-system 'undo-tree)
   :config
+ ; (setq evil-want-keybinding nil)
   (setq-default evil-cross-lines t)
   (evil-mode 1))
 
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
+;(use-package evil-collection
+;  :after evil
+;  :ensure t
+;  :config
+;  (evil-collection-init))
 
 (use-package evil-org
   :ensure t
   :after org
   :hook ((org-mode . evil-org-mode)
-	 (evil-org-mode . (lambda ()
-			    (evil-org-set-key-theme))))
+         (evil-org-mode . (lambda ()
+        		    (evil-org-set-key-theme))))
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
@@ -283,29 +282,29 @@
   (setq writeroom-fullscreen-effect 'fullboth))
 
 (use-package dired
-      :ensure nil ; it's a built-in package
-      :commands (dired dired-jump)
-      :bind (("C-x C-j" . dired-jump) ; To quickly open a dired buffer on the file path
-             ("C-<return>" . (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))) ; To quickly open a Terminal window
-      :hook (
-             (dired-mode . dired-hide-details-mode)
-             (dired-mode . hl-line-mode))
-      :config
-      (setq dired-listing-switches "-AgGhovF --group-directories-first") ; man ls to details
-      (setq dired-recursive-copies 'always)
-      (setq dired-recursive-deletes 'always)
-      (setq delete-by-moving-to-trash t) ;It uses the trash bin
-      (setq dired-dwim-target 'dired-dwim-target-next-visible) ; If I have two buffers or frames open and I try to copy a file from one buffer, it understand that I want to copy it to the other buffer.
+       :ensure nil ; it's a built-in package
+       :commands (dired dired-jump)
+       :bind (("C-x C-j" . dired-jump) ; To quickly open a dired buffer on the file path
+              ("C-<return>" . (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))) ; To quickly open a Terminal window
+       :hook (
+              (dired-mode . dired-hide-details-mode)
+              (dired-mode . hl-line-mode))
+       :config
+       (setq dired-listing-switches "-AgGhovF --group-directories-first") ; man ls to details
+       (setq dired-recursive-copies 'always)
+       (setq dired-recursive-deletes 'always)
+       (setq delete-by-moving-to-trash t) ;It uses the trash bin
+       (setq dired-dwim-target 'dired-dwim-target-next-visible) ; If I have two buffers or frames open and I try to copy a file from one buffer, it understand that I want to copy it to the other buffer.
 
-      ;; Some keybindings. It makes use of the ~evil-collection~ key-map and (maybe) replaces some default keybindings.
-      (evil-collection-define-key 'normal 'dired-mode-map
-        "h" 'dired-single-up-directory
-        "l" 'dired-open-file
-        "nd" 'dired-create-directory
-        "nf" 'dired-create-empty-file
-        "/" 'swiper
-        "gj" 'counsel-bookmark)
-)
+       ;; Some keybindings. It makes use of the ~evil-collection~ key-map and (maybe) replaces some default keybindings.
+       (evil-collection-define-key 'normal 'dired-mode-map
+         "h" 'dired-single-up-directory
+         "l" 'dired-open-file
+         "nd" 'dired-create-directory
+         "nf" 'dired-create-empty-file
+         "/" 'swiper
+         "gj" 'counsel-bookmark)
+;)
 
 (use-package dired-single
   :after dired
@@ -721,6 +720,7 @@
 ;; This keys are to go to the next or previous slide. It uses ~evil-collection key-map
 (evil-define-key 'normal 'org-tree-slide-mode-map
   "{"  'org-tree-slide-move-previous-tree
+
   "}"  'org-tree-slide-move-next-tree)
 
 (eval-after-load "org-tree-slide"
@@ -992,19 +992,3 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(gemini-mode kdeconnect evil-ledger ledger-mode markdown-mode luarocks lua-mode ox-reveal org-appear calfw-org calfw hide-mode-line org-tree-slide org-superstar ox-pandoc all-the-icons-dired all-the-icons modus-themes doom-themes doom-modeline dired-subtree dired-hide-dotfiles dired-open dired-single writeroom-mode helpful company yasnippet rainbow-delimiters rainbow-mode magit which-key consult marginalia orderless selectrum general evil-org evil-collection evil undo-tree emojify use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-calendar-event ((t (:inherit (default)))))
- '(org-agenda-calendar-sexp ((t (:inherit (default)))))
- '(org-agenda-date-today ((t (:weight bold :height 130))))
- '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))

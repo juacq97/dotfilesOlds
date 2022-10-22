@@ -23,26 +23,28 @@ let mapleader ="\ "			" Leader como espacio
 """""""""""""""""""
 call plug#begin()
 Plug 'junegunn/goyo.vim'
-Plug 'arcticicestudio/nord-vim'
+Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'chrisbra/Colorizer'
 Plug 'Junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'SirVer/ultisnips'
-Plug 'ptzz/lf.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'ntk148v/vim-horizon'
-Plug 'mcchrish/nnn.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'rakr/vim-one'
 Plug 'habamax/vim-asciidoctor'
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
-Plug 'ishan9299/modus-theme-vim', {'branch': 'stable'}
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'jsit/toast.vim'
 Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
-Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-media-files.nvim'
 call plug#end()
 
  set nocompatible
@@ -53,45 +55,41 @@ call plug#end()
 """"""""""""""
 "Neovide stuff
 """"""""""""""
-
 if exists("g:neovide")
     let g:neovide_refresh_rate=60
     let g:neovide_transparency=1
     let g:neovide_scroll_animation_lenght = 0.3
     let g:neovide_cursor_animation_length=0.05
+    let g:neovide_cursor_trail_size=0.8
     let g:neovide_cursor_antialiasing=v:true
     let g:neovide_cursor_vfx_mode = "wireframe"
-
-    set guifont=Fira_Code:h10
+    set guifont=Fira\ Code\ Medium:h10
 endif
-
 
 """""""""""""""""""
 " UI
 """""""""""""""""""
-set number relativenumber      " Números de lineas relativos
-set ruler		       " Lugar en el documento en la parte inferior de la pantalla
-set showcmd		       " Mostrar comandos en la parte inferior de la pantalla
-set incsearch		       " Busqueda "en vivo" de palabras con /
-set hlsearch		       " Resaltar resultados de busquedas
-set wildmenu		       " es a dos puntos lo que counsel es a M-x
-set linebreak		       " Corta palabras al final de la misma
+set number relativenumber     
+set ruler		       " show ruler
+set showcmd		       
+set incsearch		       " show search live
+set hlsearch		       " highlight search
+set wildmenu		       " cool menu
+set linebreak		       
 set hidden
-set laststatus=2	       " Desactiva el modeline
-set textwidth=0		       " Desactiva el hard linebreak
+set laststatus=2	       " remove modeline
+set textwidth=0		       
 set formatoptions+=t
-set termguicolors	       "Para tener los colores bien en ciertos temas
+set termguicolors	       
 syntax enable			
 set conceallevel=2
 
-""" Temas """""
+""" Themes """""
 let g:grubvox_italic = 1
 
-colorscheme gruvbox
-"Conceal no se ve bien con este tema, con este comando se arregla OwO
+colorscheme onehalflight
 highlight Conceal guifg=White guibg=color0
 let g:one_allow_italics = 1 
-set cursorline			" activa el resaltado de la linea
 highlight Comment cterm=italic gui=italic
 "
 """"" Statusline y ruler """""""
@@ -101,7 +99,6 @@ set statusline=%#Question#%=%#Question#%F%m%r\ %y\ %#VisualNC#\ %l,%c\ \ %P
 """""""""""""""""
 " Funcionamiento
 """""""""""""""""
-
 set autoread			" Actualizar buffers cuando son editados fuera de vim
 au FocusGained,BufEnter * checktime
 set ignorecase		        " Ignorar mayúsculas cuando busca
@@ -142,9 +139,6 @@ noremap <F6> :Goyo <CR>
 "Activar spellcheck con F5
 noremap <F5> :setlocal spell! spelllang=es<CR>
 
-" Abrir con space space
-noremap <leader><leader> :silent :NnnPicker<CR>
-noremap <leader>f :silent Files <CR>
 
 " Teclas desactivadas
 """""""""""""""""""""
@@ -172,4 +166,33 @@ let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debu
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+lua <<EOF
+require('telescope').setup{
+  defaults = {
+      hidden = true,
+    mappings = {
+      i = {
+      }
+    }
+  },
+  pickers = {
+    -- Default configuration for builtin pickers goes here:
+    find_files = {
+	theme = "ivy",
+	hidden = true,
+	},
+  },
+  extensions = {
+      file_browser = {
+	  --theme = "ivy",
+	  hijack_netrw = true,
+	  },
+  }
+}
+require("telescope").load_extension "file_browser"
+EOF
+
+noremap <leader><leader> :silent :Telescope find_files<CR>
+noremap <leader>f :silent :Telescope file_browser<CR>
 

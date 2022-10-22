@@ -33,6 +33,7 @@ Set the garbage collection to a better number for the load. Also, a message with
     ;;        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
         (package-initialize)
         (add-to-list 'load-path "~/.emacs.d/external/")
+  
         ;; If not here, install use-package
         (unless (package-installed-p 'use-package)
           (package-refresh-contents)
@@ -175,8 +176,8 @@ To be able to see emojis on emacs the following packages are *needeed* 🦀
     (global-emojify-mode))
 #+end_src
 
-* Keybindings
-** Evil
+* Keybindings                                                      
+** Evil                                                           :noexport:
 Evil it's a layer to use vim-like keybindings on Emacs.It's basically, VIM inside Emacs. There some functions of VIM that doesn't work inside Evil though or it does but different. Evil-mode calls the vim modes "states", because Emacs has his own meaning for the word "mode". 
 
 To undo, ~undo-tree~ is needed.
@@ -191,18 +192,18 @@ To undo, ~undo-tree~ is needed.
   (use-package evil
     :ensure t
     :init
-    ;; This variable has issues with some commands, example, ~vi~ to append text at the beggining of the lines.
+    ;;; This variable has issues with some commands, example, ~vi~ to append text at the beggining of the lines.
     (setq evil-want-keybinding nil)
     :custom
-    ;; This variable needs to be setted by ~customize-group RET evil~. That's why use :custom instead of (setq).
-    ;; this is needed to the undo feature
+    ;;; This variable needs to be setted by ~customize-group RET evil~. That's why use :custom instead of (setq).
+    ;;; this is needed to the undo feature
     (evil-undo-system 'undo-tree)
     :config
     (setq-default evil-cross-lines t)
     (evil-mode 1))
 #+end_src
 
-** Evil collection and friends
+** Evil collection and friends                                    :noexport:
 Evil does works fine with text, but some modes has special keybindings or are interactive buffers, so Evil conflict with them. That's why ~evil-collection~ exists. Basically, it's a collection of key-maps for different modes.
 #+begin_src emacs-lisp
   (use-package evil-collection
@@ -218,8 +219,8 @@ There's some modes not supported by ~evil-collection~.
     :ensure t
     :after org
     :hook ((org-mode . evil-org-mode)
-	   (evil-org-mode . (lambda ()
-			      (evil-org-set-key-theme))))
+           (evil-org-mode . (lambda ()
+        		      (evil-org-set-key-theme))))
     :config
     (require 'evil-org-agenda)
     (evil-org-agenda-set-keys)
@@ -238,7 +239,7 @@ By defaut, evil moves on physical lines instead of visual lines. This is annoyin
   (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
 #+end_src
 
-** Global keybindings
+** Global keybindings                                             :noexport:
 I'm using =general= to create keybindings using a ~leader~ key.
 
 #+begin_src emacs-lisp
@@ -419,7 +420,7 @@ Lets configure this thing!
           "nf" 'dired-create-empty-file
           "/" 'swiper
           "gj" 'counsel-bookmark)
-  )
+ ;)
 #+end_src
 
 By default dired creates a new buffer for every directory open. This will create a mess of buffers with a lot of dired buffers open. This packages try to avoid this, but dired still creates some buffers. 
@@ -925,6 +926,7 @@ Want to make a presentation with slides but don't want to use PowerPoint, beamer
   ;; This keys are to go to the next or previous slide. It uses ~evil-collection key-map
   (evil-define-key 'normal 'org-tree-slide-mode-map
     "{"  'org-tree-slide-move-previous-tree
+ 
     "}"  'org-tree-slide-move-next-tree)
 #+end_src
 
