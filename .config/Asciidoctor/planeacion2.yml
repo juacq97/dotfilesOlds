@@ -153,3 +153,8 @@ header:
 
 footer_recto_right_content: '{page-number}'
 footer_verso_left_content: '{page-number}'
+
+role:
+  test:
+    background-color: '000000'
+    font-color: 'ffffff'

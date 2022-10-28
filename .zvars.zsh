@@ -2,7 +2,9 @@
 
 # Colorschemes OwO
 
-PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin:$HOME/.config/rofi:$HOME/.emacs.d/bin:/usr/local/bin:/usr/share/kservices5/kwin"
+export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+
+PATH="$HOME/.local/bin:/mnt/DATA/juan/color-scripts/color-scripts:$HOME/.local:$PATH:$HOME/.gem/ruby/2.7.0/bin:$HOME/.config/rofi:$HOME/.emacs.d/bin:/usr/local/bin:/usr/share/kservices5/kwin:$GEM_HOME/bin"
 export PATH
 
 export LIGHT_THEME="one-light"

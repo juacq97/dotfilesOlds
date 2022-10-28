@@ -87,7 +87,7 @@ set conceallevel=2
 """ Themes """""
 let g:grubvox_italic = 1
 
-colorscheme onehalflight
+"colorscheme onehalflight
 highlight Conceal guifg=White guibg=color0
 let g:one_allow_italics = 1 
 highlight Comment cterm=italic gui=italic
