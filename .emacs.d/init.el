@@ -142,20 +142,22 @@
 
 (use-package evil
   :ensure t
+  :init
+  ;;; This variable has issues with some commands, example, ~vi~ to append text at the beggining of the lines.
+  (setq evil-want-keybinding nil)
   :custom
   ;;; This variable needs to be setted by ~customize-group RET evil~. That's why use :custom instead of (setq).
   ;;; this is needed to the undo feature
   (evil-undo-system 'undo-tree)
   :config
- ; (setq evil-want-keybinding nil)
   (setq-default evil-cross-lines t)
   (evil-mode 1))
 
-;(use-package evil-collection
-;  :after evil
-;  :ensure t
-;  :config
-;  (evil-collection-init))
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
 (use-package evil-org
   :ensure t
@@ -282,29 +284,28 @@
   (setq writeroom-fullscreen-effect 'fullboth))
 
 (use-package dired
-       :ensure nil ; it's a built-in package
-       :commands (dired dired-jump)
-       :bind (("C-x C-j" . dired-jump) ; To quickly open a dired buffer on the file path
-              ("C-<return>" . (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))) ; To quickly open a Terminal window
-       :hook (
-              (dired-mode . dired-hide-details-mode)
-              (dired-mode . hl-line-mode))
-       :config
-       (setq dired-listing-switches "-AgGhovF --group-directories-first") ; man ls to details
-       (setq dired-recursive-copies 'always)
-       (setq dired-recursive-deletes 'always)
-       (setq delete-by-moving-to-trash t) ;It uses the trash bin
-       (setq dired-dwim-target 'dired-dwim-target-next-visible) ; If I have two buffers or frames open and I try to copy a file from one buffer, it understand that I want to copy it to the other buffer.
+  :ensure nil ; it's a built-in package
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump) ; To quickly open a dired buffer on the file path
+         ("C-<return>" . (lambda () (interactive) (shell-command "alacritty > /dev/null 2>&1 & disown")))) ; To quickly open a Terminal window
+  :hook (
+         (dired-mode . dired-hide-details-mode)
+         (dired-mode . hl-line-mode))
+  :config
+  (setq dired-listing-switches "-AgGhovF --group-directories-first") ; man ls to details
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
+  (setq delete-by-moving-to-trash t) ;It uses the trash bin
+  (setq dired-dwim-target 'dired-dwim-target-next-visible) ; If I have two buffers or frames open and I try to copy a file from one buffer, it understand that I want to copy it to the other buffer.
 
-       ;; Some keybindings. It makes use of the ~evil-collection~ key-map and (maybe) replaces some default keybindings.
-       (evil-collection-define-key 'normal 'dired-mode-map
-         "h" 'dired-single-up-directory
-         "l" 'dired-open-file
-         "nd" 'dired-create-directory
-         "nf" 'dired-create-empty-file
-         "/" 'swiper
-         "gj" 'counsel-bookmark)
-;)
+  ;; Some keybindings. It makes use of the ~evil-collection~ key-map and (maybe) replaces some default keybindings.
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-open-file
+    "nd" 'dired-create-directory
+    "nf" 'dired-create-empty-file
+    "/" 'swiper
+    "gj" 'counsel-bookmark))
 
 (use-package dired-single
   :after dired
@@ -361,41 +362,83 @@
   (dirvish-dired)
   (delete-other-windows))
 
-(use-package doom-modeline
+;    (use-package doom-modeline
+;      :ensure t
+;      :config
+;      (add-hook 'window-selection-change-functions #'doom-modeline-set-selected-window)
+;      (setq doom-modeline-height 25)
+;      (setq doom-modeline-bar-width 4)
+;      (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+;      (setq doom-modeline-icon t)
+;      (setq doom-modeline-major-mode-icon t)
+;      (setq doom-modeline-modal-icon t)
+;      (setq doom-modeline-major-mode-color-icon t)
+;      (setq doom-modeline-minor-modes nil)
+;      (setq doom-modeline-buffer-encoding nil)
+;      (setq doom-modeline-enable-word-count t)
+;      (setq doom-modeline-checker-simple-format t)
+;      (setq doom-modeline-persp-name t)
+;      (setq doom-modeline-lsp nil)
+;      (setq doom-modeline-github nil)
+;      (setq doom-modeline-env-version t)
+;      (setq doom-modeline-env-enable-python t)
+;      (setq doom-modeline-env-enable-ruby t)
+;      (setq doom-modeline-env-enable-perl t)
+;      (setq doom-modeline-env-enable-go t)
+;      (setq doom-modeline-env-enable-elixir t)
+;      (setq doom-modeline-env-enable-rust t)
+;      (setq doom-modeline-env-python-executable "python")
+;      (setq doom-modeline-env-ruby-executable "ruby")
+;      (setq doom-modeline-env-perl-executable "perl")
+;      (setq doom-modeline-env-go-executable "go")
+;      (setq doom-modeline-env-elixir-executable "iex")
+;      (setq doom-modeline-env-rust-executable "rustc")
+;      (setq doom-modeline-mu4e t)
+;      (setq doom-modeline-irc t)
+;      (setq doom-modeline-irc-stylize 'identity))
+;  (doom-modeline-mode 1)
+
+(use-package moody
+  :ensure t
+  :config
+  (setq x-underline-at-descent-line t)
+
+  (setq-default mode-line-format
+                '(" "
+                  mode-line-front-space
+                  mode-line-client
+                  mode-line-frame-identification
+                  mode-line-buffer-identification " " mode-line-position
+                  (vc-mode vc-mode)
+                  (multiple-cursors-mode mc/mode-line)
+                  " " mode-line-modes
+                  mode-line-end-spaces))
+
+  (use-package minions
     :ensure t
     :config
-    (add-hook 'window-selection-change-functions #'doom-modeline-set-selected-window)
-    (setq doom-modeline-height 25)
-    (setq doom-modeline-bar-width 4)
-    (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-    (setq doom-modeline-icon t)
-    (setq doom-modeline-major-mode-icon t)
-    (setq doom-modeline-modal-icon t)
-    (setq doom-modeline-major-mode-color-icon t)
-    (setq doom-modeline-minor-modes nil)
-    (setq doom-modeline-buffer-encoding nil)
-    (setq doom-modeline-enable-word-count t)
-    (setq doom-modeline-checker-simple-format t)
-    (setq doom-modeline-persp-name t)
-    (setq doom-modeline-lsp nil)
-    (setq doom-modeline-github nil)
-    (setq doom-modeline-env-version t)
-    (setq doom-modeline-env-enable-python t)
-    (setq doom-modeline-env-enable-ruby t)
-    (setq doom-modeline-env-enable-perl t)
-    (setq doom-modeline-env-enable-go t)
-    (setq doom-modeline-env-enable-elixir t)
-    (setq doom-modeline-env-enable-rust t)
-    (setq doom-modeline-env-python-executable "python")
-    (setq doom-modeline-env-ruby-executable "ruby")
-    (setq doom-modeline-env-perl-executable "perl")
-    (setq doom-modeline-env-go-executable "go")
-    (setq doom-modeline-env-elixir-executable "iex")
-    (setq doom-modeline-env-rust-executable "rustc")
-    (setq doom-modeline-mu4e t)
-    (setq doom-modeline-irc t)
-    (setq doom-modeline-irc-stylize 'identity))
-(doom-modeline-mode 1)
+    (minions-mode +1))
+
+  ;; Disabled: Trying out clock outside Emacs
+  ;; (use-package time
+  ;;   :validate-custom
+  ;;   (display-time-24hr-format t)
+  ;;   (display-time-day-and-date t)
+  ;;   (display-time-world-list '(("Europe/Paris" "Paris")
+  ;;                              ("Europe/London" "London")
+  ;;                              ("America/Los_Angeles" "Los Angeles")))
+  ;;   (display-time-string-forms
+  ;;    '((format "%s %s %s, %s:%s"
+  ;;              dayname
+  ;;              monthname day
+  ;;              24-hours minutes)))
+  ;;   :config
+  ;;   (display-time))
+
+  (setq global-mode-string (remove 'display-time-string global-mode-string))
+
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
 
 (use-package doom-themes
   :ensure t
@@ -412,30 +455,30 @@
 (defun my-demo-modus-vivendi ()
   (modus-themes-with-colors
     (custom-set-faces
-     `(default ((,class :background ,"#303030")))
-     `(fringe ((,class :background ,"#303030")))
+     `(default ((,class :background ,"#242424")))
+     `(fringe ((,class :background ,"#242424")))
      `(cursor ((,class :background ,"#6C605A")))
-     `(hl-line ((,class :background ,"#262626")))
+     `(hl-line ((,class :background ,"#303030")))
      `(show-paren-match-expression ((,class :background ,"#191a1b")))
      `(selectrum-current-candidate ((,class :background ,"#191a1b")))
-     `(mode-line ((,class :background ,"#262626")))
-     `(org-block ((,class :background ,"#262626")))
-     `(org-block-end-line ((,class :background ,"#262626")))
-     `(org-block-begin-line ((,class :background ,"#262626"))))))
+     `(mode-line ((,class :background ,"#303030")))
+     `(org-block ((,class :background ,"#303030")))
+     `(org-block-end-line ((,class :background ,"#303030")))
+     `(org-block-begin-line ((,class :background ,"#303030"))))))
 
 (defun my-demo-modus-operandi ()
   (modus-themes-with-colors
     (custom-set-faces
-     `(default ((,class :background ,"#ebebeb")))
-     `(fringe ((,class :background ,"#ebebeb")))
+     `(default ((,class :background ,"#fafafa")))
+     `(fringe ((,class :background ,"#fafafa")))
      `(cursor ((,class :background ,"#6C605A")))
      `(hl-line ((,class :background ,"#d4d4d4")))
      `(show-paren-match-expression ((,class :background ,"#e4e4e4")))
      `(selectrum-current-candidate ((,class :background ,"#D4D4D4")))
-     `(mode-line ((,class :background ,"#fcfcfc")))
-     `(org-block ((,class :background ,"#d4d4d4" :foreground ,"#3A3A3A")))
-     `(org-block-end-line ((,class :background ,"#D4D4D4")))
-     `(org-block-begin-line ((,class :background ,"#D4D4D4"))))))
+     `(mode-line ((,class :background ,"#ebebeb")))
+     `(org-block ((,class :background ,"#ebebeb" :foreground ,"#3A3A3A")))
+     `(org-block-end-line ((,class :background ,"#ebebeb")))
+     `(org-block-begin-line ((,class :background ,"#ebebeb"))))))
 
 (defun load-vivendi ()
   (interactive)
@@ -456,6 +499,7 @@
 (use-package modus-themes
   :ensure t
   :config
+(setq modus-themes-mode-line 'moody)
   (setq modus-themes-org-blocks 'gray-background)
   (setq modus-themes-subtle-line-numbers t)
   (setq modus-themes-vivendi-color-overrides
@@ -948,6 +992,27 @@
   :config
   ;(setq org-re-reveal-center t)
   (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
+
+(use-package markdown-mode
+  :ensure nil
+  :config
+  (set-face-attribute 'markdown-blockquote-face nil :foreground nil :inherit '(fixed-pitch))
+  (set-face-attribute 'markdown-code-face nil :inherit '(fixed-pitch))
+  (set-face-attribute 'markdown-table-face nil :inherit '(fixed-pitch))
+  (set-face-attribute 'markdown-italic-face nil :slant 'italic :weight 'medium :inherit 'default)
+  ;; set basic title font
+  (set-face-attribute 'markdown-header-face-6 nil :weight 'bold :inherit 'default)
+  ;; Low levels are unimportant => no scaling
+  (set-face-attribute 'markdown-header-face-5 nil :inherit 'markdown-header-face-6)
+  (set-face-attribute 'markdown-header-face-4 nil :inherit 'markdown-header-face-6)
+  ;; Top ones get scaled the same as in LaTeX (\large, \Large, \LARGE)
+  (set-face-attribute 'markdown-header-face-3 nil :inherit 'markdown-header-face-6 :height 1.1) ;\large
+  (set-face-attribute 'markdown-header-face-2 nil :inherit 'markdown-header-face-6 :height 1.3) ;\Large
+  (set-face-attribute 'markdown-header-face-1 nil :inherit 'markdown-header-face-6 :height 1.5) ;\LARGE
+  (setq markdown-hide-markup t)
+  (setq markdown-header-scaling t)
+
+  )
 
 (use-package lua-mode
   :mode "\\.lua\\'"
