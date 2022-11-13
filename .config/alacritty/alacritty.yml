@@ -1,14 +1,20 @@
 window:
   dimensions:
-    columns: 80
+    columns: 0
     lines: 0
 
   padding:
-    x: 0
-    y: 0
+    x: 10
+    y: 10
+
+  decorations: none
+  decorations_theme_variant: none
+
+  startup_mode: windowed
 
 scrolling:
   history: 100000
+
 
 # Font configuration
 font:

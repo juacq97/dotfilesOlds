@@ -1,26 +1,6 @@
 (undo-tree-save-format-version . 1)
-"3080c60bea9f8b205331580938a2918165f54f6d"
-[nil nil nil nil (25437 25147 478653 688000) 0 nil]
-([nil nil ((40303 . 40803) (#("
-" 0 1 (fontified nil)) . -40303) (39779 . 40304) (#(" " 0 1 (fontified nil)) . 39779) (39749 . 39780) (#("
-" 0 1 (fontified nil)) . -39749) (39668 . 39750) (#(" " 0 1 (fontified nil)) . 39668) (39402 . 39669) (t 25437 25116 987619 420000)) nil (25437 25147 478648 186000) 0 nil])
-([nil current ((40373 . 40869) (#("(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-calendar-event ((t (:inherit (default)))))
- '(org-agenda-calendar-sexp ((t (:inherit (default)))))
- '(org-agenda-date-today ((t (:weight bold :height 130))))
- '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))" 0 496 (fontified nil)) . -40373) (40370 . 40372) (#("
-" 0 1 (fontified nil)) . -40370) (39846 . 40371) (#(" " 0 1 (fontified nil)) . 39846) (39816 . 39847) (#("
-" 0 1 (fontified nil)) . -39816) (39668 . 39817) (#(" " 0 1 (fontified nil)) . 39668) (39402 . 39669) (#("(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '(\"3199be8536de4a8300eaf9ce6d864a35aa802088c0925e944e2b74a574c68fd0\" default))
- '(package-selected-packages
-   '(nyan-mode yasnippet writeroom-mode which-key use-package undo-tree selectrum rainbow-mode rainbow-delimiters ox-reveal ox-pandoc org-tree-slide org-superstar org-plus-contrib org-appear orderless moody modus-themes mode-icons minions markdown-mode marginalia magit luarocks lua-mode kdeconnect hide-mode-line helpful general gemini-mode evil-org evil-ledger evil-collection emojify doom-themes doom-modeline dired-subtree dired-single dired-open dired-hide-dotfiles consult company calfw-org calfw all-the-icons-dired)))" 0 903 (fontified nil)) . -39402) (t 25437 25147 500111 173000)) nil (25437 25167 289214 711000) 0 nil])
+"eb6717b16cc7e8b1e7c7922ee4250cf6a81e18fc"
+[nil nil nil nil (25437 63745 442977 861000) 0 nil]
+([nil current ((40164 . 40664) (#("
+" 0 1 (fontified nil)) . -40164) (39644 . 40165) (#(" " 0 1 (fontified nil)) . 39644) (39371 . 39645) (t 25437 63729 520027 143000)) nil (25437 63745 442969 672000) 0 nil])
 nil

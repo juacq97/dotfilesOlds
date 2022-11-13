@@ -993,26 +993,21 @@
   ;(setq org-re-reveal-center t)
   (setq org-reveal-root "file:///home/juan/.repos/reveal.js"))
 
-(use-package markdown-mode
-  :ensure nil
-  :config
-  (set-face-attribute 'markdown-blockquote-face nil :foreground nil :inherit '(fixed-pitch))
-  (set-face-attribute 'markdown-code-face nil :inherit '(fixed-pitch))
-  (set-face-attribute 'markdown-table-face nil :inherit '(fixed-pitch))
-  (set-face-attribute 'markdown-italic-face nil :slant 'italic :weight 'medium :inherit 'default)
-  ;; set basic title font
-  (set-face-attribute 'markdown-header-face-6 nil :weight 'bold :inherit 'default)
-  ;; Low levels are unimportant => no scaling
-  (set-face-attribute 'markdown-header-face-5 nil :inherit 'markdown-header-face-6)
-  (set-face-attribute 'markdown-header-face-4 nil :inherit 'markdown-header-face-6)
-  ;; Top ones get scaled the same as in LaTeX (\large, \Large, \LARGE)
-  (set-face-attribute 'markdown-header-face-3 nil :inherit 'markdown-header-face-6 :height 1.1) ;\large
-  (set-face-attribute 'markdown-header-face-2 nil :inherit 'markdown-header-face-6 :height 1.3) ;\Large
-  (set-face-attribute 'markdown-header-face-1 nil :inherit 'markdown-header-face-6 :height 1.5) ;\LARGE
-  (setq markdown-hide-markup t)
-  (setq markdown-header-scaling t)
-
-  )
+(set-face-attribute 'markdown-blockquote-face nil :foreground nil :inherit '(fixed-pitch))
+(set-face-attribute 'markdown-code-face nil :inherit '(fixed-pitch))
+(set-face-attribute 'markdown-table-face nil :inherit '(fixed-pitch))
+(set-face-attribute 'markdown-italic-face nil :slant 'italic :weight 'medium :inherit 'default)
+;; set basic title font
+(set-face-attribute 'markdown-header-face-6 nil :weight 'bold :inherit 'default)
+;; Low levels are unimportant => no scaling
+(set-face-attribute 'markdown-header-face-5 nil :inherit 'markdown-header-face-6)
+(set-face-attribute 'markdown-header-face-4 nil :inherit 'markdown-header-face-6)
+;; Top ones get scaled the same as in LaTeX (\large, \Large, \LARGE)
+(set-face-attribute 'markdown-header-face-3 nil :inherit 'markdown-header-face-6 :height 1.1) ;\large
+(set-face-attribute 'markdown-header-face-2 nil :inherit 'markdown-header-face-6 :height 1.3) ;\Large
+(set-face-attribute 'markdown-header-face-1 nil :inherit 'markdown-header-face-6 :height 1.5) ;\LARGE
+(setq markdown-hide-markup t)
+(setq markdown-header-scaling t)
 
 (use-package lua-mode
   :mode "\\.lua\\'"
@@ -1057,3 +1052,19 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(org-plus-contrib gemini-mode kdeconnect evil-ledger ledger-mode markdown-mode luarocks lua-mode ox-reveal org-appear calfw-org calfw hide-mode-line org-tree-slide org-superstar ox-pandoc all-the-icons-dired all-the-icons modus-themes doom-themes minions moody dired-subtree dired-hide-dotfiles dired-open dired-single writeroom-mode helpful company yasnippet rainbow-delimiters rainbow-mode magit which-key consult marginalia orderless selectrum general evil-org evil-collection evil undo-tree emojify use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-calendar-event ((t (:inherit (default)))))
+ '(org-agenda-calendar-sexp ((t (:inherit (default)))))
+ '(org-agenda-date-today ((t (:weight bold :height 130))))
+ '(org-agenda-structure ((t (:underline nil :weight bold :height 150 :width normal)))))

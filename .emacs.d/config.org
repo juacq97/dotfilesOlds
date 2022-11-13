@@ -1249,9 +1249,6 @@ This package hides the emphasis characters. Similar to the =conceal= feature of 
 ** Fonts
 It's possible to mix monospace fonts with variable-spaced fonts. To activate this behaviour, enable ~variable-pitch-mode~. This uses the fonts declared at the beggining of the document. This is entirely based on org mode configuration.
 #+begin_src emacs-lisp
-  (use-package markdown-mode
-    :ensure nil
-    :config
     (set-face-attribute 'markdown-blockquote-face nil :foreground nil :inherit '(fixed-pitch))
     (set-face-attribute 'markdown-code-face nil :inherit '(fixed-pitch))
     (set-face-attribute 'markdown-table-face nil :inherit '(fixed-pitch))
@@ -1268,7 +1265,6 @@ It's possible to mix monospace fonts with variable-spaced fonts. To activate thi
     (setq markdown-hide-markup t)
     (setq markdown-header-scaling t)
 
-    )
 #+end_src
 * Other formats, languages and programs
 ** Lua support

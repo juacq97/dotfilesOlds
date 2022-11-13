@@ -27,7 +27,6 @@ Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'chrisbra/Colorizer'
 Plug 'Junegunn/fzf.vim'
-Plug 'vimwiki/vimwiki'
 Plug 'SirVer/ultisnips'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'ntk148v/vim-horizon'
@@ -80,7 +79,7 @@ set hidden
 set laststatus=2	       " remove modeline
 set textwidth=0		       
 set formatoptions+=t
-set termguicolors	       
+"set termguicolors	       
 syntax enable			
 set conceallevel=2
 

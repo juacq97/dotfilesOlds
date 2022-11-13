@@ -6,10 +6,10 @@
 
 # user is already defined
 
-os='Fedora'
+os='arch btw'
 kernel="$(uname -r)"
 uptime="$(uptime -p | sed -e 's/up //;s/ hours,/h/;s/ minutes/m/')"
-#packages="$(dnf list installed | sed '1d' | wc -l))"
+packages="$(pacman -Q | wc -l)"
 shell="$(basename "$SHELL")"
 
 ## UI DETECTION
@@ -38,7 +38,7 @@ else
 fi
 ui="$(basename ${ui})"
 
-f="$(fortune-es)"
+f="$(cowsay $(fortune-es))"
 ## DEFINE COLORS
 
 # probably don't change these
@@ -55,10 +55,10 @@ if [ -x "$(command -v tput)" ]; then
 fi
 #${lc}        ${ic} ~ ${packages}${reset}
 # you can change these
-lc="${reset}${bold}${red}"         # labels
-nc="${reset}${bold}${red}"         # user and hostname
+lc="${reset}${bold}${cyan}"         # labels
+nc="${reset}${bold}${cyan}"         # user and hostname
 ic="${reset}${bold}"                       # info
-c0="${reset}${red}"                # first color
+c0="${reset}${cyan}"                # first color
 
 ## OUTPUT
 
