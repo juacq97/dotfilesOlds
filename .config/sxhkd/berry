@@ -173,6 +173,7 @@ super + shift + d
     ~/.local/bin/diario lista
 
 
+#
 # berry hotkeys
 #
 
@@ -214,4 +215,3 @@ super + c
 
 ~button1
     berryc pointer_focus
-

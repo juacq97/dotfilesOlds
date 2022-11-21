@@ -1,6 +1,6 @@
 #! /bin/sh
 
-#source ~/.xprofile
+source ~/.xprofile
 
 #exec dwm
 #export wm=dwm
@@ -16,4 +16,6 @@
 #exec emacs -mm --debug-init -l ~/.emacs.d/desktop.el
 #exec dwm
 #exec fvwm3
-exec startxfce4
+#exec berry
+#exec herbstluftwm
+exec cwm

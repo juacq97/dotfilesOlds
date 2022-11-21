@@ -5,12 +5,12 @@ source $HOME/.zvars.zsh
 ####################
 # With standalone WM
 ####################
-#export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_QPA_PLATFORMTHEME="qt5ct"
 #xfce4-power-manager &
 #clipmenud &
-#/usr/lib/kdeconnectd &
-##redshift -l 24.14:-110.27 -m randr &
-#sxhkd -c ~/.config/sxhkd/sxhkd_dwm &
+###/usr/lib/kdeconnectd &
+####redshift -l 24.14:-110.27 -m randr &
+#sxhkd -c ~/.config/sxhkd/global &
 #dunst &
 #ulauncher --hide-window --no-window-shadow &
 #flameshot &
@@ -30,7 +30,7 @@ source $HOME/.zvars.zsh
 ####################
 # With any WM or DE
 ####################
-emacs --daemon &
+#emacs --daemon &
 xsetroot -cursor_name left_ptr &
 xset r rate 250 50 &
 touchpad disable &
