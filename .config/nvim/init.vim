@@ -44,6 +44,9 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
+Plug 'vimpostor/vim-lumen'
 call plug#end()
 
  set nocompatible
@@ -57,12 +60,18 @@ call plug#end()
 if exists("g:neovide")
     let g:neovide_refresh_rate=60
     let g:neovide_transparency=1
+    let g:neovide_hide_mouse_when_typing = v:true
     let g:neovide_scroll_animation_lenght = 0.3
     let g:neovide_cursor_animation_length=0.05
     let g:neovide_cursor_trail_size=0.8
     let g:neovide_cursor_antialiasing=v:true
     let g:neovide_cursor_vfx_mode = "wireframe"
-    set guifont=Fira\ Code\ Medium:h10
+    let g:neovide_padding_top = 15
+    let g:neovide_padding_left = 15
+    let g:neovide_padding_right = 15
+    let g:neovide_padding_bottom = 15
+    set guifont=Fira\ Code\ Nerd\ Font\ Complete:h10
+    let g:neovide_scale_factor=0.75
 endif
 
 """""""""""""""""""
@@ -79,14 +88,14 @@ set hidden
 set laststatus=2	       " remove modeline
 set textwidth=0		       
 set formatoptions+=t
-"set termguicolors	       
+set termguicolors	       
 syntax enable			
 set conceallevel=2
 
 """ Themes """""
 let g:grubvox_italic = 1
 
-"colorscheme onehalflight
+colorscheme onehalflight
 highlight Conceal guifg=White guibg=color0
 let g:one_allow_italics = 1 
 highlight Comment cterm=italic gui=italic
@@ -117,6 +126,9 @@ set undodir=~/.config/nvim/undodir " La caché a usar
 "autocmd FileType markdown TableModeEnable
 set mouse=a			" Soporte para mouse
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+au User LumenLight colorscheme onehalflight
+au User LumenDark colorscheme gruvbox
 """""""""""""
 " Maping
 """""""""""""
@@ -166,6 +178,13 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
+
+"markdown stuff
+
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_strikethrough = 1
+
+
 lua <<EOF
 require('telescope').setup{
   defaults = {
@@ -194,4 +213,5 @@ EOF
 
 noremap <leader><leader> :silent :Telescope find_files<CR>
 noremap <leader>f :silent :Telescope file_browser<CR>
+
 

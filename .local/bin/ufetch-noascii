@@ -6,7 +6,8 @@
 
 # user is already defined
 
-os='arch btw'
+os='Fedora Silverblue'
+distrobox='arch btw'
 kernel="$(uname -r)"
 uptime="$(uptime -p | sed -e 's/up //;s/ hours,/h/;s/ minutes/m/')"
 packages="$(pacman -Q | wc -l)"
@@ -64,7 +65,7 @@ c0="${reset}${cyan}"                # first color
 
 cat <<EOF
 ${lc}       﫭 ${ic}~ ${os}${reset}
-${lc}        ${ic} ~ ${shell}${reset}
+${lc}        ${ic} ~ zsh${reset}
 ${lc}        ${ic} ~ ${uptime}${reset}
 ${lc}        ${ic} ~ ${ui}${reset}
 ${lc}        ${ic} ~ ${kernel}${reset}
