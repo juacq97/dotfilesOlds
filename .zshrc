@@ -11,12 +11,13 @@ if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
 # Fetch when terminal appears
 ufetch-noascii
 
-# Enable Powerlevel10k instant prompt.
+#source "$HOME/.repos/spaceship-prompt/spaceship.zsh"
+
+# Powerlevel10k
  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
  fi
 
-#Themes
 #source ~/.repos/powerlevel10k/powerlevel10k.zsh-theme
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 

@@ -31,9 +31,9 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 # With any WM or DE
 ####################
 #emacs --daemon &
-xsetroot -cursor_name left_ptr &
-xset r rate 250 50 &
-touchpad disable &
-xrdb  ~/.Xresources &
+#xsetroot -cursor_name left_ptr &
+#xset r rate 250 50 &
+#touchpad disable &
+#xrdb  ~/.Xresources &
 #~/.nix-profile/libexec/kdeconnectd &
 #fcitx5 -d &

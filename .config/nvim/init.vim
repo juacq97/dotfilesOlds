@@ -64,14 +64,14 @@ if exists("g:neovide")
     let g:neovide_scroll_animation_lenght = 0.3
     let g:neovide_cursor_animation_length=0.05
     let g:neovide_cursor_trail_size=0.8
-    let g:neovide_cursor_antialiasing=v:true
+    let g:neovide_cursor_antialiasing = v:true
     let g:neovide_cursor_vfx_mode = "wireframe"
-    let g:neovide_padding_top = 15
-    let g:neovide_padding_left = 15
-    let g:neovide_padding_right = 15
-    let g:neovide_padding_bottom = 15
-    set guifont=Fira\ Code\ Nerd\ Font\ Complete:h10
-    let g:neovide_scale_factor=0.75
+    let g:neovide_padding_top = 30
+    let g:neovide_padding_left = 30
+    let g:neovide_padding_right = 30
+    let g:neovide_padding_bottom = 30
+    set guifont="Fira\ Code\ Medium\ Nerd\ Font\ Complete:h10"
+    let g:neovide_scale_factor=0.80
 endif
 
 """""""""""""""""""
@@ -88,14 +88,14 @@ set hidden
 set laststatus=2	       " remove modeline
 set textwidth=0		       
 set formatoptions+=t
-set termguicolors	       
+set notermguicolors
 syntax enable			
-set conceallevel=2
+set conceallevel=0
 
 """ Themes """""
 let g:grubvox_italic = 1
 
-colorscheme onehalflight
+colorscheme 
 highlight Conceal guifg=White guibg=color0
 let g:one_allow_italics = 1 
 highlight Comment cterm=italic gui=italic
