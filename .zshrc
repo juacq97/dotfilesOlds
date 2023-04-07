@@ -8,18 +8,26 @@ if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
      exec sway
  fi
 
-# Fetch when terminal appears
-ufetch-noascii
-
-#source "$HOME/.repos/spaceship-prompt/spaceship.zsh"
-
 # Powerlevel10k
  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
  fi
 
-#source ~/.repos/powerlevel10k/powerlevel10k.zsh-theme
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+# Fetch when terminal appears
+
+if  [[ "$(uname -o)" == "Android" ]]; then
+    neofetch --off
+    source ~/.repos/powerlevel10k/powerlevel10k.zsh-theme
+    source ~/.repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source ~/.repos/zsh-autosuggestions/zsh-autosuggestions.zsh
+else
+    ufetch-noascii
+    source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -43,8 +51,6 @@ export KEYTIMEOUT=1
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 #source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
