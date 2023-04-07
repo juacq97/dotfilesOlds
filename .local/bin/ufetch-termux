@@ -1,0 +1,72 @@
+#!/bin/sh
+#
+# ufetch-artix - tiny system info for artix
+
+## INFO
+
+# user is already defined
+
+os='Android 13'
+device='Samsung Tab S7 FE'
+kernel="$(uname -sm)"
+packages="$(pacman -Q | wc -l)"
+shell="$(basename "$SHELL")"
+
+## UI DETECTION
+
+if [ -n "${DE}" ]; then
+	ui="${DE}"
+	uitype='DE'
+elif [ -n "${WM}" ]; then
+	ui="${WM}"
+	uitype='wm'
+elif [ -n "${XDG_CURRENT_DESKTOP}" ]; then
+	ui="${XDG_CURRENT_DESKTOP}"
+	uitype='DE'
+elif [ -n "${DESKTOP_SESSION}" ]; then
+	ui="${DESKTOP_SESSION}"
+	uitype='DE'
+elif [ -f "${HOME}/.xinitrc" ]; then
+	ui="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
+	uitype='wm'
+elif [ -f "${HOME}/.xsession" ]; then
+	ui="$(tail -n 1 "${HOME}/.xsession" | cut -d ' ' -f 2)"
+	uitype='wm'
+else
+	ui='unknown'
+	uitype='UI'
+fi
+ui="$(basename ${ui})"
+
+f="$(cowsay $(fortune-es))"
+## DEFINE COLORS
+
+# probably don't change these
+if [ -x "$(command -v tput)" ]; then
+	bold="$(tput bold)"
+	black="$(tput setaf 0)"
+	red="$(tput setaf 1)"
+	green="$(tput setaf 2)"
+	yellow="$(tput setaf 3)"
+	blue="$(tput setaf 4)"
+	magenta="$(tput setaf 5)"
+	cyan="$(tput setaf 6)"
+	reset="$(tput sgr0)"
+fi
+#${lc}        ${ic} ~ ${packages}${reset}
+# you can change these
+lc="${reset}${bold}${cyan}"         # labels
+nc="${reset}${bold}${cyan}"         # user and hostname
+ic="${reset}${bold}"                       # info
+c0="${reset}${cyan}"                # first color
+
+## OUTPUT
+
+cat <<EOF
+${lc}       󰀲 ${ic} ~ ${os}${reset}
+${lc}        ${ic} ~ zsh${reset}
+${lc}        ${ic} ~ ${device}${reset}
+${lc}        ${ic} ~ ${kernel}${reset}
+
+${lc}$f
+EOF

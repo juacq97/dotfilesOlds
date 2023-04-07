@@ -27,5 +27,7 @@ misc.pkgs
 wm.pkgs
 plasmaCustomShortcuts
 plasmaKeyboardShortcuts.kksrc
-
+miscSilverbue.pkgs
+miscTermux.pkgs
+newMisc.pkgs
 
