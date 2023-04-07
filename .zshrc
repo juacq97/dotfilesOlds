@@ -17,7 +17,7 @@ if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
 
 if  [[ "$(uname -o)" == "Android" ]]; then
     export LANG=C
-    neofetch --off
+    ~/.local/bin/ufetch-termux
     source ~/.repos/powerlevel10k/powerlevel10k.zsh-theme
     source ~/.repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     source ~/.repos/zsh-autosuggestions/zsh-autosuggestions.zsh
