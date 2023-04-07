@@ -1,30 +1,30 @@
 #! /bin/sh
 
 currentTheme="$(plasma-apply-colorscheme --list-schemes | grep "actual" | cut -d "(" -f1)"
-if [[ "$currentTheme" == " * Breeze " ]]; then
-        setwallpaper "/mnt/data/WALLPAPERS/10u35pn6qvz61.png"
+if [[ "$currentTheme" == " * BreezeColors " ]]; then
+        #setwallpaper "/mnt/data/WALLPAPERS/10u35pn6qvz61.png"
         plasma-apply-colorscheme BreezeDarkColors
-        sed -i "s/Light mode.profile/Dark mode.profile/" ~/.config/konsolerc
+        #sed -i "s/Light mode.profile/Dark mode.profile/" ~/.config/konsolerc
 
 	#neovim
-	vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
-	sed -i --follow-symlinks "${vline}s/onehalflight/onehalfdark/" ~/.config/nvim/init.vim
-	for SERVER in $(nvr --serverlist); do
-	    nvr -cc "source ~/.config/nvim/init.vim" --servername $SERVER &
-	done
+	#vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
+	#sed -i --follow-symlinks "${vline}s/onehalflight/onehalfdark/" ~/.config/nvim/init.vim
+	#for SERVER in $(nvr --serverlist); do
+	#    nvr -cc "source ~/.config/nvim/init.vim" --servername $SERVER &
+	#done
 
         notify-send -a "Plasma workspace" -i "com.github.themix_project.Oomox" "Dark mode activated"
     else
-        setwallpaper "/mnt/data/WALLPAPERS/zr1qynn6qvz61.png"
-        plasma-apply-colorscheme Breeze
-         sed -i "s/Dark mode.profile/Light mode.profile/" ~/.config/konsolerc
+        #setwallpaper "/mnt/data/WALLPAPERS/zr1qynn6qvz61.png"
+        plasma-apply-colorscheme BreezeColors
+        # sed -i "s/Dark mode.profile/Light mode.profile/" ~/.config/konsolerc
 
 	#neovim
-	vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
-	sed -i --follow-symlinks "${vline}s/onehalfdark/onehalflight/" ~/.config/nvim/init.vim
-	for SERVER in $(nvr --serverlist); do
-	    nvr -cc "source ~/.config/nvim/init.vim" --servername $SERVER &
-	done
+	#vline=$(grep -n colorscheme ~/.config/nvim/init.vim | cut -d: -f1)
+	#sed -i --follow-symlinks "${vline}s/onehalfdark/onehalflight/" ~/.config/nvim/init.vim
+	#for SERVER in $(nvr --serverlist); do
+	#    nvr -cc "source ~/.config/nvim/init.vim" --servername $SERVER &
+	#done
 
         notify-send -a "Plasma workspace" -i "com.github.themix_project.Oomox" "Light mode activated"
 fi
