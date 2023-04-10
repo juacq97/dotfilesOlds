@@ -1,0 +1,23 @@
+#! /bin/sh
+
+cd ~/storage/shared/Android/media/com.nextcloud.client/nextcloud/admin@cloud.juancastro.xyz/
+
+getFile=$(fzf)
+type=$(xdg-mime query filetype $getFile | cut -d "/" -f1)
+
+case $type in
+    text)
+	filename=$(basename -- "$getFile")
+	getExt="${filename##*.}"
+	    case $getExt in
+	     sc) sc-im $getFile;;
+	     *) nvim $getFile;;
+	    esac
+	
+	;;
+    
+    inode) cd $getFile;;
+    *) termux-open $getFile;;
+esac
+
+
