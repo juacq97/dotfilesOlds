@@ -12,7 +12,7 @@ export DARK_THEME="dracula"
 
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket #necesario para nvim --remote
 export LANG=es_MX.UTF-8
-#export EDITOR="nvim"
+export EDITOR="nvim"
 #export VISUAL="nvim"
 export TERMINAL="alacritty"
 export PAGER=less
