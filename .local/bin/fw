@@ -2,7 +2,7 @@
 
 cd ~/storage/shared/Android/media/com.nextcloud.client/nextcloud/admin@cloud.juancastro.xyz/
 
-getFile=$(fzf)
+getFile=$(fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down")
 type=$(xdg-mime query filetype $getFile | cut -d "/" -f1)
 
 case $type in
@@ -11,6 +11,7 @@ case $type in
 	getExt="${filename##*.}"
 	    case $getExt in
 	     sc) sc-im $getFile;;
+	     md) glow $getFile;;
 	     *) nvim $getFile;;
 	    esac
 	
