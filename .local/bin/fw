@@ -5,12 +5,13 @@ cd ~/storage/shared/Synchting/Nextcloud/trabajo
 getFile=$(fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down)
 type=$(xdg-mime query filetype $getFile | cut -d "/" -f1)
 
+
 case $type in
     text)
 	filename=$(basename -- "$getFile")
 	getExt="${filename##*.}"
 	    case $getExt in
-	     sc) sc-im $getFile;;
+	     sc) LANG=es_MX.UTF-8 sc-im $getFile;;
 	     md) glow -p $getFile;;
 	     *) nvim $getFile;;
 	    esac
