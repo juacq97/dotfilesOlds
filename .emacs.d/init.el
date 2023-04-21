@@ -38,8 +38,8 @@
 
 ;; (add-hook 'after-make-frame-functions 'set-cursor-hook)
     (tool-bar-mode -1)
-    (scroll-bar-mode -1)
-    (menu-bar-mode -1)
+   
+
     (global-set-key (kbd "M-m") 'menu-bar-mode) ; Opens the menu with M-m, very KDE-ish
     (column-number-mode 1) ; The modeline shows the column number at the end
 
